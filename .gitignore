@@ -1,0 +1,66 @@
+# In repository we don't need to have:
+
+
+# Generated MOC, resource and UI files
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+*.moc
+
+# C++ Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+
+# Configuration and Build directories
+config/
+build/
+
+
+# Windows-specific files
+Thumbs.db
+desktop.ini
+# Mac-specific things 
+.DS_Store
+
+# Editors temporary files 
+*~
+
+#QtCreator project files
+*.pro.user
+=======
+*.pro.user*
+
+#QT
+*.log  (usually created by QtTest)
+*.qch
+*.qm
+*.ts
+*.autosave
+*.moc
+
+#CMake
+CMakeCache.txt
+CMakeFiles
+Makefile
+cmake_install.cmake
+install_manifest.txt
+*.user
