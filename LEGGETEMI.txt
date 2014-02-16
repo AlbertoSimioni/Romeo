@@ -1,0 +1,18 @@
+ORGANIZZAZIONE REPOSITORY:
+
+-src: Qui va il codice della nostra applicazione, conterrà una sottocartella per ogni namespace 
+
+-tests: Qui vanno inseriti i test di unità e di integrazione.
+
+-ext: Per librerie esterne o di terze parti che si vogliono includere direttamente dal repository piuttosto che dal sistema. All'interno va messa una cartella per ogni libreria 
+	
+
+
+Cartelle non indicizzate nel repository che vanno messe nella proprio area di lavoro (nella root del repository Sorgenti). È importante usare i nomi giusto anche per le prossime cartelle perchè altrimenti non saranno ignorati dal .gitignore
+
+-config: qui vanno messe tutti i file di configurazione che variano in base alle piattaforma o in base al proprio computer.
+	in particolare creare un file nella cartella chiamato CMakeLists.txt con istruzione SET(CMAKE_PREFIX_PATH "percorsoAllaCartellaConQt/Qt/5.2.0/gcc/" PARENT_SCOPE)
+
+-build: qui vanno tutti i file che vengono creati durante la compilazione
+
+

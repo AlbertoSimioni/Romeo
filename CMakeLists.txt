@@ -1,0 +1,114 @@
+project(ROMEO)
+cmake_minimum_required(VERSION 2.8)
+
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
+
+FIND_PACKAGE ( ITK REQUIRED)
+IF ( ITK_FOUND)
+INCLUDE( ${USE_ITK_FILE} )
+ENDIF( ITK_FOUND)
+IF(NOT VTK_BINARY_DIR)
+FIND_PACKAGE(VTK REQUIRED)
+IF(NOT VTK_DIR)
+  MESSAGE(FATAL_ERROR "Please set VTK_DIR.")
+ENDIF(NOT VTK_DIR)
+INCLUDE(${VTK_USE_FILE})
+ENDIF(NOT VTK_BINARY_DIR)
+
+# Find includes in corresponding build directories
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+ADD_SUBDIRECTORY(config)
+# Instruct CMake to run moc automatically when needed.
+set(CMAKE_AUTOMOC ON)
+
+FIND_PACKAGE(Qt5Widgets REQUIRED)
+
+
+
+
+
+SET(romeo_SOURCES
+ src/main.cpp
+ src/romeo/view/dialogs/addsubjectdialog.cpp
+ src/romeo/view/dialogs/executedialog.cpp
+ src/romeo/view/dialogs/newalgorithmdialog.cpp
+ src/romeo/view/dialogs/newfeaturedialog.cpp
+ src/romeo/view/dialogs/protocoldialog.cpp
+ src/romeo/view/mainWindow/datasetpanel.cpp
+ src/romeo/view/mainWindow/datasetsexplorer.cpp
+ src/romeo/view/mainWindow/executepanel.cpp
+ src/romeo/view/mainWindow/mainwindow.cpp
+ src/romeo/view/mainWindow/explorer.cpp
+ src/romeo/view/mainWindow/filesystemexplorer.cpp
+ src/romeo/view/mainWindow/protocolspanel.cpp
+ src/romeo/view/mainWindow/protocolsexplorer.cpp
+ src/romeo/view/mainWindow/subjectspanel.cpp
+)
+SET(romeo_HEADERS
+ src/romeo/view/dialogs/addsubjectdialog.h
+ src/romeo/view/dialogs/executedialog.h
+ src/romeo/view/dialogs/newalgorithmdialog.h
+ src/romeo/view/dialogs/newfeaturedialog.h
+ src/romeo/view/dialogs/protocoldialog.h
+ src/romeo/view/mainWindow/datasetpanel.h
+ src/romeo/view/mainWindow/datasetsexplorer.h
+ src/romeo/view/mainWindow/executepanel.h
+ src/romeo/view/mainWindow/mainwindow.h
+ src/romeo/view/mainWindow/explorer.h
+ src/romeo/view/mainWindow/filesystemexplorer.h
+ src/romeo/view/mainWindow/protocolspanel.h
+ src/romeo/view/mainWindow/protocolsexplorer.h
+ src/romeo/view/mainWindow/subjectspanel.h
+)
+SET(romeo_FORMS
+ src/romeo/view/dialogs/addsubjectdialog.ui
+ src/romeo/view/dialogs/executedialog.ui
+ src/romeo/view/dialogs/newalgorithmdialog.ui
+ src/romeo/view/dialogs/newfeaturedialog.ui
+ src/romeo/view/dialogs/protocoldialog.ui
+ src/romeo/view/mainWindow/datasetpanel.ui
+ src/romeo/view/mainWindow/datasetsexplorer.ui
+ src/romeo/view/mainWindow/executepanel.ui
+ src/romeo/view/mainWindow/mainwindow.ui
+ src/romeo/view/mainWindow/explorer.ui
+ src/romeo/view/mainWindow/filesystemexplorer.ui
+ src/romeo/view/mainWindow/protocolspanel.ui
+ src/romeo/view/mainWindow/protocolsexplorer.ui
+ src/romeo/view/mainWindow/subjectspanel.ui
+)
+SET(romeo_RESOURCES src/immagini.qrc)
+
+
+INCLUDE_DIRECTORIES(
+  ${Qt5Widgets_INCLUDE_DIRS}
+  ${Qt5Declarative_INCLUDE_DIRS}
+  ${CMAKE_CURRENT_BINARY_DIR}
+  ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+
+#QT5_WRAP_CPP(romeo_HEADERS_MOC ${romeo_HEADERS})
+QT5_WRAP_UI(romeo_FORMS_HEADERS ${romeo_FORMS})
+QT5_ADD_RESOURCES(romeo_RESOURCES_RCC ${romeo_RESOURCES})
+
+#SOURCE_GROUP("Resources" FILES
+#  ${romeo_FORMS}
+#)
+#SOURCE_GROUP("Generated" FILES
+ # ${romeo_FORMS_HEADERS}
+  #${MOCSrcs}
+  #${RCS_SOURCES}
+#)
+
+SET(GCC_COVERAGE_COMPILE_FLAGS "-fPIC")
+add_definitions(${GCC_COVERAGE_COMPILE_FLAGS})
+
+ADD_EXECUTABLE(romeo ${romeo_SOURCES}
+    ${romeo_HEADERS_MOC}
+    ${romeo_FORMS_HEADERS}
+    ${romeo_RESOURCES_RCC})
+
+
+QT5_USE_MODULES(romeo Widgets)
+TARGET_LINK_LIBRARIES( romeo ${ITK_LIBRARIES}  ${VTK_LIBRARIES} )

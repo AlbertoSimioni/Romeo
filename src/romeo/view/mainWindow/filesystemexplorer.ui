@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FileSystemExplorer</class>
+ <widget class="QWidget" name="FileSystemExplorer">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>282</width>
+    <height>251</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QFrame.FileFrame {
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
+border: 1px solid black;
+background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+stop: 0 #56a, stop: 0.1 #016);
+}
+
+QFrame.FileFrame QLabel {
+color: white;
+font-weight: bold;
+}</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <widget class="QTreeView" name="treeView">
+      <attribute name="headerVisible">
+       <bool>false</bool>
+      </attribute>
+     </widget>
+     <widget class="QListView" name="listView"/>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

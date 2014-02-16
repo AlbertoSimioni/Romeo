@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ExecutePanel</class>
+ <widget class="QWidget" name="ExecutePanel">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>553</width>
+    <height>412</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QFrame.ExecuteFrame {
+border: 1px solid gray;
+border-radius: 30px;
+background: white;
+}
+
+QFrame.ExecuteFrame QLineEdit {
+padding: 1px;
+border-style: solid;
+border: 2px solid gray;
+border-radius: 8px;
+}
+QFrame.ExecuteFrame QLabel,QCheckBox {
+font-size: 14px;
+}
+</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_3">
+   <item row="0" column="0">
+    <widget class="QFrame" name="executeFrame">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <property name="class" stdset="0">
+      <string>ExecuteFrame</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <property name="verticalSpacing">
+       <number>9</number>
+      </property>
+      <item row="5" column="0" colspan="4">
+       <widget class="QCheckBox" name="checkBox_2">
+        <property name="text">
+         <string>Save into dataset</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-style:italic; color:#4d4d4d;&quot;&gt;Execute&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="3">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>116</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="2" column="1" colspan="5">
+       <widget class="QLineEdit" name="lineEdit"/>
+      </item>
+      <item row="6" column="0" colspan="4">
+       <widget class="QPushButton" name="pushButton_2">
+        <property name="text">
+         <string>Export existing results</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="4" colspan="2">
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>421</width>
+          <height>19</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="3" column="5">
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>403</width>
+          <height>19</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="0" colspan="3">
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>Start Analysis</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normalon>:/Images/Images/start-icon.png</normalon>
+         </iconset>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" colspan="3">
+       <widget class="QCheckBox" name="checkBox">
+        <property name="text">
+         <string>View Results</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Results Path</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="2">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Export Format</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2" colspan="3">
+       <widget class="QComboBox" name="comboBox">
+        <item>
+         <property name="text">
+          <string>PNG</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>JPEG</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>TIFF</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>BMP</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="1" column="3" colspan="3">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>450</width>
+          <height>19</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="2" column="6">
+       <widget class="QPushButton" name="pushButton_3">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Browse&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normalon>:/Images/Images/Folder_Icon.png</normalon>
+         </iconset>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

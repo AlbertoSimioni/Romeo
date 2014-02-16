@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Explorer</class>
+ <widget class="QWidget" name="Explorer">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>307</width>
+    <height>332</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+ QFrame.SidebarFrame {
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
+border: 1px solid black;
+background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+stop: 0 #56a, stop: 0.1 #016);
+}
+ QFrame.SidebarFrame QLabel {
+color: white;
+font-weight: bold;
+}
+
+ QFrame.SidebarInnerFrame {
+background: white;
+border: none;
+border-top: 1px solid black;
+}
+
+
+QListWidget {
+    show-decoration-selected: 1; /* make the selection span the entire width of the view */
+}
+QListWidget::item:alternate, QTreeWidget::item:alternate  {
+    background: #EEEEEE;
+}
+
+QListWidget::item:selected, QTreeWidget::item:selected  {
+    border: 1px solid #6a6ea9;
+}
+
+QListWidget::item:selected:!active,
+QTreeWidget::item:selected:!active {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #ABAFE5, stop: 1 #8588B2);
+}
+QListWidget::item:selected:active,
+QTreeWidget::item:selected:active {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #6a6ea9, stop: 1 #888dd9);
+}
+
+QListWidget::item:hover,
+QTreeWidget::item:hover{
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #FAFBFE, stop: 1 #DCDEF1);
+}
+
+</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <widget class="DatasetsExplorer" name="widget" native="true"/>
+     <widget class="ProtocolsExplorer" name="widget_2" native="true"/>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>DatasetsExplorer</class>
+   <extends>QWidget</extends>
+   <header>src/romeo/view/mainWindow/datasetsexplorer.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ProtocolsExplorer</class>
+   <extends>QWidget</extends>
+   <header>src/romeo/view/mainWindow/protocolsexplorer.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
