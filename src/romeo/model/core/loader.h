@@ -3,7 +3,7 @@
 * \author Matteo Pozza
 * \date 17-02-2014
 **
-* \brief  Header della classe ModelCore del package romeo::model::core
+* \brief  Header della classe Loader del package romeo::model::core
 */
 
 #ifndef LOADER_H

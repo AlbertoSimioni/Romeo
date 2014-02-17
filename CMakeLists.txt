@@ -44,10 +44,13 @@ SET(romeo_SOURCES
  src/romeo/view/mainWindow/protocolspanel.cpp
  src/romeo/view/mainWindow/protocolsexplorer.cpp
  src/romeo/view/mainWindow/subjectspanel.cpp
- src/romeo/model/core/ModelCore.cpp
- src/romeo/model/core/Writer.cpp
- src/romeo/model/core/Loader.cpp
- src/romeo/model/core/Settings.cpp
+ src/romeo/model/core/modelcore.cpp
+ src/romeo/model/core/writer.cpp
+ src/romeo/model/core/loader.cpp
+ src/romeo/model/settings.cpp
+ src/romeo/model/protocols/abstractprotocol.cpp
+ src/romeo/model/protocols/staticprotocol.cpp
+ src/romeo/model/protocols/dynamicprotocol.cpp
 )
 SET(romeo_HEADERS
  src/romeo/view/dialogs/addsubjectdialog.h
@@ -64,10 +67,13 @@ SET(romeo_HEADERS
  src/romeo/view/mainWindow/protocolspanel.h
  src/romeo/view/mainWindow/protocolsexplorer.h
  src/romeo/view/mainWindow/subjectspanel.h
- src/romeo/model/core/ModelCore.h
- src/romeo/model/core/Writer.h
- src/romeo/model/core/Loader.h
- src/romeo/model/core/Settings.h
+ src/romeo/model/core/modelCore.h
+ src/romeo/model/core/writer.h
+ src/romeo/model/core/loader.h
+ src/romeo/model/settings.h
+ src/romeo/model/protocols/abstractprotocol.h
+ src/romeo/model/protocols/staticprotocol.h
+ src/romeo/model/protocols/dynamicprotocol.h
 )
 SET(romeo_FORMS
  src/romeo/view/dialogs/addsubjectdialog.ui

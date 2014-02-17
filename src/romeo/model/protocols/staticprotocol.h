@@ -2,7 +2,6 @@
 * \file staticprotocol.h
 * \author Alessandro Strenghetto
 * \date 17­02­2014
-* \module
 *
 *
 * \brief Libreria di prova
@@ -12,6 +11,9 @@
 #define STATICPROTOCOL_H
 #include "abstractprotocol.h"
 
+namespace romeo {
+namespace model {
+namespace core{
 
 class StaticProtocol : public AbstractProtocol
 {
