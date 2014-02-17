@@ -44,6 +44,7 @@ SET(romeo_SOURCES
  src/romeo/view/mainWindow/protocolspanel.cpp
  src/romeo/view/mainWindow/protocolsexplorer.cpp
  src/romeo/view/mainWindow/subjectspanel.cpp
+ src/romeo/model/core/ModelCore.cpp
 )
 SET(romeo_HEADERS
  src/romeo/view/dialogs/addsubjectdialog.h
@@ -60,6 +61,7 @@ SET(romeo_HEADERS
  src/romeo/view/mainWindow/protocolspanel.h
  src/romeo/view/mainWindow/protocolsexplorer.h
  src/romeo/view/mainWindow/subjectspanel.h
+ src/romeo/model/core/ModelCore.h
 )
 SET(romeo_FORMS
  src/romeo/view/dialogs/addsubjectdialog.ui
