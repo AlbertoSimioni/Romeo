@@ -1,3 +1,10 @@
+/**
+* \file subjectspanel.h
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe SubjectsPanel del package romeo::view::mainWindow
+*/
 #ifndef SUBJECTSPANEL_H
 #define SUBJECTSPANEL_H
 
@@ -7,6 +14,9 @@ namespace Ui {
 class SubjectsPanel;
 }
 
+namespace romeo {
+namespace view {
+namespace mainWindow{
 class SubjectsPanel : public QWidget
 {
     Q_OBJECT
@@ -20,5 +30,5 @@ public:
 private:
     Ui::SubjectsPanel *ui;
 };
-
+}}}
 #endif // SUBJECTSPANEL_H

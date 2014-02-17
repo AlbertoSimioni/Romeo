@@ -6,7 +6,7 @@
 #include<src/romeo/view/dialogs/newfeaturedialog.h>
 #include<src/romeo/view/dialogs/addsubjectdialog.h>
 using namespace romeo::view::dialogs;
-
+using namespace romeo::view::mainWindow;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

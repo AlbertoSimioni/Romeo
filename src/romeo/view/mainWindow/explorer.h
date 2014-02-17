@@ -1,3 +1,10 @@
+/**
+* \file explorer.h
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe Explorer del package romeo::view::mainWindow
+*/
 #ifndef EXPLORER_H
 #define EXPLORER_H
 
@@ -6,7 +13,9 @@
 namespace Ui {
 class Explorer;
 }
-
+namespace romeo {
+namespace view {
+namespace mainWindow{
 class Explorer : public QWidget
 {
     Q_OBJECT
@@ -18,5 +27,6 @@ public:
 private:
     Ui::Explorer *ui;
 };
+}}}
 
 #endif // EXPLORER_H

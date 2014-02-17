@@ -1,6 +1,6 @@
 #include "explorer.h"
 #include "ui_explorer.h"
-
+using namespace romeo::view::mainWindow;
 Explorer::Explorer(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Explorer)

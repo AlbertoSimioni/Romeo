@@ -1,6 +1,6 @@
 #include "subjectspanel.h"
 #include "ui_subjectspanel.h"
-
+using namespace romeo::view::mainWindow;
 SubjectsPanel::SubjectsPanel(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SubjectsPanel)

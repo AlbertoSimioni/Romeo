@@ -1,6 +1,6 @@
 #include "filesystemexplorer.h"
 #include "ui_filesystemexplorer.h"
-
+using namespace romeo::view::mainWindow;
 FileSystemExplorer::FileSystemExplorer(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::FileSystemExplorer)
