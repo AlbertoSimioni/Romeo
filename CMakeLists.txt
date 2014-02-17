@@ -51,6 +51,11 @@ SET(romeo_SOURCES
  src/romeo/model/protocols/abstractprotocol.cpp
  src/romeo/model/protocols/staticprotocol.cpp
  src/romeo/model/protocols/dynamicprotocol.cpp
+ src/romeo/model/protocols/features/abstractfeature.cpp
+ src/romeo/model/protocols/features/dynamicfeature.cpp
+ src/romeo/model/protocols/features/abstractstaticfeature.cpp
+ src/romeo/model/protocols/features/firstorderfeature.cpp
+ src/romeo/model/protocols/features/secondorderfeature.cpp
 )
 SET(romeo_HEADERS
  src/romeo/view/dialogs/addsubjectdialog.h
@@ -74,6 +79,13 @@ SET(romeo_HEADERS
  src/romeo/model/protocols/abstractprotocol.h
  src/romeo/model/protocols/staticprotocol.h
  src/romeo/model/protocols/dynamicprotocol.h
+ src/romeo/model/protocols/features/abstractfeature.h
+ src/romeo/model/protocols/features/dynamicfeature.h
+ src/romeo/model/protocols/features/abstractstaticfeature.h
+ src/romeo/model/protocols/features/firstorderfeature.h
+ src/romeo/model/protocols/features/secondorderfeature.h
+
+
 )
 SET(romeo_FORMS
  src/romeo/view/dialogs/addsubjectdialog.ui

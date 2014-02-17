@@ -13,12 +13,12 @@
 
 namespace romeo {
 namespace model {
-namespace core{
+namespace protocols{
 
 class StaticProtocol : public AbstractProtocol
 {
 public:
     StaticProtocol();
 };
-
+}}}
 #endif // STATICPROTOCOL_H
