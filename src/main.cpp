@@ -5,6 +5,8 @@
 #include <src/romeo/view/dialogs/executedialog.h>
 #include<src/romeo/view/dialogs/newfeaturedialog.h>
 #include<src/romeo/view/dialogs/addsubjectdialog.h>
+using namespace romeo::view::dialogs;
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

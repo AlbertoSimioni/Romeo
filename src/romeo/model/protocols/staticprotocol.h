@@ -1,10 +1,9 @@
 /**
 * \file staticprotocol.h
-* \author Alessandro Strenghetto
-* \date 17­02­2014
-*
-*
-* \brief Libreria di prova
+* \author Matteo Pozza
+* \date 2014-02-07
+**
+* \brief Header della classe StaticProtocol del package romeo::model::protocols
 */
 
 #ifndef STATICPROTOCOL_H

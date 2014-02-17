@@ -1,11 +1,23 @@
+/**
+* \file executedialog.h
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe ExecuteDialog del package romeo::view::dialogs
+*/
+
 #ifndef EXECUTEDIALOG_H
 #define EXECUTEDIALOG_H
 
 #include <QDialog>
-
 namespace Ui {
 class ExecuteDialog;
 }
+
+namespace romeo {
+namespace view {
+namespace dialogs {
+
 
 class ExecuteDialog : public QDialog
 {
@@ -18,5 +30,7 @@ public:
 private:
     Ui::ExecuteDialog *ui;
 };
+}}}
+
 
 #endif // EXECUTEDIALOG_H

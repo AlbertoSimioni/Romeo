@@ -1,7 +1,7 @@
 /**
 * \file modelcore.h
 * \author Matteo Pozza
-* \date 17-02-2014
+* \date 2014-02-17
 **
 * \brief Header della classe ModelCore del package romeo::model::core
 */
