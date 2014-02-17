@@ -3,7 +3,7 @@
 * \author Matteo Pozza
 * \date 2014-02-17
 **
-* \brief Header della classe AbstractProtocol del package romeo::model::core
+* \brief Header della classe AbstractProtocol del package romeo::model::protocols
 */
 
 
@@ -15,7 +15,7 @@ namespace model {
 namespace protocols{
 
 /**
- * \brief La classe ModelCore da completare
+ * \brief La classe AbstractProtocol da completare
  *
  * Descrizione dettagliata
  */

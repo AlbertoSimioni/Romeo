@@ -70,21 +70,21 @@ QTreeWidget::item:hover{
      <property name="orientation">
       <enum>Qt::Vertical</enum>
      </property>
-     <widget class="DatasetsExplorer" name="widget" native="true"/>
-     <widget class="ProtocolsExplorer" name="widget_2" native="true"/>
+     <widget class="romeo::view::mainWindow::DatasetsExplorer" name="widget" native="true"/>
+     <widget class="romeo::view::mainWindow::ProtocolsExplorer" name="widget_2" native="true"/>
     </widget>
    </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>DatasetsExplorer</class>
+   <class>romeo::view::mainWindow::DatasetsExplorer</class>
    <extends>QWidget</extends>
    <header>src/romeo/view/mainWindow/datasetsexplorer.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>ProtocolsExplorer</class>
+   <class>romeo::view::mainWindow::ProtocolsExplorer</class>
    <extends>QWidget</extends>
    <header>src/romeo/view/mainWindow/protocolsexplorer.h</header>
    <container>1</container>

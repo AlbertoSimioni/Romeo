@@ -62,7 +62,7 @@ QHeaderView::section:checked
         <string notr="true"/>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <property name="movable">
         <bool>false</bool>
@@ -82,7 +82,7 @@ QHeaderView::section:checked
         </attribute>
         <layout class="QGridLayout" name="gridLayout">
          <item row="0" column="0">
-          <widget class="Explorer" name="widget_3" native="true"/>
+          <widget class="romeo::view::mainWindow::Explorer" name="widget_3" native="true"/>
          </item>
         </layout>
        </widget>
@@ -95,7 +95,7 @@ QHeaderView::section:checked
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
-          <widget class="FileSystemExplorer" name="widget" native="true"/>
+          <widget class="romeo::view::mainWindow::FileSystemExplorer" name="widget" native="true"/>
          </item>
         </layout>
        </widget>
@@ -109,7 +109,7 @@ QHeaderView::section:checked
        </property>
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="0">
-         <widget class="DatasetPanel" name="widget_2" native="true">
+         <widget class="romeo::view::mainWindow::DatasetPanel" name="widget_2" native="true">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -266,19 +266,19 @@ QHeaderView::section:checked
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>DatasetPanel</class>
+   <class>romeo::view::mainWindow::DatasetPanel</class>
    <extends>QWidget</extends>
    <header>src/romeo/view/mainWindow/datasetpanel.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>FileSystemExplorer</class>
+   <class>romeo::view::mainWindow::FileSystemExplorer</class>
    <extends>QWidget</extends>
    <header>src/romeo/view/mainWindow/filesystemexplorer.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>Explorer</class>
+   <class>romeo::view::mainWindow::Explorer</class>
    <extends>QWidget</extends>
    <header>src/romeo/view/mainWindow/explorer.h</header>
    <container>1</container>

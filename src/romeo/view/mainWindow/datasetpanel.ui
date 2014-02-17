@@ -27,7 +27,7 @@
    <item row="1" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
      <item>
-      <widget class="SubjectsPanel" name="widget" native="true">
+      <widget class="romeo::view::mainWindow::SubjectsPanel" name="widget" native="true">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -39,7 +39,7 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="ProtocolsPanel" name="widget_2" native="true">
+        <widget class="romeo::view::mainWindow::ProtocolsPanel" name="widget_2" native="true">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -49,7 +49,7 @@
         </widget>
        </item>
        <item>
-        <widget class="ExecutePanel" name="widget_3" native="true"/>
+        <widget class="romeo::view::mainWindow::ExecutePanel" name="widget_3" native="true"/>
        </item>
       </layout>
      </item>
@@ -59,19 +59,19 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>SubjectsPanel</class>
+   <class>romeo::view::mainWindow::SubjectsPanel</class>
    <extends>QWidget</extends>
    <header>src/romeo/view/mainWindow/subjectspanel.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>ProtocolsPanel</class>
+   <class>romeo::view::mainWindow::ProtocolsPanel</class>
    <extends>QWidget</extends>
    <header>src/romeo/view/mainWindow/protocolspanel.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>ExecutePanel</class>
+   <class>romeo::view::mainWindow::ExecutePanel</class>
    <extends>QWidget</extends>
    <header>src/romeo/view/mainWindow/executepanel.h</header>
    <container>1</container>

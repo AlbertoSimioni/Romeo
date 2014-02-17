@@ -6,24 +6,36 @@
 * \brief Header della classe DynamicProtocol del package romeo::model::protocols
 */
 
-#ifndef DYNAMICPROTOCOL_H
-#define DYNAMICPROTOCOL_H
+
+#ifndef PROTOCOLSLIST_H
+#define PROTOCOLSLIST_H
+
+#include <QObject>
+
 #include "abstractprotocol.h"
 
 namespace romeo {
 namespace model {
 namespace protocols{
 
+
 /**
- * \brief La classe DynamicProtocol da completare
+ * \brief La classe ProtocolsList da completare
  *
  * Descrizione dettagliata
  */
-class DynamicProtocol : public AbstractProtocol
+class ProtocolsList : public QObject
 {
+    Q_OBJECT
 public:
-    DynamicProtocol();
+    explicit ProtocolsList(QObject *parent = 0);
+
+signals:
+
+public slots:
+
 };
 
 }}}
-#endif // DYNAMICPROTOCOL_H
+
+#endif // PROTOCOLSLIST_H

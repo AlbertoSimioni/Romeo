@@ -56,6 +56,13 @@ SET(romeo_SOURCES
  src/romeo/model/protocols/features/abstractstaticfeature.cpp
  src/romeo/model/protocols/features/firstorderfeature.cpp
  src/romeo/model/protocols/features/secondorderfeature.cpp
+ src/romeo/model/protocols/protocolslist.cpp
+ src/romeo/model/protocols/features/featureslist.cpp
+ src/romeo/model/protocols/algorithms/abstractalgorithm.cpp
+ src/romeo/model/protocols/algorithms/algorithmslist.cpp
+ src/romeo/model/protocols/algorithms/kmeans.cpp
+ src/romeo/model/protocols/algorithms/fuzzycmeans.cpp
+ src/romeo/model/protocols/algorithms/hierarchical.cpp
 )
 SET(romeo_HEADERS
  src/romeo/view/dialogs/addsubjectdialog.h
@@ -84,9 +91,15 @@ SET(romeo_HEADERS
  src/romeo/model/protocols/features/abstractstaticfeature.h
  src/romeo/model/protocols/features/firstorderfeature.h
  src/romeo/model/protocols/features/secondorderfeature.h
-
-
+ src/romeo/model/protocols/protocolslist.h
+ src/romeo/model/protocols/features/featureslist.h
+ src/romeo/model/protocols/algorithms/abstractalgorithm.h
+ src/romeo/model/protocols/algorithms/algorithmslist.h
+ src/romeo/model/protocols/algorithms/kmeans.h
+ src/romeo/model/protocols/algorithms/fuzzycmeans.h
+ src/romeo/model/protocols/algorithms/hierarchical.h
 )
+
 SET(romeo_FORMS
  src/romeo/view/dialogs/addsubjectdialog.ui
  src/romeo/view/dialogs/executedialog.ui
