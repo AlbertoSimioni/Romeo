@@ -24,7 +24,6 @@ namespace algorithms{
  */
 
 
-
 class Hierarchical : public AbstractAlgorithm
 {
 public:

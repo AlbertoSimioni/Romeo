@@ -1,5 +1,5 @@
 /**
-* \file modelcore.h
+* \file writer.h
 * \author Matteo Pozza
 * \date 2014-02-17
 **

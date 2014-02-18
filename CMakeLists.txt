@@ -63,6 +63,23 @@ SET(romeo_SOURCES
  src/romeo/model/protocols/algorithms/kmeans.cpp
  src/romeo/model/protocols/algorithms/fuzzycmeans.cpp
  src/romeo/model/protocols/algorithms/hierarchical.cpp
+ src/romeo/model/protocols/algorithms/userdefinedalgorithm.cpp
+ src/romeo/model/imageIO/handlerio.cpp
+ src/romeo/model/imageIO/handlerio2d.cpp
+ src/romeo/model/imageIO/handlerio3d.cpp
+ src/romeo/model/datasets/result.cpp
+ src/romeo/model/datasets/abstractdataset.cpp
+ src/romeo/model/datasets/datasetslist.cpp
+ src/romeo/model/datasets/dataset2d.cpp
+ src/romeo/model/datasets/dataset2dt.cpp
+ src/romeo/model/datasets/dataset3d.cpp
+ src/romeo/model/datasets/dataset3dt.cpp
+ src/romeo/model/datasets/abstractsubject.cpp
+ src/romeo/model/datasets/subject2d.cpp
+ src/romeo/model/datasets/subject2dt.cpp
+ src/romeo/model/datasets/subject3d.cpp
+ src/romeo/model/datasets/subject3dt.cpp
+  src/romeo/controller/controller.cpp
 )
 SET(romeo_HEADERS
  src/romeo/view/dialogs/addsubjectdialog.h
@@ -98,6 +115,23 @@ SET(romeo_HEADERS
  src/romeo/model/protocols/algorithms/kmeans.h
  src/romeo/model/protocols/algorithms/fuzzycmeans.h
  src/romeo/model/protocols/algorithms/hierarchical.h
+ src/romeo/model/protocols/algorithms/userdefinedalgorithm.h
+ src/romeo/model/imageIO/handlerio.h
+ src/romeo/model/imageIO/handlerio2d.h
+ src/romeo/model/imageIO/handlerio3d.h
+ src/romeo/model/datasets/result.h
+ src/romeo/model/datasets/abstractdataset.h
+ src/romeo/model/datasets/datasetslist.h
+ src/romeo/model/datasets/dataset2d.h
+ src/romeo/model/datasets/dataset2dt.h
+ src/romeo/model/datasets/dataset3d.h
+ src/romeo/model/datasets/dataset3dt.h
+ src/romeo/model/datasets/abstractsubject.h
+ src/romeo/model/datasets/subject2d.h
+ src/romeo/model/datasets/subject2dt.h
+ src/romeo/model/datasets/subject3d.h
+ src/romeo/model/datasets/subject3dt.h
+ src/romeo/controller/controller.h
 )
 
 SET(romeo_FORMS

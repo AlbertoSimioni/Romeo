@@ -10,7 +10,7 @@
 #define ALGORITHMSLIST_H
 
 #include"abstractalgorithm.h"
-
+#include<QObject>
 namespace romeo {
 namespace model {
 namespace protocols{
@@ -22,10 +22,11 @@ namespace algorithms{
  * Descrizione dettagliata
  */
 
-class AlgorithmsList
+class AlgorithmsList: public QObject
 {
+    Q_OBJECT
 public:
-    AlgorithmsList();
+    explicit AlgorithmsList(QObject *parent = 0);
 };
 }}}}
 #endif // ALGORITHMSLIST_H
