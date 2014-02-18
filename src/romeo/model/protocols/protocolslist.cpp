@@ -4,3 +4,10 @@ ProtocolsList::ProtocolsList(QObject *parent) :
     QObject(parent)
 {
 }
+
+/*ProtocolsList::~ProtocolsList()
+{
+    foreach(AbstractProtocol* p , protocolsList){
+        delete p;
+    }
+}*/

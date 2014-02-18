@@ -14,10 +14,19 @@ namespace romeo {
 namespace model {
 namespace protocols{
 
+/*!
+ * \brief La classe StaticProtocol rappresenta i protocolli che eseguono su immagini statiche.
+ * *
+ * La classe eredita da AbstractProtocol e implementa il metodo virtuale puro execute(AbstractSubject*) con cui esegue un protocollo sul subject, che deve essere un immagine di tipo statico.
+ */
 class StaticProtocol : public AbstractProtocol
 {
 public:
-    StaticProtocol();
+    /*!
+     * \brief Override del metodo execute della classe astratta AbstractProtocol
+     * \param Il soggetto utilizzato per eseguire l'analisi, deve contenere un immagine di tipo statico
+     */
+    void execute(datasets::AbstractSubject *subject);
 };
 }}}
 #endif // STATICPROTOCOL_H

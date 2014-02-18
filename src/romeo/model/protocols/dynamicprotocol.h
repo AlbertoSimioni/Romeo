@@ -15,15 +15,18 @@ namespace model {
 namespace protocols{
 
 /**
- * \brief La classe DynamicProtocol da completare
- *
- * Descrizione dettagliata
+ * \brief La classe DynamicProtocol rappresenta i protocolli che agiscono su immagini di tipo dinamico,
+ **
+ *  e quindi accettano soggetti di tipo Subject2D col tempo e Subject3D col tempo.
  */
 class DynamicProtocol : public AbstractProtocol
 {
 public:
-    DynamicProtocol();
+    /*!
+     * \brief Override del metodo execute della classe astratta AbstractProtocol
+     * \param subject Il soggetto su cui eseguire il protocollo
+     */
+    virtual void execute(datasets::AbstractSubject *subject);
 };
-
 }}}
 #endif // DYNAMICPROTOCOL_H
