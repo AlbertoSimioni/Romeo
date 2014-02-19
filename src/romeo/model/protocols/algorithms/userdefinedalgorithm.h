@@ -28,11 +28,18 @@ namespace algorithms{
 
 class UserDefinedAlgorithm : public AbstractAlgorithm
 {
+    /*!
+     * \brief Stringa contenente il percorso nel file system con la libreria dinamica contenete il codice dell'algoritmo di clustering definito dall'utente
+     */
     QString dynamicLibraryPath;
+    /*!
+     * \brief Stringa contente il nome della funzione all'interno della libreria dinamica.
+     */
     QString dynamicFunctionName;
 public:
     UserDefinedAlgorithm();
-    bool execute(double **data, double *mask, int nrows, int ncols, int *clusterid, QVector<QString> parameters);
+
+    //bool execute(double **data, int *mask, int nrows, int ncols, int *clusterid, QVector<QString> parameters);
 };
 }}}}
 #endif // USERDEFINEDALGORITHM_H

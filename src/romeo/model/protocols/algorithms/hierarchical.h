@@ -28,6 +28,12 @@ class Hierarchical : public AbstractAlgorithm
 {
 public:
     Hierarchical();
+
+    /*!
+     * \brief Implementazione del metodo virtuale pure presente in AbstractAlgorithm, eseguendo
+     * l'algoritmo Hierarchical, utilizza l'algoritmo presente nella libreria C Cluster.
+     */
+    //virtual bool execute(double **data, int *mask, int nrows, int ncols, int *clusterid, QVector<QString> parameters);
 };
 }}}}
 #endif // HIERARCHICAL_H

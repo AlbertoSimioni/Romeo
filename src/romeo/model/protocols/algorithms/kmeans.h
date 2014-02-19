@@ -28,6 +28,12 @@ class KMeans : public AbstractAlgorithm
 {
 public:
     KMeans();
+
+    /*!
+     * \brief Implementazione del metodo virtuale pure presente in AbstractAlgorithm, eseguendo
+     * l'algoritmo K-Means, utilizza l'algoritmo presente nella libreria C Cluster.
+     */
+    //virtual bool execute(double **data, int *mask, int nrows, int ncols, int *clusterid, QVector<QString> parameters);
 };
 }}}}
 #endif // KMEANS_H

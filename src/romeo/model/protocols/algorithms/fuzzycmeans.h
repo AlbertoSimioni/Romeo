@@ -27,7 +27,15 @@ namespace algorithms{
 class FuzzyCMeans : public AbstractAlgorithm
 {
 public:
+
+
     FuzzyCMeans();
+
+    /*!
+     * \brief Implementazione del metodo virtuale pure presente in AbstractAlgorithm, eseguendo
+     * l'algoritmo Fuzzy C-Means, utilizza l'algoritmo presente nella libreria C Cluster.
+     */
+    //virtual bool execute(double **data, int *mask, int nrows, int ncols, int *clusterid, QVector<QString> parameters);
 };
 }}}}
 #endif // FUZZYCMEANS_H

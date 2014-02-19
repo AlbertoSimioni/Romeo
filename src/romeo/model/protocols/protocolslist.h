@@ -45,9 +45,15 @@ public:
      */
     void addProtocol(QString &nome, QString &algorithm, QVector<QString> &features, AbstractProtocol::TipoProtocollo tipo=AbstractProtocol::STATICO);
 
+    /*!
+     * \brief Ritorna il riferimento al protocollo con nome uguale al parametro name
+     * \param name Nome dell'algoritmo da ritornare
+     * \return Riferimento al protocollo
+     */
+    AbstractProtocol* getProtocol(QString name);
 private:
     /*!
-     * \brief Il vettore che contiene la lista dei protocolli creati dall'utente
+     * \brief Il vettore contiene la lista dei protocolli creati dall'utente
      */
     QVector<protocols::AbstractProtocol*> protocolsList;
 };

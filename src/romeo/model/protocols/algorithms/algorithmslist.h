@@ -10,7 +10,8 @@
 #define ALGORITHMSLIST_H
 
 #include"abstractalgorithm.h"
-#include<QObject>
+#include <QObject>
+#include <QVector>
 namespace romeo {
 namespace model {
 namespace protocols{
@@ -25,8 +26,21 @@ namespace algorithms{
 class AlgorithmsList: public QObject
 {
     Q_OBJECT
+private:
+    /*!
+     * \brief Il vettore contiene la lista degli algoritmi presenti nel programma
+     */
+    QVector<AbstractAlgorithm*> algorithms;
 public:
+
     explicit AlgorithmsList(QObject *parent = 0);
+    /*!
+     * \brief Inserisce nella lista dei protocolli un nuovo protocollo definito dai parametri passati
+     * \param name Nome dell'algoritmo di clustering da inserire
+     * \param description Descrizione dell'algoritmo di clustering da inserire
+     * \param parameters Parametri dell'algoritmo di clustering da inserire
+     */
+    void addAlgorithm(QString name, QString description, QVector<AbstractAlgorithm::AlgorithmParameter> parameters);
 };
 }}}}
 #endif // ALGORITHMSLIST_H

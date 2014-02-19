@@ -58,7 +58,7 @@ public:
     };
 private:
     /*!
-     * \brief  Contiene tutti i parametri definibili dall'utente di un algoritmo di clustering
+     * \brief  Contiene tutti i parametri di un algoritmo di clustering che l'utente può modificare
      */
     QVector<AlgorithmParameter> parameters;
 
