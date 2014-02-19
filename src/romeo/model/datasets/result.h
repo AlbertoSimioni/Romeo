@@ -46,14 +46,27 @@ class Result
     QString featureName;
 
 public:
-    Result(QDate ed, QString pn,QString rp, bool fr, QString fn = QString());
+    //Result(QDate ed, QString pn,QString rp, bool fr, QString fn = QString());
     /*!
      * \brief Ritorna true se il risultato è stato ottenuto
      */
     bool getFeatureResult() const;
+    /*!
+     * \brief Ritorna una stringa con il nome della feature con cui il risultato è stato ottenuto.
+     * Se il risultato è stato ottenuto anche mediante un algoritmo di clustering ritorna una stringa vuota
+     */
     QString getFeatureName() const;
+    /*!
+     * \brief Ritorna il nome del protocollo con cui è stato ottenuto il risultato
+     */
     QString getProtocolName() const;
+    /*!
+     * \brief Ritorna la data in cui è stato creato il risultato
+     */
     QDate getExecutionDate() const;
+    /*!
+     * \brief Ritorna il percorso relativo nel file system dove è presente l'immagine contenente il risultato
+     */
     QString getResultPath() const;
 };
 

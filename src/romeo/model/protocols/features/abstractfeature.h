@@ -8,7 +8,7 @@
 
 #ifndef ABSTRACTFEATURE_H
 #define ABSTRACTFEATURE_H
-
+#include<QString>
 namespace romeo {
 namespace model {
 namespace protocols{
@@ -22,8 +22,20 @@ namespace features{
  */
 class AbstractFeature
 {
+    /*!
+     * \brief dynamicLibraryPath
+     */
+    QString dynamicLibraryPath;
+    QString dynamicFunctionName;
+    QString name;
+    QString description;
 public:
     AbstractFeature();
+
+    /*!
+     * \brief Restituisce
+     */
+    QString getDynamicLibraryPath() const;
 };
 
 }}}}

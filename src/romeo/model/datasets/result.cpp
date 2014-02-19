@@ -30,6 +30,6 @@ QString Result::getResultPath() const
 }
 
 
-Result::Result()
+/*Result::Result()
 {
-}
+}*/
