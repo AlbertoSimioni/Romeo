@@ -11,7 +11,7 @@
 #define USERDEFINEDALGORITHM_H
 
 #include"abstractalgorithm.h"
-
+#include<QString>
 namespace romeo {
 namespace model {
 namespace protocols{
@@ -28,8 +28,11 @@ namespace algorithms{
 
 class UserDefinedAlgorithm : public AbstractAlgorithm
 {
+    QString dynamicLibraryPath;
+    QString dynamicFunctionName;
 public:
     UserDefinedAlgorithm();
+    bool execute(double **data, double *mask, int nrows, int ncols, int *clusterid, QVector<QString> parameters);
 };
 }}}}
 #endif // USERDEFINEDALGORITHM_H

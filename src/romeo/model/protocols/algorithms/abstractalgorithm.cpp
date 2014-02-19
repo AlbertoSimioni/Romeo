@@ -1,5 +1,6 @@
 #include "abstractalgorithm.h"
 using namespace romeo::model::protocols::algorithms;
-AbstractAlgorithm::AbstractAlgorithm()
+/*AbstractAlgorithm::AbstractAlgorithm(QVector<AlgorithmParameter> p, QString n, QString d)
 {
 }
+*/
