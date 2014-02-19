@@ -3,7 +3,7 @@ using namespace romeo::model::datasets;
 AbstractDataset::AbstractDataset()
 {
 }
-QString AbstractDataset::getName()
+QString AbstractDataset::getName() const
 {
     return name;
 }
