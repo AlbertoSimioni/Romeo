@@ -25,6 +25,7 @@ class Subject3D : public AbstractSubject
 {
 public:
     Subject3D();
+    QString getType();
 };
 }}}
 #endif // SUBJECT3D_H

@@ -26,6 +26,7 @@ class Subject3DT : public AbstractSubject
 {
 public:
     Subject3DT();
+    virtual QString getType();
 };
 }}}
 #endif // SUBJECT3DT_H

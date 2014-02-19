@@ -24,6 +24,7 @@ class Subject2DT : public AbstractSubject
 {
 public:
     Subject2DT();
+    QString getType();
 };
 }}}
 #endif // SUBJECT2DT_H

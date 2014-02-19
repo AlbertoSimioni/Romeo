@@ -26,6 +26,7 @@ class Subject2D : public AbstractSubject
 {
 public:
     Subject2D();
+    virtual QString getType();
 };
 }}}
 #endif // SUBJECT2D_H
