@@ -23,19 +23,42 @@ namespace features{
 class AbstractFeature
 {
     /*!
-     * \brief dynamicLibraryPath
+     * \brief  Stringa contenente il percorso nel file system con la libreria dinamica contenete il codice del feature extractor
      */
     QString dynamicLibraryPath;
+    /*!
+     * \brief Stringa contente il nome della funzione all'interno della libreria dinamica
+     */
+
     QString dynamicFunctionName;
+    /*!
+     * \brief Nome della feature
+     */
     QString name;
+    /*!
+     * \brief Descrizione della feature
+     */
     QString description;
 public:
     AbstractFeature();
 
     /*!
-     * \brief Restituisce
+     * \brief Restituisce il percorso alla libreria dinamica contente il codice del feature extractor
      */
-    QString getDynamicLibraryPath() const;
+    QString getDynamicLibraryPath() const; //forse non necessario
+    /*!
+     * \brief Restituisce il nome della feature
+     */
+    QString getName() const;
+    /*!
+     * \brief Restituisce la descrizione della feature
+     */
+    QString getDescription() const;
+    /*!
+     * \brief Restituisce il tipo della feature (primo ordine, secondo ordine, dinamica)
+     */
+    virtual QString getType() const = 0;
+
 };
 
 }}}}

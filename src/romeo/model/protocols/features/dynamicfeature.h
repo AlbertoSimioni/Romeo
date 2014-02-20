@@ -25,6 +25,7 @@ class DynamicFeature : public AbstractFeature
 {
 public:
     DynamicFeature();
+    void execute();
 };
 }}}}
 #endif // DYNAMICFEATURE_H

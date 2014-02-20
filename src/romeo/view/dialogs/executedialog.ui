@@ -79,7 +79,7 @@ font-size: 15px;
            <string>&amp;Cancel</string>
           </property>
           <property name="icon">
-           <iconset resource="../immagini.qrc">
+           <iconset resource="../../../immagini.qrc">
             <normaloff>:/Images/Images/StopIcon.png</normaloff>:/Images/Images/StopIcon.png</iconset>
           </property>
          </widget>
@@ -133,7 +133,7 @@ font-size: 15px;
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../immagini.qrc"/>
+  <include location="../../../immagini.qrc"/>
  </resources>
  <connections/>
 </ui>

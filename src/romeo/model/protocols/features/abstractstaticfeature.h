@@ -22,10 +22,13 @@ namespace features{
  * Descrizione dettagliata
  */
 
+
 class AbstractStaticFeature : public AbstractFeature
 {
 public:
     AbstractStaticFeature();
+
+    virtual void execute() = 0;//non è un override perché i parametri tra le feature statiche e dinamiche sono diversi
 };
 }}}}
 #endif // ABSTRACTSTATICFEATURE_H

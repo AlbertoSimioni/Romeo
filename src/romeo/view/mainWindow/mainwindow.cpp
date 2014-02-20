@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->sidebarFrame->setTabText(0, "Explorer");
     ui->sidebarFrame->setTabText(1, "File System");
-
+    connectActionsToSignal();
 }
 
 MainWindow::~MainWindow()
@@ -16,4 +16,10 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+void MainWindow::connectActionsToSignal(){
+    connect(ui->actionNew_Dataset,SIGNAL(triggered()),this,SIGNAL(openNewDatasetDialog()));
+
+
+}
 

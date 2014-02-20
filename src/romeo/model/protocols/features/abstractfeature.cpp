@@ -7,6 +7,20 @@ QString AbstractFeature::getDynamicLibraryPath() const
 }
 
 
+
+QString AbstractFeature::getName() const
+{
+    return name;
+}
+
+
+
+QString AbstractFeature::getDescription() const
+{
+    return description;
+}
+
+
 AbstractFeature::AbstractFeature()
 {
 }

@@ -5,14 +5,14 @@
 #include <src/romeo/view/dialogs/executedialog.h>
 #include<src/romeo/view/dialogs/newfeaturedialog.h>
 #include<src/romeo/view/dialogs/addsubjectdialog.h>
+#include<src/romeo/controller/controller.h>
 using namespace romeo::view::dialogs;
-using namespace romeo::view::mainWindow;
+using namespace romeo::controller;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    MainWindow w;
-    w.show();
+    Controller* controller = Controller::getInstance();
     ProtocolDialog p;
     p.show();
     NewAlgorithmDialog n;

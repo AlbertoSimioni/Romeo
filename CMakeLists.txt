@@ -79,7 +79,9 @@ SET(romeo_SOURCES
  src/romeo/model/datasets/subject2dt.cpp
  src/romeo/model/datasets/subject3d.cpp
  src/romeo/model/datasets/subject3dt.cpp
-  src/romeo/controller/controller.cpp
+ src/romeo/controller/controller.cpp
+ src/romeo/view/dialogs/newdatasetdialog.cpp
+ src/romeo/view/viewmanager.cpp
 )
 SET(romeo_HEADERS
  src/romeo/view/dialogs/addsubjectdialog.h
@@ -133,6 +135,8 @@ SET(romeo_HEADERS
  src/romeo/model/datasets/subject3dt.h
  src/romeo/model/inputformats.h
  src/romeo/controller/controller.h
+ src/romeo/view/dialogs/newdatasetdialog.h
+ src/romeo/view/viewmanager.h
 )
 
 SET(romeo_FORMS
@@ -150,6 +154,7 @@ SET(romeo_FORMS
  src/romeo/view/mainWindow/protocolspanel.ui
  src/romeo/view/mainWindow/protocolsexplorer.ui
  src/romeo/view/mainWindow/subjectspanel.ui
+ src/romeo/view/dialogs/newdatasetdialog.ui
 )
 SET(romeo_RESOURCES src/immagini.qrc)
 
