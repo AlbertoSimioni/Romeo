@@ -19,6 +19,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::connectActionsToSignal(){
     connect(ui->actionNew_Dataset,SIGNAL(triggered()),this,SIGNAL(openNewDatasetDialog()));
+    connect(ui->actionNewProtocol,SIGNAL(triggered()),this,SIGNAL(openNewPortocolDialog()));
 
 
 }

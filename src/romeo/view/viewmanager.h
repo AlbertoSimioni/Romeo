@@ -11,7 +11,11 @@
 #define VIEWMANAGER_H
 #include<src/romeo/view/mainWindow/mainwindow.h>
 #include<src/romeo/view/dialogs/newdatasetdialog.h>
-
+#include<src/romeo/view/dialogs/protocoldialog.h>
+#include<src/romeo/view/dialogs/newalgorithmdialog.h>
+#include<src/romeo/view/dialogs/newfeaturedialog.h>
+#include<src/romeo/view/dialogs/executedialog.h>
+#include<src/romeo/view/dialogs/addsubjectdialog.h>
 namespace romeo{
 namespace view{
 
@@ -30,6 +34,30 @@ private:
      * \brief Riferimento al dialogo di aggiunta subject
      */
     dialogs::NewDatasetDialog* newDatasetDialog;
+    /*!
+     * \brief Riferimento al dialogo per l'aggiunta o la modifica di un protocollo
+     */
+    dialogs::ProtocolDialog* protocolDialog;
+
+    /*!
+     * \brief Riferimento al dialogo per l'aggiunta di una nuova feature
+     */
+    dialogs::NewFeatureDialog* newFeatureDialog;
+
+    /*!
+     * \brief Riferimento al dialogo per l'aggiunta di un nuovo algoritmo
+     */
+    dialogs::NewAlgorithmDialog* newAlgorithmDialog;
+
+    /*!
+     * \brief Riferimento al dialogo per l'aggiunta di un nuovo subject
+     */
+    dialogs::AddSubjectDialog* addSubjectDialog;
+
+    /*!
+     * \brief Riferimento al dialogo per l'esecuzione di un protocollo
+     */
+    dialogs::ExecuteDialog* executeDialog;
 
     ViewManager(QObject* parent = 0);
 
@@ -41,14 +69,38 @@ public:
      */
     static ViewManager* getInstance(QObject* parent = 0);
 
+     ~ViewManager();
+
     /*!
      * \brief Mostra il dialogo per l'inserimento del nuovo dataset
      */
     void showNewDataset();
 
+    /*!
+     * \brief Mostra il dialogo per l'inserimento di un nuovo protocollo.
+     */
 
+    void showNewProtocol();
+
+    /*!
+     * \brief Mostra il dialogo per la modifica di un protocollo di test
+     */
+    void showModifyProtocol();
+
+    /*!
+     * \brief Ritorna il riferimento alla finestra principale
+     */
     mainWindow::MainWindow *getMainWindow() const;
+    /*!
+     * \brief Ritorna il riferimento alla finestra di dialogo per aggiungere un dataset
+     */
     dialogs::NewDatasetDialog *getNewDatasetDialog() const;
+
+    dialogs::ProtocolDialog *getProtocolDialog() const;
+    dialogs::NewFeatureDialog *getNewFeatureDialog() const;
+    dialogs::NewAlgorithmDialog *getNewAlgorithmDialog() const;
+    dialogs::AddSubjectDialog *getAddSubjectDialog() const;
+    dialogs::ExecuteDialog *getExecuteDialog() const;
 };
 }}
 #endif // VIEWMANAGER_H

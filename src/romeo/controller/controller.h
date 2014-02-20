@@ -35,6 +35,7 @@ public:
 
 public slots:
     void viewNewDatasetDialog();
+    void viewNewProtocolDialog();
 
 private:
     /*!

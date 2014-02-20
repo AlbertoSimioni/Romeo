@@ -12,8 +12,8 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    Controller* controller = Controller::getInstance();
-    ProtocolDialog p;
+    Controller* controller = Controller::getInstance(); // non so se viene distrutto
+   /* ProtocolDialog p;
     p.show();
     NewAlgorithmDialog n;
     n.show();
@@ -22,6 +22,8 @@ int main(int argc, char *argv[])
     ExecuteDialog e;
     e.show();
     AddSubjectDialog ad;
-    ad.show();
-    return a.exec();
+    ad.show();*/
+    int i =a.exec();
+    delete controller;
+    return i;
 }

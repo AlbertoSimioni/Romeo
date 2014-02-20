@@ -4,7 +4,7 @@ using namespace romeo::controller;
 using namespace romeo::view::mainWindow;
 using namespace romeo::view;
 
-Controller* Controller::instance = 0;
+Controller* Controller::instance=0;
 
 Controller::Controller(QObject *parent): QObject(parent)
 {
@@ -15,7 +15,7 @@ Controller::Controller(QObject *parent): QObject(parent)
 
 void Controller::connectViewsSignals(){
     connect(viewManager->getMainWindow(),SIGNAL(openNewDatasetDialog()),this,SLOT(viewNewDatasetDialog()));
-
+    connect(viewManager->getMainWindow(),SIGNAL(openNewPortocolDialog()),this,SLOT(viewNewProtocolDialog()));
 }
 
 Controller* Controller::getInstance(QObject *parent){
@@ -25,6 +25,11 @@ Controller* Controller::getInstance(QObject *parent){
 
     return instance;
 }
+
 void Controller::viewNewDatasetDialog(){
     viewManager->showNewDataset();
+}
+
+void Controller::viewNewProtocolDialog(){
+    viewManager->showNewProtocol();
 }

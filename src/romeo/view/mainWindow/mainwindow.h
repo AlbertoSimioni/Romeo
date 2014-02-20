@@ -28,6 +28,8 @@ public:
 
 signals:
     void openNewDatasetDialog();
+    void openNewPortocolDialog();
+
 
 
 private slots:
