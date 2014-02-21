@@ -16,6 +16,8 @@
 #include<src/romeo/view/dialogs/newfeaturedialog.h>
 #include<src/romeo/view/dialogs/executedialog.h>
 #include<src/romeo/view/dialogs/addsubjectdialog.h>
+#include<src/romeo/view/dialogs/algorithmslistdialog.h>
+#include<src/romeo/view/dialogs/featureslistdialog.h>
 namespace romeo{
 namespace view{
 
@@ -61,7 +63,6 @@ private:
 
     ViewManager(QObject* parent = 0);
 
-
 public:
     /*!
      * \brief Metodo statico che ritorna l'istanza del ViewManager, in caso sia la prima volta ad essere invocato
@@ -86,6 +87,21 @@ public:
      * \brief Mostra il dialogo per la modifica di un protocollo di test
      */
     void showModifyProtocol();
+
+    /*!
+     * \brief Mostra il dialogo per l'inserimento di un nuovo algoritmo di clustering
+     */
+    void showNewAlgorithm();
+
+    /*!
+     * \brief Mostra il dialogo per l'inserimento di un nuovo feature extractor
+     */
+    void showNewFeature();
+
+    /*!
+     * \brief Mostra il dialogo per l'inserimento di un nuovo subject
+     */
+    void showAddSubject();
 
     /*!
      * \brief Ritorna il riferimento alla finestra principale

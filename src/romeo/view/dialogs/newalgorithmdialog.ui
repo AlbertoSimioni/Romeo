@@ -244,7 +244,7 @@ font-size: 15px;
           <item>
            <widget class="QToolButton" name="toolButton">
             <property name="icon">
-             <iconset resource="immagini.qrc">
+             <iconset>
               <normaloff>:/Images/Images/add-1-icon.png</normaloff>:/Images/Images/add-1-icon.png</iconset>
             </property>
            </widget>
@@ -281,8 +281,6 @@ font-size: 15px;
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="immagini.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

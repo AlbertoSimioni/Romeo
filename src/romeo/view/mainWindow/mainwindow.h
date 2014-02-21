@@ -29,6 +29,7 @@ public:
 signals:
     void openNewDatasetDialog();
     void openNewPortocolDialog();
+    void openNewAlgorithmDialog();
 
 
 

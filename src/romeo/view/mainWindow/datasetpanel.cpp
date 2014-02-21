@@ -6,6 +6,7 @@ DatasetPanel::DatasetPanel(QWidget *parent) :
     ui(new Ui::DatasetPanel)
 {
     ui->setupUi(this);
+
 }
 
 DatasetPanel::~DatasetPanel()

@@ -82,6 +82,8 @@ SET(romeo_SOURCES
  src/romeo/controller/controller.cpp
  src/romeo/view/dialogs/newdatasetdialog.cpp
  src/romeo/view/viewmanager.cpp
+ src/romeo/view/dialogs/featureslistdialog.cpp
+ src/romeo/view/dialogs/algorithmslistdialog.cpp
 )
 SET(romeo_HEADERS
  src/romeo/view/dialogs/addsubjectdialog.h
@@ -137,6 +139,8 @@ SET(romeo_HEADERS
  src/romeo/controller/controller.h
  src/romeo/view/dialogs/newdatasetdialog.h
  src/romeo/view/viewmanager.h
+ src/romeo/view/dialogs/featureslistdialog.h
+ src/romeo/view/dialogs/algorithmslistdialog.h
 )
 
 SET(romeo_FORMS
@@ -155,6 +159,8 @@ SET(romeo_FORMS
  src/romeo/view/mainWindow/protocolsexplorer.ui
  src/romeo/view/mainWindow/subjectspanel.ui
  src/romeo/view/dialogs/newdatasetdialog.ui
+ src/romeo/view/dialogs/featureslistdialog.ui
+ src/romeo/view/dialogs/algorithmslistdialog.ui
 )
 SET(romeo_RESOURCES src/immagini.qrc)
 

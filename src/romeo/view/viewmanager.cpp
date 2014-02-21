@@ -83,3 +83,16 @@ void ViewManager::showNewDataset(){
 void ViewManager::showNewProtocol(){
     protocolDialog->exec();
 }
+
+void ViewManager::showNewAlgorithm(){
+    newAlgorithmDialog->exec();
+}
+
+
+void ViewManager::showNewFeature(){
+    newFeatureDialog->exec();
+}
+
+void ViewManager::showAddSubject(){
+    addSubjectDialog->exec();
+}

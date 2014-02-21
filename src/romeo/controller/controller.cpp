@@ -16,6 +16,7 @@ Controller::Controller(QObject *parent): QObject(parent)
 void Controller::connectViewsSignals(){
     connect(viewManager->getMainWindow(),SIGNAL(openNewDatasetDialog()),this,SLOT(viewNewDatasetDialog()));
     connect(viewManager->getMainWindow(),SIGNAL(openNewPortocolDialog()),this,SLOT(viewNewProtocolDialog()));
+    connect(viewManager->getMainWindow(),SIGNAL(openNewAlgorithmDialog()),this,SLOT(viewNewAlgorithmDialog()));
 }
 
 Controller* Controller::getInstance(QObject *parent){
@@ -32,4 +33,9 @@ void Controller::viewNewDatasetDialog(){
 
 void Controller::viewNewProtocolDialog(){
     viewManager->showNewProtocol();
+}
+
+
+void Controller::viewNewAlgorithmDialog(){
+
 }

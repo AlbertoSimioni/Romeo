@@ -6,9 +6,16 @@ NewDatasetDialog::NewDatasetDialog(QWidget *parent) :
     ui(new Ui::NewDatasetDialog)
 {
     ui->setupUi(this);
+    ui->ErrorLabel->setVisible(false);
 }
 
 NewDatasetDialog::~NewDatasetDialog()
 {
     delete ui;
+}
+
+
+void NewDatasetDialog::showError()
+{
+    ui->ErrorLabel->setVisible(true);
 }
