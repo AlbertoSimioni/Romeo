@@ -23,7 +23,6 @@ class HandlerIO
 {
 public:
     HandlerIO();
-    InputFormat2D a;
 };
 }}}
 #endif // HANDLERIO_H

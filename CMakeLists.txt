@@ -136,7 +136,6 @@ SET(romeo_HEADERS
  src/romeo/model/datasets/subject2dt.h
  src/romeo/model/datasets/subject3d.h
  src/romeo/model/datasets/subject3dt.h
- src/romeo/model/inputformats.h
  src/romeo/controller/controller.h
  src/romeo/view/dialogs/newdatasetdialog.h
  src/romeo/view/viewmanager.h
