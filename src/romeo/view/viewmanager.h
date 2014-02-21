@@ -95,11 +95,25 @@ public:
      * \brief Ritorna il riferimento alla finestra di dialogo per aggiungere un dataset
      */
     dialogs::NewDatasetDialog *getNewDatasetDialog() const;
-
+    /*!
+     * \brief Ritorna il riferimento alla finestra di dialogo per un protocollo
+     */
     dialogs::ProtocolDialog *getProtocolDialog() const;
+    /*!
+     * \brief Ritorna il riferimento alla finestra di dialogo per l'aggiunta di una nuova feature
+     */
     dialogs::NewFeatureDialog *getNewFeatureDialog() const;
+    /*!
+     * \brief Ritorna il riferimento alla finestra di dialogo
+     */
     dialogs::NewAlgorithmDialog *getNewAlgorithmDialog() const;
+    /*!
+     * \brief Ritorna il riferimento alla finestra per l'aggiunta di un nuovo subject
+     */
     dialogs::AddSubjectDialog *getAddSubjectDialog() const;
+    /*!
+     * \brief Ritorna il riferimento alla finestra di esecuzione di un algoritmo di clustering
+     */
     dialogs::ExecuteDialog *getExecuteDialog() const;
 };
 }}

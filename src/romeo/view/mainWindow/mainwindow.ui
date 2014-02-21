@@ -144,11 +144,13 @@ QHeaderView::section:checked
     <property name="title">
      <string>Datasets</string>
     </property>
+    <addaction name="actionNew_Dataset"/>
    </widget>
    <widget class="QMenu" name="menuProtocols">
     <property name="title">
      <string>Protocols</string>
     </property>
+    <addaction name="actionNewProtocol"/>
    </widget>
    <widget class="QMenu" name="menuOptions">
     <property name="title">
@@ -164,11 +166,15 @@ QHeaderView::section:checked
     <property name="title">
      <string>Features</string>
     </property>
+    <addaction name="actionFeatures_List"/>
+    <addaction name="actionAdd_Feature"/>
    </widget>
    <widget class="QMenu" name="menuAlgorithms">
     <property name="title">
      <string>Algorithms</string>
     </property>
+    <addaction name="actionAlgorithms_List"/>
+    <addaction name="actionAdd_Algorithm"/>
    </widget>
    <addaction name="menuDatasets"/>
    <addaction name="menuProtocols"/>
@@ -260,6 +266,26 @@ QHeaderView::section:checked
    </property>
    <property name="toolTip">
     <string>Execute the selected protocol</string>
+   </property>
+  </action>
+  <action name="actionFeatures_List">
+   <property name="text">
+    <string>Features List</string>
+   </property>
+  </action>
+  <action name="actionAdd_Feature">
+   <property name="text">
+    <string>Add Feature</string>
+   </property>
+  </action>
+  <action name="actionAlgorithms_List">
+   <property name="text">
+    <string>Algorithms List</string>
+   </property>
+  </action>
+  <action name="actionAdd_Algorithm">
+   <property name="text">
+    <string>Add Algorithm</string>
    </property>
   </action>
  </widget>
