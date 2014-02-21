@@ -57,7 +57,7 @@ font-size: 15px;
            </widget>
           </item>
           <item>
-           <widget class="QListWidget" name="listWidget"/>
+           <widget class="QListWidget" name="algorithmsTable"/>
           </item>
           <item>
            <spacer name="verticalSpacer">
@@ -97,7 +97,7 @@ font-size: 15px;
            </widget>
           </item>
           <item>
-           <widget class="QTextBrowser" name="textBrowser"/>
+           <widget class="QTextBrowser" name="descriptionText"/>
           </item>
           <item>
            <spacer name="verticalSpacer_2">
@@ -132,7 +132,7 @@ font-size: 15px;
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="okButton">
           <property name="text">
            <string>OK</string>
           </property>

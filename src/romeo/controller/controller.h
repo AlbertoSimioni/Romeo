@@ -12,6 +12,7 @@
 
 #include<QObject>
 #include<src/romeo/view/viewmanager.h>
+#include<src/romeo/model/core/modelcore.h>
 
 namespace romeo {
 namespace controller{
@@ -40,6 +41,11 @@ public slots:
     void viewNewFeatureDialog();
     void viewAlgorithmsListDialog();
     void viewFeaturesListDialog();
+    /*!
+     * \brief Controlla se il nome del protocollo passato in input è già impegnato e in caso si preoccupa di
+     * di far visualizzare un messaggio di errore sul wizard di creazione di un protocollo
+     */
+    void checkProtocolName(QString protocolName);
 
 private:
     /*!
@@ -60,6 +66,7 @@ private:
      * l'apertura delle finestre di dialogo
      */
     romeo::view::ViewManager* viewManager;
+    romeo::model::core::ModelCore* modelCore;
 };
 }}
 #endif // CONTROLLER_H

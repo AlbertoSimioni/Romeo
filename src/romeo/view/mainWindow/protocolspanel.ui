@@ -101,12 +101,12 @@ QLabel{color:white}</string>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_2">
               <item>
-               <widget class="QToolButton" name="toolButton">
+               <widget class="QToolButton" name="newButton">
                 <property name="text">
                  <string>New</string>
                 </property>
@@ -121,7 +121,7 @@ QLabel{color:white}</string>
                </widget>
               </item>
               <item>
-               <widget class="QToolButton" name="toolButton_2">
+               <widget class="QToolButton" name="deleteButton">
                 <property name="text">
                  <string>Delete</string>
                 </property>
@@ -151,7 +151,7 @@ QLabel{color:white}</string>
              </layout>
             </item>
             <item>
-             <widget class="QListWidget" name="listWidget">
+             <widget class="QListWidget" name="protocolsList">
               <item>
                <property name="text">
                 <string>Protocol 1</string>
@@ -166,7 +166,7 @@ QLabel{color:white}</string>
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout">
@@ -193,7 +193,7 @@ QLabel{color:white}</string>
              </layout>
             </item>
             <item>
-             <widget class="QTextBrowser" name="textBrowser">
+             <widget class="QTextBrowser" name="descriptionText">
               <property name="html">
                <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;

@@ -7,8 +7,8 @@ SubjectsPanel::SubjectsPanel(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->treeWidget->setColumnCount(3);
-    ui->treeWidget->setHeaderLabels(QStringList()<< "Name"<<"Data"<<"Mask");
+    ui->subjectsList->setColumnCount(3);
+    ui->subjectsList->setHeaderLabels(QStringList()<< "Name"<<"Data"<<"Mask");
     AddRoot("Subject 1","image.png","mask1.png");
     AddRoot("Subject 2","data.jpg","mask.jpg");
     AddRoot("Subject 3","ann_o.bmp","0.bmp");
@@ -21,7 +21,7 @@ SubjectsPanel::~SubjectsPanel(){
 }
 void SubjectsPanel::AddRoot(QString name, QString dataFileName, QString maskFileName){
 
-    QTreeWidgetItem *itm =new QTreeWidgetItem(ui->treeWidget);
+    QTreeWidgetItem *itm =new QTreeWidgetItem(ui->subjectsList);
     itm->setText(0,name);
     itm->setText(1,dataFileName);
     itm->setText(2,maskFileName);

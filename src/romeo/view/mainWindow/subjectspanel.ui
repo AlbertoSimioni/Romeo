@@ -94,7 +94,7 @@ font-weight: bold;
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
-           <widget class="QToolButton" name="toolButton">
+           <widget class="QToolButton" name="newButton">
             <property name="text">
              <string>New</string>
             </property>
@@ -109,7 +109,7 @@ font-weight: bold;
            </widget>
           </item>
           <item>
-           <widget class="QToolButton" name="toolButton_2">
+           <widget class="QToolButton" name="deleteButton">
             <property name="toolTipDuration">
              <number>3</number>
             </property>
@@ -127,7 +127,7 @@ font-weight: bold;
            </widget>
           </item>
           <item>
-           <widget class="QToolButton" name="toolButton_3">
+           <widget class="QToolButton" name="associateButton">
             <property name="text">
              <string>Associate</string>
             </property>
@@ -157,7 +157,7 @@ font-weight: bold;
          </layout>
         </item>
         <item>
-         <widget class="QTreeWidget" name="treeWidget">
+         <widget class="QTreeWidget" name="subjectsList">
           <column>
            <property name="text">
             <string notr="true">1</string>

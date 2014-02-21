@@ -8,9 +8,13 @@ ProtocolDialog::ProtocolDialog(QWidget *parent) :
     ui->setupUi(this);
     ui->errorLabel->setHidden(true);
     ui->Wizard->setCurrentIndex(0);
-   // connect(ui)
-
-
+    connect(ui->next1,SIGNAL(clicked()),this,SLOT(nextStep()));
+    connect(ui->next2,SIGNAL(clicked()),this,SLOT(nextStep()));
+    connect(ui->protocolLineEdit,SIGNAL(textChanged(QString)),this,SIGNAL(nameChanged(QString)));
+    connect(ui->featuresList,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(addFeature(QListWidgetItem*)));
+    connect(ui->addButton,SIGNAL(clicked()),this,SLOT(addButtonClicked()));
+    connect(ui->removeButton,SIGNAL(clicked()),this,SLOT(removeButtonClicked()));
+    connect(ui->protocolFeaturesList,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(removeFeature(QListWidgetItem*)));
 }
 
 ProtocolDialog::~ProtocolDialog()
@@ -18,11 +22,44 @@ ProtocolDialog::~ProtocolDialog()
     delete ui;
 }
 
-void ProtocolDialog::showErrorName(bool flag){
-    ui->errorLabel->setHidden(flag);
+void ProtocolDialog::showErrorName(bool show){
+    if(!show){
+        ui->errorLabel->setHidden(true);
+        ui->next1->setEnabled(true);
+    }
+    else{
+        ui->errorLabel->setHidden(false);
+        ui->next1->setEnabled(false);
+    }
 }
 
 
 void ProtocolDialog::nextStep(){
-   // ui->Wizard->
+   int currentIndex = ui->Wizard->currentIndex();
+   if(currentIndex < 2)
+       ui->Wizard->setCurrentIndex(currentIndex+1);
+}
+
+void ProtocolDialog::addFeature(QListWidgetItem *item){
+    bool stop = false;
+    for(int i =0; i< (ui->protocolFeaturesList->count()) && (!stop);i++){
+        if(ui->protocolFeaturesList->item(i)->text() == item->text())
+            stop = true;
+    }
+    if(!stop)
+        ui->protocolFeaturesList->addItem(item->clone());
+}
+
+
+void ProtocolDialog::removeFeature(QListWidgetItem *item){
+    delete item;
+}
+
+void ProtocolDialog::addButtonClicked(){
+    addFeature(ui->featuresList->selectedItems().at(0));
+}
+
+
+void ProtocolDialog::removeButtonClicked(){
+    removeFeature(ui->protocolFeaturesList->selectedItems().at(0));
 }

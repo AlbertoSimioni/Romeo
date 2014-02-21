@@ -42,7 +42,7 @@ border-radius: 8px;
    <item row="0" column="0">
     <widget class="QStackedWidget" name="Wizard">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page">
       <layout class="QGridLayout" name="gridLayout_8">
@@ -476,7 +476,31 @@ font-size: 15px;
                </widget>
               </item>
               <item>
-               <widget class="QTableWidget" name="featuresTable"/>
+               <widget class="QListWidget" name="featuresList">
+                <property name="mouseTracking">
+                 <bool>false</bool>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>asf</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>ASF</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>New GGG</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>DGDG</string>
+                 </property>
+                </item>
+               </widget>
               </item>
              </layout>
             </item>
@@ -496,14 +520,14 @@ font-size: 15px;
                </spacer>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_3">
+               <widget class="QPushButton" name="addButton">
                 <property name="text">
                  <string>Add</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="pushButton_4">
+               <widget class="QPushButton" name="removeButton">
                 <property name="text">
                  <string>Remove</string>
                 </property>
@@ -534,7 +558,7 @@ font-size: 15px;
                </widget>
               </item>
               <item>
-               <widget class="QTableWidget" name="protocolFeaturesTable"/>
+               <widget class="QListWidget" name="protocolFeaturesList"/>
               </item>
               <item>
                <widget class="QGroupBox" name="groupBox_6">

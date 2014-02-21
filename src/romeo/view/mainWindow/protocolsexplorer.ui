@@ -59,7 +59,7 @@
       <item row="1" column="0">
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QListWidget" name="listWidget_2">
+         <widget class="QListWidget" name="protocolsTable">
           <property name="alternatingRowColors">
            <bool>false</bool>
           </property>
