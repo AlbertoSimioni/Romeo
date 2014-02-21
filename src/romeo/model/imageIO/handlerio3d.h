@@ -25,7 +25,21 @@ namespace imageIO{
 class HandlerIO3D : public HandlerIO
 {
 public:
+    /*!
+     * \brief Metodo statico che ritorna l'istanza del HandlerIO3D, in caso sia la prima volta ad essere invocato
+     *  si preoccupa anche di costruire l'istanza.
+     */
+    static HandlerIO3D* getInstance();
+
+private:
+    /*!
+     * \brief Costruttore privato, poiché la classe HandlerIO3D implementa il design pattern singleton
+     */
     HandlerIO3D();
+    /*!
+     * \brief Campo dati statico che contiene il riferimento all'unica istanza di HandlerIO3D
+     */
+    static HandlerIO3D* instance;
 };
 }}}
 #endif // HANDLERIO3D_H

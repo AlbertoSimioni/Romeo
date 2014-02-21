@@ -22,7 +22,7 @@ namespace datasets{
 class AbstractSubject
 {
 public:
-    AbstractSubject(){} //da eliminare
+    AbstractSubject(){} // TODO da eliminare
     /*!
      * \brief Costruisce un suovo soggetto con il nome indicato
      ** Utilizza i percorsi indicati per inserire nel subject i file di immagine e subject
@@ -40,9 +40,14 @@ public:
      */
     QString getMask();
     /*!
+     * \brief Ritorna il nome del subject per identificarlo all'interno di un dataset
+     */
+    QString getName() const;
+    /*!
      * \brief Ritorna il tipo del subject sotto forma di QString. I tipi possibili sono "2D", "2DT", "3D" e "3DT" e dipendono dal tipo dinamico del subject
      */
     virtual QString getType()=0;
+
 private:
     /*!
      * \brief name Nome del subject

@@ -27,13 +27,23 @@ namespace algorithms{
 class Hierarchical : public AbstractAlgorithm
 {
 public:
-    Hierarchical();
+    /*!
+     * \brief Metodo statico che ritorna l'istanza dello Hierarchical, in caso sia la prima volta ad essere invocato
+     *  si preoccupa anche di costruire l'istanza.
+     */
+    static Hierarchical* getInstance();
 
     /*!
      * \brief Implementazione del metodo virtuale pure presente in AbstractAlgorithm, eseguendo
      * l'algoritmo Hierarchical, utilizza l'algoritmo presente nella libreria C Cluster.
      */
-    //virtual bool execute(double **data, int *mask, int nrows, int ncols, int *clusterid, QVector<QString> parameters);
+    //virtual bool execute(double **data, int *mask, int nrows, int ncols, int *clusterid, QList<QString> parameters);
+private:
+    Hierarchical();
+    /*!
+     * \brief Campo dati statico che contiene il riferimento all'unica istanza di Hierarchical
+     */
+    static Hierarchical* instance;
 };
 }}}}
 #endif // HIERARCHICAL_H

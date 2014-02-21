@@ -18,9 +18,19 @@ class Settings: QObject
 {
     Q_OBJECT
 public:
-    Settings *getInstance(QObject* parent);
+    /*!
+     * \brief Metodo statico che ritorna l'istanza Settings, in caso sia la prima volta ad essere invocato
+     *  si preoccupa anche di costruire l'istanza.
+     */
+    static Settings *getInstance(QObject* parent);
 private:
+    /*!
+     * \brief Costruttore privato, poiché la classe Settings implementa il design pattern singleton
+     */
     Settings(QObject* parent=0);
+    /*!
+     * \brief Campo dati statico che contiene il riferimento all'unica istanza di Settings
+     */
     static Settings* instance;
 
 signals:

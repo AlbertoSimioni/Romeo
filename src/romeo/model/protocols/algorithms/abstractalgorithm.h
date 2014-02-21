@@ -10,7 +10,7 @@
 #ifndef ABSTRACTALGORITHM_H
 #define ABSTRACTALGORITHM_H
 #include <QString>
-#include <QVector>
+#include <QList>
 
 namespace romeo {
 namespace model {
@@ -60,7 +60,7 @@ private:
     /*!
      * \brief  Contiene tutti i parametri di un algoritmo di clustering che l'utente può modificare
      */
-    QVector<AlgorithmParameter> parameters;
+    QList<AlgorithmParameter> parameters;
 
     /*!
      * \brief  Nome identificativo dell'algoritmo di clustering
@@ -73,7 +73,7 @@ private:
     QString description;
 
 public:
-    //AbstractAlgorithm(QVector<AlgorithmParameter> p, QString n, QString d);
+    //AbstractAlgorithm(QList<AlgorithmParameter> p, QString n, QString d);
     /*!
      * \brief Metodo che esegue l'algoritmo di clustering s
      * \param data RawData su cui effettuare l'algoritmo di clustering ha dimensioni nrows x ncols
@@ -85,7 +85,7 @@ public:
      * \param parameters Vettore contenente i parametri definibili dall'utente, che variano per ogni algoritmo
      * \return Ritorna true se le analisi sono state eseguite correttamente altrimenti ritorna false
      */
-    virtual bool execute(double** data, int* mask, int nrows, int ncols,int* clusterid, QVector<QString> parameters) =0 ;
+    virtual bool execute(double** data, int* mask, int nrows, int ncols,int* clusterid, QList<QString> parameters) =0 ;
 
     /*!
      * \brief Metodo che ritorna la descrizione dell'algoritmo.

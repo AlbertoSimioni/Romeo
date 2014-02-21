@@ -13,7 +13,7 @@
 
 #include <src/romeo/model/protocols/abstractprotocol.h>
 #include "src/romeo/model/inputformats.h"
-
+#include <src/romeo/model/protocols/abstractprotocol.h>
 
 
 #ifndef ABSTRACTDATASET_H
@@ -69,7 +69,9 @@ public:
     /*!
      * \brief Ritorna i subject collegati al dataset sotto forma di lista di QString
      */
-    QVector<QString> getSubjectList();
+    QList<QString> getSubjectList();
+
+    bool execute(protocols::AbstractProtocol* alg, QList<QString> selectedSubjects);
 
 signals:
     /*!
@@ -85,7 +87,7 @@ private:
     /*!
      * \brief Una hashmap che contiene i subject collegati al dataset e i risultati dei protocolli a loro legati
      */
-    QHash<AbstractSubject*, QVector<Result*> >  results;
+    QHash<AbstractSubject*, QList<Result*> >  results;
 };
 }}}
 #endif // ABSTRACTDATASET_H

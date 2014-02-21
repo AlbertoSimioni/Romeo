@@ -22,7 +22,21 @@ namespace core{
 class Writer
 {
 public:
+    /*!
+     * \brief Metodo statico che ritorna l'istanza del Writer, in caso sia la prima volta ad essere invocato
+     *  si preoccupa anche di costruire l'istanza.
+     */
+    static Writer* getInstance();
+private:
+    /*!
+     * \brief Costruttore privato, poiché la classe Writer implementa il design pattern singleton
+     */
     Writer();
+
+    /*!
+     * \brief Campo dati statico che contiene il riferimento all'unica istanza del Writer
+     */
+    static Writer* instance;
 };
 
 

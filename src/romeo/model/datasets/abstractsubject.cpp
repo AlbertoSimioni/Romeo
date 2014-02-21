@@ -13,3 +13,9 @@ QString AbstractSubject::getMask()
 {
     return mask;
 }
+QString AbstractSubject::getName() const
+{
+    return name;
+}
+
+

@@ -27,15 +27,24 @@ namespace algorithms{
 class FuzzyCMeans : public AbstractAlgorithm
 {
 public:
-
-
+    /*!
+     * \brief Metodo statico che ritorna l'istanza del FuzzyCMeans, in caso sia la prima volta ad essere invocato
+     *  si preoccupa anche di costruire l'istanza.
+     */
+    static FuzzyCMeans* getInstance();
+    //virtual bool execute(double **data, int *mask, int nrows, int ncols, int *clusterid, QList<QString> parameters);
+private:
     FuzzyCMeans();
-
     /*!
      * \brief Implementazione del metodo virtuale pure presente in AbstractAlgorithm, eseguendo
      * l'algoritmo Fuzzy C-Means, utilizza l'algoritmo presente nella libreria C Cluster.
      */
-    //virtual bool execute(double **data, int *mask, int nrows, int ncols, int *clusterid, QVector<QString> parameters);
+
+    /*!
+     * \brief Campo dati statico che contiene il riferimento all'unica istanza del FuzzyCMeans
+     */
+    static FuzzyCMeans* instance;
+
 };
 }}}}
 #endif // FUZZYCMEANS_H

@@ -43,7 +43,7 @@ public:
      * \param features è il vettore contenente i nomi delle feature da inserire
      * \param tipo indica se è un protocollo statico o dinamico, di default STATICO
      */
-    void addProtocol(QString &nome, QString &algorithm, QVector<QString> &features, AbstractProtocol::TipoProtocollo tipo=AbstractProtocol::STATICO);
+    void addProtocol(QString &nome, QString &algorithm, QList<QString> &features, AbstractProtocol::TipoProtocollo tipo=AbstractProtocol::STATICO);
 
     /*!
      * \brief Ritorna il riferimento al protocollo con nome uguale al parametro name
@@ -62,7 +62,7 @@ private:
     /*!
      * \brief Il vettore contiene la lista dei protocolli creati dall'utente
      */
-    QVector<protocols::AbstractProtocol*> protocolsList;
+    QList<protocols::AbstractProtocol*> protocolsList;
 };
 }}}
 

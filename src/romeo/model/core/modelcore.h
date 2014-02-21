@@ -32,39 +32,110 @@ class ModelCore : QObject
 {
     Q_OBJECT
 public:
+    /*!
+     * \brief Metodo statico che ritorna l'istanza del ModelCore, in caso sia la prima volta ad essere invocato
+     *  si preoccupa anche di costruire l'istanza.
+     * \param parent Indica al ModelCore il suo QObject parent con cui viene costruito.
+     */
     static ModelCore* getInstance(QObject* parent=0);
-    bool loadData();
+    /*!
+     * \brief Ritorna la lista dei dataset.
+     */
     datasets::DatasetsList *getDatasetsList() const;
+    /*!
+     * \brief Ritorna la lista dei protocolli.
+     */
     protocols::ProtocolsList *getProtocolsList() const;
+    /*!
+     * \brief Ritorna la lista degli algoritmi.
+     */
     protocols::algorithms::AlgorithmsList *getAlgorithmsList() const;
+    /*!
+     * \brief Ritorna la lista delle feature.
+     */
     protocols::features::FeaturesList *getFeaturesList() const;
 
 
 private:
+    /*!
+     * \brief Costruttore privato, poiché la classe ModelCore implementa il design pattern singleton
+     */
     ModelCore(QObject* parent=0);
 
+
+    bool loadData(QDir& file);
+    /*!
+     * \brief Metodo interno di ModelCore che si occupa di creare la lista dei dataset utilizzando il modulo Loader per caricare il file che contiene il database.
+     */
+    datasets::DatasetsList* createDatasetList();
+    /*!
+     * \brief Metodo interno di ModelCore che si occupa di creare la lista dei protocolli utilizzando il modulo Loader per caricare il file che contiene il database.
+     */
+    protocols::ProtocolsList* createProtocolList();
+    /*!
+     * \brief Metodo interno di ModelCore che si occupa di creare la lista degli algoritmi utilizzando il modulo Loader per caricare il file che contiene il database.
+     */
+    protocols::algorithms::AlgorithmsList* createAlgorithmList();
+    /*!
+     * \brief Metodo interno di ModelCore che si occupa di creare la lista delle feature utilizzando il modulo Loader per caricare il file che contiene il database.
+     */
+    protocols::features::FeaturesList* createFeatureList();
+
+    /*!
+     * \brief Campo dati statico che contiene il riferimento all'unica istanza del controller.
+     */
     static ModelCore* instance;
+    /*!
+     * \brief Campo privato che contiene la posizione nel file system del file che conntiene i dati dell'applicazione.
+     */
     QDir databaseFile;
+    /*!
+     * \brief Contiene la lista dei percorsi ai file che hanno le informazioni sui dataset in uso.
+     */
     QHash<QString, QDir> datasetsFiles;
-
-
-    datasets::DatasetsList* createDatasetList(Loader* loader);
-    protocols::ProtocolsList* createProtocolList(Loader* loader);
-    protocols::algorithms::AlgorithmsList* createAlgorithmList(Loader* loader);
-    protocols::features::FeaturesList* createFeatureList(Loader* loader);
-
+    /*!
+     * \brief Puntatore alla lista dei dataset.
+     */
     datasets::DatasetsList* datasetsList;
+    /*!
+     * \brief Puntatore alla lista dei protocolli.
+     */
     protocols::ProtocolsList* protocolsList;
+    /*!
+     * \brief Puntatore alla lista degli algoritmi.
+     */
     protocols::algorithms::AlgorithmsList* algorithmsList;
+    /*!
+     * \brief Puntatore alla lista delle features.
+     */
     protocols::features::FeaturesList* featuresList;
 
-    imageIO::HandlerIO io2D;
-    imageIO::HandlerIO io3D;
+    /*!
+     * \brief Campo dati che contiene un puntatore al modulo che gestisce il caricamento e il salvataggio delle immagini 2D
+     */
+    imageIO::HandlerIO* io2D;
+    /*!
+     * \brief Campo dati che contiene un puntatore al modulo che gestisce il caricamento e il salvataggio delle immagini 3D
+     */
+    imageIO::HandlerIO* io3D;
 
 public slots:
+    /*!
+     * \brief Slot pubblico che viene chiamato ogni qualvolta sia stato effettuato un cambiamento nei datasets, questa funzione si assicura di aggiornare il file di database che contiene i dataset per mantenerlo consistente con i dati del programma.
+     */
     bool saveDatasetsList();
+    /*!
+     * \brief Slot pubblico che viene chiamato ogni qualvolta sia stato effettuato un cambiamento nei protocolli, questa funzione si assicura di aggiornare il file di database che contiene i protocolli per mantenerlo consistente con i dati del programma.
+     */
     bool saveProtocolsList();
+
+    /*!
+     * \brief Slot pubblico che viene chiamato ogni qualvolta sia stato effettuato un cambiamento negli algoritmi, questa funzione si assicura di aggiornare il file di database che contiene gli algoritmi per mantenerlo consistente con i dati del programma.
+     */
     bool saveAlgorithmsList();
+    /*!
+     * \brief Slot pubblico che viene chiamato ogni qualvolta sia stato effettuato un cambiamento nelle feature, questa funzione si assicura di aggiornare il file di database che contiene le feature per mantenerlo consistente con i dati del programma.
+     */
     bool saveFeaturesList();
 };
 

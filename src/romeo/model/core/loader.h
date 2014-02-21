@@ -22,7 +22,20 @@ namespace core{
 class Loader
 {
 public:
+    /*!
+     * \brief Metodo statico che ritorna l'istanza del Loader, in caso sia la prima volta ad essere invocato
+     *  si preoccupa anche di costruire l'istanza.
+     */
+    static Loader* getInstance();
+private:
+    /*!
+     * \brief Costruttore privato, poiché la classe Loader implementa il design pattern singleton
+     */
     Loader();
+    /*!
+     * \brief Campo dati statico che contiene il riferimento all'unica istanza del Loader
+     */
+    static Loader* instance;
 };
 
 
