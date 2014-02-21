@@ -71,6 +71,11 @@ public:
      */
     QVector<QString> getSubjectList();
 
+signals:
+    /*!
+     * \brief Segnale che indica una modifica al ad un dataset
+     */
+    void datasetListModified();
 
 private:
     /*!

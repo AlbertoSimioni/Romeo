@@ -84,6 +84,7 @@ SET(romeo_SOURCES
  src/romeo/view/viewmanager.cpp
  src/romeo/view/dialogs/featureslistdialog.cpp
  src/romeo/view/dialogs/algorithmslistdialog.cpp
+ src/romeo/model/inputformats.h
 )
 SET(romeo_HEADERS
  src/romeo/view/dialogs/addsubjectdialog.h

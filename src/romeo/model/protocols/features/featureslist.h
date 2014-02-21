@@ -28,12 +28,6 @@ class FeaturesList : public QObject
 {
     Q_OBJECT
 
-private:
-    /*!
-     * \brief Il vettore contiene la lista delle feature presenti nel programma
-     */
-    //QVector<AbstractFeature*> features;
-
 public:
     explicit FeaturesList(QObject *parent = 0);
 
@@ -50,8 +44,15 @@ public:
     void addFeature(AbstractFeature* aa);
 
 signals:
-
-public slots:
+    /*!
+     * \brief Segnale che indica una modifica alla lista delle feature
+     */
+    void featureListModified();
+private:
+    /*!
+     * \brief Il vettore contiene la lista delle feature presenti nel programma
+     */
+    //QVector<AbstractFeature*> features;
 
 };
 }}}}

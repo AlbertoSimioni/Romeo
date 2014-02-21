@@ -25,6 +25,11 @@ class DatasetsList
 {
 public:
     DatasetsList();
+signals:
+    /*!
+     * \brief Segnale che indica una modifica avvenuta sulla lista dei dataset
+     */
+    void datasetListModified();
 };
 }}}
 #endif // DATASETSLIST_H

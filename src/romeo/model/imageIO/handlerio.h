@@ -8,7 +8,7 @@
 
 #ifndef HANDLERIO_H
 #define HANDLERIO_H
-
+#include "../../../romeo/model/inputformats.h"
 namespace romeo {
 namespace model {
 namespace imageIO{
@@ -23,6 +23,7 @@ class HandlerIO
 {
 public:
     HandlerIO();
+    InputFormat2D a;
 };
 }}}
 #endif // HANDLERIO_H

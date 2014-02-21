@@ -26,11 +26,6 @@ namespace algorithms{
 class AlgorithmsList: public QObject
 {
     Q_OBJECT
-private:
-    /*!
-     * \brief Il vettore contiene la lista degli algoritmi presenti nel programma
-     */
-    QVector<AbstractAlgorithm*> algorithms;
 public:
 
     explicit AlgorithmsList(QObject *parent = 0);
@@ -45,6 +40,16 @@ public:
      * \brief Aggiunge alla lista degli algoritmi, l'algoritmo passato per riferimento
      */
     void addAlgorithm(AbstractAlgorithm* aa);
+signals:
+    /*!
+     * \brief Segnale che indica una modifica alla lista degli algoritmi
+     */
+    void protocolListModified();
+private:
+    /*!
+     * \brief Il vettore contiene la lista degli algoritmi presenti nel programma
+     */
+    QVector<AbstractAlgorithm*> algorithms;
 };
 }}}}
 #endif // ALGORITHMSLIST_H

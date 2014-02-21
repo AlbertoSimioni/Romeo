@@ -16,6 +16,12 @@ class Settings
 {
 public:
     Settings();
+
+//signals:
+    /*!
+     * \brief Segnale che indica che uno o più parametri dell'applicazione sono cambiati
+     */
+    void settingsModified();
 };
 
 }

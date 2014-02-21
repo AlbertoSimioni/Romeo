@@ -51,6 +51,13 @@ public:
      * \return Riferimento al protocollo
      */
     AbstractProtocol* getProtocol(QString name);
+
+signals:
+    /*!
+     * \brief Segnale che indica che è avvenuta una modifica nella lista dei protocolli
+     */
+    void protocolListModified();
+
 private:
     /*!
      * \brief Il vettore contiene la lista dei protocolli creati dall'utente
