@@ -30,6 +30,9 @@ signals:
     void openNewDatasetDialog();
     void openNewPortocolDialog();
     void openNewAlgorithmDialog();
+    void openNewFeatureDialog();
+    void openFeaturesListDialog();
+    void openAlgorithmsListDialog();
 
 
 

@@ -1,3 +1,12 @@
+/**
+* \file featureslistdialog.h
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe FeaturesListDialog del package romeo::view::dialogs
+*/
+
+
 #ifndef FEATURESLISTDIALOG_H
 #define FEATURESLISTDIALOG_H
 
@@ -6,6 +15,11 @@
 namespace Ui {
 class FeaturesListDialog;
 }
+
+namespace romeo {
+namespace view {
+namespace dialogs {
+
 
 class FeaturesListDialog : public QDialog
 {
@@ -18,5 +32,5 @@ public:
 private:
     Ui::FeaturesListDialog *ui;
 };
-
+}}}
 #endif // FEATURESLISTDIALOG_H

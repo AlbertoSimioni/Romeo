@@ -20,7 +20,9 @@ MainWindow::~MainWindow()
 void MainWindow::connectActionsToSignal(){
     connect(ui->actionNew_Dataset,SIGNAL(triggered()),this,SIGNAL(openNewDatasetDialog()));
     connect(ui->actionNewProtocol,SIGNAL(triggered()),this,SIGNAL(openNewPortocolDialog()));
-
-
+    connect(ui->actionAdd_Algorithm,SIGNAL(triggered()),this,SIGNAL(openNewAlgorithmDialog()));
+    connect(ui->actionAdd_Feature,SIGNAL(triggered()),this,SIGNAL(openNewFeatureDialog()));
+    connect(ui->actionAlgorithms_List,SIGNAL(triggered()),this,SIGNAL(openAlgorithmsListDialog()));
+    connect(ui->actionFeatures_List,SIGNAL(triggered()),this,SIGNAL(openFeaturesListDialog()));
 }
 

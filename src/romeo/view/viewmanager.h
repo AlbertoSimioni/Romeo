@@ -61,6 +61,16 @@ private:
      */
     dialogs::ExecuteDialog* executeDialog;
 
+    /*!
+     * \brief Riferimento al dialogo per la visualizzazione della lista della feature
+     */
+    dialogs::FeaturesListDialog* featuresListDialog;
+
+    /*!
+     * \brief Riferimento al dialogo per la visualizzazione della lista degli algoritmi di clustering
+     */
+    dialogs::AlgorithmsListDialog* algorithmsListDialog;
+
     ViewManager(QObject* parent = 0);
 
 public:
@@ -102,6 +112,14 @@ public:
      * \brief Mostra il dialogo per l'inserimento di un nuovo subject
      */
     void showAddSubject();
+    /*!
+     * \brief Mostra il dialogo per la visualizzazione della lista degli algoritmi
+     */
+    void showAlgorithmsList();
+    /*!
+     * \brief Mostra il dialogo per la visualizzazione della lista delle feature
+     */
+    void showFeaturesList();
 
     /*!
      * \brief Ritorna il riferimento alla finestra principale

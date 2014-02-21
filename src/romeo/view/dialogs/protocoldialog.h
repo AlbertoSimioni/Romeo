@@ -26,6 +26,19 @@ class ProtocolDialog : public QDialog
 public:
     explicit ProtocolDialog(QWidget *parent = 0);
     ~ProtocolDialog();
+    /*!
+     * \brief Se il flag é true viene mostrato un messaggio di errore per avvertire l'utente che il nome del protocollo inserito è già utilizzato,
+     * se il flag é false nasconde il messaggio
+     */
+    void showErrorName(bool flag);
+    /*!
+     * \brief Fa avanzare il wizard al prossimo passo, se è invocato all'ultimo passo, non fa nulla
+     */
+    void nextStep();
+
+signals:
+    void checkName(QString protocolName);
+
 
 private:
     Ui::ProtocolDialog *ui;

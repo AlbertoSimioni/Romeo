@@ -37,6 +37,9 @@ public slots:
     void viewNewDatasetDialog();
     void viewNewProtocolDialog();
     void viewNewAlgorithmDialog();
+    void viewNewFeatureDialog();
+    void viewAlgorithmsListDialog();
+    void viewFeaturesListDialog();
 
 private:
     /*!

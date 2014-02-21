@@ -28,9 +28,9 @@ public:
     explicit NewDatasetDialog(QWidget *parent = 0);
     ~NewDatasetDialog();
     /*!
-     * \brief Mostra il messaggio di errore per avvertire l'utente che il nome del dataset inserito è già utilizzato.
+     * \brief Mostra un messaggio di errore per avvertire l'utente che il nome del dataset inserito è già utilizzato.
      */
-    void showError();
+    void showErrorName();
 
 private:
     Ui::NewDatasetDialog *ui;

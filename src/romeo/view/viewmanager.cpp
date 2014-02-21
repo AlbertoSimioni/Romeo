@@ -17,6 +17,8 @@ ViewManager::ViewManager(QObject *parent): QObject(parent)
    newAlgorithmDialog = new NewAlgorithmDialog(mainWindow);
    newFeatureDialog = new NewFeatureDialog(mainWindow);
    addSubjectDialog = new AddSubjectDialog (mainWindow);
+   featuresListDialog  = new FeaturesListDialog(mainWindow);
+   algorithmsListDialog = new AlgorithmsListDialog(mainWindow);
 
    mainWindow->show();
 }
@@ -95,4 +97,14 @@ void ViewManager::showNewFeature(){
 
 void ViewManager::showAddSubject(){
     addSubjectDialog->exec();
+}
+
+
+void ViewManager::showAlgorithmsList(){
+    algorithmsListDialog->exec();
+}
+
+
+void ViewManager::showFeaturesList(){
+    featuresListDialog->exec();
 }
