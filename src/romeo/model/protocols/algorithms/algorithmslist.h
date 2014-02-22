@@ -29,6 +29,7 @@ class AlgorithmsList: public QObject
 public:
 
     explicit AlgorithmsList(QObject *parent = 0);
+    static AlgorithmsList* getInstance(QObject *parent=0);
     /*!
      * \brief Inserisce nella lista degli algoritmi un nuovo algoritmo di clustering con i parametri passati.
      * \param name Nome dell'algoritmo di clustering da inserire
@@ -50,6 +51,7 @@ private:
      * \brief Il vettore contiene la lista degli algoritmi presenti nel programma
      */
     QList<AbstractAlgorithm*> algorithms;
+    static AlgorithmsList* instance;
 };
 }}}}
 #endif // ALGORITHMSLIST_H

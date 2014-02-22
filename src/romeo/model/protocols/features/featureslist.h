@@ -30,6 +30,7 @@ class FeaturesList : public QObject
 
 public:
     explicit FeaturesList(QObject *parent = 0);
+    static FeaturesList* getInstance(QObject *parent=0);
 
     /*!
      * \brief Inserisce nella lista dei protocolli un nuovo protocollo definito dai parametri passati
@@ -53,6 +54,7 @@ private:
      * \brief Il vettore contiene la lista delle feature presenti nel programma
      */
     //QList<AbstractFeature*> features;
+    static FeaturesList* instance;
 
 };
 }}}}
