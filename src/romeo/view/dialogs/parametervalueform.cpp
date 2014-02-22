@@ -2,12 +2,14 @@
 #include "ui_parametervalueform.h"
 using namespace romeo::view::dialogs;
 using namespace romeo::model::protocols::algorithms;
-ParameterValueForm::ParameterValueForm(AbstractAlgorithm::AlgorithmParameter* parameter,QWidget *parent) :
+ParameterValueForm::ParameterValueForm(AbstractAlgorithm::AlgorithmParameter parameter,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ParameterValueForm)
 {
-    ui->nameLabel->setText(parameter->getName());
-    type = parameter->getType();
+    ui->setupUi(this);
+
+    ui->nameLabel->setText(parameter.getName());
+    type = parameter.getType();
     QString stringType = QString();
     if(type == AbstractAlgorithm::BOOL)
         stringType = "Boolean";
@@ -19,8 +21,7 @@ ParameterValueForm::ParameterValueForm(AbstractAlgorithm::AlgorithmParameter* pa
         stringType = "Integer";
 
     ui->typeLabel->setText(stringType);
-    ui->valueLineEdit->setText(parameter->getDefaultParameter());
-    ui->setupUi(this);
+    ui->valueLineEdit->setText(parameter.getDefaultParameter());
 
 
     connect(ui->valueLineEdit,SIGNAL(textChanged(QString)),this,SLOT(checkValidity(QString)));

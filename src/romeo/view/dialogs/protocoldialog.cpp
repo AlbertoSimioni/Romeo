@@ -1,19 +1,25 @@
 #include "protocoldialog.h"
 #include "ui_protocoldialog.h"
+#include <QList>
 
+using namespace romeo::model::protocols::algorithms;
 using namespace romeo::view::dialogs;
+
+
 ProtocolDialog::ProtocolDialog(
-        //model::protocols::algorithms::AlgorithmsList *al,
-        //model::protocols::features::FeaturesList *fl,
+        model::protocols::algorithms::AlgorithmsList *al,
+        model::protocols::features::FeaturesList *fl,
         QWidget *parent) :
-    QDialog(parent),
-    //featuresList(fl),
-    //algorithmsList(al),
-    ui(new Ui::ProtocolDialog)
+        QDialog(parent),
+        featuresList(fl),
+        algorithmsList(al),
+        ui(new Ui::ProtocolDialog)
 {
     ui->setupUi(this);
     ui->errorLabel->setHidden(true);
     ui->Wizard->setCurrentIndex(0);
+    fillAlgorithmsCombo();
+    changeParametersForm();
     connectUI();
 
 }
@@ -118,3 +124,36 @@ void ProtocolDialog::reject(){
 }
 
 
+
+void ProtocolDialog::fillFeaturesList(){
+
+}
+
+
+void ProtocolDialog::fillAlgorithmsCombo(){
+    QList<AbstractAlgorithm*> algorithms = algorithmsList->getAlgorithmsList();
+    for(int i = 0; i < algorithms.size(); i++){
+        ui->AlgorithmCombo->addItem(algorithms[i]->getName());
+    }
+}
+
+
+
+
+void ProtocolDialog::changeParametersForm(){
+
+    while(!parameters.isEmpty()){
+        delete parameters.takeFirst();
+    }
+
+    AbstractAlgorithm* algorithm= algorithmsList->getAlgorithm(ui->AlgorithmCombo->currentText());
+    if(algorithm){
+    QList<AbstractAlgorithm::AlgorithmParameter> param = algorithm->getParameters();
+    while(!(param.isEmpty())){
+        ParameterValueForm* parameterForm = new ParameterValueForm(param.takeFirst(),this);
+        ui->parameterLayout->addWidget(parameterForm);
+
+        parameters.append(parameterForm);
+    }
+    }
+}

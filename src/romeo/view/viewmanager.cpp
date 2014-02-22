@@ -12,7 +12,7 @@ ViewManager::ViewManager(QObject *parent): QObject(parent)
 {
     mainWindow = new MainWindow();//controllare per il parent
     newDatasetDialog = new NewDatasetDialog(mainWindow);
-    protocolDialog = new ProtocolDialog(mainWindow);
+
    executeDialog = new ExecuteDialog(mainWindow);
    newAlgorithmDialog = new NewAlgorithmDialog(mainWindow);
    newFeatureDialog = new NewFeatureDialog(mainWindow);

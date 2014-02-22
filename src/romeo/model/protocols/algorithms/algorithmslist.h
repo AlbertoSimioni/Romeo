@@ -41,6 +41,16 @@ public:
      * \brief Aggiunge alla lista degli algoritmi, l'algoritmo passato per riferimento
      */
     void addAlgorithm(AbstractAlgorithm* aa);
+    /*!
+     * \brief Restituisce la lista completa degli algoritmi
+     */
+    QList<AbstractAlgorithm*> getAlgorithmsList();
+
+    /*!
+     * \brief Restituisce l'algoritmo con il nome dato in input, se non presente ritorna un puntatore nullo
+     */
+    AbstractAlgorithm* getAlgorithm(QString name);
+
 signals:
     /*!
      * \brief Segnale che indica una modifica alla lista degli algoritmi

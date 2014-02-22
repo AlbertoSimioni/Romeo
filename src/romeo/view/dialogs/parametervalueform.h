@@ -31,7 +31,7 @@ class ParameterValueForm : public QWidget
     Q_OBJECT
 
 public:
-    explicit ParameterValueForm( romeo::model::protocols::algorithms::AbstractAlgorithm::AlgorithmParameter* parameter, QWidget *parent = 0);
+    explicit ParameterValueForm( romeo::model::protocols::algorithms::AbstractAlgorithm::AlgorithmParameter parameter, QWidget *parent = 0);
     ~ParameterValueForm();
     /*!
      * \brief Ritorna il nome del parametro

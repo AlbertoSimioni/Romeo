@@ -7,6 +7,21 @@
 */
 
 
+//!!!!!!!!!!!!!!!!! CLASSE INUTILE INTANTO LA LASCIO QUA MA ANDRà ELIMINATA
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!
+//!
+//!
+//!
+//!
+//!
+//!
+//!
+//!
+//!
+//!
+//!
+//!
 #ifndef VIEWMANAGER_H
 #define VIEWMANAGER_H
 #include<src/romeo/view/mainWindow/mainwindow.h>

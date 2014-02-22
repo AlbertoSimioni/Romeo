@@ -32,12 +32,28 @@ QString AbstractAlgorithm::AlgorithmParameter::getDefaultParameter() const
 
 
 
+
+
+
 AbstractAlgorithm::AbstractAlgorithm()
 {
 
 }
 
-AbstractAlgorithm::AbstractAlgorithm(QString n, QString d): name(n), description(d)
+AbstractAlgorithm::AbstractAlgorithm(QString n,QList<AlgorithmParameter>par, QString d): name(n), parameters(par), description(d)
 {
 
 }
+
+QList<AbstractAlgorithm::AlgorithmParameter > AbstractAlgorithm::getParameters() const
+{
+    return parameters;
+}
+
+
+QString AbstractAlgorithm::getName() const
+{
+    return name;
+}
+
+

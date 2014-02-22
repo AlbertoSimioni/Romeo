@@ -26,21 +26,7 @@ namespace algorithms{
 class AbstractAlgorithm
 {
 public:
-    AbstractAlgorithm();
-    explicit AbstractAlgorithm(QString name, QString description=QString());
-    /*!
-     * \brief Tipo enumerazione che definisce i vari tipi che possono avere i parametri definiti dall'utente
-     */
     enum ParameterType{INT,CHAR,DOUBLE,BOOL};
-
-    /*!
-     * \brief The AlgorithmParameter classe che rappresenta un parametro di un algoritmo di clustering definibile
-     * dall'utente
-     *
-     *  Classe interna ad AbtractAlgorithm che rappresenta un parametro dell'algoritmo di clustering
-     *  definibile dall'utente contenente nome, tipo e valore di default del parametro.
-     */
-
     class AlgorithmParameter
     {
     public:
@@ -75,11 +61,31 @@ public:
          */
         QString defaultParameter;
     };
+
+
+
+
+    AbstractAlgorithm();
+    explicit AbstractAlgorithm(QString name,QList<AlgorithmParameter>, QString description=QString());
+    /*!
+     * \brief Tipo enumerazione che definisce i vari tipi che possono avere i parametri definiti dall'utente
+     */
+
+
+    /*!
+     * \brief The AlgorithmParameter classe che rappresenta un parametro di un algoritmo di clustering definibile
+     * dall'utente
+     *
+     *  Classe interna ad AbtractAlgorithm che rappresenta un parametro dell'algoritmo di clustering
+     *  definibile dall'utente contenente nome, tipo e valore di default del parametro.
+     */
+
+
 private:
     /*!
      * \brief  Contiene tutti i parametri di un algoritmo di clustering che l'utente può modificare
      */
-    QList<AlgorithmParameter> parameters;
+    QList<AlgorithmParameter> parameters; //ricordarsi di delete nel distruttore
 
     /*!
      * \brief  Nome identificativo dell'algoritmo di clustering
@@ -90,6 +96,7 @@ private:
      * \brief Contiene la descrizione dell'algoritmo di clustering
      */
     QString description;
+
 
 public:
     //AbstractAlgorithm(QList<AlgorithmParameter> p, QString n, QString d);
@@ -117,6 +124,15 @@ public:
      * \return
      */
     void setDescription(QString desc);
+    /*!
+     * \brief Ritorna il nome dell'algoritmo
+     */
+    QString getName() const;
+    /*!
+     * \brief Ritorna la lista dei parametri dell'algoritmo
+     */
+    QList<AlgorithmParameter> getParameters() const;
+
 };
 
 

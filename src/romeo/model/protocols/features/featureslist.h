@@ -53,7 +53,7 @@ private:
     /*!
      * \brief Il vettore contiene la lista delle feature presenti nel programma
      */
-    //QList<AbstractFeature*> features;
+    QList<AbstractFeature*> features;
     static FeaturesList* instance;
 
 };

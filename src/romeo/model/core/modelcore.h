@@ -72,6 +72,7 @@ private:
 
 
     bool loadData(QDir& file);
+
     /*!
      * \brief Metodo interno di ModelCore che si occupa di inizializzare le liste dei dati utilizzando il modulo Loader per caricare il file che contiene il database. Inoltre crea le connessioni tra i segnali di modifica e il modulo di salvataggio dei dati.
      */

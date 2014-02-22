@@ -1,28 +1,62 @@
 #include "controller.h"
 #include <src/romeo/view/mainWindow/mainwindow.h>
+
+/////////PROVA TEST
+#include <src/romeo/model/protocols/algorithms/userdefinedalgorithm.h>
+////////PROVA TEST
 using namespace romeo::controller;
 using namespace romeo::view::mainWindow;
 using namespace romeo::view;
 using namespace romeo::model::core;
-
+using namespace romeo::view::dialogs;
+using namespace romeo::model::protocols::algorithms;
 Controller* Controller::instance=0;
 
 Controller::Controller(QObject *parent): QObject(parent)
 {
     modelCore = ModelCore::getInstance(this);
-    viewManager = ViewManager::getInstance(this);
+
+
+    algorithmsList = modelCore->getAlgorithmsList();
+    featuresList = modelCore->getFeaturesList();
+
+    ////////////PROVA TEST
+    QList<AbstractAlgorithm::AlgorithmParameter> param;
+    AbstractAlgorithm::AlgorithmParameter param1 (QString("param"), AbstractAlgorithm::BOOL, QString("default"));
+    AbstractAlgorithm::AlgorithmParameter param2 (QString("param"), AbstractAlgorithm::CHAR, QString("default"));
+    param.append(param1);
+    param.append(param2);
+    AbstractAlgorithm* alg=new UserDefinedAlgorithm(param, QString("nome alg"), QString("desc"), QString("libreria"), QString("nomefunz"));
+    algorithmsList->addAlgorithm(alg);
+    ///////////////PROVA TEST
+
+    mainWindow = new MainWindow();
+    protocolDialog = new ProtocolDialog(algorithmsList,featuresList,mainWindow);
+    newDatasetDialog = new NewDatasetDialog(mainWindow);
+    newAlgorithmDialog = new NewAlgorithmDialog(mainWindow);
+
+
+    newFeatureDialog = new NewFeatureDialog(mainWindow);
+    algorithmsListDialog = new AlgorithmsListDialog(mainWindow);
+    featuresListDialog = new FeaturesListDialog(mainWindow);
+
+
     connectViewsSignals();
+    mainWindow->show();
 }
 
+Controller::~Controller(){
+    delete mainWindow;
+}
 
 void Controller::connectViewsSignals(){
-    connect(viewManager->getMainWindow(),SIGNAL(openNewDatasetDialog()),this,SLOT(viewNewDatasetDialog()));
-    connect(viewManager->getMainWindow(),SIGNAL(openNewPortocolDialog()),this,SLOT(viewNewProtocolDialog()));
-    connect(viewManager->getMainWindow(),SIGNAL(openNewAlgorithmDialog()),this,SLOT(viewNewAlgorithmDialog()));
-    connect(viewManager->getMainWindow(),SIGNAL(openAlgorithmsListDialog()),this,SLOT(viewAlgorithmsListDialog()));
-    connect(viewManager->getMainWindow(),SIGNAL(openFeaturesListDialog()),this,SLOT(viewFeaturesListDialog()));
-    connect(viewManager->getMainWindow(),SIGNAL(openNewFeatureDialog()),this,SLOT(viewNewFeatureDialog()));
-    connect(viewManager->getProtocolDialog(),SIGNAL(nameChanged(QString)),this,SLOT(checkProtocolName(QString)));
+    connect(mainWindow,SIGNAL(openNewDatasetDialog()),this,SLOT(viewNewDatasetDialog()));
+    connect(mainWindow,SIGNAL(openNewPortocolDialog()),this,SLOT(viewNewProtocolDialog()));
+    connect(mainWindow,SIGNAL(openNewAlgorithmDialog()),this,SLOT(viewNewAlgorithmDialog()));
+    connect(mainWindow,SIGNAL(openAlgorithmsListDialog()),this,SLOT(viewAlgorithmsListDialog()));
+    connect(mainWindow,SIGNAL(openFeaturesListDialog()),this,SLOT(viewFeaturesListDialog()));
+    connect(mainWindow,SIGNAL(openNewFeatureDialog()),this,SLOT(viewNewFeatureDialog()));
+    connect(protocolDialog,SIGNAL(nameChanged(QString)),this,SLOT(checkProtocolName(QString)));
 }
 
 Controller* Controller::getInstance(QObject *parent){
@@ -34,30 +68,30 @@ Controller* Controller::getInstance(QObject *parent){
 }
 
 void Controller::viewNewDatasetDialog(){
-    viewManager->showNewDataset();
+    newDatasetDialog->exec();
 }
 
 void Controller::viewNewProtocolDialog(){
-    viewManager->showNewProtocol();
+    protocolDialog->exec();
 }
 
 
 void Controller::viewNewAlgorithmDialog(){
-    viewManager->showNewAlgorithm();
+    newAlgorithmDialog->exec();
 }
 
 
 void Controller::viewNewFeatureDialog(){
-    viewManager->showNewFeature();
+    newFeatureDialog->exec();
 }
 
 
 void Controller::viewAlgorithmsListDialog(){
-    viewManager->showAlgorithmsList();
+    algorithmsListDialog->exec();
 }
 
 void Controller::viewFeaturesListDialog(){
-    viewManager->showFeaturesList();
+    featuresListDialog->exec();
 }
 
 

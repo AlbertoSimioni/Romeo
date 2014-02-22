@@ -33,11 +33,12 @@ class ProtocolDialog : public QDialog
 
 public:
     explicit ProtocolDialog(
-            //romeo::model::protocols::algorithms::AlgorithmsList* al,
-            //romeo::model::protocols::features::FeaturesList* fl,
+            romeo::model::protocols::algorithms::AlgorithmsList* al,
+            romeo::model::protocols::features::FeaturesList* fl,
             QWidget *parent = 0);
 
     ~ProtocolDialog();
+
     /*!
      * \brief Se il flag é true viene mostrato un messaggio di errore per avvertire l'utente che il nome del protocollo inserito è già utilizzato,
      * se il flag é false nasconde il messaggio
@@ -98,6 +99,13 @@ private:
      */
     void connectUI();
 
+    /*!
+     * \brief Metodo che inserisce nella lista delle feature, tutte le feature presenti nel modello
+     */
+    void fillFeaturesList();
+
+    void fillAlgorithmsCombo();
+
 
 
 private slots:
@@ -122,6 +130,12 @@ private slots:
      * Se nessuna feature è selezionata non elimina nulla
      */
     void removeButtonClicked();
+
+    /*!
+     * \brief Slot che rimpiazza la form con i parametri dell'algoritmo con i parametri dell'algoritmo selezionato nella combo box degli algoritmi
+     */
+    void changeParametersForm();
+
 };
 }}}
 #endif // PROTOCOLDIALOG_H
