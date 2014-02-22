@@ -42,7 +42,7 @@ border-radius: 8px;
    <item row="0" column="0">
     <widget class="QStackedWidget" name="Wizard">
      <property name="currentIndex">
-      <number>1</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="page">
       <layout class="QGridLayout" name="gridLayout_8">
@@ -869,7 +869,7 @@ font-size: 15px;
              </layout>
             </item>
             <item>
-             <layout class="QVBoxLayout" name="verticalLayout_4">
+             <layout class="QVBoxLayout" name="parameterLayout">
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_4">
                 <item>

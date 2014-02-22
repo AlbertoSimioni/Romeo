@@ -11,6 +11,8 @@
 
 #include <QDialog>
 #include <QListWidgetItem>
+#include <src/romeo/model/protocols/algorithms/abstractalgorithm.h>
+
 namespace Ui {
 class ProtocolDialog;
 }
@@ -35,9 +37,20 @@ public:
 
 public slots:
     /*!
-     * \brief Fa avanzare il wizard al prossimo passo, se è invocato all'ultimo passo del wizard non fa nulla
+     * \brief Fa avanzare il wizard al prossimo passo, se è invocato mentre il wizard è all'ultimo passo del wizard non fa nulla
      */
     void nextStep();
+
+    /*!
+     * \brief Fa tornare indietro il wizard al passo precedente, se invocato mentre il wizard è al primo passo non fa nulla
+     */
+    void previousStep();
+
+    /*!
+     * \brief Override del metodo reject() della classe QDialog, il metodo deve azzerare le varie form del dialogo
+     * e poi invocare il metodo reject() della classe QDialog per effettuare la chiusare del dialogo
+     */
+    virtual void reject();
 
 signals:
     /*!
@@ -48,6 +61,19 @@ signals:
 
 private:
     Ui::ProtocolDialog *ui;
+    /*!
+     * \brief Svuota tutte le form del dialogo che l'utente ha modificato
+     */
+    void resetForms();
+
+
+    /*!
+     * \brief Aggiunge alla form per di inserimento dei parametri degli algoritmi un nuovo parametro
+     * \param name Nome del parametro
+     * \param type Tipo del parametro
+     * \param defaultValue Valore di default del parametro
+     */
+    void addParameter(QString name, romeo::model::protocols::algorithms::AbstractAlgorithm::ParameterType type, QString defaultValue);
 
 private slots:
     /*!

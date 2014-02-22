@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    Controller* controller = Controller::getInstance(); // non so se viene distrutto
+    Controller* controller = Controller::getInstance();
    /* ProtocolDialog p;
     p.show();
     NewAlgorithmDialog n;

@@ -1,5 +1,7 @@
 #include "protocoldialog.h"
 #include "ui_protocoldialog.h"
+#include <QHBoxLayout>
+
 using namespace romeo::view::dialogs;
 ProtocolDialog::ProtocolDialog(QWidget *parent) :
     QDialog(parent),
@@ -10,11 +12,17 @@ ProtocolDialog::ProtocolDialog(QWidget *parent) :
     ui->Wizard->setCurrentIndex(0);
     connect(ui->next1,SIGNAL(clicked()),this,SLOT(nextStep()));
     connect(ui->next2,SIGNAL(clicked()),this,SLOT(nextStep()));
+    connect(ui->back2,SIGNAL(clicked()),this,SLOT(previousStep()));
+    connect(ui->back3,SIGNAL(clicked()),this,SLOT(previousStep()));
     connect(ui->protocolLineEdit,SIGNAL(textChanged(QString)),this,SIGNAL(nameChanged(QString)));
     connect(ui->featuresList,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(addFeature(QListWidgetItem*)));
     connect(ui->addButton,SIGNAL(clicked()),this,SLOT(addButtonClicked()));
     connect(ui->removeButton,SIGNAL(clicked()),this,SLOT(removeButtonClicked()));
     connect(ui->protocolFeaturesList,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(removeFeature(QListWidgetItem*)));
+    connect(ui->cancel1,SIGNAL(clicked()),this,SLOT(reject()));
+    connect(ui->cancel2,SIGNAL(clicked()),this,SLOT(reject()));
+    connect(ui->cancel3,SIGNAL(clicked()),this,SLOT(reject()));
+
 }
 
 ProtocolDialog::~ProtocolDialog()
@@ -40,6 +48,12 @@ void ProtocolDialog::nextStep(){
        ui->Wizard->setCurrentIndex(currentIndex+1);
 }
 
+void ProtocolDialog::previousStep(){
+       int currentIndex = ui->Wizard->currentIndex();
+       if(currentIndex > 0)
+           ui->Wizard->setCurrentIndex(currentIndex-1);
+}
+
 void ProtocolDialog::addFeature(QListWidgetItem *item){
     bool stop = false;
     for(int i =0; i< (ui->protocolFeaturesList->count()) && (!stop);i++){
@@ -62,4 +76,24 @@ void ProtocolDialog::addButtonClicked(){
 
 void ProtocolDialog::removeButtonClicked(){
     removeFeature(ui->protocolFeaturesList->selectedItems().at(0));
+}
+
+
+void ProtocolDialog::resetForms(){
+     ui->errorLabel->setHidden(true);
+     ui->protocolLineEdit->setText(QString());
+     ui->Wizard->setCurrentIndex(0);
+     ui->protocolFeaturesList->clear();
+
+}
+
+void ProtocolDialog::addParameter(QString name, romeo::model::protocols::algorithms::AbstractAlgorithm::ParameterType type, QString defaultValue){
+  /*  QHBoxLayout* hlay = new QHBoxLayout(ui->parameterLayout);
+    hlay->addChildWidget(QLabel(name));
+    hlay->addChildWidget();*/
+}
+
+void ProtocolDialog::reject(){
+    resetForms();
+    return QDialog::reject();
 }
