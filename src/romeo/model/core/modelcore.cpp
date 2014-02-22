@@ -23,9 +23,9 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
 void ModelCore::createLists()
 {
     datasetsList=DatasetsList::getInstance();
-    protocolsList=new ProtocolsList();
-    algorithmsList=new algorithms::AlgorithmsList();
-    featuresList=new features::FeaturesList();
+    protocolsList=ProtocolsList::getInstance();
+    algorithmsList=algorithms::AlgorithmsList::getInstance();
+    featuresList=features::FeaturesList::getInstance();
 
 
     connect(protocolsList, SIGNAL(protocolsListModified()), this, SLOT(saveProtocolsList()));

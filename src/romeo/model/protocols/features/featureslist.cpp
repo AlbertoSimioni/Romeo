@@ -15,3 +15,4 @@ FeaturesList *FeaturesList::getInstance(QObject* parent)
     }
     return instance;
 }
+

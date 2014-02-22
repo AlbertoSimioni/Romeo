@@ -34,9 +34,6 @@ QList<AbstractProtocol *> ProtocolsList::getProtocolsList() const
     return protocolsList;
 }
 
-
-
-
 /*ProtocolsList::~ProtocolsList()
 {
     foreach(AbstractProtocol* p , protocolsList){
