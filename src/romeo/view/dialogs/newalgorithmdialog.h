@@ -26,6 +26,18 @@ class NewAlgorithmDialog : public QDialog
 public:
     explicit NewAlgorithmDialog(QWidget *parent = 0);
     ~NewAlgorithmDialog();
+
+    /*!
+     * \brief Se il flag é true viene mostrato un messaggio di errore per avvertire l'utente che il nome dell'algoritmo inserito è già utilizzato,
+     * se il flag é false nasconde il messaggio
+     */
+    void showErrorName(bool show);
+public slots:
+    /*!
+     * \brief Override del metodo reject() della classe QDialog, il metodo deve azzerare le varie form del dialogo
+     * e poi invocare il metodo reject() della classe QDialog per effettuare la chiusare del dialogo
+     */
+    virtual void reject();
 private slots:
     /*!
      * \brief Apre la finestra di dialogo per selezionare la libreria dinamica.
@@ -34,11 +46,22 @@ private slots:
      */
     void openBrowseDialog();
 
+signals:
+    /*!
+     * \brief Segnala la modifica del nome dell'algoritmo da parte dell'utente
+     */
+    void nameChanged(QString algorithmName);
+
 private:
     /*!
      * \brief Effettua le connessioni dei segnali inviati dai vari widget che compongono la classe NewAlgorithmDialog
      */
     void connectUI();
+
+    /*!
+     * \brief Svuota tutte le form del dialogo che l'utente ha modificato
+     */
+    void resetForms();
 
 
 

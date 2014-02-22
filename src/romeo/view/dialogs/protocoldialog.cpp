@@ -104,7 +104,7 @@ void ProtocolDialog::removeButtonClicked(){
 
 void ProtocolDialog::resetForms(){
      ui->errorLabel->setHidden(true);
-     ui->protocolLineEdit->setText(QString());
+     ui->protocolLineEdit->clear();
      ui->Wizard->setCurrentIndex(0);
      ui->protocolFeaturesList->clear();
 

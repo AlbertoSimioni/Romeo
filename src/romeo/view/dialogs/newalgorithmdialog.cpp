@@ -15,6 +15,8 @@ NewAlgorithmDialog::NewAlgorithmDialog(QWidget *parent) :
 
 void NewAlgorithmDialog::connectUI(){
     connect(ui->browseButton,SIGNAL(clicked()),this,SLOT(openBrowseDialog()));
+    connect(ui->algorithmLineEdit,SIGNAL(textChanged(QString)),this,SIGNAL(nameChanged(QString)));
+    connect(ui->okCancel,SIGNAL(rejected()),this,SLOT(reject()));
 }
 
 NewAlgorithmDialog::~NewAlgorithmDialog()
@@ -28,4 +30,19 @@ void NewAlgorithmDialog::openBrowseDialog(){
         tr("Select dynamic library"), QDir::home().path(), tr("Dynamic library files (*.so *.dll *.dylib)"));
     if(!fileName.isNull())
         ui->pathLineEdit->setText(fileName);
+}
+
+
+void NewAlgorithmDialog::resetForms(){
+    ui->pathLineEdit->clear();
+
+    ui->functionName->clear();
+    ui->algorithmLineEdit->clear();
+    ui->descriptionText->clear();
+}
+
+
+void NewAlgorithmDialog::reject(){
+    resetForms();
+    QDialog::reject();
 }
