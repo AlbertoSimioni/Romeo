@@ -56,7 +56,7 @@ signals:
     /*!
      * \brief Segnale che indica che è avvenuta una modifica nella lista dei protocolli
      */
-    void protocolListModified();
+    void protocolsListModified();
 
 private:
     /*!

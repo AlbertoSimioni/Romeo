@@ -73,11 +73,6 @@ public:
 
     bool execute(protocols::AbstractProtocol* alg, QList<QString> selectedSubjects);
 
-signals:
-    /*!
-     * \brief Segnale che indica una modifica al ad un dataset
-     */
-    void datasetListModified();
 
 private:
     /*!

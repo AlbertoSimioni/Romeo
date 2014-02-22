@@ -6,6 +6,8 @@
 * \brief  Header della classe Loader del package romeo::model::core
 */
 
+#include <QDir>
+
 #ifndef LOADER_H
 #define LOADER_H
 
@@ -27,6 +29,7 @@ public:
      *  si preoccupa anche di costruire l'istanza.
      */
     static Loader* getInstance();
+    void loadDatabase(QDir& databaseFile, QHash<QString,QDir>& datasetFiles);
 private:
     /*!
      * \brief Costruttore privato, poiché la classe Loader implementa il design pattern singleton

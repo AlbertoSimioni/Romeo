@@ -6,8 +6,33 @@ using namespace romeo::model::protocols;
 
 ModelCore* ModelCore::instance=0;
 
+
 ModelCore::ModelCore(QObject *parent): QObject(parent)
 {
+    writer=Writer::getInstance();
+    loader=Loader::getInstance();
+    createLists();
+
+   //loader->loadDatabase(databaseFile, datasetsFiles, datasetsList);
+    //for(QHash::Iterator it=datasetsFiles.begin(); it != datasetsFiles.end(); ++it)
+    {
+
+    }
+}
+
+void ModelCore::createLists()
+{
+    datasetsList=new DatasetsList();
+    protocolsList=new ProtocolsList();
+    algorithmsList=new algorithms::AlgorithmsList();
+    featuresList=new features::FeaturesList();
+
+
+    connect(protocolsList, SIGNAL(protocolsListModified()), this, SLOT(saveProtocolsList()));
+    connect(datasetsList, SIGNAL(datasetsListModified()), this, SLOT(saveDatasetsList()));
+    connect(algorithmsList, SIGNAL(algorithmsListModified()), this, SLOT(saveAlgorithmsList()));
+    connect(featuresList, SIGNAL(featuresListModified()), this, SLOT(saveFeaturesList()));
+    connect(datasetsList, SIGNAL(datasetModified(QString&)), this, SLOT(saveDataset(QString&)));
 }
 
 bool ModelCore::saveDatasetsList()
@@ -17,15 +42,20 @@ bool ModelCore::saveDatasetsList()
 
 bool ModelCore::saveProtocolsList()
 {
-    return true;
+    //writer->writeProtocols(QDir());
 }
 
 bool ModelCore::saveAlgorithmsList()
 {
-    return true;
+    //writer->writeAlgorithms(QDir());
 }
 
 bool ModelCore::saveFeaturesList()
+{
+    return true;
+}
+
+bool ModelCore::saveDataset(QString &datasetName)
 {
     return true;
 }

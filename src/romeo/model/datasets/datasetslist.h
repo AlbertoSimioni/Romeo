@@ -21,15 +21,23 @@ namespace datasets{
  */
 
 
-class DatasetsList
+class DatasetsList : public QObject
 {
+    Q_OBJECT
 public:
-    DatasetsList();
+    DatasetsList(QObject* parent=0);
+
+private:
+    QList<QString> nomi;
 signals:
     /*!
      * \brief Segnale che indica una modifica avvenuta sulla lista dei dataset
      */
-    void datasetListModified();
+    void datasetsListModified();
+    /*!
+     * \brief Segnale che indica una modifica avvenuta su un dataset
+     */
+    void datasetModified(QString& datasetName);
 };
 }}}
 #endif // DATASETSLIST_H

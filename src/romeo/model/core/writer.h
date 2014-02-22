@@ -6,6 +6,8 @@
 * \brief Header della classe Writer del package romeo::model::core
 */
 
+#include <QDir>
+
 #ifndef WRITER_H
 #define WRITER_H
 
@@ -27,6 +29,7 @@ public:
      *  si preoccupa anche di costruire l'istanza.
      */
     static Writer* getInstance();
+    void writeProtocols(QDir& protocolPath);
 private:
     /*!
      * \brief Costruttore privato, poiché la classe Writer implementa il design pattern singleton

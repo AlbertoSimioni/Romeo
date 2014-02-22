@@ -47,7 +47,7 @@ signals:
     /*!
      * \brief Segnale che indica una modifica alla lista delle feature
      */
-    void featureListModified();
+    void featuresListModified();
 private:
     /*!
      * \brief Il vettore contiene la lista delle feature presenti nel programma

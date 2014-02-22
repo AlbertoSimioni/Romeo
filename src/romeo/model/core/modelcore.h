@@ -55,6 +55,14 @@ public:
      */
     protocols::features::FeaturesList *getFeaturesList() const;
 
+    /* Metodi per ricavare i vari dati e che vengono usati da loader e writer per processare i file xml
+    */
+    datasets::AbstractDataset* getDataset() const;
+    datasets::AbstractSubject* getSubject() const;
+    protocols::AbstractProtocol* getProtocol(QString& protocol) const;
+    protocols::features::AbstractFeature* getFeature(QString& feature) const;
+    protocols::algorithms::AbstractAlgorithm* getAlgorithm(QString& alg) const;
+
 
 private:
     /*!
@@ -65,21 +73,10 @@ private:
 
     bool loadData(QDir& file);
     /*!
-     * \brief Metodo interno di ModelCore che si occupa di creare la lista dei dataset utilizzando il modulo Loader per caricare il file che contiene il database.
+     * \brief Metodo interno di ModelCore che si occupa di inizializzare le liste dei dati utilizzando il modulo Loader per caricare il file che contiene il database. Inoltre crea le connessioni tra i segnali di modifica e il modulo di salvataggio dei dati.
      */
-    datasets::DatasetsList* createDatasetList();
-    /*!
-     * \brief Metodo interno di ModelCore che si occupa di creare la lista dei protocolli utilizzando il modulo Loader per caricare il file che contiene il database.
-     */
-    protocols::ProtocolsList* createProtocolList();
-    /*!
-     * \brief Metodo interno di ModelCore che si occupa di creare la lista degli algoritmi utilizzando il modulo Loader per caricare il file che contiene il database.
-     */
-    protocols::algorithms::AlgorithmsList* createAlgorithmList();
-    /*!
-     * \brief Metodo interno di ModelCore che si occupa di creare la lista delle feature utilizzando il modulo Loader per caricare il file che contiene il database.
-     */
-    protocols::features::FeaturesList* createFeatureList();
+    void createLists();
+
 
     /*!
      * \brief Campo dati statico che contiene il riferimento all'unica istanza del controller.
@@ -111,13 +108,13 @@ private:
     protocols::features::FeaturesList* featuresList;
 
     /*!
-     * \brief Campo dati che contiene un puntatore al modulo che gestisce il caricamento e il salvataggio delle immagini 2D
+     * \brief Campo dati che contiene un puntatore al modulo che gestisce il caricamento dei dati
      */
-    imageIO::HandlerIO* io2D;
+    Loader* loader;
     /*!
-     * \brief Campo dati che contiene un puntatore al modulo che gestisce il caricamento e il salvataggio delle immagini 3D
+     * \brief Campo dati che contiene un puntatore al modulo che gestisce il salvataggio dei dati su disco
      */
-    imageIO::HandlerIO* io3D;
+    Writer* writer;
 
 public slots:
     /*!
@@ -137,6 +134,10 @@ public slots:
      * \brief Slot pubblico che viene chiamato ogni qualvolta sia stato effettuato un cambiamento nelle feature, questa funzione si assicura di aggiornare il file di database che contiene le feature per mantenerlo consistente con i dati del programma.
      */
     bool saveFeaturesList();
+    /*!
+     * \brief Slot pubblico che viene chiamato ogni qualvolta sia stato effettuato un cambiamento in un dataset, questa funzione si assicura di aggiornare il file relativo a tale dataset per mantenerlo consistente con i dati del programma.
+     */
+    bool saveDataset(QString& datasetName);
 };
 
 

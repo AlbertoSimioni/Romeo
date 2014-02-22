@@ -44,7 +44,7 @@ signals:
     /*!
      * \brief Segnale che indica una modifica alla lista degli algoritmi
      */
-    void protocolListModified();
+    void algorithmsListModified();
 private:
     /*!
      * \brief Il vettore contiene la lista degli algoritmi presenti nel programma
