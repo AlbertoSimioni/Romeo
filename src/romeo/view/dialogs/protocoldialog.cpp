@@ -1,15 +1,26 @@
 #include "protocoldialog.h"
 #include "ui_protocoldialog.h"
-#include <QHBoxLayout>
 
 using namespace romeo::view::dialogs;
-ProtocolDialog::ProtocolDialog(QWidget *parent) :
+ProtocolDialog::ProtocolDialog(
+        //model::protocols::algorithms::AlgorithmsList *al,
+        //model::protocols::features::FeaturesList *fl,
+        QWidget *parent) :
     QDialog(parent),
+    //featuresList(fl),
+    //algorithmsList(al),
     ui(new Ui::ProtocolDialog)
 {
     ui->setupUi(this);
     ui->errorLabel->setHidden(true);
     ui->Wizard->setCurrentIndex(0);
+    connectUI();
+
+}
+
+
+void ProtocolDialog::connectUI(){
+
     connect(ui->next1,SIGNAL(clicked()),this,SLOT(nextStep()));
     connect(ui->next2,SIGNAL(clicked()),this,SLOT(nextStep()));
     connect(ui->back2,SIGNAL(clicked()),this,SLOT(previousStep()));
@@ -24,6 +35,7 @@ ProtocolDialog::ProtocolDialog(QWidget *parent) :
     connect(ui->cancel3,SIGNAL(clicked()),this,SLOT(reject()));
 
 }
+
 
 ProtocolDialog::~ProtocolDialog()
 {
@@ -48,11 +60,15 @@ void ProtocolDialog::nextStep(){
        ui->Wizard->setCurrentIndex(currentIndex+1);
 }
 
+
+
 void ProtocolDialog::previousStep(){
        int currentIndex = ui->Wizard->currentIndex();
        if(currentIndex > 0)
            ui->Wizard->setCurrentIndex(currentIndex-1);
 }
+
+
 
 void ProtocolDialog::addFeature(QListWidgetItem *item){
     bool stop = false;
@@ -65,18 +81,25 @@ void ProtocolDialog::addFeature(QListWidgetItem *item){
 }
 
 
+
 void ProtocolDialog::removeFeature(QListWidgetItem *item){
     delete item;
 }
+
+
 
 void ProtocolDialog::addButtonClicked(){
     addFeature(ui->featuresList->selectedItems().at(0));
 }
 
 
+
+
 void ProtocolDialog::removeButtonClicked(){
     removeFeature(ui->protocolFeaturesList->selectedItems().at(0));
 }
+
+
 
 
 void ProtocolDialog::resetForms(){
@@ -87,13 +110,11 @@ void ProtocolDialog::resetForms(){
 
 }
 
-void ProtocolDialog::addParameter(QString name, romeo::model::protocols::algorithms::AbstractAlgorithm::ParameterType type, QString defaultValue){
-  /*  QHBoxLayout* hlay = new QHBoxLayout(ui->parameterLayout);
-    hlay->addChildWidget(QLabel(name));
-    hlay->addChildWidget();*/
-}
+
 
 void ProtocolDialog::reject(){
     resetForms();
     return QDialog::reject();
 }
+
+

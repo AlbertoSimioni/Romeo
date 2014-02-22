@@ -13,6 +13,8 @@
 #include<QObject>
 #include<src/romeo/view/viewmanager.h>
 #include<src/romeo/model/core/modelcore.h>
+#include<src/romeo/model/protocols/protocolslist.h>
+#include<src/romeo/model/protocols/protocolslist.h>
 
 namespace romeo {
 namespace controller{
@@ -66,6 +68,17 @@ private:
      * l'apertura delle finestre di dialogo
      */
     romeo::view::ViewManager* viewManager;
+
+    /*!
+     * \brief Riferimento alla lista degli algoritmi
+     */
+    romeo::model::protocols::algorithms::AlgorithmsList* algorithmList;
+
+    /*!
+     * \brief Riferimento alla lista delle feature
+     */
+    romeo::model::protocols::features::FeaturesList* featureList;
+
     romeo::model::core::ModelCore* modelCore;
 };
 }}

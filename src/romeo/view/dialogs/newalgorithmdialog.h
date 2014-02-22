@@ -26,8 +26,22 @@ class NewAlgorithmDialog : public QDialog
 public:
     explicit NewAlgorithmDialog(QWidget *parent = 0);
     ~NewAlgorithmDialog();
+private slots:
+    /*!
+     * \brief Apre la finestra di dialogo per selezionare la libreria dinamica.
+     *
+     * Il dialogo deve mostrare solamente le estensioni .os .dll e .lib e deve inserire il percorso nella linea di testo associata al percorso nel file system
+     */
+    void openBrowseDialog();
 
 private:
+    /*!
+     * \brief Effettua le connessioni dei segnali inviati dai vari widget che compongono la classe NewAlgorithmDialog
+     */
+    void connectUI();
+
+
+
     Ui::NewAlgorithmDialog *ui;
 };
 }}}

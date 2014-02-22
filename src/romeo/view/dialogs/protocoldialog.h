@@ -11,7 +11,12 @@
 
 #include <QDialog>
 #include <QListWidgetItem>
+#include <QVector>
 #include <src/romeo/model/protocols/algorithms/abstractalgorithm.h>
+#include <src/romeo/view/dialogs/parametervalueform.h>
+#include <src/romeo/model/protocols/algorithms/algorithmslist.h>
+#include <src/romeo/model/protocols/features/featureslist.h>
+
 
 namespace Ui {
 class ProtocolDialog;
@@ -21,13 +26,17 @@ namespace romeo{
 namespace view{
 namespace dialogs{
 
-
+//DA SISTEMARE TUTTA LA ROBA DELLE FEATURE E DEGLI ALGORITMI E DEI PARAMETRI
 class ProtocolDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit ProtocolDialog(QWidget *parent = 0);
+    explicit ProtocolDialog(
+            //romeo::model::protocols::algorithms::AlgorithmsList* al,
+            //romeo::model::protocols::features::FeaturesList* fl,
+            QWidget *parent = 0);
+
     ~ProtocolDialog();
     /*!
      * \brief Se il flag é true viene mostrato un messaggio di errore per avvertire l'utente che il nome del protocollo inserito è già utilizzato,
@@ -61,6 +70,23 @@ signals:
 
 private:
     Ui::ProtocolDialog *ui;
+
+    /*!
+     * \brief Contiene i riferimenti ai widget per l'inserimento dei parametri dell'algoritmo
+     */
+    QVector<ParameterValueForm*> parameters;
+
+    /*!
+     * \brief Riferimento alla lista degli algoritmi
+     */
+    romeo::model::protocols::algorithms::AlgorithmsList* algorithmsList;
+
+    /*!
+     * \brief Riferimento alla lista delle feature
+     */
+    romeo::model::protocols::features::FeaturesList* featuresList;
+
+
     /*!
      * \brief Svuota tutte le form del dialogo che l'utente ha modificato
      */
@@ -68,17 +94,17 @@ private:
 
 
     /*!
-     * \brief Aggiunge alla form per di inserimento dei parametri degli algoritmi un nuovo parametro
-     * \param name Nome del parametro
-     * \param type Tipo del parametro
-     * \param defaultValue Valore di default del parametro
+     * \brief Effettua le connessioni dei segnali inviati dai vari widget che compongono la classe ProtocolDialog
      */
-    void addParameter(QString name, romeo::model::protocols::algorithms::AbstractAlgorithm::ParameterType type, QString defaultValue);
+    void connectUI();
+
+
 
 private slots:
     /*!
      * \brief Aggiunge l'item dato in input alla lista delle feature del protocollo
      */
+
     void addFeature(QListWidgetItem* item);
     /*!
      * \brief Rimuove l'item dato in input dalla lista delle feature del protocollo

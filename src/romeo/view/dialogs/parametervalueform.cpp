@@ -21,6 +21,9 @@ ParameterValueForm::ParameterValueForm(AbstractAlgorithm::AlgorithmParameter* pa
     ui->typeLabel->setText(stringType);
     ui->valueLineEdit->setText(parameter->getDefaultParameter());
     ui->setupUi(this);
+
+
+    connect(ui->valueLineEdit,SIGNAL(textChanged(QString)),this,SLOT(checkValidity(QString)));
 }
 
 ParameterValueForm::~ParameterValueForm()
@@ -42,6 +45,23 @@ QString ParameterValueForm::getValue(){
     return ui->valueLineEdit->text();
 }
 
-void ParameterValueForm::checkValidity(QString value){
+AbstractAlgorithm::AlgorithmParameter ParameterValueForm::getParameter(){
+    return AbstractAlgorithm::AlgorithmParameter(ui->nameLabel->text(),type,ui->valueLineEdit->text());
+}
 
+void ParameterValueForm::checkValidity(QString value){
+    bool valid = true;
+    switch(type){
+
+    case AbstractAlgorithm::CHAR: if(value.length() != 1) valid = false;
+        break;
+    case AbstractAlgorithm::BOOL: if((value != "TRUE") && (value != "FALSE")) valid = false;
+        break;
+    case AbstractAlgorithm::DOUBLE: value.toDouble(&valid);
+        break;
+    case AbstractAlgorithm::INT: value.toInt(&valid);
+        break;
+    }
+
+    emit valueEntered(valid);
 }
