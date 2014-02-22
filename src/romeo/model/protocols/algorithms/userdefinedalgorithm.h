@@ -37,9 +37,9 @@ class UserDefinedAlgorithm : public AbstractAlgorithm
      */
     QString dynamicFunctionName;
 public:
-    //AbstractAlgorithm(QList<AlgorithmParameter> par, QString name, QString desc, QString dylp, QString dyfn);
+    UserDefinedAlgorithm(QList<AlgorithmParameter> par, QString name, QString desc, QString dylp, QString dyfn);
 
-    //bool execute(double **data, int *mask, int nrows, int ncols, int *clusterid, QList<QString> parameters);
+    bool execute(double **data, int *mask, int nrows, int ncols, int *clusterid, QList<QString> parameters);
 };
 }}}}
 #endif // USERDEFINEDALGORITHM_H

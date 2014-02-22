@@ -36,6 +36,7 @@ public:
       * \brief Il distruttore della classe ProtocolsList rimuove dallo heap i riferimenti ai protocolli
     */
     //~ProtocolsList();
+    static ProtocolsList* getInstance();
     /*!
      * \brief Inserisce nella lista dei protocolli un nuovo protocollo definito dai parametri passati
      * \param nome definisce il nome del nuovo protocollo che si vuole creare
@@ -52,17 +53,22 @@ public:
      */
     AbstractProtocol* getProtocol(QString name);
 
+
+    QList<protocols::AbstractProtocol *> getProtocolsList() const;
+
 signals:
     /*!
      * \brief Segnale che indica che è avvenuta una modifica nella lista dei protocolli
      */
     void protocolsListModified();
 
+
 private:
     /*!
      * \brief Il vettore contiene la lista dei protocolli creati dall'utente
      */
     QList<protocols::AbstractProtocol*> protocolsList;
+    static ProtocolsList* instance;
 };
 }}}
 

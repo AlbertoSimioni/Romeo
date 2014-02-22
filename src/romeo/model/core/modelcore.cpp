@@ -22,7 +22,7 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
 
 void ModelCore::createLists()
 {
-    datasetsList=new DatasetsList();
+    datasetsList=DatasetsList::getInstance();
     protocolsList=new ProtocolsList();
     algorithmsList=new algorithms::AlgorithmsList();
     featuresList=new features::FeaturesList();

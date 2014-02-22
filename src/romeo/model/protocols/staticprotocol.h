@@ -22,6 +22,7 @@ namespace protocols{
 class StaticProtocol : public AbstractProtocol
 {
 public:
+    StaticProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, QList<features::AbstractFeature*> feat);
     /*!
      * \brief Override del metodo execute della classe astratta AbstractProtocol
      * \param Il soggetto utilizzato per eseguire l'analisi, deve contenere un immagine di tipo statico

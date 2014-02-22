@@ -11,6 +11,4 @@ KMeans *KMeans::getInstance()
     return instance;
 }
 
-KMeans::KMeans()
-{
-}
+

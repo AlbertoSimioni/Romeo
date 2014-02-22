@@ -30,3 +30,14 @@ QString AbstractAlgorithm::AlgorithmParameter::getDefaultParameter() const
 }
 
 
+
+
+AbstractAlgorithm::AbstractAlgorithm()
+{
+
+}
+
+AbstractAlgorithm::AbstractAlgorithm(QString n, QString d): name(n), description(d)
+{
+
+}

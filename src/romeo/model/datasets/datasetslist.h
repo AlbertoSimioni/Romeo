@@ -25,10 +25,11 @@ class DatasetsList : public QObject
 {
     Q_OBJECT
 public:
-    DatasetsList(QObject* parent=0);
-
+   static DatasetsList* getInstance();
 private:
-    QList<QString> nomi;
+    DatasetsList(QObject* parent=0);
+    QList<AbstractDataset*> nomi;
+    static DatasetsList* instance;
 signals:
     /*!
      * \brief Segnale che indica una modifica avvenuta sulla lista dei dataset
@@ -38,6 +39,7 @@ signals:
      * \brief Segnale che indica una modifica avvenuta su un dataset
      */
     void datasetModified(QString& datasetName);
+
 };
 }}}
 #endif // DATASETSLIST_H

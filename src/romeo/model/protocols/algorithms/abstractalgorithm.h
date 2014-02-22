@@ -26,7 +26,8 @@ namespace algorithms{
 class AbstractAlgorithm
 {
 public:
-
+    AbstractAlgorithm();
+    explicit AbstractAlgorithm(QString name, QString description=QString());
     /*!
      * \brief Tipo enumerazione che definisce i vari tipi che possono avere i parametri definiti dall'utente
      */
