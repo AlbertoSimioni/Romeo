@@ -39,6 +39,7 @@ void ProtocolDialog::connectUI(){
     connect(ui->cancel1,SIGNAL(clicked()),this,SLOT(reject()));
     connect(ui->cancel2,SIGNAL(clicked()),this,SLOT(reject()));
     connect(ui->cancel3,SIGNAL(clicked()),this,SLOT(reject()));
+    connect(ui->AlgorithmCombo,SIGNAL(currentIndexChanged(int)),this,SLOT(changeParametersForm()));
 
 }
 
@@ -95,14 +96,19 @@ void ProtocolDialog::removeFeature(QListWidgetItem *item){
 
 
 void ProtocolDialog::addButtonClicked(){
-    addFeature(ui->featuresList->selectedItems().at(0));
+    QList<QListWidgetItem*> selected = ui->featuresList->selectedItems();
+    if(!selected.isEmpty())
+        addFeature(selected.at(0));
 }
 
 
 
 
 void ProtocolDialog::removeButtonClicked(){
-    removeFeature(ui->protocolFeaturesList->selectedItems().at(0));
+    QList<QListWidgetItem*> selected = ui->protocolFeaturesList->selectedItems();
+
+    if(!selected.isEmpty())
+        removeFeature(selected.at(0));
 }
 
 
@@ -151,6 +157,7 @@ void ProtocolDialog::changeParametersForm(){
     QList<AbstractAlgorithm::AlgorithmParameter> param = algorithm->getParameters();
     while(!(param.isEmpty())){
         ParameterValueForm* parameterForm = new ParameterValueForm(param.takeFirst(),this);
+        //connect(parameterForm,SIGNAL(valueEntered(bool)),ui->finish3,SLOT(setEnabled(bool)));
         ui->parameterLayout->addWidget(parameterForm);
 
         parameters.append(parameterForm);

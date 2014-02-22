@@ -28,6 +28,14 @@ Controller::Controller(QObject *parent): QObject(parent)
     param.append(param2);
     AbstractAlgorithm* alg=new UserDefinedAlgorithm(param, QString("nome alg"), QString("desc"), QString("libreria"), QString("nomefunz"));
     algorithmsList->addAlgorithm(alg);
+
+    QList<AbstractAlgorithm::AlgorithmParameter> params;
+    AbstractAlgorithm::AlgorithmParameter param11 (QString("pllolol"), AbstractAlgorithm::INT, QString("fuck"));
+    AbstractAlgorithm::AlgorithmParameter param22 (QString("ahaha"), AbstractAlgorithm::CHAR, QString("default"));
+    params.append(param11);
+    params.append(param22);
+    AbstractAlgorithm* alg2=new UserDefinedAlgorithm(params, QString("nome alg2"), QString("desc"), QString("libreria"), QString("nomefunz"));
+    algorithmsList->addAlgorithm(alg2);
     ///////////////PROVA TEST
 
     mainWindow = new MainWindow();
