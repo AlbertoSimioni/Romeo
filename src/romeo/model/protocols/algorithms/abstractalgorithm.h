@@ -43,6 +43,24 @@ public:
     class AlgorithmParameter
     {
     public:
+        AlgorithmParameter(QString parameterName,ParameterType parType, QString defaultPar);
+        /*!
+         * \brief Ritorna il nome del parametro
+         */
+        QString getName() const;
+        /*!
+         * \brief Ritorna il tipo del parametro
+         */
+
+        ParameterType getType() const;
+
+        /*!
+         * \brief Ritorna il valore di default del parametro
+         */
+        QString getDefaultParameter() const;
+
+
+    private:
         /*!
          * \brief  Rappresenta il nome del parametro dell'algoritmo
          */
