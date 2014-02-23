@@ -19,7 +19,7 @@ namespace view{
 namespace dialogs {
 
 
-//MANCA IL TASTO OK
+//MANCA IL TASTO OK E CONTROLLER CHE NON RICEVE IL SEGNALE
 class NewFeatureDialog : public QDialog
 {
     Q_OBJECT
@@ -49,7 +49,7 @@ signals:
     /*!
      * \brief Segnala la modifica del nome della feature da parte dell'utente
      */
-    void nameChanged(QString algorithmName);
+    void nameChanged(QString featureName);
 
 
 private slots:
