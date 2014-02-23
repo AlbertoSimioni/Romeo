@@ -26,7 +26,7 @@ namespace romeo{
 namespace view{
 namespace dialogs{
 
-//DA SISTEMARE TUTTA LA ROBA DELLE FEATURE E DEGLI ALGORITMI E DEI PARAMETRI
+//Manca da sistemare i parametri window size e glcm e tasto finish
 class ProtocolDialog : public QDialog
 {
     Q_OBJECT
@@ -146,6 +146,11 @@ private slots:
      * \brief Slot che controlla che tutti i valori dei parametri siano validi, in caso positivo rende abilitato il pulsante finish, in caso contrario lo disabilita
      */
     void checkParametersValidity();
+
+    /*!
+     * \brief Slot che verifica se la stringa in input è vuoto e in caso disabilita il bottone di avanzamento del primo passo del wizard
+     */
+    void checkEmpty(QString name);
 
 };
 }}}

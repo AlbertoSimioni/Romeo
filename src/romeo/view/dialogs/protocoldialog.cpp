@@ -19,6 +19,7 @@ ProtocolDialog::ProtocolDialog(
     ui->setupUi(this);
     ui->errorLabel->setHidden(true);
     ui->Wizard->setCurrentIndex(0);
+    ui->next1->setEnabled(false);
     fillAlgorithmsCombo();
     fillFeaturesList();
     changeParametersForm();
@@ -34,6 +35,7 @@ void ProtocolDialog::connectUI(){
     connect(ui->back2,SIGNAL(clicked()),this,SLOT(previousStep()));
     connect(ui->back3,SIGNAL(clicked()),this,SLOT(previousStep()));
     connect(ui->protocolLineEdit,SIGNAL(textChanged(QString)),this,SIGNAL(nameChanged(QString)));
+    connect(ui->protocolLineEdit,SIGNAL(textChanged(QString)),this,SLOT(checkEmpty(QString)));
     connect(ui->featuresList,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(addFeature(QListWidgetItem*)));
     connect(ui->addButton,SIGNAL(clicked()),this,SLOT(addButtonClicked()));
     connect(ui->removeButton,SIGNAL(clicked()),this,SLOT(removeButtonClicked()));
@@ -204,4 +206,9 @@ void ProtocolDialog::checkParametersValidity(){
     }
     if(stop) ui->finish3->setEnabled(false);
     else ui->finish3->setEnabled(true);
+}
+
+
+void ProtocolDialog::checkEmpty(QString name){
+    if(name.isEmpty()) ui->next1->setEnabled(false);
 }

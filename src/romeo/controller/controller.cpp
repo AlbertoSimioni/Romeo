@@ -91,6 +91,7 @@ void Controller::connectViewsSignals(){
     connect(mainWindow,SIGNAL(openFeaturesListDialog()),this,SLOT(viewFeaturesListDialog()));
     connect(mainWindow,SIGNAL(openNewFeatureDialog()),this,SLOT(viewNewFeatureDialog()));
     connect(protocolDialog,SIGNAL(nameChanged(QString)),this,SLOT(checkProtocolName(QString)));
+    connect(newAlgorithmDialog,SIGNAL(nameChanged(QString)),this,SLOT(checkAlgorithmName(QString)));
 }
 
 Controller* Controller::getInstance(QObject *parent){
@@ -135,5 +136,15 @@ void Controller::checkProtocolName(QString protocolName){
     }
     else{
         protocolDialog->showErrorName(false);
+    }
+}
+
+
+void Controller::checkAlgorithmName(QString algorithmName){
+    if(algorithmsList->getAlgorithm(algorithmName)){
+        newAlgorithmDialog->showErrorName(true);
+    }
+    else{
+        newAlgorithmDialog->showErrorName(false);
     }
 }

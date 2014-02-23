@@ -1,21 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>NewAlgorithmParameterForm</class>
  <widget class="QWidget" name="NewAlgorithmParameterForm">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>514</width>
+    <height>87</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,3,0,1,0,3,0">
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Name:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="valueLineEdit"/>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Type:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="typeCombo">
+       <item>
+        <property name="text">
+         <string>Integer</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Char</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Boolean</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Double</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>Default</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="defaultLineEdit"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="deleteButton">
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../../../immagini.qrc">
+         <normaloff>:/Images/Images/StopIcon.png</normaloff>:/Images/Images/StopIcon.png</iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
  </widget>
- <pixmapfunction/>
+ <resources>
+  <include location="../../../immagini.qrc"/>
+ </resources>
  <connections/>
 </ui>

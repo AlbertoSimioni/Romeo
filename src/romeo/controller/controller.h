@@ -61,6 +61,11 @@ public slots:
      * di far visualizzare un messaggio di errore sul wizard di creazione di un protocollo
      */
     void checkProtocolName(QString protocolName);
+    /*!
+     * \brief Controlla se il nome dell'algoritmo passato in input è già impegnato e in caso si preoccupa di
+     * di far visualizzare un messaggio di errore sul dialogo di creazione di un algoritmo
+     */
+    void checkAlgorithmName(QString algorithmName);
 
 private:
 

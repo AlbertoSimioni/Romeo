@@ -63,6 +63,7 @@ signals:
      */
     void valueEntered(bool valid);
 
+
 private slots:
     /*!
      * \brief Viene avviato quando l'utente modifica il valore inserito.

@@ -10,6 +10,9 @@
 #define NEWALGORITHMDIALOG_H
 
 #include <QDialog>
+#include <QList>
+#include "newalgorithmparameterform.h"
+
 namespace Ui {
 class NewAlgorithmDialog;
 }
@@ -32,13 +35,25 @@ public:
      * se il flag é false nasconde il messaggio
      */
     void showErrorName(bool show);
+
 public slots:
     /*!
      * \brief Override del metodo reject() della classe QDialog, il metodo deve azzerare le varie form del dialogo
      * e poi invocare il metodo reject() della classe QDialog per effettuare la chiusare del dialogo
      */
     virtual void reject();
+
+
+
+signals:
+
+    /*!
+     * \brief Segnala la modifica del nome dell'algoritmo da parte dell'utente
+     */
+    void nameChanged(QString algorithmName);
+
 private slots:
+
     /*!
      * \brief Apre la finestra di dialogo per selezionare la libreria dinamica.
      *
@@ -46,13 +61,25 @@ private slots:
      */
     void openBrowseDialog();
 
-signals:
     /*!
-     * \brief Segnala la modifica del nome dell'algoritmo da parte dell'utente
+     * \brief Slot avviato al cambiamento delle linee di testo nella form
+     *
+     * Verifica che le varie linee di testo non siano vuote, se non lo sono abilita la pressione del pulsante "ok", altrimento la disabilita
      */
-    void nameChanged(QString algorithmName);
+    void checkForm();
+
+    /*!
+     * \brief Slot avviato alla pressione del tasto di aggiunta di un parametro, si preoccupa di aggiungere un nuovo parametro alla form
+     */
+    void addButtonClicked();
+
+    /*!
+     * \brief Slot avviato alla pressione di uno dei tasti per la rimozione di un parametro di un algoritmo.
+     */
+    void deleteButtonClicked(NewAlgorithmParameterForm *param);
 
 private:
+
     /*!
      * \brief Effettua le connessioni dei segnali inviati dai vari widget che compongono la classe NewAlgorithmDialog
      */
@@ -64,6 +91,7 @@ private:
     void resetForms();
 
 
+    QList<NewAlgorithmParameterForm*> parameters;
 
     Ui::NewAlgorithmDialog *ui;
 };
