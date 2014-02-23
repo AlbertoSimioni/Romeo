@@ -22,11 +22,17 @@ namespace protocols{
 class DynamicProtocol : public AbstractProtocol
 {
 public:
+
+    DynamicProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, QList<features::AbstractFeature*> feat);
+
     /*!
      * \brief Override del metodo execute della classe astratta AbstractProtocol
      * \param subject Il soggetto su cui eseguire il protocollo
      */
     virtual void execute(datasets::AbstractSubject *subject);
+
+
+    virtual ProtocolType getType();
 };
 }}}
 #endif // DYNAMICPROTOCOL_H

@@ -6,6 +6,7 @@
 #include <src/romeo/model/protocols/features/dynamicfeature.h>
 #include <src/romeo/model/protocols/features/firstorderfeature.h>
 #include <src/romeo/model/protocols/features/secondorderfeature.h>
+#include <src/romeo/model/protocols/abstractprotocol.h>
 ////////PROVA TEST
 using namespace romeo::controller;
 using namespace romeo::view::mainWindow;
@@ -14,6 +15,7 @@ using namespace romeo::model::core;
 using namespace romeo::view::dialogs;
 using namespace romeo::model::protocols::algorithms;
 using namespace romeo::model::protocols::features;
+using namespace romeo::model::protocols;
 
 Controller* Controller::instance=0;
 
@@ -24,6 +26,7 @@ Controller::Controller(QObject *parent): QObject(parent)
 
     algorithmsList = modelCore->getAlgorithmsList();
     featuresList = modelCore->getFeaturesList();
+    protocolsList = modelCore->getProtocolsList();
 
     ////////////PROVA TEST
     QList<AbstractAlgorithm::AlgorithmParameter> param;
@@ -51,6 +54,14 @@ Controller::Controller(QObject *parent): QObject(parent)
     featuresList->addFeature(feat2);
     featuresList->addFeature(feat3);
     featuresList->addFeature(feat4);
+
+
+    QList<AbstractFeature*> features;
+    features.append(feat1);
+    features.append(feat2);
+    features.append(feat4);
+    protocolsList->addProtocol("PROVA","descrizione",alg,features, STATIC);
+
     ///////////////PROVA TEST
 
     mainWindow = new MainWindow();
@@ -119,10 +130,10 @@ void Controller::viewFeaturesListDialog(){
 
 
 void Controller::checkProtocolName(QString protocolName){
-  /*  if(!(modelCore->getProtocolsList()->getProtocol(protocolName))){
-        viewManager->getProtocolDialog()->showErrorName(true);
+    if(protocolsList->getProtocol(protocolName)){
+        protocolDialog->showErrorName(true);
     }
     else{
-        viewManager->getProtocolDialog()->showErrorName(false);
-    } da decommentare quando satà pronto il getprotocol*/
+        protocolDialog->showErrorName(false);
+    }
 }

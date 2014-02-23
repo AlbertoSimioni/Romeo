@@ -1,5 +1,6 @@
 #include "protocolslist.h"
 #include "staticprotocol.h"
+#include "dynamicprotocol.h"
 
 #include <src/romeo/model/protocols/algorithms/userdefinedalgorithm.h>
 using namespace romeo::model::protocols;
@@ -29,9 +30,33 @@ ProtocolsList *ProtocolsList::getInstance()
     }
     return instance;
 }
+
 QList<AbstractProtocol *> ProtocolsList::getProtocolsList() const
 {
     return protocolsList;
+}
+
+
+void ProtocolsList::addProtocol(QString &name, QString desc, QString &algorithm, QList<QString> &features, ProtocolType type){
+    //DA IMPLEMENTARE
+}
+
+
+AbstractProtocol* ProtocolsList::getProtocol(QString name){
+    AbstractProtocol* prot = 0;
+    for(int i = 0; i < protocolsList.size() && !prot; i++ ){
+        if(protocolsList[i]->getName() == name) prot = protocolsList[i];
+    }
+    return prot;
+}
+
+void ProtocolsList::addProtocol(QString nomeP, QString desc, AbstractAlgorithm *alg, QList<features::AbstractFeature *> &feat,ProtocolType type){
+    switch(type){
+    case STATIC : protocolsList.append(new StaticProtocol(nomeP,desc,alg,feat));
+        break;
+    case DYNAMIC: protocolsList.append(new DynamicProtocol(nomeP,desc,alg,feat));
+        break;
+    }
 }
 
 /*ProtocolsList::~ProtocolsList()

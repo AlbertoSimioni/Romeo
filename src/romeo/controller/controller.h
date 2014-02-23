@@ -143,6 +143,8 @@ private:
 
      romeo::model::protocols::features::FeaturesList* featuresList;
 
+     romeo::model::protocols::ProtocolsList* protocolsList;
+
      romeo::model::core::ModelCore* modelCore;
 };
 }}

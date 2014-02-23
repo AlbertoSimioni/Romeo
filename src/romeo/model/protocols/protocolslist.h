@@ -39,13 +39,14 @@ public:
     static ProtocolsList* getInstance();
     /*!
      * \brief Inserisce nella lista dei protocolli un nuovo protocollo definito dai parametri passati
-     * \param nome definisce il nome del nuovo protocollo che si vuole creare
+     * \param name definisce il nome del nuovo protocollo che si vuole creare
      * \param algorithm è il nome dell'algoritmo da inserire
      * \param features è il vettore contenente i nomi delle feature da inserire
-     * \param tipo indica se è un protocollo statico o dinamico, di default STATICO
+     * \param type indica se è un protocollo statico o dinamico, di default STATICO
      */
-    void addProtocol(QString &nome, QString &algorithm, QList<QString> &features, AbstractProtocol::TipoProtocollo tipo=AbstractProtocol::STATICO);
+    void addProtocol(QString &name,QString desc, QString &algorithm, QList<QString> &features, ProtocolType type =  STATIC);
 
+    void addProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, QList<features::AbstractFeature*>& feat, ProtocolType type);
     /*!
      * \brief Ritorna il riferimento al protocollo con nome uguale al parametro name
      * \param name Nome dell'algoritmo da ritornare

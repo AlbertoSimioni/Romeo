@@ -27,7 +27,9 @@ public:
      * \brief Override del metodo execute della classe astratta AbstractProtocol
      * \param Il soggetto utilizzato per eseguire l'analisi, deve contenere un immagine di tipo statico
      */
-    void execute(datasets::AbstractSubject *subject);
+    virtual void execute(datasets::AbstractSubject *subject);
+
+    virtual ProtocolType getType();
 };
 }}}
 #endif // STATICPROTOCOL_H

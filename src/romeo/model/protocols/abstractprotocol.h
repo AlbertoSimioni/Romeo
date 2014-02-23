@@ -17,6 +17,9 @@ namespace romeo {
 namespace model {
 namespace protocols{
 
+enum ProtocolType{STATIC,DYNAMIC};
+
+
 /**
  * \brief a classe astratta AbstractProtocol rappresenta un protocollo eseguibile dall'utente
  *
@@ -26,10 +29,7 @@ namespace protocols{
 class AbstractProtocol
 {
 public:
-    /*!
-     * \brief The TipoProtocollo enum
-     */
-    enum TipoProtocollo { STATICO, DINAMICO };
+
     /*!
      * \brief Costruisce un nuovo protocollo con nome e descrizione
      * \param Nome del protocollo
@@ -66,7 +66,16 @@ public:
      * \return Ritorna il percorso dove vengono salvati i risultati dell'analisi
      */
     virtual void execute(datasets::AbstractSubject* subject) = 0;
+
+    virtual ProtocolType getType() = 0;
     //virtual void featureExtract() = 0;
+    QString getName() const;
+
+
+    QString getDescription() const;;
+
+    bool getTest() const;
+
 private:
     /*!
      * \brief Nome del protocollo
