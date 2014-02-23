@@ -21,7 +21,7 @@ namespace romeo{
 namespace view {
 namespace dialogs{
 
-
+//MANCA DA SISTEMARE IL TASTO FINISH
 class NewAlgorithmDialog : public QDialog
 {
     Q_OBJECT

@@ -30,6 +30,7 @@ public:
     ~FeaturesListDialog();
 
 private:
+
     Ui::FeaturesListDialog *ui;
 };
 }}}
