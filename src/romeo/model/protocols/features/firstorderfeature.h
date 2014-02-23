@@ -24,7 +24,12 @@ namespace features{
 class FirstOrderFeature : public AbstractStaticFeature
 {
 public:
-    FirstOrderFeature();
+    FirstOrderFeature(QString n,QString dylp,QString dyfn,QString desc = QString());
+
+    /*!
+     * \brief Override del metodo astratto di AbstractFeature
+     */
+    FeatureType getType();
 };
 }}}}
 #endif // FIRSTORDERFEATURE_H

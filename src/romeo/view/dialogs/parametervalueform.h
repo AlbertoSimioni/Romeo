@@ -49,6 +49,13 @@ public:
      * \brief Ritorna l'intero parametro.
      */
     romeo::model::protocols::algorithms::AbstractAlgorithm::AlgorithmParameter getParameter();
+
+    /*!
+     * \brief Ritorna true se il valore del parametro è valido rispetto al suo tipo
+     */
+    bool isValid() const;
+
+
 signals:
     /*!
      * \brief Segnale emesso quando l'utente modifica il valore del parametro
@@ -70,6 +77,11 @@ private:
      * \brief Tipo del parametro, campo dati necessario per poter fare dei controlli sul valore del parametro inserito dall'utente
      */
     romeo::model::protocols::algorithms::AbstractAlgorithm::ParameterType type;
+
+    /*!
+     * \brief Indica se il valore del parametro è valido rispetto al suo tipo.
+     */
+    bool validValue;
 };
 
 }}}

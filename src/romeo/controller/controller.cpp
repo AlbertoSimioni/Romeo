@@ -3,6 +3,9 @@
 
 /////////PROVA TEST
 #include <src/romeo/model/protocols/algorithms/userdefinedalgorithm.h>
+#include <src/romeo/model/protocols/features/dynamicfeature.h>
+#include <src/romeo/model/protocols/features/firstorderfeature.h>
+#include <src/romeo/model/protocols/features/secondorderfeature.h>
 ////////PROVA TEST
 using namespace romeo::controller;
 using namespace romeo::view::mainWindow;
@@ -10,6 +13,8 @@ using namespace romeo::view;
 using namespace romeo::model::core;
 using namespace romeo::view::dialogs;
 using namespace romeo::model::protocols::algorithms;
+using namespace romeo::model::protocols::features;
+
 Controller* Controller::instance=0;
 
 Controller::Controller(QObject *parent): QObject(parent)
@@ -36,6 +41,16 @@ Controller::Controller(QObject *parent): QObject(parent)
     params.append(param22);
     AbstractAlgorithm* alg2=new UserDefinedAlgorithm(params, QString("nome alg2"), QString("desc"), QString("libreria"), QString("nomefunz"));
     algorithmsList->addAlgorithm(alg2);
+
+
+    AbstractFeature* feat1 = new FirstOrderFeature("FO1","PATH","PATH");
+    AbstractFeature* feat2 = new FirstOrderFeature("FO2","PATH","PATH");
+    AbstractFeature* feat3 = new DynamicFeature("D1","PATH","PATH");
+    AbstractFeature* feat4 = new SecondOrderFeature("SO1","PATH","PATH");
+    featuresList->addFeature(feat1);
+    featuresList->addFeature(feat2);
+    featuresList->addFeature(feat3);
+    featuresList->addFeature(feat4);
     ///////////////PROVA TEST
 
     mainWindow = new MainWindow();

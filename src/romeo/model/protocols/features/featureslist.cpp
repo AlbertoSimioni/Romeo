@@ -16,3 +16,11 @@ FeaturesList *FeaturesList::getInstance(QObject* parent)
     return instance;
 }
 
+
+void  FeaturesList::addFeature(AbstractFeature *aa){
+    features.append(aa);
+}
+
+QList<AbstractFeature*> FeaturesList::getFeaturesList(){
+    return features;
+}

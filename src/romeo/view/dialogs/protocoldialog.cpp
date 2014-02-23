@@ -4,6 +4,7 @@
 
 using namespace romeo::model::protocols::algorithms;
 using namespace romeo::view::dialogs;
+using namespace romeo::model::protocols::features;
 
 
 ProtocolDialog::ProtocolDialog(
@@ -19,6 +20,7 @@ ProtocolDialog::ProtocolDialog(
     ui->errorLabel->setHidden(true);
     ui->Wizard->setCurrentIndex(0);
     fillAlgorithmsCombo();
+    fillFeaturesList();
     changeParametersForm();
     connectUI();
 
@@ -40,6 +42,7 @@ void ProtocolDialog::connectUI(){
     connect(ui->cancel2,SIGNAL(clicked()),this,SLOT(reject()));
     connect(ui->cancel3,SIGNAL(clicked()),this,SLOT(reject()));
     connect(ui->AlgorithmCombo,SIGNAL(currentIndexChanged(int)),this,SLOT(changeParametersForm()));
+    connect(ui->dataTypeCombo,SIGNAL(currentIndexChanged(QString)),this,SLOT(fillFeaturesList()));
 
 }
 
@@ -49,7 +52,9 @@ ProtocolDialog::~ProtocolDialog()
     delete ui;
 }
 
-void ProtocolDialog::showErrorName(bool show){
+
+void ProtocolDialog::showErrorName(bool show)
+{
     if(!show){
         ui->errorLabel->setHidden(true);
         ui->next1->setEnabled(true);
@@ -61,7 +66,8 @@ void ProtocolDialog::showErrorName(bool show){
 }
 
 
-void ProtocolDialog::nextStep(){
+void ProtocolDialog::nextStep()
+{
    int currentIndex = ui->Wizard->currentIndex();
    if(currentIndex < 2)
        ui->Wizard->setCurrentIndex(currentIndex+1);
@@ -69,7 +75,8 @@ void ProtocolDialog::nextStep(){
 
 
 
-void ProtocolDialog::previousStep(){
+void ProtocolDialog::previousStep()
+{
        int currentIndex = ui->Wizard->currentIndex();
        if(currentIndex > 0)
            ui->Wizard->setCurrentIndex(currentIndex-1);
@@ -77,7 +84,8 @@ void ProtocolDialog::previousStep(){
 
 
 
-void ProtocolDialog::addFeature(QListWidgetItem *item){
+void ProtocolDialog::addFeature(QListWidgetItem *item)
+{
     bool stop = false;
     for(int i =0; i< (ui->protocolFeaturesList->count()) && (!stop);i++){
         if(ui->protocolFeaturesList->item(i)->text() == item->text())
@@ -89,18 +97,19 @@ void ProtocolDialog::addFeature(QListWidgetItem *item){
 
 
 
-void ProtocolDialog::removeFeature(QListWidgetItem *item){
+void ProtocolDialog::removeFeature(QListWidgetItem *item)
+{
     delete item;
 }
 
 
 
-void ProtocolDialog::addButtonClicked(){
+void ProtocolDialog::addButtonClicked()
+{
     QList<QListWidgetItem*> selected = ui->featuresList->selectedItems();
     if(!selected.isEmpty())
         addFeature(selected.at(0));
 }
-
 
 
 
@@ -110,7 +119,6 @@ void ProtocolDialog::removeButtonClicked(){
     if(!selected.isEmpty())
         removeFeature(selected.at(0));
 }
-
 
 
 
@@ -132,11 +140,33 @@ void ProtocolDialog::reject(){
 
 
 void ProtocolDialog::fillFeaturesList(){
+    ui->featuresList->clear();
+    ui->protocolFeaturesList->clear();
+    QList<AbstractFeature*> features = featuresList->getFeaturesList();
+    QString type = ui->dataTypeCombo->currentText();
+
+    if(type == "Static"){
+        for(int i = 0; i< features.size();i++){
+            AbstractFeature* feature = features[i];
+            if((feature->getType() == FIRSTORDER) || (feature->getType() == SECONDORDER))
+                ui->featuresList->addItem(feature->getName());
+        }
+    }
+
+    if(type == "Dynamic"){
+        for(int i = 0; i< features.size();i++){
+            AbstractFeature* feature = features[i];
+            if((feature->getType() == DYNAMIC))
+                ui->featuresList->addItem(feature->getName());
+        }
+    }
 
 }
 
 
+
 void ProtocolDialog::fillAlgorithmsCombo(){
+    ui->AlgorithmCombo->clear();
     QList<AbstractAlgorithm*> algorithms = algorithmsList->getAlgorithmsList();
     for(int i = 0; i < algorithms.size(); i++){
         ui->AlgorithmCombo->addItem(algorithms[i]->getName());
@@ -157,10 +187,21 @@ void ProtocolDialog::changeParametersForm(){
     QList<AbstractAlgorithm::AlgorithmParameter> param = algorithm->getParameters();
     while(!(param.isEmpty())){
         ParameterValueForm* parameterForm = new ParameterValueForm(param.takeFirst(),this);
-        //connect(parameterForm,SIGNAL(valueEntered(bool)),ui->finish3,SLOT(setEnabled(bool)));
+        connect(parameterForm,SIGNAL(valueEntered(bool)),this,SLOT(checkParametersValidity()));
         ui->parameterLayout->addWidget(parameterForm);
 
         parameters.append(parameterForm);
     }
     }
+    checkParametersValidity();
+}
+
+
+void ProtocolDialog::checkParametersValidity(){
+    bool stop = false;
+    for(int i = 0; i< parameters.size() && !stop; i++){
+        if(!(parameters[i]->isValid())) stop = true;
+    }
+    if(stop) ui->finish3->setEnabled(false);
+    else ui->finish3->setEnabled(true);
 }

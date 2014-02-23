@@ -14,6 +14,10 @@ namespace model {
 namespace protocols{
 namespace features{
 
+/*!
+ * \brief Tipo enumerazione che identifica i vari tipi di feature extractor
+ */
+enum FeatureType{FIRSTORDER,SECONDORDER,DYNAMIC};
 
 /**
  * \brief La classe AbstractFeature da completare
@@ -22,6 +26,8 @@ namespace features{
  */
 class AbstractFeature
 {
+
+
     /*!
      * \brief  Stringa contenente il percorso nel file system con la libreria dinamica contenete il codice del feature extractor
      */
@@ -40,7 +46,7 @@ class AbstractFeature
      */
     QString description;
 public:
-    AbstractFeature();
+    AbstractFeature(QString n,QString dylp,QString dyfn,QString desc = QString());
 
     /*!
      * \brief Restituisce il percorso alla libreria dinamica contente il codice del feature extractor
@@ -55,9 +61,9 @@ public:
      */
     QString getDescription() const;
     /*!
-     * \brief Restituisce il tipo della feature (primo ordine, secondo ordine, dinamica)
+     * \brief Metodo astratto che restituisce il tipo della feature, sotto forma di stringa
      */
-    virtual QString getType() const = 0;
+    virtual FeatureType getType()= 0;
 
 };
 

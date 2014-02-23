@@ -24,8 +24,13 @@ namespace features{
 class DynamicFeature : public AbstractFeature
 {
 public:
-    DynamicFeature();
+    DynamicFeature(QString n,QString dylp,QString dyfn,QString desc = QString());
     void execute();
+
+    /*!
+     * \brief Override del metodo astratto di AbstractFeature
+     */
+    FeatureType getType();
 };
 }}}}
 #endif // DYNAMICFEATURE_H

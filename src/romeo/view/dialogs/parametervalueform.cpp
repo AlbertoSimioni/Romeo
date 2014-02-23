@@ -3,7 +3,7 @@
 using namespace romeo::view::dialogs;
 using namespace romeo::model::protocols::algorithms;
 ParameterValueForm::ParameterValueForm(AbstractAlgorithm::AlgorithmParameter parameter,QWidget *parent) :
-    QWidget(parent),
+    QWidget(parent), validValue(false),
     ui(new Ui::ParameterValueForm)
 {
     ui->setupUi(this);
@@ -22,35 +22,44 @@ ParameterValueForm::ParameterValueForm(AbstractAlgorithm::AlgorithmParameter par
 
     ui->typeLabel->setText(stringType);
     ui->valueLineEdit->setText(parameter.getDefaultParameter());
-
+    checkValidity(parameter.getDefaultParameter());
 
     connect(ui->valueLineEdit,SIGNAL(textChanged(QString)),this,SLOT(checkValidity(QString)));
 }
+
 
 ParameterValueForm::~ParameterValueForm()
 {
     delete ui;
 }
 
-QString ParameterValueForm::getName(){
+
+QString ParameterValueForm::getName()
+{
     return ui->nameLabel->text();
 }
 
 
-AbstractAlgorithm::ParameterType ParameterValueForm::getType(){
+AbstractAlgorithm::ParameterType ParameterValueForm::getType()
+{
     return type;
 }
 
 
-QString ParameterValueForm::getValue(){
+QString ParameterValueForm::getValue()
+{
     return ui->valueLineEdit->text();
 }
 
-AbstractAlgorithm::AlgorithmParameter ParameterValueForm::getParameter(){
+
+AbstractAlgorithm::AlgorithmParameter ParameterValueForm::getParameter()
+{
     return AbstractAlgorithm::AlgorithmParameter(ui->nameLabel->text(),type,ui->valueLineEdit->text());
 }
 
-void ParameterValueForm::checkValidity(QString value){
+
+void ParameterValueForm::checkValidity(QString value)
+{
     bool valid = true;
     switch(type){
 
@@ -63,6 +72,20 @@ void ParameterValueForm::checkValidity(QString value){
     case AbstractAlgorithm::INT: value.toInt(&valid);
         break;
     }
+    validValue = valid;
+    QPalette palette = ui->valueLineEdit->palette();
 
+    if(!validValue) palette.setColor(QPalette::Text,QColor(255,0,0));
+    else  palette.setColor(QPalette::Text,QColor(0,0,0));
+
+    ui->valueLineEdit->setPalette(palette);
     emit valueEntered(valid);
 }
+
+
+bool ParameterValueForm::isValid() const
+{
+    return validValue;
+}
+
+

@@ -44,6 +44,11 @@ public:
      */
     void addFeature(AbstractFeature* aa);
 
+    /*!
+     * \brief Ritorna l'intera lista di features del modello.
+     */
+    QList<AbstractFeature*> getFeaturesList();
+
 signals:
     /*!
      * \brief Segnale che indica una modifica alla lista delle feature
@@ -54,6 +59,11 @@ private:
      * \brief Il vettore contiene la lista delle feature presenti nel programma
      */
     QList<AbstractFeature*> features;
+
+
+    /*!
+     * \brief Campo dati statico che contiene il riferimento all'unica istanza della lista delle feature
+     */
     static FeaturesList* instance;
 
 };

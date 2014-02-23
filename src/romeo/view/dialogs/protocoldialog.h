@@ -99,11 +99,11 @@ private:
      */
     void connectUI();
 
-    /*!
-     * \brief Metodo che inserisce nella lista delle feature, tutte le feature presenti nel modello
-     */
-    void fillFeaturesList();
 
+
+    /*!
+     * \brief Metodo che inserisce nella combo box la lista di tutti gli algoritmi di clustering
+     */
     void fillAlgorithmsCombo();
 
 
@@ -114,6 +114,12 @@ private slots:
      */
 
     void addFeature(QListWidgetItem* item);
+
+    /*!
+     * \brief Metodo che inserisce nella lista delle feature, tutte le feature presenti nel modello
+     */
+    void fillFeaturesList();
+
     /*!
      * \brief Rimuove l'item dato in input dalla lista delle feature del protocollo
      */
@@ -135,6 +141,11 @@ private slots:
      * \brief Slot che rimpiazza la form con i parametri dell'algoritmo con i parametri dell'algoritmo selezionato nella combo box degli algoritmi
      */
     void changeParametersForm();
+
+    /*!
+     * \brief Slot che controlla che tutti i valori dei parametri siano validi, in caso positivo rende abilitato il pulsante finish, in caso contrario lo disabilita
+     */
+    void checkParametersValidity();
 
 };
 }}}

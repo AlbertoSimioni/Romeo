@@ -24,7 +24,12 @@ namespace features{
 class SecondOrderFeature : public AbstractStaticFeature
 {
 public:
-    SecondOrderFeature();
+    SecondOrderFeature(QString n,QString dylp,QString dyfn,QString desc = QString());
+
+    /*!
+     * \brief Override del metodo astratto di AbstractFeature
+     */
+    FeatureType getType();
 };
 }}}}
 #endif // SECONDORDERFEATURE_H
