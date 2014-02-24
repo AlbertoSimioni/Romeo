@@ -117,7 +117,7 @@ public:
      * \brief Metodo che ritorna la descrizione dell'algoritmo.
      * \return
      */
-    QString getDescription();
+    QString getDescription() const;
     /*!
      * \brief Metodo per modificare la descrizione dell'algoritmo, sostituisce la descrizione presente precedentemente
      * con la descrizione presente nel parametro desc

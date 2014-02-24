@@ -45,6 +45,11 @@ AbstractAlgorithm::AbstractAlgorithm(QString n,QList<AlgorithmParameter>par, QSt
 
 }
 
+QString AbstractAlgorithm::getDescription() const
+{
+    return description;
+}
+
 QList<AbstractAlgorithm::AlgorithmParameter > AbstractAlgorithm::getParameters() const
 {
     return parameters;
