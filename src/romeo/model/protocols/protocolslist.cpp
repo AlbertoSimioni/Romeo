@@ -37,11 +37,6 @@ QList<AbstractProtocol *> ProtocolsList::getProtocolsList() const
 }
 
 
-void ProtocolsList::addProtocol(QString &name, QString desc, QString &algorithm, QList<QString> &features, ProtocolType type){
-    //DA IMPLEMENTARE
-}
-
-
 AbstractProtocol* ProtocolsList::getProtocol(QString name){
     AbstractProtocol* prot = 0;
     for(int i = 0; i < protocolsList.size() && !prot; i++ ){
@@ -50,9 +45,9 @@ AbstractProtocol* ProtocolsList::getProtocol(QString name){
     return prot;
 }
 
-void ProtocolsList::addProtocol(QString nomeP, QString desc, AbstractAlgorithm *alg, QList<features::AbstractFeature *> &feat,ProtocolType type){
+void ProtocolsList::addProtocol(QString nomeP, QString desc, AbstractAlgorithm *alg, QList<features::AbstractFeature *> &feat,ProtocolType type, int window, int distanceGLCM){
     switch(type){
-    case STATIC : protocolsList.append(new StaticProtocol(nomeP,desc,alg,feat));
+    case STATIC : protocolsList.append(new StaticProtocol(nomeP,desc,alg,feat,window,distanceGLCM));
         break;
     case DYNAMIC: protocolsList.append(new DynamicProtocol(nomeP,desc,alg,feat));
         break;

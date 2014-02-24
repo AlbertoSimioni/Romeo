@@ -22,7 +22,7 @@ namespace protocols{
 class StaticProtocol : public AbstractProtocol
 {
 public:
-    StaticProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, QList<features::AbstractFeature*> feat);
+    StaticProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, QList<features::AbstractFeature*> feat, int window=3, int distance=1);
     /*!
      * \brief Override del metodo execute della classe astratta AbstractProtocol
      * \param Il soggetto utilizzato per eseguire l'analisi, deve contenere un immagine di tipo statico
@@ -30,6 +30,13 @@ public:
     virtual void execute(datasets::AbstractSubject *subject);
 
     virtual ProtocolType getType();
+    int getDistanceToGLCM() const;
+    void setDistanceToGLCM(int value);
+    int getWindowSize() const;
+    void setWindowSize(int value);
+private:
+    int distanceToGLCM;
+    int windowSize;
 };
 }}}
 #endif // STATICPROTOCOL_H
