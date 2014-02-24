@@ -27,6 +27,7 @@ Controller::Controller(QObject *parent): QObject(parent)
     algorithmsList = modelCore->getAlgorithmsList();
     featuresList = modelCore->getFeaturesList();
     protocolsList = modelCore->getProtocolsList();
+    datasetsList = modelCore->getDatasetsList();
 
     ////////////PROVA TEST
     QList<AbstractAlgorithm::AlgorithmParameter> param;
@@ -42,14 +43,14 @@ Controller::Controller(QObject *parent): QObject(parent)
     AbstractAlgorithm::AlgorithmParameter param22 (QString("ahaha"), AbstractAlgorithm::CHAR, QString("default"));
     params.append(param11);
     params.append(param22);
-    AbstractAlgorithm* alg2=new UserDefinedAlgorithm(params, QString("nome alg2"), QString("desc"), QString("libreria"), QString("nomefunz"));
+    AbstractAlgorithm* alg2=new UserDefinedAlgorithm(params, QString("nome alg2"), QString("desc2"), QString("libreria"), QString("nomefunz"));
     algorithmsList->addAlgorithm(alg2);
 
 
-    AbstractFeature* feat1 = new FirstOrderFeature("FO1","PATH","PATH");
-    AbstractFeature* feat2 = new FirstOrderFeature("FO2","PATH","PATH");
-    AbstractFeature* feat3 = new DynamicFeature("D1","PATH","PATH");
-    AbstractFeature* feat4 = new SecondOrderFeature("SO1","PATH","PATH");
+    AbstractFeature* feat1 = new FirstOrderFeature("FO1","PATH","PATH","DESC1");
+    AbstractFeature* feat2 = new FirstOrderFeature("FO2","PATH","PATH","DESC2");
+    AbstractFeature* feat3 = new DynamicFeature("D1","PATH","PATH","DESC3");
+    AbstractFeature* feat4 = new SecondOrderFeature("SO1","PATH","PATH","DESC4");
     featuresList->addFeature(feat1);
     featuresList->addFeature(feat2);
     featuresList->addFeature(feat3);
@@ -71,8 +72,8 @@ Controller::Controller(QObject *parent): QObject(parent)
 
 
     newFeatureDialog = new NewFeatureDialog(mainWindow);
-    algorithmsListDialog = new AlgorithmsListDialog(mainWindow);
-    featuresListDialog = new FeaturesListDialog(mainWindow);
+    algorithmsListDialog = new AlgorithmsListDialog(algorithmsList,mainWindow);
+    featuresListDialog = new FeaturesListDialog(featuresList,mainWindow);
 
 
     connectViewsSignals();
@@ -92,6 +93,9 @@ void Controller::connectViewsSignals(){
     connect(mainWindow,SIGNAL(openNewFeatureDialog()),this,SLOT(viewNewFeatureDialog()));
     connect(protocolDialog,SIGNAL(nameChanged(QString)),this,SLOT(checkProtocolName(QString)));
     connect(newAlgorithmDialog,SIGNAL(nameChanged(QString)),this,SLOT(checkAlgorithmName(QString)));
+    connect(newFeatureDialog,SIGNAL(nameChanged(QString)),this,SLOT(checkFeatureName(QString)));
+    connect(newDatasetDialog,SIGNAL(nameChanged(QString)),this,SLOT(checkDatasetName(QString)));
+
 }
 
 Controller* Controller::getInstance(QObject *parent){
@@ -146,5 +150,24 @@ void Controller::checkAlgorithmName(QString algorithmName){
     }
     else{
         newAlgorithmDialog->showErrorName(false);
+    }
+}
+
+
+void Controller::checkFeatureName(QString featureName){
+    if(featuresList->getFeature(featureName)){
+            newFeatureDialog->showErrorName(true);
+    }
+    else{
+        newFeatureDialog->showErrorName(false);
+    }
+}
+
+void Controller::checkDatasetName(QString datasetName){
+    if(datasetsList->getDataset(datasetName)){
+        newDatasetDialog->showErrorName(true);
+    }
+    else{
+        newDatasetDialog->showErrorName(false);
     }
 }

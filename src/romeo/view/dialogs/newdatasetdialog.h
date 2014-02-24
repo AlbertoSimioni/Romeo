@@ -19,7 +19,7 @@ namespace romeo{
 namespace view {
 namespace dialogs{
 
-//MANCA PULSANTE OK E CONTROLLER CHE NON RICEVE IL SEGNALE
+//MANCA PULSANTE OK
 class NewDatasetDialog : public QDialog
 {
     Q_OBJECT

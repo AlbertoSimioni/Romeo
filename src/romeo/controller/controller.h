@@ -57,15 +57,23 @@ public slots:
     void viewAlgorithmsListDialog();
     void viewFeaturesListDialog();
     /*!
-     * \brief Controlla se il nome del protocollo passato in input è già impegnato e in caso si preoccupa di
+     * \brief Controlla se il nome del protocollo passato in input è già impegnato da un protocollo e in caso si preoccupa di
      * di far visualizzare un messaggio di errore sul wizard di creazione di un protocollo
      */
     void checkProtocolName(QString protocolName);
     /*!
-     * \brief Controlla se il nome dell'algoritmo passato in input è già impegnato e in caso si preoccupa di
+     * \brief Controlla se il nome dell'algoritmo passato in input è già impegnato da un algoritmo e in caso si preoccupa di
      * di far visualizzare un messaggio di errore sul dialogo di creazione di un algoritmo
      */
     void checkAlgorithmName(QString algorithmName);
+
+    /*!
+     * \brief Controlla se il nome dell'algoritmo passato in input è già impegnato da una feature e in caso si preoccupa di
+     * di far visualizzare un messaggio di errore sul dialogo di creazione di una feature
+     */
+    void checkFeatureName(QString featureName);
+
+    void checkDatasetName(QString datasetName);
 
 private:
 
@@ -149,6 +157,8 @@ private:
      romeo::model::protocols::features::FeaturesList* featuresList;
 
      romeo::model::protocols::ProtocolsList* protocolsList;
+
+     romeo::model::datasets::DatasetsList* datasetsList;
 
      romeo::model::core::ModelCore* modelCore;
 };

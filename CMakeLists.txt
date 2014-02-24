@@ -25,6 +25,7 @@ set(CMAKE_AUTOMOC ON)
 FIND_PACKAGE(Qt5Widgets REQUIRED)
 find_package(Qt5Xml REQUIRED)
 find_package(Qt5XmlPatterns REQUIRED)
+find_package(Qt5Test REQUIRED)
 
 
 SET(romeo_SOURCES

@@ -9,7 +9,7 @@ ViewManager* ViewManager::instance = 0;
 
 
 ViewManager::ViewManager(QObject *parent): QObject(parent)
-{
+{/*
     mainWindow = new MainWindow();//controllare per il parent
     newDatasetDialog = new NewDatasetDialog(mainWindow);
 
@@ -20,7 +20,7 @@ ViewManager::ViewManager(QObject *parent): QObject(parent)
    featuresListDialog  = new FeaturesListDialog(mainWindow);
    algorithmsListDialog = new AlgorithmsListDialog(mainWindow);
 
-   mainWindow->show();
+   mainWindow->show();*/
 }
 
 ViewManager::~ViewManager()
