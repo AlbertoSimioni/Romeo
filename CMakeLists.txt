@@ -1,6 +1,6 @@
 project(ROMEO)
 cmake_minimum_required(VERSION 2.8)
-
+ENABLE_TESTING()
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 
 FIND_PACKAGE ( ITK REQUIRED)
@@ -25,7 +25,7 @@ set(CMAKE_AUTOMOC ON)
 FIND_PACKAGE(Qt5Widgets REQUIRED)
 find_package(Qt5Xml REQUIRED)
 find_package(Qt5XmlPatterns REQUIRED)
-find_package(Qt5Test REQUIRED)
+
 
 
 SET(romeo_SOURCES
@@ -200,5 +200,6 @@ ADD_EXECUTABLE(romeo ${romeo_SOURCES}
     ${romeo_FORMS_HEADERS}
     ${romeo_RESOURCES_RCC})
 
-QT5_USE_MODULES(romeo Widgets Xml XmlPatterns)
+QT5_USE_MODULES(romeo Widgets Xml XmlPatterns Test)
 TARGET_LINK_LIBRARIES( romeo ${ITK_LIBRARIES}  ${VTK_LIBRARIES} )
+#ADD_SUBDIRECTORY(tests)
