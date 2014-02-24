@@ -27,8 +27,10 @@ class AlgorithmsList: public QObject
 {
     Q_OBJECT
 public:
-
-    explicit AlgorithmsList(QObject *parent = 0);
+    /*!
+     * \brief Metodo statico che ritorna l'istanza di AlgorithmList, in caso sia la prima volta ad essere invocato
+     *  si preoccupa anche di costruire l'istanza.
+     */
     static AlgorithmsList* getInstance(QObject *parent=0);
     /*!
      * \brief Inserisce nella lista degli algoritmi un nuovo algoritmo di clustering con i parametri passati.
@@ -57,6 +59,10 @@ signals:
      */
     void algorithmsListModified();
 private:
+    /*!
+     * \brief Costruttore privato, poiché la classe Loader implementa il design pattern singleton
+     */
+    explicit AlgorithmsList(QObject *parent = 0);
     /*!
      * \brief Il vettore contiene la lista degli algoritmi presenti nel programma
      */

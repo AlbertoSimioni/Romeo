@@ -8,6 +8,8 @@
 
 #include <QDir>
 
+#include <src/romeo/model/datasets/abstractdataset.h>
+
 #ifndef WRITER_H
 #define WRITER_H
 
@@ -30,6 +32,8 @@ public:
      */
     static Writer* getInstance();
     void writeProtocols(QDir& protocolPath);
+    bool saveDatabase(QDir path);
+    bool saveDataset(datasets::AbstractDataset* dataset, QDir path);
 private:
     /*!
      * \brief Costruttore privato, poiché la classe Writer implementa il design pattern singleton

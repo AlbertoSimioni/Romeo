@@ -24,3 +24,15 @@ void  FeaturesList::addFeature(AbstractFeature *aa){
 QList<AbstractFeature*> FeaturesList::getFeaturesList(){
     return features;
 }
+
+AbstractFeature *FeaturesList::getFeature(QString feature) const
+{
+    for(int ind=0; ind<features.length(); ++ind)
+    {
+        if(features[ind]->getName() == feature)
+        {
+            return features[ind];
+        }
+    }
+    return 0;
+}

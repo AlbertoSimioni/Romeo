@@ -23,9 +23,8 @@ ADD_SUBDIRECTORY(config)
 set(CMAKE_AUTOMOC ON)
 
 FIND_PACKAGE(Qt5Widgets REQUIRED)
-
-
-
+find_package(Qt5Xml REQUIRED)
+find_package(Qt5XmlPatterns REQUIRED)
 
 
 SET(romeo_SOURCES
@@ -200,6 +199,5 @@ ADD_EXECUTABLE(romeo ${romeo_SOURCES}
     ${romeo_FORMS_HEADERS}
     ${romeo_RESOURCES_RCC})
 
-
-QT5_USE_MODULES(romeo Widgets)
+QT5_USE_MODULES(romeo Widgets Xml XmlPatterns)
 TARGET_LINK_LIBRARIES( romeo ${ITK_LIBRARIES}  ${VTK_LIBRARIES} )

@@ -71,8 +71,7 @@ public:
     //virtual void featureExtract() = 0;
     QString getName() const;
 
-
-    QString getDescription() const;;
+    QString getDescription() const;
 
     bool getTest() const;
 

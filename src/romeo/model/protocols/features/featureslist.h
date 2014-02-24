@@ -29,7 +29,10 @@ class FeaturesList : public QObject
     Q_OBJECT
 
 public:
-    explicit FeaturesList(QObject *parent = 0);
+    /*!
+     * \brief Metodo statico che ritorna l'istanza di AlgorithmList, in caso sia la prima volta ad essere invocato
+     *  si preoccupa anche di costruire l'istanza.
+     */
     static FeaturesList* getInstance(QObject *parent=0);
 
     /*!
@@ -48,6 +51,7 @@ public:
      * \brief Ritorna l'intera lista di features del modello.
      */
     QList<AbstractFeature*> getFeaturesList();
+    AbstractFeature* getFeature(QString feature) const;
 
 signals:
     /*!
@@ -55,6 +59,10 @@ signals:
      */
     void featuresListModified();
 private:
+    /*!
+     * \brief Costruttore privato, poiché la classe Loader implementa il design pattern singleton
+     */
+    explicit FeaturesList(QObject *parent = 0);
     /*!
      * \brief Il vettore contiene la lista delle feature presenti nel programma
      */

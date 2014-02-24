@@ -39,7 +39,7 @@ private:
      * \brief Campo dati statico che contiene il riferimento all'unica istanza del Loader
      */
     static Loader* instance;
-    //void parseDatabase();
+    void loadDatabase();
     //parseDataset(QString& name, QString& type);
     //parseSubject();
     //void parseAlgorithm(AbstractAlgorithm* alg, QXmlStreamReader& reader);

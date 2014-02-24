@@ -25,10 +25,19 @@ class DatasetsList : public QObject
 {
     Q_OBJECT
 public:
+    /*!
+     * \brief Metodo statico che ritorna l'istanza del DatasetList, in caso sia la prima volta ad essere invocato
+     *  si preoccupa anche di costruire l'istanza.
+     */
    static DatasetsList* getInstance();
+   AbstractDataset* getDataset(QString name) const;
+
 private:
+   /*!
+    * \brief Costruttore privato, poiché la classe Loader implementa il design pattern singleton
+    */
     DatasetsList(QObject* parent=0);
-    QList<AbstractDataset*> nomi;
+    QList<AbstractDataset*> datasets;
     static DatasetsList* instance;
 signals:
     /*!

@@ -11,6 +11,18 @@ DatasetsList *DatasetsList::getInstance()
     return instance;
 }
 
+AbstractDataset *DatasetsList::getDataset(QString name) const
+{
+    for(int ind=0; ind<datasets.length(); ++ind)
+    {
+        if(datasets[ind]->getName() == name)
+        {
+            return datasets[ind];
+        }
+    }
+    return 0;
+}
+
 DatasetsList::DatasetsList(QObject *parent): QObject()
 {
 }

@@ -29,13 +29,13 @@ class ProtocolsList : public QObject
     Q_OBJECT
 public:
     /**
-     * @brief ProtocolsList costruisce la lista di protocolli
-     */
-    explicit ProtocolsList(QObject *parent = 0);
-    /**
       * \brief Il distruttore della classe ProtocolsList rimuove dallo heap i riferimenti ai protocolli
     */
     //~ProtocolsList();
+    /*!
+    * \brief Metodo statico che ritorna l'istanza di AlgorithmList, in caso sia la prima volta ad essere invocato
+    *  si preoccupa anche di costruire l'istanza.
+    */
     static ProtocolsList* getInstance();
     /*!
      * \brief Inserisce nella lista dei protocolli un nuovo protocollo definito dai parametri passati
@@ -54,7 +54,6 @@ public:
      */
     AbstractProtocol* getProtocol(QString name);
 
-
     QList<protocols::AbstractProtocol *> getProtocolsList() const;
 
 signals:
@@ -65,6 +64,10 @@ signals:
 
 
 private:
+    /**
+     * \brief ProtocolsList costruisce la lista di protocolli
+     */
+    explicit ProtocolsList(QObject *parent = 0);
     /*!
      * \brief Il vettore contiene la lista dei protocolli creati dall'utente
      */
