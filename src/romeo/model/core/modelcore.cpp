@@ -1,4 +1,5 @@
 #include "modelcore.h"
+#include<QMessageBox>
 using namespace romeo::model::core;
 using namespace romeo::model::imageIO;
 using namespace romeo::model::datasets;
@@ -9,21 +10,20 @@ ModelCore* ModelCore::instance=0;
 
 ModelCore::ModelCore(QObject *parent): QObject(parent)
 {
-    writer=Writer::getInstance();
-    loader=Loader::getInstance();
+    writer=Writer::getInstance(this);
+    loader=Loader::getInstance(this);
     createLists();
-    if(!dataHome.setCurrent("/data"))
+    dataHome=QDir::current();
+    QDir existData;
+    QString s=dataHome.absolutePath().append("/data");
+    if(!existData.setCurrent(s))
     {
         emit ioError(QString("Data directory not found, please make sure a directory named 'data' is in the software folder"));
     }
-    QString algorithmPath(dataHome.path());
+    QString algorithmPath(s);
     algorithmPath.append("/algorithms.xml");
-    loader->loadAlgorithms(algorithmPath);
-    //loader->loadDatabase(databaseFile, datasetsFiles, datasetsList);
-    //for(QHash::Iterator it=datasetsFiles.begin(); it != datasetsFiles.end(); ++it)
-    {
 
-    }
+    loader->loadFeatures(dataHome.absolutePath().append("/data/features.xml"), featuresList);
 }
 
 void ModelCore::createLists()

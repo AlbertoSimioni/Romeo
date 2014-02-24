@@ -38,10 +38,12 @@ public:
     /*!
      * \brief Inserisce nella lista dei protocolli un nuovo protocollo definito dai parametri passati
      * \param name Nome della feature da inserire
+     * \param type Il tipo della feature tra i tipi disponibili: FIRSTORDER, SECONDORDER e DYNAMIC
      * \param description Descrizione dell'algoritmo di clustering da inserire
-     * \param parameters Parametri dell'algoritmo di clustering da inserire
+     * \param dylp Il percorso alla libreria dinamica dove si trova l'algoritmo della feature
+     * \param dyfn Il nome della funzione contenuto nella libreria dinamica
      */
-    void addFeature(QString name, QString description, QString dylp, QString dyfn);
+    void addFeature(const QString& name, FeatureType type, const QString& description="", const QString& dylp="", const QString& dyfn="");
     /*!
      * \brief Aggiunge alla lista degli algoritmi, l'algoritmo passato per riferimento
      */

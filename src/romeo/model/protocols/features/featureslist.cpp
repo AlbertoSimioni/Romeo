@@ -1,4 +1,7 @@
+#include "dynamicfeature.h"
 #include "featureslist.h"
+#include "firstorderfeature.h"
+#include "secondorderfeature.h"
 using namespace romeo::model::protocols::features;
 
 FeaturesList* FeaturesList::instance=0;
@@ -14,6 +17,37 @@ FeaturesList *FeaturesList::getInstance(QObject* parent)
         instance= new FeaturesList(parent);
     }
     return instance;
+}
+
+void FeaturesList::addFeature(const QString &name, FeatureType type, const QString &description, const QString &dylp, const QString &dyfn)
+{
+    //controllo che non ci siano altre feature nella lista con lo stesso nome
+    bool ok=false;
+    for(int i=0; i<features.length() && !ok; ++i)
+    {
+        if( features[i]->getName() == name){
+            ok=true;
+            return;
+        }
+    }
+    AbstractFeature* newFeature=0;
+    switch (type) {
+    case FIRSTORDER:
+        newFeature=new FirstOrderFeature(name, dylp, dyfn, description);
+        break;
+    case SECONDORDER:
+        newFeature=new SecondOrderFeature(name, dylp, dyfn, description);
+        break;
+    case DYNAMIC:
+        newFeature=new DynamicFeature(name, dylp, dyfn, description);
+        break;
+    default:
+        break;
+    }
+    if(newFeature)
+    {
+        features.append(newFeature);
+    }
 }
 
 

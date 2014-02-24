@@ -45,6 +45,7 @@ class AbstractFeature
      * \brief Descrizione della feature
      */
     QString description;
+    FeatureType type;
 public:
     AbstractFeature(QString n,QString dylp,QString dyfn,QString desc = QString());
 

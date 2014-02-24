@@ -7,8 +7,11 @@
 */
 
 #include <QDir>
+#include <QXmlStreamReader>
 
-#include <src/romeo/model/protocols/algorithms/abstractalgorithm.h>
+#include <src/romeo/model/protocols/algorithms/algorithmslist.h>
+
+#include <src/romeo/model/protocols/features/featureslist.h>
 #ifndef LOADER_H
 #define LOADER_H
 
@@ -22,27 +25,27 @@ namespace core{
  *
  * Descrizione dettagliata
  */
-class Loader
+class Loader: public QObject
 {
+    Q_OBJECT
 public:
     /*!
      * \brief Metodo statico che ritorna l'istanza del Loader, in caso sia la prima volta ad essere invocato
      *  si preoccupa anche di costruire l'istanza.
      */
-    static Loader* getInstance();
-    bool loadAlgorithms(QString algFile);
+    static Loader* getInstance(QObject* parent);
+    bool loadAlgorithms(QString algFile, protocols::algorithms::AbstractAlgorithm* algorithmList);
+    bool loadFeatures(const QString &featFile, protocols::features::FeaturesList* featureList);
 private:
     /*!
      * \brief Costruttore privato, poiché la classe Loader implementa il design pattern singleton
      */
-    Loader();
+    Loader(QObject *parent=0);
     /*!
      * \brief Campo dati statico che contiene il riferimento all'unica istanza del Loader
      */
     static Loader* instance;
-    //parseDataset(QString& name, QString& type);
-    //parseSubject();
-    //void parseAlgorithm(AbstractAlgorithm* alg, QXmlStreamReader& reader);
+    static bool readStart(const QString&startElement, QXmlStreamReader *reader);
 };
 }}}
 
