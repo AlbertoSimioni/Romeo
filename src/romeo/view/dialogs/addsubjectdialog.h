@@ -18,7 +18,7 @@ class AddSubjectDialog;
 namespace romeo {
 namespace view {
 namespace dialogs {
-// DA SISTEMARE LA PRESSIONE DELL'OK E IL SEGNALE PER CONTROLLARE LA VALIDITà DEL NOME
+// DA SISTEMARE LA PRESSIONE DELL'OK E IL SEGNALE PER CONTROLLARE LA VALIDITà DEL NOME E IL FILTRO PER L'INPUT
 class AddSubjectDialog : public QDialog
 {
     Q_OBJECT

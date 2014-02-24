@@ -1,8 +1,8 @@
 #include "dynamicprotocol.h"
 using namespace romeo::model::protocols;
 
-DynamicProtocol::DynamicProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, QList<features::AbstractFeature*> feat):
-    AbstractProtocol(nomeP,desc,alg,feat)
+DynamicProtocol::DynamicProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, QList<features::AbstractFeature*> feat, bool testProtocol):
+    AbstractProtocol(nomeP,desc,alg,feat,testProtocol)
 {
 
 }

@@ -16,6 +16,7 @@
 #include <src/romeo/view/dialogs/parametervalueform.h>
 #include <src/romeo/model/protocols/algorithms/algorithmslist.h>
 #include <src/romeo/model/protocols/features/featureslist.h>
+#include <src/romeo/model/protocols/abstractprotocol.h>
 
 
 namespace Ui {
@@ -26,7 +27,7 @@ namespace romeo{
 namespace view{
 namespace dialogs{
 
-//Manca da sistemare i parametri window size e glcm e tasto finish
+//DA SISTEMARE QUANDO VIENE APERTO PER LA MODIFICA DI UN PROTOCOLLO ESISTENTE
 class ProtocolDialog : public QDialog
 {
     Q_OBJECT
@@ -67,6 +68,17 @@ signals:
      * \brief Segnala la modifica del nome del protocollo da parte dell'utente
      */
     void nameChanged(QString protocolName);
+
+    /*!
+     * \brief Segnala la creazione di un nuovo protocollo da parte dell'utente, il segnale contiene tutti i campi dati necessari per la creazione del protocollo
+     * \param protocolName Nome del protocollo
+     * \param desc Descrizione del protocollo
+     * \param test Booleano che segnala se il protocollo è di test oppure no
+     * \param features Elenco delle features associate
+     * \param algorithm Algoritmo associato
+     * \param type Tipo del protocollo
+     */
+    void createProtocol(QString protocolName,QString desc,bool test,QList<QString>features,QString algorithm,romeo::model::protocols::ProtocolType type,int windowSize,int distanceGLCM);
 
 
 private:
@@ -151,6 +163,14 @@ private slots:
      * \brief Slot che verifica se la stringa in input è vuoto e in caso disabilita il bottone di avanzamento del primo passo del wizard
      */
     void checkEmpty(QString name);
+    /*!
+     * \brief Slot avviato alla pressione dell'utente del tasto finish
+     */
+    void finishButtonClicked();
+    /*!
+     * \brief Slot che verifica la validità dei parametri riguardanti la window size e la distance to the glcm
+     */
+    void checkWindowSizeGLCM();
 
 };
 }}}

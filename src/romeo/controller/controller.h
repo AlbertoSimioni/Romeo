@@ -75,6 +75,19 @@ public slots:
 
     void checkDatasetName(QString datasetName);
 
+    /*!
+     * \brief Slot connesso con il segnale createProtocol della classe ProtocolDialog
+     * \param protocolName
+     * \param desc
+     * \param test
+     * \param features
+     * \param algorithm
+     * \param type
+     * \param windowSize
+     * \param distanceGLCM
+     */
+    void addProtocol(QString protocolName,QString desc,bool test,QList<QString>features,QString algorithm,romeo::model::protocols::ProtocolType type,int windowSize,int distanceGLCM);
+
 private:
 
     /*!

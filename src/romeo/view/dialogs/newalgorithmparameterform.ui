@@ -60,7 +60,7 @@
      <item>
       <widget class="QLabel" name="label_8">
        <property name="text">
-        <string>Default</string>
+        <string>Default:</string>
        </property>
       </widget>
      </item>

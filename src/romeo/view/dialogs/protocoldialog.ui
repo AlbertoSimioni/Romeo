@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>587</width>
-    <height>331</height>
+    <width>662</width>
+    <height>395</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -144,6 +144,20 @@ font-size: 15px;
                <string>Test</string>
               </property>
              </widget>
+            </item>
+            <item>
+             <layout class="QFormLayout" name="formLayout">
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_18">
+                <property name="text">
+                 <string>Description</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QTextEdit" name="textEdit"/>
+              </item>
+             </layout>
             </item>
             <item>
              <spacer name="verticalSpacer_8">
@@ -571,38 +585,71 @@ font-size: 15px;
                 <property name="title">
                  <string>Parameters</string>
                 </property>
-                <layout class="QGridLayout" name="gridLayout_3">
-                 <item row="1" column="0">
-                  <widget class="QSlider" name="horizontalSlider_5">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
+                <layout class="QVBoxLayout" name="verticalLayout_4">
+                 <item>
+                  <layout class="QFormLayout" name="formLayout_2">
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_14">
+                     <property name="text">
+                      <string>Window Size</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QComboBox" name="WindowSizeCombo">
+                     <item>
+                      <property name="text">
+                       <string>3x3</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>5x5</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>7x7</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>9x9</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>11x11</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>13x13</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>15x15</string>
+                      </property>
+                     </item>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="label_15">
+                     <property name="text">
+                      <string>Distance to the GLCM</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QLineEdit" name="glcmLineEdit"/>
+                   </item>
+                  </layout>
                  </item>
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_14">
+                 <item>
+                  <widget class="QLabel" name="label_19">
                    <property name="text">
-                    <string>Window Size</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="QLineEdit" name="lineEdit_5"/>
-                 </item>
-                 <item row="3" column="0">
-                  <widget class="QSlider" name="horizontalSlider_6">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="1">
-                  <widget class="QLineEdit" name="lineEdit_6"/>
-                 </item>
-                 <item row="2" column="0" colspan="2">
-                  <widget class="QLabel" name="label_15">
-                   <property name="text">
-                    <string>Distance to the GLCM</string>
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt; font-weight:400; font-style:italic;&quot;&gt;Useless with first order features&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                   </widget>
                  </item>

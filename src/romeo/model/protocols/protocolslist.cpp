@@ -45,11 +45,11 @@ AbstractProtocol* ProtocolsList::getProtocol(QString name){
     return prot;
 }
 
-void ProtocolsList::addProtocol(QString nomeP, QString desc, AbstractAlgorithm *alg, QList<features::AbstractFeature *> &feat,ProtocolType type, int window, int distanceGLCM){
+void ProtocolsList::addProtocol(QString nomeP, QString desc, AbstractAlgorithm *alg, QList<features::AbstractFeature *> &feat,bool test,ProtocolType type, int window, int distanceGLCM){
     switch(type){
-    case STATIC : protocolsList.append(new StaticProtocol(nomeP,desc,alg,feat,window,distanceGLCM));
+    case STATIC : protocolsList.append(new StaticProtocol(nomeP,desc,alg,feat,test,window,distanceGLCM));
         break;
-    case DYNAMIC: protocolsList.append(new DynamicProtocol(nomeP,desc,alg,feat));
+    case DYNAMIC: protocolsList.append(new DynamicProtocol(nomeP,desc,alg,feat,test));
         break;
     }
     emit ProtocolsList::protocolsListModified();

@@ -30,12 +30,7 @@ class AbstractProtocol
 {
 public:
 
-    /*!
-     * \brief Costruisce un nuovo protocollo con nome e descrizione
-     * \param Nome del protocollo
-     * \param Descrizione del protocollo
-     */
-    AbstractProtocol(QString n="", QString d="");
+
     /*!
      * \brief Costruisce un nuovo protocollo con l''algoritmo e le features indicate
      * \param nomeP Nome del protocollo da costruire
@@ -43,7 +38,7 @@ public:
      * \param alg Un puntatore all'algoritmo di clustering che il protocollo deve eseguire
      * \param feat Un vettore di puntatori a features che fanno parte del protocollo
      */
-    AbstractProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, QList<features::AbstractFeature*>& feat);
+    AbstractProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, QList<features::AbstractFeature*>& feat,bool testProtocol);
     /*!
      * \brief Sostituisce la lista delle feature che il protocollo possiede con quella indicata. Si può modificare la lista delle feature solo se il protocollo corrente è un protocollo di test
      * \param feat Vettore di features che si vogliono inserire nel protocollo

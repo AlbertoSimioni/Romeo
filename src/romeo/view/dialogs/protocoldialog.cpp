@@ -5,7 +5,7 @@
 using namespace romeo::model::protocols::algorithms;
 using namespace romeo::view::dialogs;
 using namespace romeo::model::protocols::features;
-
+using namespace romeo::model::protocols;
 
 ProtocolDialog::ProtocolDialog(
         model::protocols::algorithms::AlgorithmsList *al,
@@ -20,6 +20,7 @@ ProtocolDialog::ProtocolDialog(
     ui->errorLabel->setHidden(true);
     ui->Wizard->setCurrentIndex(0);
     ui->next1->setEnabled(false);
+    ui->glcmLineEdit->setText("1");
     fillAlgorithmsCombo();
     fillFeaturesList();
     changeParametersForm();
@@ -45,7 +46,9 @@ void ProtocolDialog::connectUI(){
     connect(ui->cancel3,SIGNAL(clicked()),this,SLOT(reject()));
     connect(ui->AlgorithmCombo,SIGNAL(currentIndexChanged(int)),this,SLOT(changeParametersForm()));
     connect(ui->dataTypeCombo,SIGNAL(currentIndexChanged(QString)),this,SLOT(fillFeaturesList()));
-
+    connect(ui->finish3,SIGNAL(clicked()),this,SLOT(finishButtonClicked()));
+    connect(ui->glcmLineEdit,SIGNAL(textChanged(QString)),this,SLOT(checkWindowSizeGLCM()));
+    connect(ui->WindowSizeCombo,SIGNAL(currentIndexChanged(int)),this,SLOT(checkWindowSizeGLCM()));
 }
 
 
@@ -129,6 +132,9 @@ void ProtocolDialog::resetForms(){
      ui->protocolLineEdit->clear();
      ui->Wizard->setCurrentIndex(0);
      ui->protocolFeaturesList->clear();
+     ui->textEdit->clear();
+     ui->glcmLineEdit->setText("1");
+     ui->WindowSizeCombo->setCurrentIndex(0);
 
 }
 
@@ -153,14 +159,21 @@ void ProtocolDialog::fillFeaturesList(){
             if((feature->getType() == FIRSTORDER) || (feature->getType() == SECONDORDER))
                 ui->featuresList->addItem(feature->getName());
         }
+        ui->glcmLineEdit->setEnabled(true);
+        ui->WindowSizeCombo->setEnabled(true);
     }
 
     if(type == "Dynamic"){
         for(int i = 0; i< features.size();i++){
             AbstractFeature* feature = features[i];
-            if((feature->getType() == DYNAMIC))
+            if((feature->getType() == romeo::model::protocols::features::DYNAMIC))
                 ui->featuresList->addItem(feature->getName());
         }
+        ui->glcmLineEdit->clear();
+        ui->glcmLineEdit->setEnabled(false);
+        ui->WindowSizeCombo->setEnabled(false);
+
+
     }
 
 }
@@ -211,4 +224,50 @@ void ProtocolDialog::checkParametersValidity(){
 
 void ProtocolDialog::checkEmpty(QString name){
     if(name.isEmpty()) ui->next1->setEnabled(false);
+}
+
+
+void ProtocolDialog::finishButtonClicked(){
+    QString name = ui->protocolLineEdit->text();
+    QString desc = ui->textEdit->document()->toPlainText();
+    QString alg = ui->AlgorithmCombo->currentText();
+    bool test = ui->testCheck->isChecked();
+    int glcmDistance = ui->glcmLineEdit->text().toInt();
+    int windowSize = ui->WindowSizeCombo->currentText().split("x").takeFirst().toInt();
+
+    QString type = ui->dataTypeCombo->currentText();
+    ProtocolType protType;
+    if(type == "Static") protType = STATIC;
+    if(type == "Dynamic") protType = romeo::model::protocols::DYNAMIC;
+
+    int number = ui->featuresList->count();
+    QList<QString> feats;
+    for(int i =0;i<number;i++){
+        feats.append(ui->featuresList->item(i)->text());
+    }
+    resetForms();
+    emit createProtocol(name,desc,test,feats,alg,protType,windowSize,glcmDistance);
+    accept();
+
+
+}
+
+
+void ProtocolDialog::checkWindowSizeGLCM(){
+    bool ok = true;
+    int glcmDistance = ui->glcmLineEdit->text().toInt(&ok);
+    if(ok){
+        int windowSize = ui->WindowSizeCombo->currentText().split("x").takeFirst().toInt();
+        if(glcmDistance >= windowSize || glcmDistance < 1) ok = false;
+    }
+    QPalette palette = ui->glcmLineEdit->palette();
+    if(!ok){
+        ui->next2->setEnabled(false);
+        palette.setColor(QPalette::Text,QColor(255,0,0));
+    }
+    else{
+        ui->next2->setEnabled(true);
+        palette.setColor(QPalette::Text,QColor(0,0,0));
+    }
+    ui->glcmLineEdit->setPalette(palette);
 }

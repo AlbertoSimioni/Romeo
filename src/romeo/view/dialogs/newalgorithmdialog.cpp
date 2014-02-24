@@ -2,9 +2,12 @@
 #include "ui_newalgorithmdialog.h"
 #include <QFileDialog>
 #include <QDir>
-
+#include <QLibrary>
+#include <vector>
+#include <QErrorMessage>
 using namespace romeo::view::dialogs;
-
+using namespace romeo::model::protocols::algorithms;
+using namespace std;
 NewAlgorithmDialog::NewAlgorithmDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::NewAlgorithmDialog)
@@ -23,6 +26,7 @@ void NewAlgorithmDialog::connectUI(){
     connect(ui->pathLineEdit,SIGNAL(textChanged(QString)),this,SLOT(checkForm()));
     connect(ui->addParameterButton,SIGNAL(clicked()),this,SLOT(addButtonClicked()));
     connect(ui->okCancel,SIGNAL(rejected()),this,SLOT(reject()));
+    connect(ui->okCancel->button(QDialogButtonBox::Ok),SIGNAL(clicked()),this,SLOT(okButtonClicked()));
 }
 
 NewAlgorithmDialog::~NewAlgorithmDialog()
@@ -96,4 +100,35 @@ void NewAlgorithmDialog::addButtonClicked(){
 void NewAlgorithmDialog::deleteButtonClicked(NewAlgorithmParameterForm* param){
     int i =parameters.indexOf(param);
     delete parameters.takeAt(i);
+}
+
+
+void NewAlgorithmDialog::okButtonClicked(){
+    QString name = ui->algorithmLineEdit->text();
+    QString desc = ui->descriptionText->document()->toPlainText();
+    QString dyfn = ui->functionName->text();
+    QString dylp = ui->pathLineEdit->text();
+    QList<AbstractAlgorithm::AlgorithmParameter> newAlgorithmParameters;
+    for(int i = 0; i<parameters.size();i++){
+        NewAlgorithmParameterForm* param = parameters[i];
+        QString parameterName = param->getName();
+        QString defaultParameter = param->getDefault();
+        AbstractAlgorithm::ParameterType type = param->getType();
+        newAlgorithmParameters.append(AbstractAlgorithm::AlgorithmParameter(name,type,defaultParameter));
+    }
+
+    typedef void (*MyPrototype)(double** data, int* mask, int nrows, int ncols,int* clusterid, vector<string> parameters);
+    MyPrototype myFunction =
+            (MyPrototype) QLibrary::resolve(dylp, dyfn.toStdString().c_str());
+    if (!myFunction){
+        QErrorMessage errorMessage(this);
+        errorMessage.showMessage(QString(tr("Can't load the dynamic library!")));
+        errorMessage.show();
+    }
+    else{
+
+    resetForms();
+    emit createAlgorithm(name,desc,dyfn,dylp,newAlgorithmParameters);
+    accept();
+    }
 }

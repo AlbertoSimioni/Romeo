@@ -42,7 +42,18 @@ void FeaturesListDialog::showDescription(){
     if(!selected.isEmpty()){
         QString featName =  selected.at(0)->text();
         AbstractFeature* feature =features->getFeature(featName);
-        ui->descriptionText->setText(feature->getDescription());
+        FeatureType type = feature->getType();
+        QString typeText;
+        switch(type){
+        case FIRSTORDER : typeText = "Type: First Order \n";
+            break;
+        case SECONDORDER : typeText = "Type: Second Order \n";
+            break;
+        case DYNAMIC : typeText = "Type: Dynamic \n";
+            break;
+        }
+
+        ui->descriptionText->setText(typeText.append(feature->getDescription()));
     }
 
 

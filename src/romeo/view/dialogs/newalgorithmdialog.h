@@ -52,6 +52,7 @@ signals:
      */
     void nameChanged(QString algorithmName);
 
+    void createAlgorithm(QString name,QString desc, QString dyfn, QString dylp,QList<romeo::model::protocols::algorithms::AbstractAlgorithm::AlgorithmParameter> parameters);
 private slots:
 
     /*!
@@ -77,6 +78,11 @@ private slots:
      * \brief Slot avviato alla pressione di uno dei tasti per la rimozione di un parametro di un algoritmo.
      */
     void deleteButtonClicked(NewAlgorithmParameterForm *param);
+
+    /*!
+     * \brief Slot avviato alla pressione dell'utente del tasto finish
+     */
+    void okButtonClicked();
 
 private:
 

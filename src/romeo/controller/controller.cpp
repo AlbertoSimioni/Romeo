@@ -61,7 +61,7 @@ Controller::Controller(QObject *parent): QObject(parent)
     features.append(feat1);
     features.append(feat2);
     features.append(feat4);
-    protocolsList->addProtocol("PROVA","descrizione",alg,features, STATIC);
+    protocolsList->addProtocol("PROVA","descrizione",alg,features,false, STATIC);
 
     ///////////////PROVA TEST
 
@@ -95,6 +95,7 @@ void Controller::connectViewsSignals(){
     connect(newAlgorithmDialog,SIGNAL(nameChanged(QString)),this,SLOT(checkAlgorithmName(QString)));
     connect(newFeatureDialog,SIGNAL(nameChanged(QString)),this,SLOT(checkFeatureName(QString)));
     connect(newDatasetDialog,SIGNAL(nameChanged(QString)),this,SLOT(checkDatasetName(QString)));
+    connect(protocolDialog,SIGNAL(createProtocol(QString,QString,bool,QList<QString>,QString,romeo::model::protocols::ProtocolType,int,int)),this,SLOT(addProtocol(QString,QString,bool,QList<QString>,QString,romeo::model::protocols::ProtocolType,int,int)));
 
 }
 
@@ -170,4 +171,14 @@ void Controller::checkDatasetName(QString datasetName){
     else{
         newDatasetDialog->showErrorName(false);
     }
+}
+
+void Controller::addProtocol(QString protocolName, QString desc, bool test, QList<QString> features, QString algorithm, ProtocolType type, int windowSize, int distanceGLCM){
+    AbstractAlgorithm* associatedAlgorithm = algorithmsList->getAlgorithm(algorithm);
+    QList<AbstractFeature*> associatedFeatures;
+    for(int i = 0; i<features.size();i++){
+        associatedFeatures.append(featuresList->getFeature(features[i]));
+    }
+
+    protocolsList->addProtocol(protocolName,desc,associatedAlgorithm,associatedFeatures,test,type,windowSize,distanceGLCM);
 }
