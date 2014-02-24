@@ -19,6 +19,7 @@ FeaturesList *FeaturesList::getInstance(QObject* parent)
 
 void  FeaturesList::addFeature(AbstractFeature *aa){
     features.append(aa);
+    emit FeaturesList::featuresListModified();
 }
 
 QList<AbstractFeature*> FeaturesList::getFeaturesList(){

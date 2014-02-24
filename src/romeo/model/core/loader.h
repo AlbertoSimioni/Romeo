@@ -8,6 +8,7 @@
 
 #include <QDir>
 
+#include <src/romeo/model/protocols/algorithms/abstractalgorithm.h>
 #ifndef LOADER_H
 #define LOADER_H
 
@@ -29,7 +30,7 @@ public:
      *  si preoccupa anche di costruire l'istanza.
      */
     static Loader* getInstance();
-    void loadDatabase(QDir& databaseFile, QHash<QString,QDir>& datasetFiles);
+    bool loadAlgorithms(QString algFile);
 private:
     /*!
      * \brief Costruttore privato, poiché la classe Loader implementa il design pattern singleton
@@ -39,7 +40,6 @@ private:
      * \brief Campo dati statico che contiene il riferimento all'unica istanza del Loader
      */
     static Loader* instance;
-    void loadDatabase();
     //parseDataset(QString& name, QString& type);
     //parseSubject();
     //void parseAlgorithm(AbstractAlgorithm* alg, QXmlStreamReader& reader);

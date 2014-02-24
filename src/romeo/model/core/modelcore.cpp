@@ -12,8 +12,14 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
     writer=Writer::getInstance();
     loader=Loader::getInstance();
     createLists();
-
-   //loader->loadDatabase(databaseFile, datasetsFiles, datasetsList);
+    if(!dataHome.setCurrent("/data"))
+    {
+        emit ioError(QString("Data directory not found, please make sure a directory named 'data' is in the software folder"));
+    }
+    QString algorithmPath(dataHome.path());
+    algorithmPath.append("/algorithms.xml");
+    loader->loadAlgorithms(algorithmPath);
+    //loader->loadDatabase(databaseFile, datasetsFiles, datasetsList);
     //for(QHash::Iterator it=datasetsFiles.begin(); it != datasetsFiles.end(); ++it)
     {
 
@@ -22,10 +28,10 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
 
 void ModelCore::createLists()
 {
-    datasetsList=DatasetsList::getInstance();
-    protocolsList=ProtocolsList::getInstance();
-    algorithmsList=algorithms::AlgorithmsList::getInstance();
-    featuresList=features::FeaturesList::getInstance();
+    datasetsList=DatasetsList::getInstance(this);
+    protocolsList=ProtocolsList::getInstance(this);
+    algorithmsList=algorithms::AlgorithmsList::getInstance(this);
+    featuresList=features::FeaturesList::getInstance(this);
 
 
     connect(protocolsList, SIGNAL(protocolsListModified()), this, SLOT(saveProtocolsList()));
@@ -66,24 +72,24 @@ ModelCore* ModelCore::getInstance(QObject *parent){
     return instance;
 }
 
-DatasetsList *ModelCore::getDatasetsList() const
+DatasetsList* ModelCore::getDatasetsList() const
 {
     return datasetsList;
 }
 
 
-features::FeaturesList *ModelCore::getFeaturesList() const
+features::FeaturesList* ModelCore::getFeaturesList() const
 {
     return featuresList;
 }
 
-algorithms::AlgorithmsList *ModelCore::getAlgorithmsList() const
+algorithms::AlgorithmsList* ModelCore::getAlgorithmsList() const
 {
     return algorithmsList;
 }
 
 
-ProtocolsList *ModelCore::getProtocolsList() const
+ProtocolsList* ModelCore::getProtocolsList() const
 {
     return protocolsList;
 }

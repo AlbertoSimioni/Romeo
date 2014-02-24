@@ -22,11 +22,11 @@ ProtocolsList::ProtocolsList(QObject *parent) :
     protocolsList.append(new StaticProtocol(n,QString("descrizione"),alg,feat));*/
 }
 
-ProtocolsList *ProtocolsList::getInstance()
+ProtocolsList *ProtocolsList::getInstance(QObject *parent)
 {
     if(instance == 0)
     {
-        instance= new ProtocolsList();
+        instance= new ProtocolsList(parent);
     }
     return instance;
 }
@@ -57,6 +57,7 @@ void ProtocolsList::addProtocol(QString nomeP, QString desc, AbstractAlgorithm *
     case DYNAMIC: protocolsList.append(new DynamicProtocol(nomeP,desc,alg,feat));
         break;
     }
+    emit ProtocolsList::protocolsListModified();
 }
 
 /*ProtocolsList::~ProtocolsList()

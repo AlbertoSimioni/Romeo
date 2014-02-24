@@ -36,7 +36,7 @@ public:
     * \brief Metodo statico che ritorna l'istanza di AlgorithmList, in caso sia la prima volta ad essere invocato
     *  si preoccupa anche di costruire l'istanza.
     */
-    static ProtocolsList* getInstance();
+    static ProtocolsList* getInstance(QObject* parent);
     /*!
      * \brief Inserisce nella lista dei protocolli un nuovo protocollo definito dai parametri passati
      * \param name definisce il nome del nuovo protocollo che si vuole creare

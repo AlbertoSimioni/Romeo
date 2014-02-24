@@ -2,11 +2,11 @@
 using namespace romeo::model::datasets;
 
 DatasetsList* DatasetsList::instance=0;
-DatasetsList *DatasetsList::getInstance()
+DatasetsList *DatasetsList::getInstance(QObject* parent)
 {
     if(instance ==0 )
     {
-        instance=new DatasetsList();
+        instance=new DatasetsList(parent);
     }
     return instance;
 }
@@ -23,6 +23,15 @@ AbstractDataset *DatasetsList::getDataset(QString name) const
     return 0;
 }
 
-DatasetsList::DatasetsList(QObject *parent): QObject()
+DatasetsList::~DatasetsList()
+{
+    for(int i=0; i<datasets.length(); ++i)
+    {
+        if(datasets.at(i))
+            delete datasets.at(i);
+    }
+}
+
+DatasetsList::DatasetsList(QObject *parent): QObject(parent)
 {
 }

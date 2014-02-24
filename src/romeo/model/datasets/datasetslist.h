@@ -29,8 +29,10 @@ public:
      * \brief Metodo statico che ritorna l'istanza del DatasetList, in caso sia la prima volta ad essere invocato
      *  si preoccupa anche di costruire l'istanza.
      */
-   static DatasetsList* getInstance();
+   static DatasetsList* getInstance(QObject *parent);
    AbstractDataset* getDataset(QString name) const;
+   QList<AbstractDataset*> getDatasetList() const;
+   ~DatasetsList();
 
 private:
    /*!

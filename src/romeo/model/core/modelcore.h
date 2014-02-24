@@ -86,7 +86,19 @@ private:
     /*!
      * \brief Campo privato che contiene la posizione nel file system del file che conntiene i dati dell'applicazione.
      */
-    QDir databaseFile;
+    QDir algorithmsFile;
+    /*!
+     * \brief Campo privato che contiene la posizione nel file system del file che conntiene i dati dell'applicazione.
+     */
+    QDir featuresFile;
+    /*!
+     * \brief Campo privato che contiene la posizione nel file system del file che conntiene i dati dell'applicazione.
+     */
+    QDir protocolsFile;
+    /*!
+     * \brief Campo privato che contiene la posizione nel file system del file che conntiene i dati dell'applicazione.
+     */
+    QDir datasetFile;
     /*!
      * \brief Contiene la lista dei percorsi ai file che hanno le informazioni sui dataset in uso.
      */
@@ -116,6 +128,7 @@ private:
      * \brief Campo dati che contiene un puntatore al modulo che gestisce il salvataggio dei dati su disco
      */
     Writer* writer;
+    QDir dataHome;
 
 public slots:
     /*!
@@ -139,6 +152,8 @@ public slots:
      * \brief Slot pubblico che viene chiamato ogni qualvolta sia stato effettuato un cambiamento in un dataset, questa funzione si assicura di aggiornare il file relativo a tale dataset per mantenerlo consistente con i dati del programma.
      */
     bool saveDataset(QString& datasetName);
+signals:
+    void ioError(QString errorMessage);
 };
 
 

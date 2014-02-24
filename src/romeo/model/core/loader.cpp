@@ -6,6 +6,7 @@
 #include <QtXmlPatterns/QXmlQuery>
 #include <QtXmlPatterns/QXmlResultItems>
 #include "loader.h"
+#include <src/romeo/model/protocols/algorithms/abstractalgorithm.h>
 
 using namespace romeo::model::core;
 
@@ -17,47 +18,35 @@ Loader *Loader::getInstance()
     }
     return instance;
 }
-Loader::Loader()
-{
-}
 
-
-void Loader::loadDatabase(QDir &databaseFile, QHash<QString, QDir> &datasetFiles)
+bool Loader::loadAlgorithms(QString algFile)
 {
-    QFile file(databaseFile.path());
+    QFile file(algFile);
     if(!file.open(QIODevice::ReadOnly))
     {
-        QErrorMessage qerr;
-        qerr.showMessage(QString("Errore nell'apertura del file: file non trovato"));
+        return false;
     }
-
 
     QXmlQuery query;
     query.bindVariable("fileName", &file);
 
-    query.setQuery("doc($fileName)/romeo/datasets/dataset");
+    query.setQuery("doc($fileName)/algorithms/algorithm/name");
 
     QXmlResultItems xmlResultItems;
     query.evaluateTo(&xmlResultItems);
     QXmlItem item(xmlResultItems.next());
     int i=1;
+
         while(!item.isNull()){
-            if(item.isAtomicValue()){
-                QString s("doc($fileName)/romeo/datasets/dataset[");
-                s.append(i);
-                s.append("]");
-                query.setQuery(s);
-            }
+            QString s(item.toAtomicValue().toString());
+            QMessageBox msg;
+            msg.setText(s);
+            msg.exec();
             item=xmlResultItems.next();
             ++i;
         }
         file.close();
 }
-
-
-
-/*
-void Loader::parseDatabase()
+Loader::Loader()
 {
-
-}*/
+}

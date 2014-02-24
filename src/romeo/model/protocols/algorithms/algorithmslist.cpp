@@ -31,6 +31,7 @@ QList<AbstractAlgorithm*>  AlgorithmsList::getAlgorithmsList(){
 
 void AlgorithmsList::addAlgorithm(AbstractAlgorithm *aa){
     algorithms.append(aa);
+    emit AlgorithmsList::algorithmsListModified();
 }
 
 
