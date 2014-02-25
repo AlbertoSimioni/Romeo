@@ -76,7 +76,7 @@ public slots:
     void checkDatasetName(QString datasetName);
 
     /*!
-     * \brief Slot connesso con il segnale createProtocol della classe ProtocolDialog
+     * \brief Slot connesso con il segnale createProtocol della classe ProtocolDialog, crea un nuovo protocollo con i parametri in input
      * \param protocolName
      * \param desc
      * \param test
@@ -87,7 +87,12 @@ public slots:
      * \param distanceGLCM
      */
     void addProtocol(QString protocolName,QString desc,bool test,QList<QString>features,QString algorithm,romeo::model::protocols::ProtocolType type,int windowSize,int distanceGLCM);
+    /*!
+     * \brief Slot connesso con il segnale createAlgorithm della classe NewAlgorithmDialog, crea un nuovo algoritmo con i parametri in input
+     */
+    void addAlgorithm(QString name,QString desc, QString dyfn, QString dylp,QList<romeo::model::protocols::algorithms::AbstractAlgorithm::AlgorithmParameter> parameters);
 
+    void addFeature(QString name,QString desc,QString dyfn,QString dylp,romeo::model::protocols::features::FeatureType type);
 private:
 
     /*!

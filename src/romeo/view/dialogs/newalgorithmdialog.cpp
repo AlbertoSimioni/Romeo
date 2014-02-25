@@ -4,7 +4,7 @@
 #include <QDir>
 #include <QLibrary>
 #include <vector>
-#include <QErrorMessage>
+#include <QMessageBox>
 using namespace romeo::view::dialogs;
 using namespace romeo::model::protocols::algorithms;
 using namespace std;
@@ -100,6 +100,7 @@ void NewAlgorithmDialog::addButtonClicked(){
 void NewAlgorithmDialog::deleteButtonClicked(NewAlgorithmParameterForm* param){
     int i =parameters.indexOf(param);
     delete parameters.takeAt(i);
+    checkForm();
 }
 
 
@@ -114,16 +115,17 @@ void NewAlgorithmDialog::okButtonClicked(){
         QString parameterName = param->getName();
         QString defaultParameter = param->getDefault();
         AbstractAlgorithm::ParameterType type = param->getType();
-        newAlgorithmParameters.append(AbstractAlgorithm::AlgorithmParameter(name,type,defaultParameter));
+        newAlgorithmParameters.append(AbstractAlgorithm::AlgorithmParameter(parameterName,type,defaultParameter));
     }
 
     typedef void (*MyPrototype)(double** data, int* mask, int nrows, int ncols,int* clusterid, vector<string> parameters);
     MyPrototype myFunction =
             (MyPrototype) QLibrary::resolve(dylp, dyfn.toStdString().c_str());
     if (!myFunction){
-        QErrorMessage errorMessage(this);
-        errorMessage.showMessage(QString(tr("Can't load the dynamic library!")));
-        errorMessage.show();
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Critical);
+        msgBox.setText("Can't load the dynamic library!");
+        msgBox.exec();
     }
     else{
 

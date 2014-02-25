@@ -8,7 +8,7 @@
 
 #ifndef NEWFEATUREDIALOG_H
 #define NEWFEATUREDIALOG_H
-
+#include <src/romeo/model/protocols/features/abstractfeature.h>
 #include <QDialog>
 namespace Ui {
 class NewFeatureDialog;
@@ -51,6 +51,11 @@ signals:
      */
     void nameChanged(QString featureName);
 
+    /*!
+     * \brief Segnale emesso per avvertire la creazione da parte dell'utente di un nuovo feature extractor, contiene tutti i parametri inseriti dall'utente
+     */
+    void createFeature(QString name,QString desc, QString dyfn, QString dylp,romeo::model::protocols::features::FeatureType type);
+
 
 private slots:
 
@@ -67,6 +72,11 @@ private slots:
      * Verifica che le varie linee di testo non siano vuote, se non lo sono abilita la pressione del pulsante "ok", altrimento la disabilita
      */
     void checkForm();
+
+    /*!
+     * \brief Slot avviato alla pressione dell'utente del tasto ok
+     */
+    void okButtonClicked();
 
 private:
 

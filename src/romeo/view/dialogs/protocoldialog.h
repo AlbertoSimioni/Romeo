@@ -113,10 +113,7 @@ private:
 
 
 
-    /*!
-     * \brief Metodo che inserisce nella combo box la lista di tutti gli algoritmi di clustering
-     */
-    void fillAlgorithmsCombo();
+
 
 
 
@@ -131,6 +128,11 @@ private slots:
      * \brief Metodo che inserisce nella lista delle feature, tutte le feature presenti nel modello
      */
     void fillFeaturesList();
+
+    /*!
+     * \brief Metodo che inserisce nella combo box la lista di tutti gli algoritmi di clustering
+     */
+    void fillAlgorithmsCombo();
 
     /*!
      * \brief Rimuove l'item dato in input dalla lista delle feature del protocollo

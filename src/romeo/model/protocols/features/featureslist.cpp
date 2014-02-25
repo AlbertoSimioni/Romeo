@@ -47,6 +47,7 @@ void FeaturesList::addFeature(const QString &name, FeatureType type, const QStri
     if(newFeature)
     {
         features.append(newFeature);
+        emit featuresListModified();
     }
 }
 

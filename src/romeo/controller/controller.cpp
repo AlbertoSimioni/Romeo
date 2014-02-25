@@ -96,7 +96,8 @@ void Controller::connectViewsSignals(){
     connect(newFeatureDialog,SIGNAL(nameChanged(QString)),this,SLOT(checkFeatureName(QString)));
     connect(newDatasetDialog,SIGNAL(nameChanged(QString)),this,SLOT(checkDatasetName(QString)));
     connect(protocolDialog,SIGNAL(createProtocol(QString,QString,bool,QList<QString>,QString,romeo::model::protocols::ProtocolType,int,int)),this,SLOT(addProtocol(QString,QString,bool,QList<QString>,QString,romeo::model::protocols::ProtocolType,int,int)));
-
+    connect(newAlgorithmDialog,SIGNAL(createAlgorithm(QString,QString,QString,QString,QList<romeo::model::protocols::algorithms::AbstractAlgorithm::AlgorithmParameter>)),this,SLOT(addAlgorithm(QString,QString,QString,QString,QList<romeo::model::protocols::algorithms::AbstractAlgorithm::AlgorithmParameter>)));
+    connect(newFeatureDialog,SIGNAL(createFeature(QString,QString,QString,QString,romeo::model::protocols::features::FeatureType)),this,SLOT(addFeature(QString,QString,QString,QString,romeo::model::protocols::features::FeatureType)));
 }
 
 Controller* Controller::getInstance(QObject *parent){
@@ -181,4 +182,13 @@ void Controller::addProtocol(QString protocolName, QString desc, bool test, QLis
     }
 
     protocolsList->addProtocol(protocolName,desc,associatedAlgorithm,associatedFeatures,test,type,windowSize,distanceGLCM);
+}
+
+void Controller::addAlgorithm(QString name, QString desc, QString dyfn, QString dylp, QList<AbstractAlgorithm::AlgorithmParameter> parameters){
+    algorithmsList->addAlgorithm(name,desc,parameters,dylp,dyfn);
+}
+
+
+void Controller::addFeature(QString name, QString desc, QString dyfn, QString dylp, FeatureType type){
+    featuresList->addFeature(name,type,desc,dylp,dyfn);
 }

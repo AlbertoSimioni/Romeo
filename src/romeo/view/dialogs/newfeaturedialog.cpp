@@ -1,9 +1,12 @@
 #include "newfeaturedialog.h"
 #include "ui_newfeaturedialog.h"
+
 #include<QFileDialog>
 #include <QDir>
-
+#include<QMessageBox>
+#include<QLibrary>
 using namespace romeo::view::dialogs;
+using namespace romeo::model::protocols::features;
 NewFeatureDialog::NewFeatureDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::NewFeatureDialog)
@@ -29,6 +32,7 @@ void NewFeatureDialog::connectUI(){
     connect(ui->functionLineEdit,SIGNAL(textChanged(QString)),this,SLOT(checkForm()));
     connect(ui->pathLineEdit,SIGNAL(textChanged(QString)),this,SLOT(checkForm()));
     connect(ui->okCancel,SIGNAL(rejected()),this,SLOT(reject()));
+    connect(ui->okCancel->button(QDialogButtonBox::Ok),SIGNAL(clicked()),this,SLOT(okButtonClicked()));
 }
 
 
@@ -78,4 +82,64 @@ void NewFeatureDialog::checkForm(){
     if(!valid)ui->okCancel->button(QDialogButtonBox::Ok)->setEnabled(false);
 
     else if(ui->errorLabel->isHidden())ui->okCancel->button(QDialogButtonBox::Ok)->setEnabled(true);
+}
+
+//int  int*data,int size,int dimesion p1
+//double  int[256][256]
+
+//double*  int**data, const int numberOfPixel, int begin, int end
+
+
+void NewFeatureDialog::okButtonClicked(){
+    QString name = ui->featureLineEdit->text();
+    QString desc = ui->descriptionText->document()->toPlainText();
+    QString dyfn = ui->functionLineEdit->text();
+    QString dylp = ui->pathLineEdit->text();
+    QString typeName = ui->comboBox->currentText();
+    FeatureType type;
+
+    bool loaded = false;
+
+    if(typeName == "Static First Order"){
+        type = FIRSTORDER;
+        typedef int (*MyPrototype)(int* data,int size,int dimesion);
+        MyPrototype myFunction =
+                (MyPrototype) QLibrary::resolve(dylp, dyfn.toStdString().c_str());
+        if (myFunction){
+            loaded = true;
+        }
+    }
+    if(typeName == "Static Second Order"){
+        type = SECONDORDER;
+        typedef double (*MyPrototype)(int data[256][256] );
+        MyPrototype myFunction =
+                (MyPrototype) QLibrary::resolve(dylp, dyfn.toStdString().c_str());
+        if (myFunction){
+            loaded = true;
+        }
+    }
+
+    if(typeName == "Dynamic"){
+        type = DYNAMIC;
+        typedef double* (*MyPrototype)(int**data, const int numberOfPixel, int begin, int end);
+        MyPrototype myFunction =
+                (MyPrototype) QLibrary::resolve(dylp, dyfn.toStdString().c_str());
+        if (myFunction){
+            loaded = true;
+        }
+    }
+
+    if(!loaded){
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Critical);
+        msgBox.setText("Can't load the dynamic library!");
+        msgBox.exec();
+    }
+
+    else{
+
+    resetForms();
+    emit createFeature(name,desc,dyfn,dylp,type);
+    accept();
+    }
 }

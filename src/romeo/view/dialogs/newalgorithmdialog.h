@@ -21,7 +21,7 @@ namespace romeo{
 namespace view {
 namespace dialogs{
 
-//MANCA DA SISTEMARE IL TASTO FINISH
+
 class NewAlgorithmDialog : public QDialog
 {
     Q_OBJECT
@@ -51,7 +51,9 @@ signals:
      * \brief Segnala la modifica del nome dell'algoritmo da parte dell'utente
      */
     void nameChanged(QString algorithmName);
-
+    /*!
+     * \brief Segnale emesso per avvertire la creazione da parte dell'utente di un nuovo algoritmo di clustering, contiene tutti i parametri inseriti dall'utente
+     */
     void createAlgorithm(QString name,QString desc, QString dyfn, QString dylp,QList<romeo::model::protocols::algorithms::AbstractAlgorithm::AlgorithmParameter> parameters);
 private slots:
 
@@ -80,7 +82,7 @@ private slots:
     void deleteButtonClicked(NewAlgorithmParameterForm *param);
 
     /*!
-     * \brief Slot avviato alla pressione dell'utente del tasto finish
+     * \brief Slot avviato alla pressione dell'utente del tasto ok
      */
     void okButtonClicked();
 

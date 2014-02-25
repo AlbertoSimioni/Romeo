@@ -38,7 +38,7 @@ public:
      * \param description Descrizione dell'algoritmo di clustering da inserire
      * \param parameters Parametri dell'algoritmo di clustering da inserire
      */
-    void addAlgorithm(QString name, QString description, QList<AbstractAlgorithm::AlgorithmParameter> parameters, const QString& dylp=QString(), const QString& dyfn=QString());
+    void addAlgorithm(QString name, QString description, QList<AbstractAlgorithm::AlgorithmParameter> parameters,QString dylp,QString dyfn);
     /*!
      * \brief Aggiunge alla lista degli algoritmi, l'algoritmo passato come puntatore
      */

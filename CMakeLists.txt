@@ -196,7 +196,7 @@ SET(GCC_COVERAGE_COMPILE_FLAGS "-fPIC")
 add_definitions(${GCC_COVERAGE_COMPILE_FLAGS})
 
 ADD_EXECUTABLE(romeo ${romeo_SOURCES}
-    ${romeo_HEADERS_MOC}
+    #${romeo_HEADERS_MOC}
     ${romeo_FORMS_HEADERS}
     ${romeo_RESOURCES_RCC})
 

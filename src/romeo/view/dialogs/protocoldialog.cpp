@@ -49,6 +49,8 @@ void ProtocolDialog::connectUI(){
     connect(ui->finish3,SIGNAL(clicked()),this,SLOT(finishButtonClicked()));
     connect(ui->glcmLineEdit,SIGNAL(textChanged(QString)),this,SLOT(checkWindowSizeGLCM()));
     connect(ui->WindowSizeCombo,SIGNAL(currentIndexChanged(int)),this,SLOT(checkWindowSizeGLCM()));
+    connect(featuresList,SIGNAL(featuresListModified()),this,SLOT(fillFeaturesList()));
+    connect(algorithmsList,SIGNAL(algorithmsListModified()),this,SLOT(fillAlgorithmsCombo()));
 }
 
 
@@ -160,6 +162,7 @@ void ProtocolDialog::fillFeaturesList(){
                 ui->featuresList->addItem(feature->getName());
         }
         ui->glcmLineEdit->setEnabled(true);
+        ui->glcmLineEdit->setText("1");
         ui->WindowSizeCombo->setEnabled(true);
     }
 
