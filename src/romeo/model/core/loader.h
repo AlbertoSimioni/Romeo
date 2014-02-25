@@ -7,11 +7,10 @@
 */
 
 #include <QDir>
-#include <QXmlStreamReader>
-
+#include <QDomNode>
 #include <src/romeo/model/protocols/algorithms/algorithmslist.h>
-
 #include <src/romeo/model/protocols/features/featureslist.h>
+#include <src/romeo/model/protocols/protocolslist.h>
 #ifndef LOADER_H
 #define LOADER_H
 
@@ -45,7 +44,9 @@ private:
      * \brief Campo dati statico che contiene il riferimento all'unica istanza del Loader
      */
     static Loader* instance;
-    static bool readStart(const QString&startElement, QXmlStreamReader *reader);
+    static bool parseFeature(protocols::features::FeaturesList* featureList, const QDomNode &node);
+    static bool parseAlgorithm(protocols::algorithms::AlgorithmsList* algorithmsList, const QDomNode &node);
+    static bool parseProtocol(protocols::ProtocolsList* protocolsList, const QDomNode &node);
 };
 }}}
 

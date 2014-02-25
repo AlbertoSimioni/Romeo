@@ -17,20 +17,19 @@ AlgorithmsList *AlgorithmsList::getInstance(QObject* parent)
     return instance;
 }
 
-void AlgorithmsList::addAlgorithm(QString name, QString description, QList<AbstractAlgorithm::AlgorithmParameter> parameters)
-{//solo di prova
-    algorithms::AbstractAlgorithm* alg=new UserDefinedAlgorithm(parameters, name, description, QString("ss"), QString("aa"));
+void AlgorithmsList::addAlgorithm(QString name, QString description, QList<AbstractAlgorithm::AlgorithmParameter> parameters, const QString &dylp, const QString &dyfn)
+{
+    algorithms::AbstractAlgorithm* alg=new UserDefinedAlgorithm(parameters, name, description, dylp, dyfn);
     algorithms.append(alg);
-
+    emit algorithmsListModified();
 }
-
 
 QList<AbstractAlgorithm*>  AlgorithmsList::getAlgorithmsList(){
     return algorithms;
 }
 
-void AlgorithmsList::addAlgorithm(AbstractAlgorithm *aa){
-    algorithms.append(aa);
+void AlgorithmsList::addAlgorithm(AbstractAlgorithm *alg){
+    algorithms.append(alg);
     emit AlgorithmsList::algorithmsListModified();
 }
 
