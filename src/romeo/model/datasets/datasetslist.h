@@ -30,8 +30,15 @@ public:
      *  si preoccupa anche di costruire l'istanza.
      */
    static DatasetsList* getInstance(QObject *parent);
+   /*!
+    * \brief Ritorna un puntatore al dataset con il nome name.
+    */
    AbstractDataset* getDataset(QString name) const;
+   /*!
+    * \brief Ritorna la lista di dataset attualmente caricata dall'applicazione. La lista contiene dei puntatori ai dataset su cui possono essere eseguite operazioni.
+    */
    QList<AbstractDataset*> getDatasetList() const;
+   void addDataset(QString name, InputFormat datasetType);
    ~DatasetsList();
 
 private:

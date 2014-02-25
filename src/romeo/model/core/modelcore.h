@@ -70,7 +70,11 @@ private:
      */
     ModelCore(QObject* parent=0);
 
-
+    /*!
+     * \brief loadData
+     * \param file
+     * \return
+     */
     bool loadData(QDir& file);
 
     /*!
@@ -121,38 +125,22 @@ private:
     protocols::features::FeaturesList* featuresList;
 
     /*!
-     * \brief Campo dati che contiene un puntatore al modulo che gestisce il caricamento dei dati
+     * \brief Campo dati che contiene un puntatore al modulo che gestisce il caricamento dei dati.
      */
     Loader* loader;
     /*!
-     * \brief Campo dati che contiene un puntatore al modulo che gestisce il salvataggio dei dati su disco
+     * \brief Campo dati che contiene un puntatore al modulo che gestisce il salvataggio dei dati su disco.
      */
     Writer* writer;
+    /*!
+     * \brief Campo dati che indica la directory dove si trovano i file informativi rispetto alla cartella da cui viene fatto partire l'applicazione.
+     */
     QDir dataHome;
 
-public slots:
-    /*!
-     * \brief Slot pubblico che viene chiamato ogni qualvolta sia stato effettuato un cambiamento nei datasets, questa funzione si assicura di aggiornare il file di database che contiene i dataset per mantenerlo consistente con i dati del programma.
-     */
-    bool saveDatasetsList();
-    /*!
-     * \brief Slot pubblico che viene chiamato ogni qualvolta sia stato effettuato un cambiamento nei protocolli, questa funzione si assicura di aggiornare il file di database che contiene i protocolli per mantenerlo consistente con i dati del programma.
-     */
-    bool saveProtocolsList();
-
-    /*!
-     * \brief Slot pubblico che viene chiamato ogni qualvolta sia stato effettuato un cambiamento negli algoritmi, questa funzione si assicura di aggiornare il file di database che contiene gli algoritmi per mantenerlo consistente con i dati del programma.
-     */
-    bool saveAlgorithmsList();
-    /*!
-     * \brief Slot pubblico che viene chiamato ogni qualvolta sia stato effettuato un cambiamento nelle feature, questa funzione si assicura di aggiornare il file di database che contiene le feature per mantenerlo consistente con i dati del programma.
-     */
-    bool saveFeaturesList();
-    /*!
-     * \brief Slot pubblico che viene chiamato ogni qualvolta sia stato effettuato un cambiamento in un dataset, questa funzione si assicura di aggiornare il file relativo a tale dataset per mantenerlo consistente con i dati del programma.
-     */
-    bool saveDataset(QString& datasetName);
 signals:
+    /*!
+     * \brief Segnale che indica un evento anomalo che si è verificato e viene riportato un messaggio di errore tramite la stringa errorMessage.
+     */
     void ioError(QString errorMessage);
 };
 

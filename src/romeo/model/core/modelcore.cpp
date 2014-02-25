@@ -14,16 +14,13 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
     loader=Loader::getInstance(this);
     createLists();
     dataHome=QDir::current();
-    QDir existData;
-    QString s=dataHome.absolutePath().append("/data");
-    if(!existData.setCurrent(s))
+    if(!dataHome.cd("data"))
     {
         emit ioError(QString("Data directory not found, please make sure a directory named 'data' is in the software folder"));
     }
-    QString algorithmPath(s);
-    algorithmPath.append("/algorithms.xml");
 
-    loader->loadFeatures(dataHome.absolutePath().append("/data/features.xml"), featuresList);
+    loader->loadFeatures(dataHome.absolutePath().append("/features.xml"), featuresList);
+    loader->loadAlgorithms(dataHome.absolutePath().append("/algorithms.xml"), algorithmsList);
 }
 
 void ModelCore::createLists()
@@ -33,38 +30,13 @@ void ModelCore::createLists()
     algorithmsList=algorithms::AlgorithmsList::getInstance(this);
     featuresList=features::FeaturesList::getInstance(this);
 
-
-    connect(protocolsList, SIGNAL(protocolsListModified()), this, SLOT(saveProtocolsList()));
-    connect(datasetsList, SIGNAL(datasetsListModified()), this, SLOT(saveDatasetsList()));
-    connect(algorithmsList, SIGNAL(algorithmsListModified()), this, SLOT(saveAlgorithmsList()));
-    connect(featuresList, SIGNAL(featuresListModified()), this, SLOT(saveFeaturesList()));
-    connect(datasetsList, SIGNAL(datasetModified(QString&)), this, SLOT(saveDataset(QString&)));
+    connect(protocolsList, SIGNAL(protocolsListModified()), writer, SLOT(saveProtocolsList()));
+    connect(datasetsList, SIGNAL(datasetsListModified()), writer, SLOT(saveDatasetsList()));
+    connect(algorithmsList, SIGNAL(algorithmsListModified()), writer, SLOT(saveAlgorithmsList()));
+    connect(featuresList, SIGNAL(featuresListModified()), writer, SLOT(saveFeaturesList()));
+    connect(datasetsList, SIGNAL(datasetModified(QString&)), writer, SLOT(saveDataset(QString&)));
 }
 
-bool ModelCore::saveDatasetsList()
-{
-    return true;
-}
-
-bool ModelCore::saveProtocolsList()
-{
-    //writer->writeProtocols(QDir());
-}
-
-bool ModelCore::saveAlgorithmsList()
-{
-    //writer->writeAlgorithms(QDir());
-}
-
-bool ModelCore::saveFeaturesList()
-{
-    return true;
-}
-
-bool ModelCore::saveDataset(QString &datasetName)
-{
-    return true;
-}
 ModelCore* ModelCore::getInstance(QObject *parent){
     if(instance == 0){
         instance = new ModelCore(parent);

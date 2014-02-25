@@ -14,7 +14,6 @@ QString AbstractFeature::getName() const
 }
 
 
-
 QString AbstractFeature::getDescription() const
 {
     return description;

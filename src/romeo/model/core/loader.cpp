@@ -1,4 +1,3 @@
-#include <QMessageBox>
 #include <QString>
 #include <QFile>
 #include <QIODevice>
@@ -22,7 +21,7 @@ Loader::Loader(QObject* parent): QObject(parent)
 {
 }
 
-bool Loader::loadAlgorithms(QString algFile, AbstractAlgorithm *algorithmList)
+bool Loader::loadAlgorithms(QString algFile, AlgorithmsList* algorithmList)
 {
     QFile file(algFile);
     if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -39,10 +38,10 @@ bool Loader::loadAlgorithms(QString algFile, AbstractAlgorithm *algorithmList)
     QDomNodeList nodeList=doc.elementsByTagName(QString("algorithm"));
     for(int i=0; i<nodeList.length(); ++i)
     {
-        //parseAlgorithm(algorithmList, nodeList.at(i));
+        Loader::parseAlgorithm(algorithmList, nodeList.at(i));
     }
-
     file.close();
+    return true;
 }
 
 bool Loader::loadFeatures(const QString& featFile, FeaturesList* featureList)
@@ -119,6 +118,7 @@ bool Loader::parseAlgorithm(AlgorithmsList *algorithmsList, const QDomNode &node
     QString description;
     QString dyln;
     QString dyfn;
+    QList<AbstractAlgorithm::AlgorithmParameter> parameters;
 
     QDomElement nextElement=node.firstChildElement();
     if( nextElement.tagName() == "name"){
@@ -130,27 +130,48 @@ bool Loader::parseAlgorithm(AlgorithmsList *algorithmsList, const QDomNode &node
     }
     nextElement=nextElement.nextSiblingElement("parameterList");
     if(!nextElement.isNull()){
-        QList<AbstractAlgorithm::AlgorithmParameter> parameters;
         QDomNodeList paramList=nextElement.elementsByTagName("parameter");
         for(int i=0; i<paramList.length(); ++i)
         {
-            //parseParameter(paramList.at(i), parameters);
+            parseParameter( parameters, paramList.at(i));
         }
     }
-
-
     nextElement=nextElement.nextSiblingElement("file");
-    if(!nextElement.isNull()){
-        dyln=nextElement.text();
-    }
+    dyln=nextElement.text();
     nextElement=nextElement.nextSiblingElement("functionName");
-    if(!nextElement.isNull()){
-        dyfn=nextElement.text();
-    }
+    dyfn=nextElement.text();
+
+    algorithmsList->addAlgorithm(name, description, parameters, dyln, dyfn);
     return true;
 }
 
-/*bool Loader::parseParameter(const QDomNode& node, QList<AbstractAlgorithm::AlgorithmParameter>& list)
+bool Loader::parseParameter(QList<AbstractAlgorithm::AlgorithmParameter>& list, const QDomNode& node)
 {
-
-}*/
+    QString name, type, defaultValue;
+    AbstractAlgorithm::ParameterType ptype;
+    QDomElement nextElement=node.firstChildElement();
+    if( nextElement.tagName() == "pname"){
+        name=nextElement.text();
+    }
+    nextElement=nextElement.nextSiblingElement("type");
+    if(!nextElement.isNull()){
+        type=nextElement.text();
+        if(type.compare("INT"), Qt::CaseInsensitive)
+            ptype=AbstractAlgorithm::INT;
+        else if(type.compare("DOUBLE"), Qt::CaseInsensitive)
+            ptype=AbstractAlgorithm::DOUBLE;
+        else if(type.compare("BOOL"), Qt::CaseInsensitive)
+            ptype=AbstractAlgorithm::BOOL;
+        else
+        {
+            if(type.compare("CHAR"), Qt::CaseInsensitive)
+                ptype=AbstractAlgorithm::CHAR;
+        }
+    }
+    nextElement=nextElement.nextSiblingElement("default");
+    if(!nextElement.isNull()){
+        defaultValue=nextElement.text();
+    }
+    AbstractAlgorithm::AlgorithmParameter algParam(name, ptype, defaultValue);
+    list.append(algParam);
+}

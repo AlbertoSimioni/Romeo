@@ -15,6 +15,8 @@
 #include "src/romeo/model/inputformats.h"
 #include <src/romeo/model/protocols/abstractprotocol.h>
 
+#include <src/romeo/model/protocols/abstractprotocol.h>
+
 
 #ifndef ABSTRACTDATASET_H
 #define ABSTRACTDATASET_H
@@ -43,7 +45,7 @@ public:
      * \param fileSubject Percorso del filesystem al file immagine del subject
      * \param mask Percorso alla mask del subject
      */
-    void createNewSubject(QString& n, QString& fileSubject, QString& mask);
+    void createNewSubject(QString& name, QString& fileSubject, QString& mask);
     /*!
      * \brief Metodo virtuale puro che deve essere ridefinito dalle sottoclassi in base al tipo di subject che si vuole costruire. Il metodo è chiamato da createNewSubject e costruisce un nuovo subject dello stesso tipo del tipo del dataset che ne ha richiesto la costruzione (2D per i dataset 2D, 3D per quelli 3D ecc..)
      * \param n Nome del subject da creare
@@ -70,9 +72,7 @@ public:
      * \brief Ritorna i subject collegati al dataset sotto forma di lista di QString
      */
     QList<QString> getSubjectList();
-
     bool execute(protocols::AbstractProtocol* alg, QList<QString> selectedSubjects);
-
 
 private:
     /*!
@@ -80,9 +80,13 @@ private:
      */
     QString name;
     /*!
-     * \brief Una hashmap che contiene i subject collegati al dataset e i risultati dei protocolli a loro legati
+     * \brief Una hashmap che contiene i subject collegati al dataset e i risultati dei protocolli a loro legati.
      */
-    QHash<AbstractSubject*, QList<Result*> >  results;
+    QHash<AbstractSubject*, QList<Result*> >  subjects;
+    /*!
+     * \brief Lista dei protocolli che si possono invocare dal dataset.
+     */
+    QList<protocols::AbstractProtocol*> datasetProtocols;
 };
 }}}
 #endif // ABSTRACTDATASET_H

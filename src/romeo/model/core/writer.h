@@ -45,6 +45,28 @@ private:
      * \brief Campo dati statico che contiene il riferimento all'unica istanza del Writer
      */
     static Writer* instance;
+public slots:
+    /*!
+     * \brief Slot pubblico che viene chiamato ogni qualvolta sia stato effettuato un cambiamento nei datasets, questa funzione si assicura di aggiornare il file di database che contiene i dataset per mantenerlo consistente con i dati del programma.
+     */
+    bool saveDatasetsList();
+    /*!
+     * \brief Slot pubblico che viene chiamato ogni qualvolta sia stato effettuato un cambiamento nei protocolli, questa funzione si assicura di aggiornare il file di database che contiene i protocolli per mantenerlo consistente con i dati del programma.
+     */
+    bool saveProtocolsList();
+
+    /*!
+     * \brief Slot pubblico che viene chiamato ogni qualvolta sia stato effettuato un cambiamento negli algoritmi, questa funzione si assicura di aggiornare il file di database che contiene gli algoritmi per mantenerlo consistente con i dati del programma.
+     */
+    bool saveAlgorithmsList();
+    /*!
+     * \brief Slot pubblico che viene chiamato ogni qualvolta sia stato effettuato un cambiamento nelle feature, questa funzione si assicura di aggiornare il file di database che contiene le feature per mantenerlo consistente con i dati del programma.
+     */
+    bool saveFeaturesList();
+    /*!
+     * \brief Slot pubblico che viene chiamato ogni qualvolta sia stato effettuato un cambiamento in un dataset, questa funzione si assicura di aggiornare il file relativo a tale dataset per mantenerlo consistente con i dati del programma.
+     */
+    bool saveDataset(QString& datasetName);
 };
 
 

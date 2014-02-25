@@ -135,6 +135,5 @@ public:
 
 };
 
-
 }}}}
 #endif // ABSTRACTALGORITHM_H

@@ -24,7 +24,8 @@ namespace datasets{
 class Dataset2DT : public AbstractDataset
 {
 public:
-    Dataset2DT();
+    Dataset2DT(QString &name);
+    virtual AbstractSubject* makeSubject(QString& name, QString& fileSubject, QString& mask);
 };
 }}}
 #endif // DATASET2DT_H

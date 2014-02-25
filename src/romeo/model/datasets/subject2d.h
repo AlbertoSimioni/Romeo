@@ -25,7 +25,7 @@ namespace datasets{
 class Subject2D : public AbstractSubject
 {
 public:
-    Subject2D();
+    Subject2D(QString& name, QString& imagePath, QString& maskPath);
     virtual QString getType();
 };
 }}}

@@ -24,7 +24,7 @@ namespace datasets{
 class Subject3D : public AbstractSubject
 {
 public:
-    Subject3D();
+    Subject3D(QString &name, QString &imagePath, QString &maskPath);
     QString getType();
 };
 }}}

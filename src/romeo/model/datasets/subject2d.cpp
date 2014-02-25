@@ -1,6 +1,6 @@
 #include "subject2d.h"
 using namespace romeo::model::datasets;
-Subject2D::Subject2D()
+Subject2D::Subject2D(QString &name, QString &imagePath, QString &maskPath): AbstractSubject(name, imagePath, maskPath)
 {
 }
 

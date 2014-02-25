@@ -1,4 +1,9 @@
 #include "datasetslist.h"
+#include "dataset2d.h"
+#include "dataset2dt.h"
+#include "dataset3d.h"
+#include "dataset3dt.h"
+
 using namespace romeo::model::datasets;
 
 DatasetsList* DatasetsList::instance=0;
@@ -21,6 +26,26 @@ AbstractDataset *DatasetsList::getDataset(QString name) const
         }
     }
     return 0;
+}
+
+void DatasetsList::addDataset(QString name, romeo::model::InputFormat datasetType)
+{
+    switch (datasetType) {
+    case TYPE2D:
+        datasets.append(new Dataset2D(name));
+        break;
+    case TYPE2DT:
+        datasets.append(new Dataset2DT(name));
+        break;
+    case TYPE3D:
+        datasets.append(new Dataset3D(name));
+        break;
+    case TYPE3DT:
+        datasets.append(new Dataset3DT(name));
+        break;
+    default:
+        break;
+    }
 }
 
 DatasetsList::~DatasetsList()

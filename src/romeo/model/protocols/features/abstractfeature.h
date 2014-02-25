@@ -26,8 +26,6 @@ enum FeatureType{FIRSTORDER,SECONDORDER,DYNAMIC};
  */
 class AbstractFeature
 {
-
-
     /*!
      * \brief  Stringa contenente il percorso nel file system con la libreria dinamica contenete il codice del feature extractor
      */

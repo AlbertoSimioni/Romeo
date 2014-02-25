@@ -33,7 +33,13 @@ public:
      *  si preoccupa anche di costruire l'istanza.
      */
     static Loader* getInstance(QObject* parent);
-    bool loadAlgorithms(QString algFile, protocols::algorithms::AbstractAlgorithm* algorithmList);
+    /*!
+     * \brief loadAlgorithms
+     * \param algFile
+     * \param algorithmList
+     * \return
+     */
+    bool loadAlgorithms(QString algFile, protocols::algorithms::AlgorithmsList *algorithmList);
     bool loadFeatures(const QString &featFile, protocols::features::FeaturesList* featureList);
 private:
     /*!
@@ -47,6 +53,7 @@ private:
     static bool parseFeature(protocols::features::FeaturesList* featureList, const QDomNode &node);
     static bool parseAlgorithm(protocols::algorithms::AlgorithmsList* algorithmsList, const QDomNode &node);
     static bool parseProtocol(protocols::ProtocolsList* protocolsList, const QDomNode &node);
+    static bool parseParameter(QList<protocols::algorithms::AbstractAlgorithm::AlgorithmParameter>& paramList, const QDomNode& node= QDomNode());
 };
 }}}
 

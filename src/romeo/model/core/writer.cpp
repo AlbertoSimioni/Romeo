@@ -15,3 +15,28 @@ Writer *Writer::getInstance(QObject *parent)
 Writer::Writer(QObject* parent): QObject(parent)
 {
 }
+
+bool Writer::saveDatasetsList()
+{
+    return true;
+}
+
+bool Writer::saveProtocolsList()
+{
+    //writer->writeProtocols(QDir());
+}
+
+bool Writer::saveAlgorithmsList()
+{
+    //writer->writeAlgorithms(QDir());
+}
+
+bool Writer::saveFeaturesList()
+{
+    return true;
+}
+
+bool Writer::saveDataset(QString &datasetName)
+{
+    return true;
+}

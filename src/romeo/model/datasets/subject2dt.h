@@ -23,7 +23,7 @@ namespace datasets{
 class Subject2DT : public AbstractSubject
 {
 public:
-    Subject2DT();
+    Subject2DT(QString &name, QString &imagePath, QString &maskPath);
     QString getType();
 };
 }}}
