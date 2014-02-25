@@ -2,11 +2,69 @@
 
 
 SET(romeoTest_SOURCES
-TestCheckValidity.cpp
+TestParameterValueForm.cpp
+ ../src/romeo/view/dialogs/addsubjectdialog.cpp
+ ../src/romeo/view/dialogs/executedialog.cpp
+  ../src/romeo/view/dialogs/newalgorithmdialog.cpp
+  ../src/romeo/view/dialogs/newfeaturedialog.cpp
+  ../src/romeo/view/dialogs/protocoldialog.cpp
+  ../src/romeo/view/mainWindow/datasetpanel.cpp
+  ../src/romeo/view/mainWindow/datasetsexplorer.cpp
+  ../src/romeo/view/mainWindow/executepanel.cpp
+  ../src/romeo/view/mainWindow/mainwindow.cpp
+  ../src/romeo/view/mainWindow/explorer.cpp
+  ../src/romeo/view/mainWindow/filesystemexplorer.cpp
+  ../src/romeo/view/mainWindow/protocolspanel.cpp
+  ../src/romeo/view/mainWindow/protocolsexplorer.cpp
+  ../src/romeo/view/mainWindow/subjectspanel.cpp
+  ../src/romeo/model/core/modelcore.cpp
+  ../src/romeo/model/core/writer.cpp
+  ../src/romeo/model/core/loader.cpp
+  ../src/romeo/model/settings.cpp
+  ../src/romeo/model/protocols/abstractprotocol.cpp
+  ../src/romeo/model/protocols/staticprotocol.cpp
+  ../src/romeo/model/protocols/dynamicprotocol.cpp
+  ../src/romeo/model/protocols/features/abstractfeature.cpp
+  ../src/romeo/model/protocols/features/dynamicfeature.cpp
+  ../src/romeo/model/protocols/features/abstractstaticfeature.cpp
+  ../src/romeo/model/protocols/features/firstorderfeature.cpp
+  ../src/romeo/model/protocols/features/secondorderfeature.cpp
+  ../src/romeo/model/protocols/protocolslist.cpp
+  ../src/romeo/model/protocols/features/featureslist.cpp
+  ../src/romeo/model/protocols/algorithms/abstractalgorithm.cpp
+  ../src/romeo/model/protocols/algorithms/algorithmslist.cpp
+  ../src/romeo/model/protocols/algorithms/kmeans.cpp
+  ../src/romeo/model/protocols/algorithms/fuzzycmeans.cpp
+  ../src/romeo/model/protocols/algorithms/hierarchical.cpp
+  ../src/romeo/model/protocols/algorithms/userdefinedalgorithm.cpp
+  ../src/romeo/model/imageIO/handlerio.cpp
+  ../src/romeo/model/imageIO/handlerio2d.cpp
+  ../src/romeo/model/imageIO/handlerio3d.cpp
+  ../src/romeo/model/datasets/result.cpp
+  ../src/romeo/model/datasets/abstractdataset.cpp
+  ../src/romeo/model/datasets/datasetslist.cpp
+  ../src/romeo/model/datasets/dataset2d.cpp
+  ../src/romeo/model/datasets/dataset2dt.cpp
+  ../src/romeo/model/datasets/dataset3d.cpp
+  ../src/romeo/model/datasets/dataset3dt.cpp
+  ../src/romeo/model/datasets/abstractsubject.cpp
+  ../src/romeo/model/datasets/subject2d.cpp
+  ../src/romeo/model/datasets/subject2dt.cpp
+  ../src/romeo/model/datasets/subject3d.cpp
+  ../src/romeo/model/datasets/subject3dt.cpp
+  ../src/romeo/controller/controller.cpp
+  ../src/romeo/view/dialogs/newdatasetdialog.cpp
+  ../src/romeo/view/viewmanager.cpp
+  ../src/romeo/view/dialogs/featureslistdialog.cpp
+  ../src/romeo/view/dialogs/algorithmslistdialog.cpp
+  ../src/romeo/model/inputformats.h
+  ../src/romeo/view/dialogs/parametervalueform.cpp
+  ../src/romeo/view/dialogs/newalgorithmparameterform.cpp
 )
 SET(romeoTest_HEADERS
- TestCheckValidity.h
+ TestParameterValueForm.h
 )
+
 
 
 ADD_EXECUTABLE(romeoTest ${romeoTest_SOURCES}
@@ -15,4 +73,5 @@ ADD_EXECUTABLE(romeoTest ${romeoTest_SOURCES}
 
 QT5_USE_MODULES(romeoTest Widgets Xml XmlPatterns Test)
 TARGET_LINK_LIBRARIES( romeoTest ${ITK_LIBRARIES}  ${VTK_LIBRARIES} )
+add_test(NAME RomeoTest COMMAND romeoTest)
 
