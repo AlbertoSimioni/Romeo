@@ -75,6 +75,13 @@ Controller::Controller(QObject *parent): QObject(parent)
     algorithmsListDialog = new AlgorithmsListDialog(algorithmsList,mainWindow);
     featuresListDialog = new FeaturesListDialog(featuresList,mainWindow);
 
+    protocolsExplorer = mainWindow->getProtocolsExplorer();
+
+    datasetsExplorer = mainWindow->getDatasetsExplorer();
+
+    protocolsExplorer->setProtocolsList(protocolsList);
+
+    datasetsExplorer->setDatasetsList(datasetsList);
 
     connectViewsSignals();
     mainWindow->show();
@@ -98,6 +105,7 @@ void Controller::connectViewsSignals(){
     connect(protocolDialog,SIGNAL(createProtocol(QString,QString,bool,QList<QString>,QString,romeo::model::protocols::ProtocolType,int,int)),this,SLOT(addProtocol(QString,QString,bool,QList<QString>,QString,romeo::model::protocols::ProtocolType,int,int)));
     connect(newAlgorithmDialog,SIGNAL(createAlgorithm(QString,QString,QString,QString,QList<romeo::model::protocols::algorithms::AbstractAlgorithm::AlgorithmParameter>)),this,SLOT(addAlgorithm(QString,QString,QString,QString,QList<romeo::model::protocols::algorithms::AbstractAlgorithm::AlgorithmParameter>)));
     connect(newFeatureDialog,SIGNAL(createFeature(QString,QString,QString,QString,romeo::model::protocols::features::FeatureType)),this,SLOT(addFeature(QString,QString,QString,QString,romeo::model::protocols::features::FeatureType)));
+    connect(newDatasetDialog,SIGNAL(createDataset(QString,romeo::model::InputFormat)),this,SLOT(addDataset(QString,romeo::model::InputFormat)));
 }
 
 Controller* Controller::getInstance(QObject *parent){
@@ -191,4 +199,8 @@ void Controller::addAlgorithm(QString name, QString desc, QString dyfn, QString 
 
 void Controller::addFeature(QString name, QString desc, QString dyfn, QString dylp, FeatureType type){
     featuresList->addFeature(name,type,desc,dylp,dyfn);
+}
+
+void Controller::addDataset(QString name, romeo::model::InputFormat type){
+    datasetsList->addDataset(name,type);
 }

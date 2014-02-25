@@ -20,7 +20,7 @@ AlgorithmsListDialog::~AlgorithmsListDialog()
 void AlgorithmsListDialog::connectUI(){
     connect(ui->okButton,SIGNAL(clicked()),this,SLOT(accept()));
     connect(algorithms,SIGNAL(algorithmsListModified()),this,SLOT(fillAlgorithmsList()));
-    connect(ui->algorithmsTable,SIGNAL(clicked(QModelIndex)),this,SLOT(showDescription()));
+    connect(ui->algorithmsTable,SIGNAL(itemSelectionChanged()),this,SLOT(showDescription()));
 }
 
 

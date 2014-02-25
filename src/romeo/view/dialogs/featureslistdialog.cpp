@@ -20,7 +20,7 @@ FeaturesListDialog::~FeaturesListDialog()
 void FeaturesListDialog::connectUI(){
     connect(ui->okButton,SIGNAL(clicked()),this,SLOT(accept()));
     connect(features,SIGNAL(featuresListModified()),this,SLOT(fillFeaturesList()));
-    connect(ui->featureTable,SIGNAL(clicked(QModelIndex)),this,SLOT(showDescription()));
+    connect(ui->featureTable,SIGNAL(itemSelectionChanged()),this,SLOT(showDescription()));
 }
 
 

@@ -82,7 +82,7 @@ QHeaderView::section:checked
         </attribute>
         <layout class="QGridLayout" name="gridLayout">
          <item row="0" column="0">
-          <widget class="romeo::view::mainWindow::Explorer" name="widget_3" native="true"/>
+          <widget class="romeo::view::mainWindow::Explorer" name="explorer" native="true"/>
          </item>
         </layout>
        </widget>
@@ -95,7 +95,7 @@ QHeaderView::section:checked
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
-          <widget class="romeo::view::mainWindow::FileSystemExplorer" name="widget" native="true"/>
+          <widget class="romeo::view::mainWindow::FileSystemExplorer" name="fileSystemExplorer" native="true"/>
          </item>
         </layout>
        </widget>
@@ -109,7 +109,7 @@ QHeaderView::section:checked
        </property>
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="0">
-         <widget class="romeo::view::mainWindow::DatasetPanel" name="widget_2" native="true">
+         <widget class="romeo::view::mainWindow::DatasetPanel" name="datasetPanel" native="true">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>

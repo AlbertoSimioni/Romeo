@@ -37,7 +37,7 @@ public:
    /*!
     * \brief Ritorna la lista di dataset attualmente caricata dall'applicazione. La lista contiene dei puntatori ai dataset su cui possono essere eseguite operazioni.
     */
-   QList<AbstractDataset*> getDatasetList() const;
+   QList<AbstractDataset*> getDatasetsList() const;
    void addDataset(QString name, InputFormat datasetType);
    ~DatasetsList();
 

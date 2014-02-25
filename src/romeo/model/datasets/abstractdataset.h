@@ -72,6 +72,9 @@ public:
      * \brief Ritorna i subject collegati al dataset sotto forma di lista di QString
      */
     QList<QString> getSubjectList();
+
+    virtual romeo::model::InputFormat getType() = 0;
+
     bool execute(protocols::AbstractProtocol* alg, QList<QString> selectedSubjects);
 
 private:

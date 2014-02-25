@@ -27,7 +27,7 @@
    <item row="1" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
      <item>
-      <widget class="romeo::view::mainWindow::SubjectsPanel" name="widget" native="true">
+      <widget class="romeo::view::mainWindow::SubjectsPanel" name="subjectsPanel" native="true">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -39,7 +39,7 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="romeo::view::mainWindow::ProtocolsPanel" name="widget_2" native="true">
+        <widget class="romeo::view::mainWindow::ProtocolsPanel" name="protocolsPanel" native="true">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -49,7 +49,7 @@
         </widget>
        </item>
        <item>
-        <widget class="romeo::view::mainWindow::ExecutePanel" name="widget_3" native="true"/>
+        <widget class="romeo::view::mainWindow::ExecutePanel" name="executePanel" native="true"/>
        </item>
       </layout>
      </item>

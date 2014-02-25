@@ -84,10 +84,6 @@ void NewFeatureDialog::checkForm(){
     else if(ui->errorLabel->isHidden())ui->okCancel->button(QDialogButtonBox::Ok)->setEnabled(true);
 }
 
-//int  int*data,int size,int dimesion p1
-//double  int[256][256]
-
-//double*  int**data, const int numberOfPixel, int begin, int end
 
 
 void NewFeatureDialog::okButtonClicked(){

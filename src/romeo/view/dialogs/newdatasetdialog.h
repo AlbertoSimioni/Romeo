@@ -10,7 +10,7 @@
 #define NEWDATASETDIALOG_H
 
 #include <QDialog>
-
+#include <src/romeo/model/inputformats.h>
 namespace Ui {
 class NewDatasetDialog;
 }
@@ -49,6 +49,12 @@ signals:
      * \brief Segnala la modifica del nome della feature da parte dell'utente
      */
     void nameChanged(QString datasetName);
+
+    /*!
+    * \brief Segnale emesso per avvertire la creazione da parte dell'utente di un nuovo dataset, contiene tutti i parametri inseriti dall'utente
+    */
+    void createDataset(QString datasetName,romeo::model::InputFormat type);
+
 private slots:
 
     /*!
@@ -57,6 +63,11 @@ private slots:
      * Verifica che la linea di testo contenente il nome del dataset non sia vuota. Se non vuota abilita la pressione del pulsante "ok", altrimento la disabilita
      */
     void checkForm();
+
+    /*!
+     * \brief Slot avviato alla pressione dell'utente del tasto ok
+     */
+    void okButtonClicked();
 
 private:
     /*!

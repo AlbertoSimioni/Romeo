@@ -26,6 +26,7 @@ class Dataset3DT : public AbstractDataset
 public:
     Dataset3DT(QString &name);
     virtual AbstractSubject* makeSubject(QString& name, QString& fileSubject, QString& mask);
+    virtual romeo::model::InputFormat getType();
 };
 }}}
 #endif // DATASET3DT_H

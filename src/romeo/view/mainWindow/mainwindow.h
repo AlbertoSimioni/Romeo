@@ -10,7 +10,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
+#include "datasetsexplorer.h"
+#include "protocolsexplorer.h"
 namespace Ui {
 class MainWindow;
 }
@@ -25,6 +26,17 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    /*!
+     * \brief Ritorna il riferimento al widget che mostra la lista dei dataset
+     */
+    DatasetsExplorer* getDatasetsExplorer();
+    /*!
+     * \brief Ritorna il riferimento al widget che mostra la lista dei protocolli
+     */
+    ProtocolsExplorer* getProtocolsExplorer();
+
+
+
 
 signals:
     void openNewDatasetDialog();

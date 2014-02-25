@@ -33,7 +33,7 @@ public:
 private slots:
 
     /*!
-     * \brief Riempie la lista delle feature con le feature presenti nel modello
+     * \brief Riempie o aggiorna la lista delle feature con le feature presenti nel modello
      */
     void fillFeaturesList();
     /*!

@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 using namespace romeo::view::mainWindow;
+using namespace romeo::model::protocols;
+using namespace romeo::model::datasets;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -26,3 +28,11 @@ void MainWindow::connectActionsToSignal(){
     connect(ui->actionFeatures_List,SIGNAL(triggered()),this,SIGNAL(openFeaturesListDialog()));
 }
 
+
+DatasetsExplorer* MainWindow::getDatasetsExplorer(){
+    return ui->explorer->getDatasetsExplorer();
+}
+
+ProtocolsExplorer* MainWindow::getProtocolsExplorer(){
+    return ui->explorer->getProtocolsExplorer();
+}

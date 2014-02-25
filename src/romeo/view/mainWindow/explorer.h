@@ -9,7 +9,8 @@
 #define EXPLORER_H
 
 #include <QWidget>
-
+#include "datasetsexplorer.h"
+#include "protocolsexplorer.h"
 namespace Ui {
 class Explorer;
 }
@@ -23,6 +24,16 @@ class Explorer : public QWidget
 public:
     explicit Explorer(QWidget *parent = 0);
     ~Explorer();
+
+
+    /*!
+     * \brief Ritorna il riferimento al widget che mostra la lista dei dataset
+     */
+    DatasetsExplorer* getDatasetsExplorer();
+    /*!
+     * \brief Ritorna il riferimento al widget che mostra la lista dei protocolli
+     */
+    ProtocolsExplorer* getProtocolsExplorer();
 
 private:
     Ui::Explorer *ui;

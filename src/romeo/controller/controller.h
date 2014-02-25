@@ -26,6 +26,8 @@
 #include<src/romeo/view/dialogs/addsubjectdialog.h>
 #include<src/romeo/view/dialogs/algorithmslistdialog.h>
 #include<src/romeo/view/dialogs/featureslistdialog.h>
+#include<src/romeo/view/mainWindow/datasetsexplorer.h>
+#include<src/romeo/view/mainWindow/protocolsexplorer.h>
 
 namespace romeo {
 namespace controller{
@@ -36,7 +38,7 @@ namespace controller{
  * Descrizione dettagliata
  */
 
-
+//BISOGNA ASSOLUTAMENTE SPEZZARLA IN PIù CLASSI, HA TROPPO CAMPI ORA
 class Controller : public QObject
 {
         Q_OBJECT
@@ -93,6 +95,8 @@ public slots:
     void addAlgorithm(QString name,QString desc, QString dyfn, QString dylp,QList<romeo::model::protocols::algorithms::AbstractAlgorithm::AlgorithmParameter> parameters);
 
     void addFeature(QString name,QString desc,QString dyfn,QString dylp,romeo::model::protocols::features::FeatureType type);
+
+    void addDataset(QString name, romeo::model::InputFormat type);
 private:
 
     /*!
@@ -164,6 +168,16 @@ private:
       * \brief Riferimento al dialogo per la visualizzazione della lista degli algoritmi di clustering
       */
      romeo::view::dialogs::AlgorithmsListDialog* algorithmsListDialog;
+
+     /*!
+      * \brief Riferimento al widget che mostra la lista dei dataset del programma
+      */
+     romeo::view::mainWindow::DatasetsExplorer* datasetsExplorer;
+
+     /*!
+      * \brief Riferimento al Widget che mostra la lista dei protocolli del programma
+      */
+     romeo::view::mainWindow::ProtocolsExplorer* protocolsExplorer;
 
 
 

@@ -26,6 +26,7 @@ class Dataset2D : public AbstractDataset
 public:
     Dataset2D(QString& name);
     virtual AbstractSubject* makeSubject(QString& name, QString& fileSubject, QString& mask);
+    virtual romeo::model::InputFormat getType();
 };
 }}}
 #endif // DATASET2D_H

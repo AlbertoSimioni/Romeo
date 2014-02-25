@@ -9,11 +9,11 @@ FileSystemExplorer::FileSystemExplorer(QWidget *parent) :
 
     dirModel = new QFileSystemModel(this);
     dirModel->setFilter(QDir::NoDotAndDotDot | QDir::AllDirs);
-    ui->treeView->setModel(dirModel);
-    ui->treeView->setRootIndex(dirModel->setRootPath(QDir::homePath()));
-    ui->treeView->hideColumn(1);
-    ui->treeView->hideColumn(2);
-    ui->treeView->hideColumn(3);
+    ui->foldersView->setModel(dirModel);
+    ui->foldersView->setRootIndex(dirModel->setRootPath(QDir::homePath()));
+    ui->foldersView->hideColumn(1);
+    ui->foldersView->hideColumn(2);
+    ui->foldersView->hideColumn(3);
 
 
 
@@ -24,9 +24,9 @@ FileSystemExplorer::FileSystemExplorer(QWidget *parent) :
     fileModel->setNameFilters(filters);
     fileModel->setNameFilterDisables(false);
 
-    ui->listView->setModel(fileModel);
-    ui->listView->setRootIndex(fileModel->setRootPath(QDir::homePath()));
-    connect(ui->treeView,SIGNAL(clicked(QModelIndex)),this,SLOT(treeView_clicked(QModelIndex)));
+    ui->filesView->setModel(fileModel);
+    ui->filesView->setRootIndex(fileModel->setRootPath(QDir::homePath()));
+    connect(ui->foldersView,SIGNAL(clicked(QModelIndex)),this,SLOT(treeView_clicked(QModelIndex)));
 }
 
 FileSystemExplorer::~FileSystemExplorer()
@@ -38,5 +38,5 @@ void FileSystemExplorer::treeView_clicked(QModelIndex index)
 {
     QString aPath = dirModel->fileInfo(index).absoluteFilePath();
        fileModel->setFilter(QDir::NoDotAndDotDot | QDir::Files);
-    ui->listView->setRootIndex(fileModel->setRootPath(aPath));
+    ui->filesView->setRootIndex(fileModel->setRootPath(aPath));
 }

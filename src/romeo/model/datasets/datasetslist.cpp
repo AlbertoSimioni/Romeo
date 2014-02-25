@@ -46,6 +46,12 @@ void DatasetsList::addDataset(QString name, romeo::model::InputFormat datasetTyp
     default:
         break;
     }
+    emit datasetsListModified();
+
+}
+
+QList<AbstractDataset*> DatasetsList::getDatasetsList() const {
+    return datasets;
 }
 
 DatasetsList::~DatasetsList()

@@ -2,6 +2,7 @@
 #include "ui_newdatasetdialog.h"
 #include <QPushButton>
 using namespace romeo::view::dialogs;
+using namespace romeo::model;
 NewDatasetDialog::NewDatasetDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::NewDatasetDialog)
@@ -24,6 +25,7 @@ void NewDatasetDialog::connectUI(){
     connect(ui->nameLineEdit,SIGNAL(textChanged(QString)),this,SIGNAL(nameChanged(QString)));
     connect(ui->nameLineEdit,SIGNAL(textChanged(QString)),this,SLOT(checkForm()));
     connect(ui->okCancel,SIGNAL(rejected()),this,SLOT(reject()));
+    connect(ui->okCancel->button(QDialogButtonBox::Ok),SIGNAL(clicked()),this,SLOT(okButtonClicked()));
 }
 
 
@@ -62,4 +64,20 @@ void NewDatasetDialog::checkForm(){
     if(!valid)ui->okCancel->button(QDialogButtonBox::Ok)->setEnabled(false);
 
     else if(ui->ErrorLabel->isHidden())ui->okCancel->button(QDialogButtonBox::Ok)->setEnabled(true);
+}
+
+
+void NewDatasetDialog::okButtonClicked(){
+
+    QString name = ui->nameLineEdit->text();
+    QString typeName = ui->typeCombo->currentText();
+    InputFormat type;
+    if(typeName == "2D") type = TYPE2D;
+    if(typeName == "2DT") type = TYPE2DT;
+    if(typeName == "3D") type = TYPE3D;
+    if(typeName == "3DT") type = TYPE3DT;
+
+    resetForms();
+    emit createDataset(name,type);
+    accept();
 }

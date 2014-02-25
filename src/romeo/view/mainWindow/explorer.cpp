@@ -14,3 +14,12 @@ Explorer::~Explorer()
 {
     delete ui;
 }
+
+
+DatasetsExplorer* Explorer::getDatasetsExplorer(){
+    return ui->datasetsExplorer;
+}
+
+ProtocolsExplorer* Explorer::getProtocolsExplorer(){
+    return ui->protocolsExplorer;
+}

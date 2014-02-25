@@ -9,7 +9,7 @@
 #define PROTOCOLSEXPLORER_H
 
 #include <QWidget>
-
+#include <src/romeo/model/protocols/protocolslist.h>
 namespace Ui {
 class ProtocolsExplorer;
 }
@@ -24,8 +24,13 @@ public:
     explicit ProtocolsExplorer(QWidget *parent = 0);
     ~ProtocolsExplorer();
 
+    romeo::model::protocols::ProtocolsList *getProtocolsList() const;
+    void setProtocolsList(romeo::model::protocols::ProtocolsList *value);
+
 private:
     Ui::ProtocolsExplorer *ui;
+
+    romeo::model::protocols::ProtocolsList* protocolsList;
 };
 }}}
 #endif // PROTOCOLSEXPLORER_H
