@@ -15,7 +15,7 @@ namespace protocols{
 namespace features{
 
 /*!
- * \brief Tipo enumerazione che identifica i vari tipi di feature extractor
+ * \brief Tipo enumerazione che identifica i vari tipi di feature extractor.
  */
 enum FeatureType{FIRSTORDER,SECONDORDER,DYNAMIC};
 
@@ -27,20 +27,20 @@ enum FeatureType{FIRSTORDER,SECONDORDER,DYNAMIC};
 class AbstractFeature
 {
     /*!
-     * \brief  Stringa contenente il percorso nel file system con la libreria dinamica contenete il codice del feature extractor
+     * \brief  Stringa contenente il percorso nel file system con la libreria dinamica contenete il codice del feature extractor.
      */
     QString dynamicLibraryPath;
     /*!
-     * \brief Stringa contente il nome della funzione all'interno della libreria dinamica
+     * \brief Stringa contente il nome della funzione all'interno della libreria dinamica.
      */
 
     QString dynamicFunctionName;
     /*!
-     * \brief Nome della feature
+     * \brief Nome della feature.
      */
     QString name;
     /*!
-     * \brief Descrizione della feature
+     * \brief Descrizione della feature.
      */
     QString description;
     FeatureType type;
@@ -48,22 +48,25 @@ public:
     AbstractFeature(QString n,QString dylp,QString dyfn,QString desc = QString());
 
     /*!
-     * \brief Restituisce il percorso alla libreria dinamica contente il codice del feature extractor
+     * \brief Restituisce il percorso alla libreria dinamica contente il codice del feature extractor.
      */
     QString getDynamicLibraryPath() const; //forse non necessario
     /*!
-     * \brief Restituisce il nome della feature
+     * \brief Restituisce il nome della feature.
      */
     QString getName() const;
     /*!
-     * \brief Restituisce la descrizione della feature
+     * \brief Restituisce la descrizione della feature.
      */
     QString getDescription() const;
     /*!
-     * \brief Metodo astratto che restituisce il tipo della feature, sotto forma di stringa
+     * \brief Metodo astratto che restituisce il tipo della feature, sotto forma di stringa.
      */
     virtual FeatureType getType()= 0;
-
+    /*!
+     * \brief Ritorna il nome della funzione da chiamare nella libreria dinamica.
+     */
+    QString getDynamicFunctionName() const;
 };
 
 }}}}

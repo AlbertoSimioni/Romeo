@@ -31,7 +31,7 @@ public:
      * \brief Metodo statico che ritorna l'istanza del Writer, in caso sia la prima volta ad essere invocato
      *  si preoccupa anche di costruire l'istanza.
      */
-    static Writer* getInstance(QObject* parent);
+    static Writer* getInstance(QObject* parent=0);
     void writeProtocols(QDir& protocolPath);
     bool saveDatabase(QDir path);
     bool saveDataset(datasets::AbstractDataset* dataset, QDir path);

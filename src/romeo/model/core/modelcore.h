@@ -63,6 +63,8 @@ public:
     protocols::features::AbstractFeature* getFeature(QString& feature) const;
     protocols::algorithms::AbstractAlgorithm* getAlgorithm(QString& alg) const;
 
+    QDir getDataHome() const;
+    void setDataHome(const QDir &value);
 
 private:
     /*!
@@ -81,8 +83,6 @@ private:
      * \brief Metodo interno di ModelCore che si occupa di inizializzare le liste dei dati utilizzando il modulo Loader per caricare il file che contiene il database. Inoltre crea le connessioni tra i segnali di modifica e il modulo di salvataggio dei dati.
      */
     void createLists();
-
-
     /*!
      * \brief Campo dati statico che contiene il riferimento all'unica istanza del controller.
      */

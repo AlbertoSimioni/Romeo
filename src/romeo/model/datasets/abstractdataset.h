@@ -30,8 +30,9 @@ namespace datasets{
  * Descrizione dettagliata
  */
 
-class AbstractDataset
+class AbstractDataset: public QObject
 {
+    Q_OBJECT
 public:
     AbstractDataset();
     /*!
@@ -76,6 +77,13 @@ public:
     virtual romeo::model::InputFormat getType() = 0;
 
     bool execute(protocols::AbstractProtocol* alg, QList<QString> selectedSubjects);
+
+signals:
+    void addedSubject(QString subjectName);
+    void removedSubject(QString subjectName);
+    void addedProtocol(QString protocolName);
+    void removedProtocol(QString protocolName);
+    void newResults();
 
 private:
     /*!
