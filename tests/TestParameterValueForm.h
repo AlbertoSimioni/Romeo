@@ -9,12 +9,13 @@ using namespace romeo::view::dialogs;
 using namespace romeo::model::protocols::algorithms;
 using namespace romeo::model::protocols;
 
-class TestParameterValueForm : public QObject
+Q_DECLARE_METATYPE(AbstractAlgorithm::ParameterType);
+
+class TestParameterValueForm : public QObject // LCOV_EXCL_LINE
 {
     Q_OBJECT
 
 public:
-    TestParameterValueForm();
 
 private slots:
     void ParameterValueForm_data();

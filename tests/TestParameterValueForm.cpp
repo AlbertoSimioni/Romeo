@@ -1,40 +1,40 @@
 #include "TestParameterValueForm.h"
 
 
-TestParameterValueForm::TestParameterValueForm()
-{
-}
 
 void TestParameterValueForm::ParameterValueForm_data(){
+    QTest::addColumn<AbstractAlgorithm::ParameterType>("type");
 
-    QTest::addColumn<QString>("type");
-    QTest::addColumn<bool>("expectedValidity");
-
-    QTest::newRow("") << "AbstractAlgorithm::CHAR" << false;
-    QTest::newRow("") << "AbstractAlgorithm::BOOL" << false;
-    QTest::newRow("") << "AbstractAlgorithm::DOUBLE" << false;
-    QTest::newRow("") << "AbstractAlgorithm::INT" << false;
+    QTest::newRow("") << AbstractAlgorithm::CHAR;
+    QTest::newRow("") << AbstractAlgorithm::BOOL;
+    QTest::newRow("") << AbstractAlgorithm::DOUBLE;
+    QTest::newRow("") << AbstractAlgorithm::INT;
 }
 
 void TestParameterValueForm::ParameterValueForm(){
-    QFETCH(QString, type);
-    QFETCH(bool, expectedValidity);
+    QFETCH(AbstractAlgorithm::ParameterType, type);
+    bool expectedValidity = false;
 
-    AbstractAlgorithm::AlgorithmParameter param(QString("param"), AbstractAlgorithm::CHAR, QString("default"));
-
-    if(type=="AbstractAlgorithm::BOOL")
-            AbstractAlgorithm::AlgorithmParameter param(QString("param"), AbstractAlgorithm::BOOL, QString("default"));
-    if(type=="AbstractAlgorithm::DOUBLE")
-            AbstractAlgorithm::AlgorithmParameter param(QString("param"), AbstractAlgorithm::DOUBLE, QString("default"));
-    if(type=="AbstractAlgorithm::INT")
-            AbstractAlgorithm::AlgorithmParameter param(QString("param"), AbstractAlgorithm::INT, QString("default"));
+    AbstractAlgorithm::AlgorithmParameter param(QString("param"), type, QString("default"));
 
     romeo::view::dialogs::ParameterValueForm pvf(param);
 
-    QCOMPARE(QString(pvf.isValid()),QString(expectedValidity));
+    QString expectedName=param.getName();
 
+    QCOMPARE(expectedName,pvf.getName());
 
-}
+    QCOMPARE(pvf.isValid(),expectedValidity);
+
+    AbstractAlgorithm::ParameterType expectedType = param.getType();
+
+    QCOMPARE(expectedType,pvf.getType());
+
+    QCOMPARE(QTest::toString(param),QTest::toString(pvf.getParameter()));
+
+    QString expectedValue=param.getDefaultParameter();
+
+    QCOMPARE(expectedValue,pvf.getValue());
+    }
 
 
 
