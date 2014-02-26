@@ -36,6 +36,16 @@ void ModelCore::createLists()
     connect(featuresList, SIGNAL(featuresListModified()), writer, SLOT(saveFeaturesList()));
     connect(datasetsList, SIGNAL(datasetModified(QString&)), writer, SLOT(saveDataset(QString&)));
 }
+QDir ModelCore::getDataHome() const
+{
+    return dataHome;
+}
+
+void ModelCore::setDataHome(const QDir &value)
+{
+    dataHome = value;
+}
+
 
 ModelCore* ModelCore::getInstance(QObject *parent){
     if(instance == 0){

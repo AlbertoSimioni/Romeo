@@ -34,8 +34,8 @@ bool Loader::loadAlgorithms(QString algFile, AlgorithmsList* algorithmList)
         file.close();
         return false;
     }
-
-    QDomNodeList nodeList=doc.elementsByTagName(QString("algorithm"));
+    QDomElement docElem= doc.documentElement();
+    QDomNodeList nodeList=docElem.elementsByTagName(QString("algorithm"));
     for(int i=0; i<nodeList.length(); ++i)
     {
         Loader::parseAlgorithm(algorithmList, nodeList.at(i));
@@ -57,13 +57,12 @@ bool Loader::loadFeatures(const QString& featFile, FeaturesList* featureList)
         file.close();
         return false;
     }
-
-    QDomNodeList nodeList=doc.elementsByTagName(QString("feature"));
+    QDomElement docElem= doc.documentElement();
+    QDomNodeList nodeList=docElem.elementsByTagName(QString("feature"));
     for(int i=0; i<nodeList.length(); ++i)
     {
         parseFeature(featureList, nodeList.at(i));
     }
-
     file.close();
 }
 
@@ -88,13 +87,9 @@ bool Loader::parseFeature(FeaturesList* featureList,const QDomNode& node)
         type=nextElement.text();
     }
     nextElement=nextElement.nextSiblingElement("file");
-    if(!nextElement.isNull()){
         dyln=nextElement.text();
-    }
     nextElement=nextElement.nextSiblingElement("functionName");
-    if(!nextElement.isNull()){
         dyfn=nextElement.text();
-    }
 
     if( type.compare("FIRSTORDER", Qt::CaseInsensitive))
     {

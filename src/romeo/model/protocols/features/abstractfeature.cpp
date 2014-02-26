@@ -20,6 +20,12 @@ QString AbstractFeature::getDescription() const
 }
 
 
+
+QString AbstractFeature::getDynamicFunctionName() const
+{
+    return dynamicFunctionName;
+}
+
 AbstractFeature::AbstractFeature(QString n, QString dylp, QString dyfn, QString desc):
     name(n), dynamicLibraryPath(dylp), dynamicFunctionName(dyfn), description(desc)
 {

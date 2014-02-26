@@ -2,6 +2,7 @@
 #include "featureslist.h"
 #include "firstorderfeature.h"
 #include "secondorderfeature.h"
+
 using namespace romeo::model::protocols::features;
 
 FeaturesList* FeaturesList::instance=0;
