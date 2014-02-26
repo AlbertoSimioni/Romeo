@@ -5,8 +5,11 @@
 #include <QMessageBox>
 
 #include <src/romeo/model/protocols/features/abstractfeature.h>
+
+#include <src/romeo/model/protocols/algorithms/abstractalgorithm.h>
 using namespace romeo::model::core;
 using namespace romeo::model::protocols::features;
+using namespace romeo::model::protocols::algorithms;
 
 Writer* Writer::instance=0;
 
@@ -35,7 +38,42 @@ bool Writer::saveProtocolsList()
 
 bool Writer::saveAlgorithmsList()
 {
-    //writer->writeAlgorithms(QDir());
+    QString dataHome=ModelCore::getInstance()->getDataHome().path();
+    QFile file(dataHome.append("/algorithms.xml"));
+    if(!file.open(QFile::WriteOnly))
+    {
+        qDebug("problemi");
+        return false;
+    }
+    QXmlStreamWriter writer;
+    writer.setDevice(&file);
+    writer.setAutoFormatting(true);
+    QList<AbstractAlgorithm*> algorithmsList=ModelCore::getInstance()->getAlgorithmsList()->getAlgorithmsList();
+    writer.writeStartDocument();
+    writer.writeStartElement("algorithms");
+    for(int i=0; i < algorithmsList.length(); ++i)
+    {
+        writer.writeStartElement("algorithm");
+        writer.writeTextElement("name", algorithmsList[i]->getName());
+        writer.writeTextElement("description", algorithmsList[i]->getDescription());
+        writer.writeStartElement("parameterList");
+        QList<AbstractAlgorithm::AlgorithmParameter> paramList=algorithmsList[i]->getParameters();
+        for( int j=0; j<paramList.length(); ++j)
+        {
+            writer.writeStartElement("parameter");
+            writer.writeTextElement("pname", paramList.at(j).getName());
+            writer.writeTextElement("type", paramList.at(j).getTypeString());
+            writer.writeTextElement("default", paramList.at(j).getDefaultParameter());
+            writer.writeEndElement();
+        }
+        writer.writeEndElement();
+        writer.writeTextElement("file", "func");
+        writer.writeTextElement("functionName", "sss");
+        writer.writeEndElement();
+    }
+    writer.writeEndElement();
+    writer.writeEndDocument();
+    file.close();
 }
 
 bool Writer::saveFeaturesList()
@@ -44,6 +82,7 @@ bool Writer::saveFeaturesList()
     QFile file(dataHome.append("/features.xml"));
     if(!file.open(QFile::WriteOnly))
     {
+        qDebug("problemi");
         return false;
     }
     QXmlStreamWriter writer;
@@ -71,10 +110,13 @@ bool Writer::saveFeaturesList()
     }
     writer.writeEndElement();
     writer.writeEndDocument();
-    QFile::copy(dataHome.append("/features.xml"), dataHome.append("/features.backup"));
+    file.close();
+
 }
 
 bool Writer::saveDataset(QString &datasetName)
 {
     return true;
 }
+
+

@@ -26,11 +26,13 @@ bool Loader::loadAlgorithms(QString algFile, AlgorithmsList* algorithmList)
     QFile file(algFile);
     if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
+        qDebug("cannot open");
         return false;
     }
     QDomDocument doc;
     if(!doc.setContent(&file))
     {
+        qDebug("cannot set content");
         file.close();
         return false;
     }
@@ -38,6 +40,7 @@ bool Loader::loadAlgorithms(QString algFile, AlgorithmsList* algorithmList)
     QDomNodeList nodeList=docElem.elementsByTagName(QString("algorithm"));
     for(int i=0; i<nodeList.length(); ++i)
     {
+        qDebug("ciclo");
         Loader::parseAlgorithm(algorithmList, nodeList.at(i));
     }
     file.close();
@@ -64,6 +67,7 @@ bool Loader::loadFeatures(const QString& featFile, FeaturesList* featureList)
         parseFeature(featureList, nodeList.at(i));
     }
     file.close();
+    return true;
 }
 
 bool Loader::parseFeature(FeaturesList* featureList,const QDomNode& node)

@@ -45,6 +45,10 @@ public:
          * \brief Ritorna il valore di default del parametro
          */
         QString getDefaultParameter() const;
+        /*!
+         * \brief Ritorna il tipo del parametro sotto forma di stringa
+         */
+        QString getTypeString() const;
 
 
     private:

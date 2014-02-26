@@ -19,9 +19,11 @@ AlgorithmsList *AlgorithmsList::getInstance(QObject* parent)
 
 void AlgorithmsList::addAlgorithm(QString name, QString description, QList<AbstractAlgorithm::AlgorithmParameter> parameters,QString dylp,QString dyfn)
 {
+    if (!this->getAlgorithm(name)){
     algorithms::AbstractAlgorithm* alg=new UserDefinedAlgorithm(parameters, name, description, dylp, dyfn);
     algorithms.append(alg);
     emit algorithmsListModified();
+    }
 }
 
 QList<AbstractAlgorithm*>  AlgorithmsList::getAlgorithmsList(){
@@ -29,8 +31,10 @@ QList<AbstractAlgorithm*>  AlgorithmsList::getAlgorithmsList(){
 }
 
 void AlgorithmsList::addAlgorithm(AbstractAlgorithm *alg){
+    if (!this->getAlgorithm(alg->getName())){
     algorithms.append(alg);
-    emit AlgorithmsList::algorithmsListModified();
+    emit algorithmsListModified();
+    }
 }
 
 
@@ -38,7 +42,7 @@ AbstractAlgorithm* AlgorithmsList::getAlgorithm(QString name){
 
     AbstractAlgorithm* match = 0;
     for(int i =0; i< algorithms.size() && !match;i++){
-        if(algorithms[i]->getName()== name)
+        if(algorithms[i]->getName() == name)
             match = algorithms[i];
     }
 

@@ -23,14 +23,31 @@ AbstractAlgorithm::ParameterType AbstractAlgorithm::AlgorithmParameter::getType(
     return type;
 }
 
-
 QString AbstractAlgorithm::AlgorithmParameter::getDefaultParameter() const
 {
     return defaultParameter;
 }
 
-
-
+QString AbstractAlgorithm::AlgorithmParameter::getTypeString() const
+{
+    switch (type) {
+    case INT:
+        return QString("INT");
+        break;
+    case CHAR:
+        return QString("CHAR");
+        break;
+    case BOOL:
+        return QString("BOOL");
+        break;
+    case DOUBLE:
+        return QString("DOUBLE");
+        break;
+    default:
+        return QString();
+        break;
+    }
+}
 
 
 
