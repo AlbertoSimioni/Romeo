@@ -81,7 +81,6 @@ SET(romeo_SOURCES
  src/romeo/model/datasets/subject3dt.cpp
  src/romeo/controller/controller.cpp
  src/romeo/view/dialogs/newdatasetdialog.cpp
- src/romeo/view/viewmanager.cpp
  src/romeo/view/dialogs/featureslistdialog.cpp
  src/romeo/view/dialogs/algorithmslistdialog.cpp
  src/romeo/model/inputformats.h
@@ -142,7 +141,6 @@ SET(romeo_HEADERS
  src/romeo/model/datasets/subject3dt.h
  src/romeo/controller/controller.h
  src/romeo/view/dialogs/newdatasetdialog.h
- src/romeo/view/viewmanager.h
  src/romeo/view/dialogs/featureslistdialog.h
  src/romeo/view/dialogs/algorithmslistdialog.h
  src/romeo/view/dialogs/parametervalueform.h

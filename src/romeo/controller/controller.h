@@ -122,12 +122,6 @@ private:
     void connectViewsSignals();
 
 
-    /*!
-     * \brief Riferimento alla classe facade della view, essa mette a disposizione i metodi per gestire
-     * l'apertura delle finestre di dialogo
-     */
-    //romeo::view::ViewManager* viewManager;
-
 
     /*!
      * \brief Riferimento alla finestra principale del programma
