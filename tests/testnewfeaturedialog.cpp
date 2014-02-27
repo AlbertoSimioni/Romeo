@@ -5,16 +5,13 @@ TestNewFeatureDialog::TestNewFeatureDialog(QObject *parent) :
 {
 }
 
-void TestNewFeatureDialog::NewDatasetDialog_data(){
 
-}
-
-void TestNewFeatureDialog::NewDatasetDialog(){
-    //Ui::NewDatasetDialog *ui(Ui::NewDatasetDialog);
-    //ui->setupUi(this);
-    //ui->ErrorLabel->setHidden(true);
-    //ui->okCancel->button(QDialogButtonBox::Ok)->setEnabled(false);
-    //romeo::view::dialogs::NewDatasetDialog a();
+void TestNewFeatureDialog::OkButtonClicked(){
+    qRegisterMetaType<romeo::model::protocols::features::FeatureType>("romeo::model::protocols::features::FeatureType");
+    romeo::view::dialogs::NewFeatureDialog nfd(0);
+    QSignalSpy spy(&nfd, SIGNAL(createFeature(QString,QString,QString,QString,romeo::model::protocols::features::FeatureType)));
+    //nfd.okButtonClicked(); //PROBLEMA
+    QVERIFY(spy.count()<=1);
     //QCOMPARE(ui,a.ui);
 }
 

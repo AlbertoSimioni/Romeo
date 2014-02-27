@@ -80,7 +80,7 @@ void TestParameterValueForm::CheckValidity()
     romeo::view::dialogs::ParameterValueForm pvf(param);
     QSignalSpy spy(&pvf, SIGNAL(valueEntered(bool))); //controlla i segnali emessi
     pvf.checkValidity(inputvalue);
-    QVERIFY(spy.takeFirst().at(0).type() == QVariant::Bool); //controlla che il segnale emesso abbia un bool come parametro
+    QVERIFY2(spy.takeFirst().at(0).type() == QVariant::Bool, "Il segnale emesso da CheckValidity() non ha un bool come parametro"); //controlla che il segnale emesso abbia un bool come parametro
     //QCOMPARE(spy.count(), 1); ERRORE?
     QCOMPARE(pvf.isValid(),expectedValidity);
 }

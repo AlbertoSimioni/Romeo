@@ -1,7 +1,6 @@
 #ifndef TESTPARAMETERVALUEFORM_H
 #define TESTPARAMETERVALUEFORM_H
 
-#include <QString>
 #include <QtTest>
 #define private public
 #include <../src/romeo/view/dialogs/parametervalueform.h>

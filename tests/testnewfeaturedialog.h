@@ -3,19 +3,20 @@
 
 #define private public
 
-#include "../src/romeo/view/dialogs/newdatasetdialog.h"
 #include <QtTest>
-#include <QDialogButtonBox>
+#include "../src/romeo/view/dialogs/newfeaturedialog.h"
+#include "../src/romeo/model/protocols/features/abstractfeature.h"
+
 
 class TestNewFeatureDialog : public QObject
 {
     Q_OBJECT
+
 public:
     explicit TestNewFeatureDialog(QObject *parent = 0);
 
-public slots:
-    void NewDatasetDialog_data();
-    void NewDatasetDialog();
+private slots:
+    void OkButtonClicked();
 };
 
 #endif // TESTNEWFEATUREDIALOG_H
