@@ -24,10 +24,14 @@ public:
     explicit FileSystemExplorer(QWidget *parent = 0);
     ~FileSystemExplorer();
 
+
 public slots:
     void treeView_clicked(QModelIndex index);
 
+
 private:
+
+
     Ui::FileSystemExplorer *ui;
     QFileSystemModel *dirModel;
     QFileSystemModel *fileModel;

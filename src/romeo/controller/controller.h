@@ -28,6 +28,9 @@
 #include<src/romeo/view/dialogs/featureslistdialog.h>
 #include<src/romeo/view/mainWindow/datasetsexplorer.h>
 #include<src/romeo/view/mainWindow/protocolsexplorer.h>
+#include<src/romeo/view/mainWindow/executepanel.h>
+#include<src/romeo/view/mainWindow/protocolspanel.h>
+#include<src/romeo/view/mainWindow/subjectspanel.h>
 
 namespace romeo {
 namespace controller{
@@ -58,6 +61,8 @@ public slots:
     void viewNewFeatureDialog();
     void viewAlgorithmsListDialog();
     void viewFeaturesListDialog();
+    void viewAddSubjectDialog();
+
     /*!
      * \brief Controlla se il nome del protocollo passato in input è già impegnato da un protocollo e in caso si preoccupa di
      * di far visualizzare un messaggio di errore sul wizard di creazione di un protocollo
@@ -178,6 +183,19 @@ private:
       * \brief Riferimento al Widget che mostra la lista dei protocolli del programma
       */
      romeo::view::mainWindow::ProtocolsExplorer* protocolsExplorer;
+
+     /*!
+      * \brief Riferimento al Widget che mostra il panello per eseguire un protocollo
+      */
+     romeo::view::mainWindow::ExecutePanel* executePanel;
+     /*!
+      * \brief Riferimento al Widget che mostra il panello con la lista dei protocolli associati al dataset corrente
+      */
+     romeo::view::mainWindow::ProtocolsPanel* protocolsPanel;
+     /*!
+      * \brief Riferimento al Widget che mostra il panello con la lista dei subject associati al dataset corrente
+      */
+     romeo::view::mainWindow::SubjectsPanel* subjectsPanel;
 
 
 

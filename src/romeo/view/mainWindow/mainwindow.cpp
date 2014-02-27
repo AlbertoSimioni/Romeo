@@ -36,3 +36,7 @@ DatasetsExplorer* MainWindow::getDatasetsExplorer(){
 ProtocolsExplorer* MainWindow::getProtocolsExplorer(){
     return ui->explorer->getProtocolsExplorer();
 }
+
+DatasetPanel* MainWindow::getDatasetPanel(){
+    return ui->datasetPanel;
+}

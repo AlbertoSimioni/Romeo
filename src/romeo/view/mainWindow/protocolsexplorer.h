@@ -10,6 +10,7 @@
 
 #include <QWidget>
 #include <src/romeo/model/protocols/protocolslist.h>
+
 namespace Ui {
 class ProtocolsExplorer;
 }
@@ -26,6 +27,11 @@ public:
 
     romeo::model::protocols::ProtocolsList *getProtocolsList() const;
     void setProtocolsList(romeo::model::protocols::ProtocolsList *value);
+
+
+private slots:
+
+    void fillProtocolsExplorer();
 
 private:
     Ui::ProtocolsExplorer *ui;

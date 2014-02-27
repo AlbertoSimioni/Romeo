@@ -38,11 +38,18 @@ font-weight: bold;
        <bool>false</bool>
       </attribute>
      </widget>
-     <widget class="QListView" name="filesView"/>
+     <widget class="romeo::view::mainWindow::ListView" name="filesView"/>
     </widget>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>romeo::view::mainWindow::ListView</class>
+   <extends>QListView</extends>
+   <header>src/romeo/view/mainWindow/listview.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

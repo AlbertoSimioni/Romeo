@@ -31,26 +31,26 @@ Controller::Controller(QObject *parent): QObject(parent)
 
     ////////////PROVA TEST
     QList<AbstractAlgorithm::AlgorithmParameter> param;
-    AbstractAlgorithm::AlgorithmParameter param1 (QString("param"), AbstractAlgorithm::BOOL, QString("default"));
-    AbstractAlgorithm::AlgorithmParameter param2 (QString("param"), AbstractAlgorithm::CHAR, QString("default"));
+    AbstractAlgorithm::AlgorithmParameter param1 (QString("param1"), AbstractAlgorithm::BOOL, QString("default"));
+    AbstractAlgorithm::AlgorithmParameter param2 (QString("param2"), AbstractAlgorithm::CHAR, QString("default"));
     param.append(param1);
     param.append(param2);
-    AbstractAlgorithm* alg=new UserDefinedAlgorithm(param, QString("nome alg"), QString("desc"), QString("libreria"), QString("nomefunz"));
+    AbstractAlgorithm* alg=new UserDefinedAlgorithm(param, QString("Algoritmo1"), QString("desc"), QString("libreria"), QString("nomefunz"));
     algorithmsList->addAlgorithm(alg);
 
     QList<AbstractAlgorithm::AlgorithmParameter> params;
-    AbstractAlgorithm::AlgorithmParameter param11 (QString("pllolol"), AbstractAlgorithm::INT, QString("fuck"));
-    AbstractAlgorithm::AlgorithmParameter param22 (QString("ahaha"), AbstractAlgorithm::CHAR, QString("default"));
+    AbstractAlgorithm::AlgorithmParameter param11 (QString("Param1"), AbstractAlgorithm::INT, QString("25"));
+    AbstractAlgorithm::AlgorithmParameter param22 (QString("Param2"), AbstractAlgorithm::CHAR, QString("default"));
     params.append(param11);
     params.append(param22);
-    AbstractAlgorithm* alg2=new UserDefinedAlgorithm(params, QString("nome alg2"), QString("desc2"), QString("libreria"), QString("nomefunz"));
+    AbstractAlgorithm* alg2=new UserDefinedAlgorithm(params, QString("Algoritmo"), QString("desc2"), QString("libreria"), QString("nomefunz"));
     algorithmsList->addAlgorithm(alg2);
 
 
-    AbstractFeature* feat1 = new FirstOrderFeature("FO1","PATH","PATH","DESC1");
-    AbstractFeature* feat2 = new FirstOrderFeature("FO2","PATH","PATH","DESC2");
-    AbstractFeature* feat3 = new DynamicFeature("D1","PATH","PATH","DESC3");
-    AbstractFeature* feat4 = new SecondOrderFeature("SO1","PATH","PATH","DESC4");
+    AbstractFeature* feat1 = new FirstOrderFeature("FeatureFO1","PATH","PATH","DESC1");
+    AbstractFeature* feat2 = new FirstOrderFeature("FeatureFO2","PATH","PATH","DESC2");
+    AbstractFeature* feat3 = new DynamicFeature("FeatureD1","PATH","PATH","DESC3");
+    AbstractFeature* feat4 = new SecondOrderFeature("FeatureSO1","PATH","PATH","DESC4");
     featuresList->addFeature(feat1);
     featuresList->addFeature(feat2);
     featuresList->addFeature(feat3);
@@ -75,6 +75,8 @@ Controller::Controller(QObject *parent): QObject(parent)
     algorithmsListDialog = new AlgorithmsListDialog(algorithmsList,mainWindow);
     featuresListDialog = new FeaturesListDialog(featuresList,mainWindow);
 
+    addSubjectDialog = new AddSubjectDialog(mainWindow);
+
     protocolsExplorer = mainWindow->getProtocolsExplorer();
 
     datasetsExplorer = mainWindow->getDatasetsExplorer();
@@ -82,6 +84,18 @@ Controller::Controller(QObject *parent): QObject(parent)
     protocolsExplorer->setProtocolsList(protocolsList);
 
     datasetsExplorer->setDatasetsList(datasetsList);
+
+    DatasetPanel* datasetPanel = mainWindow->getDatasetPanel();
+
+    protocolsPanel = datasetPanel->getProtocolsPanel();
+
+    executePanel = datasetPanel->getExecutePanel();
+
+    subjectsPanel = datasetPanel->getSubjectsPanel();
+
+
+
+
 
     connectViewsSignals();
     mainWindow->show();
@@ -106,6 +120,7 @@ void Controller::connectViewsSignals(){
     connect(newAlgorithmDialog,SIGNAL(createAlgorithm(QString,QString,QString,QString,QList<romeo::model::protocols::algorithms::AbstractAlgorithm::AlgorithmParameter>)),this,SLOT(addAlgorithm(QString,QString,QString,QString,QList<romeo::model::protocols::algorithms::AbstractAlgorithm::AlgorithmParameter>)));
     connect(newFeatureDialog,SIGNAL(createFeature(QString,QString,QString,QString,romeo::model::protocols::features::FeatureType)),this,SLOT(addFeature(QString,QString,QString,QString,romeo::model::protocols::features::FeatureType)));
     connect(newDatasetDialog,SIGNAL(createDataset(QString,romeo::model::InputFormat)),this,SLOT(addDataset(QString,romeo::model::InputFormat)));
+    connect(subjectsPanel,SIGNAL(openAddSubjectDialog()),this,SLOT(viewAddSubjectDialog()));
 }
 
 Controller* Controller::getInstance(QObject *parent){
@@ -141,6 +156,10 @@ void Controller::viewAlgorithmsListDialog(){
 
 void Controller::viewFeaturesListDialog(){
     featuresListDialog->exec();
+}
+
+void Controller::viewAddSubjectDialog(){
+    addSubjectDialog->exec();
 }
 
 

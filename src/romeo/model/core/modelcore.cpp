@@ -19,8 +19,8 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
         emit ioError(QString("Data directory not found, please make sure a directory named 'data' is in the software folder"));
     }
 
-    loader->loadFeatures(dataHome.absolutePath().append("/features.xml"), featuresList);
-    loader->loadAlgorithms(dataHome.absolutePath().append("/algorithms.xml"), algorithmsList);
+    //loader->loadFeatures(dataHome.absolutePath().append("/features.xml"), featuresList);
+    //loader->loadAlgorithms(dataHome.absolutePath().append("/algorithms.xml"), algorithmsList);
 }
 
 void ModelCore::createLists()

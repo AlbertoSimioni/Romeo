@@ -87,6 +87,8 @@ SET(romeo_SOURCES
  src/romeo/model/inputformats.h
  src/romeo/view/dialogs/parametervalueform.cpp
  src/romeo/view/dialogs/newalgorithmparameterform.cpp
+ src/romeo/view/mainWindow/listwidget.cpp
+ src/romeo/view/mainWindow/listview.cpp
 )
 SET(romeo_HEADERS
  src/romeo/view/dialogs/addsubjectdialog.h
@@ -145,6 +147,8 @@ SET(romeo_HEADERS
  src/romeo/view/dialogs/algorithmslistdialog.h
  src/romeo/view/dialogs/parametervalueform.h
  src/romeo/view/dialogs/newalgorithmparameterform.h
+ src/romeo/view/mainWindow/listwidget.h
+ src/romeo/view/mainWindow/listview.h
 )
 
 SET(romeo_FORMS

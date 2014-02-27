@@ -12,6 +12,7 @@
 #include <QMainWindow>
 #include "datasetsexplorer.h"
 #include "protocolsexplorer.h"
+#include "datasetpanel.h"
 namespace Ui {
 class MainWindow;
 }
@@ -35,6 +36,7 @@ public:
      */
     ProtocolsExplorer* getProtocolsExplorer();
 
+    DatasetPanel* getDatasetPanel();
 
 
 

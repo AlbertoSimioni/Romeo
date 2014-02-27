@@ -1,6 +1,7 @@
 #include "datasetpanel.h"
 #include "ui_datasetpanel.h"
 using namespace romeo::view::mainWindow;
+using namespace romeo::model::datasets;
 DatasetPanel::DatasetPanel(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::DatasetPanel)
@@ -12,4 +13,30 @@ DatasetPanel::DatasetPanel(QWidget *parent) :
 DatasetPanel::~DatasetPanel()
 {
     delete ui;
+}
+romeo::model::datasets::AbstractDataset *DatasetPanel::getCurrentDataset() const
+{
+    return currentDataset;
+}
+
+void DatasetPanel::setCurrentDataset(romeo::model::datasets::AbstractDataset *dataset)
+{
+    currentDataset = dataset;
+    ui->protocolsPanel->setCurrentDataset(currentDataset);
+    ui->subjectsPanel->setCurrentDataset(currentDataset);
+}
+
+
+ProtocolsPanel* DatasetPanel::getProtocolsPanel(){
+    return ui->protocolsPanel;
+}
+
+
+SubjectsPanel* DatasetPanel::getSubjectsPanel(){
+    return ui->subjectsPanel;
+}
+
+
+ExecutePanel* DatasetPanel::getExecutePanel(){
+    return ui->executePanel;
 }

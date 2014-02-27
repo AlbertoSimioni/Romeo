@@ -9,6 +9,8 @@ FileSystemExplorer::FileSystemExplorer(QWidget *parent) :
 
     dirModel = new QFileSystemModel(this);
     dirModel->setFilter(QDir::NoDotAndDotDot | QDir::AllDirs);
+    //setDragEnabled(true);
+
     ui->foldersView->setModel(dirModel);
     ui->foldersView->setRootIndex(dirModel->setRootPath(QDir::homePath()));
     ui->foldersView->hideColumn(1);
@@ -27,7 +29,9 @@ FileSystemExplorer::FileSystemExplorer(QWidget *parent) :
     ui->filesView->setModel(fileModel);
     ui->filesView->setRootIndex(fileModel->setRootPath(QDir::homePath()));
     connect(ui->foldersView,SIGNAL(clicked(QModelIndex)),this,SLOT(treeView_clicked(QModelIndex)));
+
 }
+
 
 FileSystemExplorer::~FileSystemExplorer()
 {
@@ -40,3 +44,5 @@ void FileSystemExplorer::treeView_clicked(QModelIndex index)
        fileModel->setFilter(QDir::NoDotAndDotDot | QDir::Files);
     ui->filesView->setRootIndex(fileModel->setRootPath(aPath));
 }
+
+
