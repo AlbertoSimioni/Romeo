@@ -49,6 +49,16 @@ void AddSubjectDialog::resetForms(){
     ui->errorLabel->setHidden(true);
 
 }
+romeo::model::datasets::AbstractDataset *AddSubjectDialog::getCurrentDataset() const
+{
+    return currentDataset;
+}
+
+void AddSubjectDialog::setCurrentDataset(romeo::model::datasets::AbstractDataset *value)
+{
+    currentDataset = value;
+}
+
 
 
 void AddSubjectDialog::reject(){

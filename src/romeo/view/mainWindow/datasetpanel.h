@@ -58,7 +58,10 @@ private:
      * \brief Riferimento al dataset attualmente attivo nella schermata
      */
     romeo::model::datasets::AbstractDataset* currentDataset;
-
+    /*!
+     * \brief Pannello vuoto, da visualizzare quando non è presente alcun dataset nel programma
+     */
+    QWidget* emptyPanel;
 
     Ui::DatasetPanel *ui;
 };

@@ -26,8 +26,10 @@ class SubjectsPanel : public QWidget
 public:
     explicit SubjectsPanel(QWidget *parent = 0);
     ~SubjectsPanel();
-    void AddRoot(QString name, QString dataFileName, QString maskFileName);
-    void AddChild(QTreeWidgetItem *parent, QString protocolName);
+
+
+    void AddSubject(QString name, QString dataFileName, QString maskFileName);
+    //void AddChild(QTreeWidgetItem *parent, QString protocolName);
 
     /*!
      * \brief Ritorna il riferimento al dataset corrente

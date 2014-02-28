@@ -1,5 +1,6 @@
 #include "abstractdataset.h"
 using namespace romeo::model::datasets;
+using namespace romeo::model::protocols;
 AbstractDataset::AbstractDataset()
 {
 }
@@ -10,7 +11,7 @@ AbstractDataset::AbstractDataset(QString &n): name(n)
 
 void AbstractDataset::createNewSubject(QString &name, QString &fileSubject, QString &mask)
 {
-    subjects.insert(this->makeSubject(name, fileSubject, mask), QList<Result*>());
+    subjects.append(this->makeSubject(name, fileSubject, mask));
     return;
 }
 QString AbstractDataset::getName() const
@@ -23,24 +24,41 @@ void AbstractDataset::setName(QString &value)
     name = value;
 }
 
-QList<Result*> AbstractDataset::getSubjectResults(const QString &subject) const
+QList<Result*> AbstractDataset::getProtocolResults(const QString & protocol) const
 {
-    QList<Result*> subjectResults;
-    AbstractSubject* subj=this->getSubject(subject);
-    if( subj )
+    QList<Result*> protocolResults;
+    AbstractProtocol* prot=this->getProtocol(protocol);
+    if( prot )
     {
-        return subjects.value(subj);
+        return protocols.value(prot);
     }
-    return subjectResults;
+    return protocolResults;
 }
 
-AbstractSubject *AbstractDataset::getSubject(const QString &subjectName) const
+AbstractProtocol *AbstractDataset::getProtocol(const QString &protocolName) const
 {
-    QList<AbstractSubject*> subjectList=subjects.keys();
-    for( int i=0; i<subjectList.length(); ++i){
-        if( subjectList[i]->getName() == subjectName )
-            return subjectList[i];
+    QList<AbstractProtocol*> protocolsList=protocols.keys();
+    for( int i=0; i<protocolsList.length(); ++i){
+        if( protocolsList[i]->getName() == protocolName )
+            return protocolsList[i];
     }
     return 0;
 }
 
+
+AbstractSubject* AbstractDataset::getSubject(const QString &subjectName) const
+{
+    AbstractSubject *subj = 0;
+    for(int i = 0; i< subjects.size();i++){
+        if(subjects[i]->getName() == subjectName)
+            subj = subjects[i];
+    }
+
+    return subj;
+}
+
+
+QList<AbstractSubject*> AbstractDataset::getSubjectList()const{
+    return subjects;
+
+}

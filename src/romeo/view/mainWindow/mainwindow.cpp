@@ -40,3 +40,8 @@ ProtocolsExplorer* MainWindow::getProtocolsExplorer(){
 DatasetPanel* MainWindow::getDatasetPanel(){
     return ui->datasetPanel;
 }
+
+
+void MainWindow::onDeleteDatasetClicked(){
+
+}

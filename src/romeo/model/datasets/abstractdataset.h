@@ -72,12 +72,14 @@ public:
     /*!
      * \brief Ritorna i subject collegati al dataset sotto forma di lista di QString
      */
-    QList<QString> getSubjectList();
+    QList<AbstractSubject*> getSubjectList()const;
 
     virtual romeo::model::InputFormat getType() = 0;
 
-    bool execute(protocols::AbstractProtocol* alg, QList<QString> selectedSubjects);
-    QList<Result *> getSubjectResults(const QString& subject) const;
+    bool execute(protocols::AbstractProtocol* alg, QList<AbstractSubject*> selectedSubjects);
+    QList<Result *> getProtocolResults(const QString& protocol) const;
+    protocols::AbstractProtocol* getProtocol(const QString& protocolName)const;
+
     AbstractSubject* getSubject(const QString& subjectName) const;
 
 signals:
@@ -95,11 +97,14 @@ private:
     /*!
      * \brief Una hashmap che contiene i subject collegati al dataset e i risultati dei protocolli a loro legati.
      */
-    QHash<AbstractSubject*, QList<Result*> >  subjects;
+    QHash<protocols::AbstractProtocol*, QList<Result*> >  protocols;
+
+
+
     /*!
      * \brief Lista dei protocolli che si possono invocare dal dataset.
      */
-    QList<protocols::AbstractProtocol*> datasetProtocols;
+    QList<AbstractSubject*> subjects;
 };
 }}}
 #endif // ABSTRACTDATASET_H

@@ -41,16 +41,46 @@ public:
 
 
 signals:
+    /*!
+     * \brief Segnale emesso alla pressione da parte dell'utente del tasto per l'apertura del dialogo di creazione di un nuovo dataset
+     */
     void openNewDatasetDialog();
+    /*!
+     * \brief Segnale emesso alla pressione da parte dell'utente del tasto per l'apertura del dialogo di creazione di un nuovo protocollo
+     */
     void openNewPortocolDialog();
+    /*!
+     * \brief Segnale emesso alla pressione da parte dell'utente del tasto per l'apertura del dialogo di creazione di un nuovo algoritmo
+     */
     void openNewAlgorithmDialog();
+    /*!
+     * \brief Segnale emesso alla pressione da parte dell'utente del tasto per l'apertura del dialogo di creazione di una nuova feature
+     */
     void openNewFeatureDialog();
+    /*!
+     * \brief Segnale emesso alla pressione da parte dell'utente del tasto per l'apertura del dialogo di visualizzazione delle feature del programma
+     */
     void openFeaturesListDialog();
+    /*!
+     * \brief Segnale emesso alla pressione da parte dell'utente del tasto per l'apertura del dialogo di visualizzazione degli algoritmi del programma
+     */
     void openAlgorithmsListDialog();
+
+    /*!
+     * \brief Segnale emesso per avvisare della volontà da parte dell'utente di cancellare il dataset corrente
+     * \param name Nome del dataset da eliminare
+     */
+    void deleteDataset(QString name);
 
 
 
 private slots:
+
+    /*!
+     * \brief Slot avviato alla pressione del tasto per la cancellazione del dataset corrente, si preoccupa di recuperare il nome del dataset corrente e di inviare il segnale
+     * deleteDataset(QString name)
+     */
+    void onDeleteDatasetClicked();
 
 private:
     Ui::MainWindow *ui;

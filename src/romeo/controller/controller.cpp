@@ -7,6 +7,7 @@
 #include <src/romeo/model/protocols/features/firstorderfeature.h>
 #include <src/romeo/model/protocols/features/secondorderfeature.h>
 #include <src/romeo/model/protocols/abstractprotocol.h>
+#include <src/romeo/model/datasets/abstractdataset.h>
 ////////PROVA TEST
 using namespace romeo::controller;
 using namespace romeo::view::mainWindow;
@@ -16,6 +17,7 @@ using namespace romeo::view::dialogs;
 using namespace romeo::model::protocols::algorithms;
 using namespace romeo::model::protocols::features;
 using namespace romeo::model::protocols;
+using namespace romeo::model::datasets;
 
 Controller* Controller::instance=0;
 
@@ -121,6 +123,7 @@ void Controller::connectViewsSignals(){
     connect(newFeatureDialog,SIGNAL(createFeature(QString,QString,QString,QString,romeo::model::protocols::features::FeatureType)),this,SLOT(addFeature(QString,QString,QString,QString,romeo::model::protocols::features::FeatureType)));
     connect(newDatasetDialog,SIGNAL(createDataset(QString,romeo::model::InputFormat)),this,SLOT(addDataset(QString,romeo::model::InputFormat)));
     connect(subjectsPanel,SIGNAL(openAddSubjectDialog()),this,SLOT(viewAddSubjectDialog()));
+    connect(datasetsExplorer,SIGNAL(currentDatasetChanged(QString)),this,SLOT(changeCurrentDataset(QString)));
 }
 
 Controller* Controller::getInstance(QObject *parent){
@@ -222,4 +225,9 @@ void Controller::addFeature(QString name, QString desc, QString dyfn, QString dy
 
 void Controller::addDataset(QString name, romeo::model::InputFormat type){
     datasetsList->addDataset(name,type);
+}
+
+void Controller::changeCurrentDataset(QString name){
+    AbstractDataset* dataset = datasetsList->getDataset(name);
+    mainWindow->getDatasetPanel()->setCurrentDataset(dataset);
 }

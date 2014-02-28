@@ -18,6 +18,7 @@ DatasetsExplorer::~DatasetsExplorer()
 }
 
 void DatasetsExplorer::connectUI(){
+    connect(ui->datasetsTable,SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),this,SLOT(onItemDoubleClicked(QTreeWidgetItem*)));
 }
 
 romeo::model::datasets::DatasetsList *DatasetsExplorer::getDatasetsList() const
@@ -57,3 +58,7 @@ void DatasetsExplorer::fillDatasetsExplorer(){
     }
 }
 
+
+void DatasetsExplorer::onItemDoubleClicked(QTreeWidgetItem *item){
+    emit currentDatasetChanged(item->data(0,Qt::DisplayRole).toString());
+}

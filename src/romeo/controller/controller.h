@@ -102,6 +102,12 @@ public slots:
     void addFeature(QString name,QString desc,QString dyfn,QString dylp,romeo::model::protocols::features::FeatureType type);
 
     void addDataset(QString name, romeo::model::InputFormat type);
+
+    /*!
+     * \brief Slot che cambia il dataset correntemente visualizzato nella view, riceve in input il nome del nuovo dataset da visualizzare
+     * \param name
+     */
+    void changeCurrentDataset(QString name);
 private:
 
     /*!

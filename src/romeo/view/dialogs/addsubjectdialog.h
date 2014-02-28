@@ -10,7 +10,7 @@
 #define ADDSUBJECTDIALOG_H
 
 #include <QDialog>
-
+#include <src/romeo/model/datasets/abstractdataset.h>
 namespace Ui {
 class AddSubjectDialog;
 }
@@ -33,6 +33,14 @@ public:
      * se il flag é false nasconde il messaggio
      */
     void showErrorName(bool show);
+    /*!
+     * \brief Ritorna il riferimento al dataset corrente
+     */
+    romeo::model::datasets::AbstractDataset *getCurrentDataset() const;
+    /*!
+     * \brief Cambia il riferimento al dataset corrente
+     */
+    void setCurrentDataset(romeo::model::datasets::AbstractDataset *dataset);
 
 public slots:
     /*!
@@ -69,6 +77,12 @@ private:
      * \brief Svuota tutte le form del dialogo che l'utente ha modificato
      */
     void resetForms();
+
+
+    romeo::model::datasets::AbstractDataset * currentDataset;
+
+
+
 
 private:
     Ui::AddSubjectDialog *ui;

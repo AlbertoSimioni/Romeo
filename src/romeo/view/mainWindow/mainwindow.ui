@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>587</width>
-    <height>433</height>
+    <width>693</width>
+    <height>445</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -131,58 +131,6 @@ QHeaderView::section:checked
    </layout>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>587</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuDatasets">
-    <property name="title">
-     <string>Datasets</string>
-    </property>
-    <addaction name="actionNew_Dataset"/>
-   </widget>
-   <widget class="QMenu" name="menuProtocols">
-    <property name="title">
-     <string>Protocols</string>
-    </property>
-    <addaction name="actionNewProtocol"/>
-   </widget>
-   <widget class="QMenu" name="menuOptions">
-    <property name="title">
-     <string>Options</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menuHelp">
-    <property name="title">
-     <string>Help</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menuFeatures">
-    <property name="title">
-     <string>Features</string>
-    </property>
-    <addaction name="actionFeatures_List"/>
-    <addaction name="actionAdd_Feature"/>
-   </widget>
-   <widget class="QMenu" name="menuAlgorithms">
-    <property name="title">
-     <string>Algorithms</string>
-    </property>
-    <addaction name="actionAlgorithms_List"/>
-    <addaction name="actionAdd_Algorithm"/>
-   </widget>
-   <addaction name="menuDatasets"/>
-   <addaction name="menuProtocols"/>
-   <addaction name="menuFeatures"/>
-   <addaction name="menuAlgorithms"/>
-   <addaction name="menuOptions"/>
-   <addaction name="menuHelp"/>
-  </widget>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
     <string>toolBar</string>
@@ -206,6 +154,10 @@ QHeaderView::section:checked
    <addaction name="actionProtocolRemove"/>
    <addaction name="separator"/>
    <addaction name="actionExecute_protocol"/>
+   <addaction name="actionFeatures_List"/>
+   <addaction name="actionAdd_Feature"/>
+   <addaction name="actionAlgorithms_List"/>
+   <addaction name="actionAdd_Algorithm"/>
   </widget>
   <action name="actionNew_Dataset">
    <property name="icon">
