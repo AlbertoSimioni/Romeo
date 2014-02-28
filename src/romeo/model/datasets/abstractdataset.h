@@ -83,7 +83,7 @@ public:
     AbstractSubject* getSubject(const QString& subjectName) const;
 
 signals:
-    void addedSubject(QString subjectName);
+    void addedSubject(QString subjectName, QString dataPath, QString maskPath);
     void removedSubject(QString subjectName);
     void addedProtocol(QString protocolName);
     void removedProtocol(QString protocolName);

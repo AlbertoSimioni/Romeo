@@ -28,7 +28,7 @@ public:
     ~SubjectsPanel();
 
 
-    void AddSubject(QString name, QString dataFileName, QString maskFileName);
+
     //void AddChild(QTreeWidgetItem *parent, QString protocolName);
 
     /*!
@@ -45,12 +45,16 @@ signals:
      */
     void openAddSubjectDialog();
 
+    void createNewSubject(QString name, QString data, QString mask);
 
 protected:
     virtual void dragEnterEvent(QDragEnterEvent * event);
     virtual void dragLeaveEvent(QDragLeaveEvent * event);
     virtual void dragMoveEvent(QDragMoveEvent * event);
     virtual void dropEvent(QDropEvent * event);
+
+private slots:
+    void AddSubject(QString name, QString dataFileName, QString maskFileName);
 private:
 
 

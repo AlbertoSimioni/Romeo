@@ -1,5 +1,6 @@
 #include "datasetsexplorer.h"
 #include "ui_datasetsexplorer.h"
+#include <QDebug>
 using namespace romeo::view::mainWindow;
 using namespace romeo::model::datasets;
 using namespace romeo::model;
@@ -19,6 +20,7 @@ DatasetsExplorer::~DatasetsExplorer()
 
 void DatasetsExplorer::connectUI(){
     connect(ui->datasetsTable,SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),this,SLOT(onItemDoubleClicked(QTreeWidgetItem*)));
+
 }
 
 romeo::model::datasets::DatasetsList *DatasetsExplorer::getDatasetsList() const
@@ -34,6 +36,7 @@ void DatasetsExplorer::setDatasetsList(romeo::model::datasets::DatasetsList *val
 }
 
 void DatasetsExplorer::fillDatasetsExplorer(){
+    qDebug() << "AOAOAOAO";
     ui->datasetsTable->clear();
     if(datasetsList){
         QList<AbstractDataset*> datasets = datasetsList->getDatasetsList();

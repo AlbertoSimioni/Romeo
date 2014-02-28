@@ -47,42 +47,6 @@ font-size: 14px;
       <property name="verticalSpacing">
        <number>9</number>
       </property>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-style:italic; color:#4d4d4d;&quot;&gt;Execute&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="3">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>116</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="2" column="1" colspan="5">
-       <widget class="QLineEdit" name="lineEdit"/>
-      </item>
-      <item row="3" column="5">
-       <spacer name="horizontalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>403</width>
-          <height>19</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
       <item row="1" column="0" colspan="3">
        <widget class="QPushButton" name="pushButton">
         <property name="text">
@@ -95,26 +59,18 @@ font-size: 14px;
         </property>
        </widget>
       </item>
-      <item row="4" column="0" colspan="3">
-       <widget class="QCheckBox" name="checkBox">
-        <property name="text">
-         <string>View Results</string>
+      <item row="1" column="3" colspan="3">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
         </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>Results Path</string>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>450</width>
+          <height>19</height>
+         </size>
         </property>
-       </widget>
-      </item>
-      <item row="3" column="0" colspan="2">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>Export Format</string>
-        </property>
-       </widget>
+       </spacer>
       </item>
       <item row="3" column="2" colspan="3">
        <widget class="QComboBox" name="comboBox">
@@ -140,18 +96,48 @@ font-size: 14px;
         </item>
        </widget>
       </item>
-      <item row="1" column="3" colspan="3">
-       <spacer name="horizontalSpacer">
+      <item row="7" column="3">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>116</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="3" column="5">
+       <spacer name="horizontalSpacer_3">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>450</width>
+          <width>403</width>
           <height>19</height>
          </size>
         </property>
        </spacer>
+      </item>
+      <item row="2" column="1" colspan="5">
+       <widget class="QLineEdit" name="lineEdit"/>
+      </item>
+      <item row="3" column="0" colspan="2">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Export Format</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" colspan="3">
+       <widget class="QCheckBox" name="checkBox">
+        <property name="text">
+         <string>View Results</string>
+        </property>
+       </widget>
       </item>
       <item row="2" column="6">
        <widget class="QPushButton" name="pushButton_3">
@@ -174,10 +160,31 @@ font-size: 14px;
         </property>
        </widget>
       </item>
-      <item row="5" column="0" colspan="4">
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Results Path</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-style:italic; color:#4d4d4d;&quot;&gt;Execute&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
        <widget class="QCheckBox" name="checkBox_2">
         <property name="text">
          <string>View Features</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QCheckBox" name="checkBox_3">
+        <property name="text">
+         <string>Save Features</string>
         </property>
        </widget>
       </item>

@@ -108,6 +108,19 @@ public slots:
      * \param name
      */
     void changeCurrentDataset(QString name);
+
+    /*!
+     * \brief Slot che si preoccupa di creare un nuovo subject con i dati in ingresso nel dataset corrente
+     * \param subjectName
+     * \param dataPath
+     * \param maskPath
+     */
+    void addSubject(QString subjectName, QString dataPath, QString maskPath);
+
+    /*!
+     * \brief Slot che elimina dal model il dataset corrente, recupera il primo dataset dalla lista dei dataset e lo fa diventare il dataset corrente.
+     */
+    void deleteCurrentDataset();
 private:
 
     /*!

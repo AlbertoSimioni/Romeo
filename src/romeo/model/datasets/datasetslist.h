@@ -41,6 +41,10 @@ public:
    void addDataset(QString name, InputFormat datasetType);
    ~DatasetsList();
 
+   AbstractDataset* getFirstDataset();
+
+   void deleteDataset(AbstractDataset* dataset);
+
 private:
    /*!
     * \brief Costruttore privato, poiché la classe Loader implementa il design pattern singleton

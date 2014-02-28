@@ -127,21 +127,6 @@ font-weight: bold;
            </widget>
           </item>
           <item>
-           <widget class="QToolButton" name="associateButton">
-            <property name="text">
-             <string>Associate</string>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normalon>:/Images/Images/users_add_from_other_dataset.png</normalon>
-             </iconset>
-            </property>
-            <property name="toolButtonStyle">
-             <enum>Qt::ToolButtonTextBesideIcon</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
            <spacer name="horizontalSpacer">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>

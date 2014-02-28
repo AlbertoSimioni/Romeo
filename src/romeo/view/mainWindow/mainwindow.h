@@ -68,19 +68,12 @@ signals:
 
     /*!
      * \brief Segnale emesso per avvisare della volontà da parte dell'utente di cancellare il dataset corrente
-     * \param name Nome del dataset da eliminare
      */
-    void deleteDataset(QString name);
+    void deleteCurrentDataset();
 
 
 
-private slots:
 
-    /*!
-     * \brief Slot avviato alla pressione del tasto per la cancellazione del dataset corrente, si preoccupa di recuperare il nome del dataset corrente e di inviare il segnale
-     * deleteDataset(QString name)
-     */
-    void onDeleteDatasetClicked();
 
 private:
     Ui::MainWindow *ui;

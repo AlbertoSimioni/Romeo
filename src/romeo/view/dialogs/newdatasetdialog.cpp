@@ -73,9 +73,9 @@ void NewDatasetDialog::okButtonClicked(){
     QString typeName = ui->typeCombo->currentText();
     InputFormat type;
     if(typeName == "2D") type = TYPE2D;
-    if(typeName == "2DT") type = TYPE2DT;
+    if(typeName == "2D-t") type = TYPE2DT;
     if(typeName == "3D") type = TYPE3D;
-    if(typeName == "3DT") type = TYPE3DT;
+    if(typeName == "3D-t") type = TYPE3DT;
 
     resetForms();
     emit createDataset(name,type);

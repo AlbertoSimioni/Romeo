@@ -27,7 +27,7 @@ namespace romeo{
 namespace view{
 namespace dialogs{
 
-//DA SISTEMARE QUANDO VIENE APERTO PER LA MODIFICA DI UN PROTOCOLLO ESISTENTE
+//DA SISTEMARE QUANDO VIENE APERTO PER LA MODIFICA DI UN PROTOCOLLO ESISTENTE e la visualizzazione di uno esistente
 class ProtocolDialog : public QDialog
 {
     Q_OBJECT

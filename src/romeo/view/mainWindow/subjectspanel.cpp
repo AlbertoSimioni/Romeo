@@ -7,6 +7,9 @@
 #include <QDropEvent>
 #include <QDragLeaveEvent>
 #include <QDragMoveEvent>
+#include <QFileInfo>
+#include <QDebug>
+#include <QFontMetrics>
 using namespace romeo::view::mainWindow;
 using namespace romeo::model::datasets;
 
@@ -18,7 +21,7 @@ SubjectsPanel::SubjectsPanel(QWidget *parent) :
 
     ui->subjectsList->setColumnCount(3);
     ui->subjectsList->setHeaderLabels(QStringList()<< "Name"<<"Data"<<"Mask");
-    setAcceptDrops(true);
+    ui->subjectsList->setColumnWidth(0,170);
     AddSubject("Subject 1","image.png","mask1.png");
     AddSubject("Subject 2","data.jpg","mask.jpg");
     AddSubject("Subject 3","ann_o.bmp","0.bmp");
@@ -40,8 +43,8 @@ void SubjectsPanel::AddSubject(QString name, QString dataFileName, QString maskF
 
     QTreeWidgetItem *itm =new QTreeWidgetItem(ui->subjectsList);
     itm->setText(0,name);
-    itm->setText(1,dataFileName);
-    itm->setText(2,maskFileName);
+    itm->setText(1,QFileInfo(dataFileName).fileName());
+    itm->setText(2,QFileInfo(maskFileName).fileName());
     itm->setFlags(itm->flags() | Qt::ItemIsUserCheckable);
     itm->setCheckState(0,Qt::Checked);
 }
@@ -72,15 +75,11 @@ void SubjectsPanel::dropEvent(QDropEvent * event){
         QString subject = event->mimeData()->data("subject");
         QStringList dataMask = subject.split("%%%");
         int index = ui->subjectsList->topLevelItemCount()+1;
-        QString name = "Subject ";
-        name += QString::number(index);
+        QString subjectName = "Subject ";
+        subjectName += QString::number(index);
         if(dataMask.size() > 1){
-            AddSubject(name, dataMask[0].split("/").last(),dataMask[1].split("/").last());
+            emit createNewSubject(subjectName, dataMask[0],dataMask[1]);
         }
-        /*else if (dataMask.size() == 1){
-            AddRoot(name,dataMask[0].split("/").last(),QString());
-        }
-    */
     } else
         event->ignore();
 }
@@ -93,7 +92,7 @@ AbstractDataset *SubjectsPanel::getCurrentDataset() const
 void SubjectsPanel::setCurrentDataset(AbstractDataset *dataset)
 {
     currentDataset = dataset;
-
+    fillSubjectsList();
 
 }
 
@@ -102,13 +101,25 @@ void SubjectsPanel::setCurrentDataset(AbstractDataset *dataset)
 void SubjectsPanel::fillSubjectsList(){
     ui->subjectsList->clear();
     if(currentDataset != 0){
+        connect(currentDataset,SIGNAL(addedSubject(QString,QString,QString)),this,SLOT(AddSubject(QString,QString,QString)));
+        ui->newButton->setEnabled(true);
+        ui->deleteButton->setEnabled(true);
+        setAcceptDrops(true);
         QList<AbstractSubject*> subjects = currentDataset->getSubjectList();
         for(int i = 0; i< subjects.size(); i++){
             AbstractSubject* subject = subjects[i];
-            QString data = subject->getSubject().split("/").last();
-            QString mask = subject->getMask().split("/").last();
+            QString data = subject->getSubject();
+            QString mask = subject->getMask();
             AddSubject(subject->getName(), data, mask);
         }
+
+    }
+
+    else{
+        setAcceptDrops(false);
+        ui->newButton->setEnabled(false);
+        ui->deleteButton->setEnabled(false);
+
     }
 
 }

@@ -66,3 +66,17 @@ DatasetsList::~DatasetsList()
 DatasetsList::DatasetsList(QObject *parent): QObject(parent)
 {
 }
+
+AbstractDataset* DatasetsList::getFirstDataset(){
+    AbstractDataset* firstDataset = 0;
+    if(!datasets.isEmpty()){
+        firstDataset = datasets.at(0);
+    }
+    return firstDataset;
+}
+
+
+void DatasetsList::deleteDataset(AbstractDataset *dataset){
+    datasets.removeAll(dataset);
+    emit datasetsListModified();
+}

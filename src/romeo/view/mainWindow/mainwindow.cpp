@@ -26,6 +26,7 @@ void MainWindow::connectActionsToSignal(){
     connect(ui->actionAdd_Feature,SIGNAL(triggered()),this,SIGNAL(openNewFeatureDialog()));
     connect(ui->actionAlgorithms_List,SIGNAL(triggered()),this,SIGNAL(openAlgorithmsListDialog()));
     connect(ui->actionFeatures_List,SIGNAL(triggered()),this,SIGNAL(openFeaturesListDialog()));
+    connect(ui->actionRemoveDataset,SIGNAL(triggered()),this,SIGNAL(deleteCurrentDataset()));
 }
 
 
@@ -41,7 +42,3 @@ DatasetPanel* MainWindow::getDatasetPanel(){
     return ui->datasetPanel;
 }
 
-
-void MainWindow::onDeleteDatasetClicked(){
-
-}

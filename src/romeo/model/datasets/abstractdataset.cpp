@@ -12,6 +12,7 @@ AbstractDataset::AbstractDataset(QString &n): name(n)
 void AbstractDataset::createNewSubject(QString &name, QString &fileSubject, QString &mask)
 {
     subjects.append(this->makeSubject(name, fileSubject, mask));
+    emit addedSubject(name,fileSubject,mask);
     return;
 }
 QString AbstractDataset::getName() const

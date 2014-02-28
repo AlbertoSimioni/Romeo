@@ -8,6 +8,7 @@
 #include <src/romeo/model/protocols/features/secondorderfeature.h>
 #include <src/romeo/model/protocols/abstractprotocol.h>
 #include <src/romeo/model/datasets/abstractdataset.h>
+#include <QDebug>
 ////////PROVA TEST
 using namespace romeo::controller;
 using namespace romeo::view::mainWindow;
@@ -72,6 +73,8 @@ Controller::Controller(QObject *parent): QObject(parent)
     newDatasetDialog = new NewDatasetDialog(mainWindow);
     newAlgorithmDialog = new NewAlgorithmDialog(mainWindow);
 
+    mainWindow->getDatasetPanel()->setCurrentDataset(datasetsList->getFirstDataset());
+
 
     newFeatureDialog = new NewFeatureDialog(mainWindow);
     algorithmsListDialog = new AlgorithmsListDialog(algorithmsList,mainWindow);
@@ -124,6 +127,8 @@ void Controller::connectViewsSignals(){
     connect(newDatasetDialog,SIGNAL(createDataset(QString,romeo::model::InputFormat)),this,SLOT(addDataset(QString,romeo::model::InputFormat)));
     connect(subjectsPanel,SIGNAL(openAddSubjectDialog()),this,SLOT(viewAddSubjectDialog()));
     connect(datasetsExplorer,SIGNAL(currentDatasetChanged(QString)),this,SLOT(changeCurrentDataset(QString)));
+    connect(subjectsPanel,SIGNAL(createNewSubject(QString,QString,QString)),this,SLOT(addSubject(QString,QString,QString)));
+    connect(mainWindow,SIGNAL(deleteCurrentDataset()),this,SLOT(deleteCurrentDataset()));
 }
 
 Controller* Controller::getInstance(QObject *parent){
@@ -228,6 +233,23 @@ void Controller::addDataset(QString name, romeo::model::InputFormat type){
 }
 
 void Controller::changeCurrentDataset(QString name){
+
     AbstractDataset* dataset = datasetsList->getDataset(name);
     mainWindow->getDatasetPanel()->setCurrentDataset(dataset);
+}
+
+
+void Controller::addSubject(QString subjectName, QString dataPath, QString maskPath){
+    qDebug() << "CONTROLLER SUBJECT";
+    mainWindow->getDatasetPanel()->getCurrentDataset()->createNewSubject(subjectName,dataPath,maskPath);
+}
+
+
+void Controller::deleteCurrentDataset(){
+    AbstractDataset * currentDataset = mainWindow->getDatasetPanel()->getCurrentDataset();
+    if(currentDataset != 0){
+        datasetsList->deleteDataset(currentDataset);
+        currentDataset = datasetsList->getFirstDataset();
+        mainWindow->getDatasetPanel()->setCurrentDataset(currentDataset);
+    }
 }

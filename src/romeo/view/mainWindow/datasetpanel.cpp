@@ -7,7 +7,6 @@ DatasetPanel::DatasetPanel(QWidget *parent) :
     ui(new Ui::DatasetPanel)
 {
     ui->setupUi(this);
-    emptyPanel = new QWidget(this);
 
 }
 
@@ -36,8 +35,9 @@ void DatasetPanel::setCurrentDataset(romeo::model::datasets::AbstractDataset *da
 
     currentDataset = dataset;
     if(currentDataset != 0){*/
-        ui->protocolsPanel->setCurrentDataset(currentDataset);
-        ui->subjectsPanel->setCurrentDataset(currentDataset);
+    currentDataset = dataset;
+    ui->protocolsPanel->setCurrentDataset(currentDataset);
+    ui->subjectsPanel->setCurrentDataset(currentDataset);
     //}
 }
 
