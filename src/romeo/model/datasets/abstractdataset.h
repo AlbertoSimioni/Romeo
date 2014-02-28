@@ -77,6 +77,8 @@ public:
     virtual romeo::model::InputFormat getType() = 0;
 
     bool execute(protocols::AbstractProtocol* alg, QList<QString> selectedSubjects);
+    QList<Result *> getSubjectResults(const QString& subject) const;
+    AbstractSubject* getSubject(const QString& subjectName) const;
 
 signals:
     void addedSubject(QString subjectName);

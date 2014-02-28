@@ -46,7 +46,17 @@ private:
     * \brief Costruttore privato, poiché la classe Loader implementa il design pattern singleton
     */
     DatasetsList(QObject* parent=0);
+    /*!
+     * \brief Lista di puntatori a dataset attualmente caricati nell'applicazione
+     */
     QList<AbstractDataset*> datasets;
+    /*!
+     * \brief Campo dati che mappa i nomi dei file di dataset con i rispettivi file
+     */
+    QHash<QString, QString> datasetsFiles;
+    /*!
+     * \brief Puntatore che si riferisce all'unica istanza di DatasetList
+     */
     static DatasetsList* instance;
 signals:
     /*!

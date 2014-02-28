@@ -73,13 +73,6 @@ private:
     ModelCore(QObject* parent=0);
 
     /*!
-     * \brief loadData
-     * \param file
-     * \return
-     */
-    bool loadData(QDir& file);
-
-    /*!
      * \brief Metodo interno di ModelCore che si occupa di inizializzare le liste dei dati utilizzando il modulo Loader per caricare il file che contiene il database. Inoltre crea le connessioni tra i segnali di modifica e il modulo di salvataggio dei dati.
      */
     void createLists();
@@ -88,25 +81,9 @@ private:
      */
     static ModelCore* instance;
     /*!
-     * \brief Campo privato che contiene la posizione nel file system del file che conntiene i dati dell'applicazione.
-     */
-    QDir algorithmsFile;
-    /*!
-     * \brief Campo privato che contiene la posizione nel file system del file che conntiene i dati dell'applicazione.
-     */
-    QDir featuresFile;
-    /*!
-     * \brief Campo privato che contiene la posizione nel file system del file che conntiene i dati dell'applicazione.
-     */
-    QDir protocolsFile;
-    /*!
-     * \brief Campo privato che contiene la posizione nel file system del file che conntiene i dati dell'applicazione.
-     */
-    QDir datasetFile;
-    /*!
      * \brief Contiene la lista dei percorsi ai file che hanno le informazioni sui dataset in uso.
      */
-    QHash<QString, QDir> datasetsFiles;
+    QHash<QString, QString> datasetsFiles;
     /*!
      * \brief Puntatore alla lista dei dataset.
      */

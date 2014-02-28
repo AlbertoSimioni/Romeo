@@ -45,6 +45,5 @@ AbstractAlgorithm* AlgorithmsList::getAlgorithm(QString name){
         if(algorithms[i]->getName() == name)
             match = algorithms[i];
     }
-
     return match;
 }

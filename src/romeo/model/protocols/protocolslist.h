@@ -31,14 +31,14 @@ public:
     /**
       * \brief Il distruttore della classe ProtocolsList rimuove dallo heap i riferimenti ai protocolli
     */
-    //~ProtocolsList();
+    ~ProtocolsList();
     /*!
     * \brief Metodo statico che ritorna l'istanza di AlgorithmList, in caso sia la prima volta ad essere invocato
     *  si preoccupa anche di costruire l'istanza.
     */
     static ProtocolsList* getInstance(QObject* parent);
 
-    void addProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, QList<features::AbstractFeature*>& feat,bool test, ProtocolType type, int window=3, int distanceGLCM=1);
+    void addProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, QList<features::AbstractFeature *> feat, bool test, ProtocolType type, int window=3, int distanceGLCM=1);
     /*!
      * \brief Ritorna il riferimento al protocollo con nome uguale al parametro name
      * \param name Nome dell'algoritmo da ritornare
@@ -64,6 +64,9 @@ private:
      * \brief Il vettore contiene la lista dei protocolli creati dall'utente
      */
     QList<protocols::AbstractProtocol*> protocolsList;
+    /*!
+     * \brief Campo dati statico che contiene il riferimento all'unica istanza di ProtocolsList
+     */
     static ProtocolsList* instance;
 };
 }}}

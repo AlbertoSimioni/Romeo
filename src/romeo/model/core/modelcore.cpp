@@ -19,8 +19,7 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
         emit ioError(QString("Data directory not found, please make sure a directory named 'data' is in the software folder"));
     }
 
-    //loader->loadFeatures(dataHome.absolutePath().append("/features.xml"), featuresList);
-    //loader->loadAlgorithms(dataHome.absolutePath().append("/algorithms.xml"), algorithmsList);
+
 }
 
 void ModelCore::createLists()
@@ -29,6 +28,10 @@ void ModelCore::createLists()
     protocolsList=ProtocolsList::getInstance(this);
     algorithmsList=algorithms::AlgorithmsList::getInstance(this);
     featuresList=features::FeaturesList::getInstance(this);
+
+    //loader->loadFeatures(dataHome.absolutePath().append("/features.xml"), featuresList);
+    //loader->loadAlgorithms(dataHome.absolutePath().append("/algorithms.xml"), algorithmsList);
+    //loader->loadProtocols(dataHome.absolutePath().append("/protocols.xml"), protocolsList);
 
     connect(protocolsList, SIGNAL(protocolsListModified()), writer, SLOT(saveProtocolsList()));
     connect(datasetsList, SIGNAL(datasetsListModified()), writer, SLOT(saveDatasetsList()));

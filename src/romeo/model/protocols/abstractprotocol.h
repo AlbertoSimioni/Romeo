@@ -69,6 +69,10 @@ public:
     QString getDescription() const;
 
     bool getTest() const;
+    algorithms::AbstractAlgorithm* getAlgorithm() const;
+    QList<protocols::features::AbstractFeature*> getFeatures() const;
+    QList<QString> getFeaturesName() const;
+    QString getAlgorithmName() const;
 
 private:
     /*!

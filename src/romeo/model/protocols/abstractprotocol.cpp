@@ -25,6 +25,11 @@ bool AbstractProtocol::getTest() const
     return test;
 }
 
+QString AbstractProtocol::getAlgorithmName() const
+{
+    return algorithm->getName();
+}
+
 
 
 

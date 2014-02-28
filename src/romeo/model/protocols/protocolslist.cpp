@@ -22,6 +22,14 @@ ProtocolsList::ProtocolsList(QObject *parent) :
     protocolsList.append(new StaticProtocol(n,QString("descrizione"),alg,feat));*/
 }
 
+ProtocolsList::~ProtocolsList()
+{
+    for( int i=0; i<protocolsList.length(); ++i){
+        if(protocolsList.at(i))
+            delete protocolsList.at(i);
+    }
+}
+
 ProtocolsList *ProtocolsList::getInstance(QObject *parent)
 {
     if(instance == 0)
@@ -45,7 +53,7 @@ AbstractProtocol* ProtocolsList::getProtocol(QString name){
     return prot;
 }
 
-void ProtocolsList::addProtocol(QString nomeP, QString desc, AbstractAlgorithm *alg, QList<features::AbstractFeature *> &feat,bool test,ProtocolType type, int window, int distanceGLCM){
+void ProtocolsList::addProtocol(QString nomeP, QString desc, AbstractAlgorithm *alg, QList<features::AbstractFeature *> feat,bool test,ProtocolType type, int window, int distanceGLCM){
     switch(type){
     case STATIC : protocolsList.append(new StaticProtocol(nomeP,desc,alg,feat,test,window,distanceGLCM));
         break;
@@ -54,10 +62,3 @@ void ProtocolsList::addProtocol(QString nomeP, QString desc, AbstractAlgorithm *
     }
     emit ProtocolsList::protocolsListModified();
 }
-
-/*ProtocolsList::~ProtocolsList()
-{
-    foreach(AbstractProtocol* p , protocolsList){
-        delete p;
-    }
-}*/

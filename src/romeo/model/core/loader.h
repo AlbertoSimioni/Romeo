@@ -39,8 +39,10 @@ public:
      * \param algorithmList
      * \return
      */
-    bool loadAlgorithms(QString algFile, protocols::algorithms::AlgorithmsList *algorithmList);
+    bool loadAlgorithms(const QString& algFile, protocols::algorithms::AlgorithmsList *algorithmList);
     bool loadFeatures(const QString &featFile, protocols::features::FeaturesList* featureList);
+    bool loadProtocols(const QString& protocolFile, protocols::ProtocolsList* protocolList);
+    bool loadDatasetsNames(const QString& datasetsFile);
 private:
     /*!
      * \brief Costruttore privato, poiché la classe Loader implementa il design pattern singleton
