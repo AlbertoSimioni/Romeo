@@ -108,7 +108,6 @@ void SubjectsPanel::fillSubjectsList(){
             QString data = subject->getSubject().split("/").last();
             QString mask = subject->getMask().split("/").last();
             AddSubject(subject->getName(), data, mask);
-
         }
     }
 
