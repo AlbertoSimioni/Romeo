@@ -14,7 +14,7 @@ using namespace romeo::view::mainWindow;
 using namespace romeo::model::datasets;
 
 SubjectsPanel::SubjectsPanel(QWidget *parent) :
-    QWidget(parent),
+    QWidget(parent), currentDataset(0),
     ui(new Ui::SubjectsPanel)
 {
     ui->setupUi(this);
@@ -22,10 +22,7 @@ SubjectsPanel::SubjectsPanel(QWidget *parent) :
     ui->subjectsList->setColumnCount(3);
     ui->subjectsList->setHeaderLabels(QStringList()<< "Name"<<"Data"<<"Mask");
     ui->subjectsList->setColumnWidth(0,170);
-    AddSubject("Subject 1","image.png","mask1.png");
-    AddSubject("Subject 2","data.jpg","mask.jpg");
-    AddSubject("Subject 3","ann_o.bmp","0.bmp");
-    AddSubject("Subject 4","4.tif","4_mask.png");
+
 
     connectUI();
 
@@ -91,7 +88,13 @@ AbstractDataset *SubjectsPanel::getCurrentDataset() const
 
 void SubjectsPanel::setCurrentDataset(AbstractDataset *dataset)
 {
+    if(currentDataset != 0)
+        disconnect(currentDataset,SIGNAL(addedSubject(QString,QString,QString)),this,SLOT(AddSubject(QString,QString,QString)));
     currentDataset = dataset;
+
+    if(currentDataset != 0){
+        connect(currentDataset,SIGNAL(addedSubject(QString,QString,QString)),this,SLOT(AddSubject(QString,QString,QString)));
+    }
     fillSubjectsList();
 
 }
@@ -101,7 +104,6 @@ void SubjectsPanel::setCurrentDataset(AbstractDataset *dataset)
 void SubjectsPanel::fillSubjectsList(){
     ui->subjectsList->clear();
     if(currentDataset != 0){
-        connect(currentDataset,SIGNAL(addedSubject(QString,QString,QString)),this,SLOT(AddSubject(QString,QString,QString)));
         ui->newButton->setEnabled(true);
         ui->deleteButton->setEnabled(true);
         setAcceptDrops(true);

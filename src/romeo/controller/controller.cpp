@@ -240,7 +240,6 @@ void Controller::changeCurrentDataset(QString name){
 
 
 void Controller::addSubject(QString subjectName, QString dataPath, QString maskPath){
-    qDebug() << "CONTROLLER SUBJECT";
     mainWindow->getDatasetPanel()->getCurrentDataset()->createNewSubject(subjectName,dataPath,maskPath);
 }
 

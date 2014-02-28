@@ -36,7 +36,6 @@ void DatasetsExplorer::setDatasetsList(romeo::model::datasets::DatasetsList *val
 }
 
 void DatasetsExplorer::fillDatasetsExplorer(){
-    qDebug() << "AOAOAOAO";
     ui->datasetsTable->clear();
     if(datasetsList){
         QList<AbstractDataset*> datasets = datasetsList->getDatasetsList();

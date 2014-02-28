@@ -8,7 +8,7 @@
 using namespace romeo::view::mainWindow;
 using namespace romeo::model::datasets;
 ProtocolsPanel::ProtocolsPanel(QWidget *parent) :
-    QWidget(parent),
+    QWidget(parent), currentDataset(0),
     ui(new Ui::ProtocolsPanel)
 {
     ui->setupUi(this);
