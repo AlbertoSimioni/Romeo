@@ -21,24 +21,15 @@ romeo::model::datasets::AbstractDataset *DatasetPanel::getCurrentDataset() const
 
 void DatasetPanel::setCurrentDataset(romeo::model::datasets::AbstractDataset *dataset)
 {
-
-   /* if((currentDataset != 0) && (dataset == 0)){
-        ui->horizontalLayout->removeWidget(ui->subjectsPanel);
-        ui->horizontalLayout->removeItem(ui->verticalLayout);
-        ui->horizontalLayout->addWidget(emptyPanel);
-    }
-    if((currentDataset == 0) && (dataset != 0)){
-        ui->horizontalLayout->removeWidget(emptyPanel);
-        ui->horizontalLayout->addWidget(ui->subjectsPanel);
-        ui->horizontalLayout->addItem(ui->verticalLayout);
-    }
-
     currentDataset = dataset;
-    if(currentDataset != 0){*/
-    currentDataset = dataset;
+    if(currentDataset != 0){
+        ui->datasetLabel->setText(currentDataset->getName());
+    }
+    else{
+        ui->datasetLabel->setText("No Dataset");
+    }
     ui->protocolsPanel->setCurrentDataset(currentDataset);
     ui->subjectsPanel->setCurrentDataset(currentDataset);
-    //}
 }
 
 

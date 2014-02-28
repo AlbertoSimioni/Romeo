@@ -34,6 +34,7 @@ SubjectsPanel::~SubjectsPanel(){
 
 void SubjectsPanel::connectUI(){
     connect(ui->newButton,SIGNAL(clicked()),this,SIGNAL(openAddSubjectDialog()));
+    connect(ui->deleteButton,SIGNAL(clicked()),this,SLOT(onDeleteClicked()));
 }
 
 void SubjectsPanel::AddSubject(QString name, QString dataFileName, QString maskFileName){
@@ -72,8 +73,18 @@ void SubjectsPanel::dropEvent(QDropEvent * event){
         QString subject = event->mimeData()->data("subject");
         QStringList dataMask = subject.split("%%%");
         int index = ui->subjectsList->topLevelItemCount()+1;
-        QString subjectName = "Subject ";
-        subjectName += QString::number(index);
+        bool nameAvaible = false;
+        QString subjectName;
+        while(!nameAvaible){
+            subjectName = QString("Subject ").append(QString::number(index));
+            if(currentDataset->getSubject(subjectName)){
+                ++index;
+            }
+            else{
+                nameAvaible = true;
+            }
+        }
+
         if(dataMask.size() > 1){
             emit createNewSubject(subjectName, dataMask[0],dataMask[1]);
         }
@@ -88,12 +99,15 @@ AbstractDataset *SubjectsPanel::getCurrentDataset() const
 
 void SubjectsPanel::setCurrentDataset(AbstractDataset *dataset)
 {
-    if(currentDataset != 0)
+    if(currentDataset != 0){
         disconnect(currentDataset,SIGNAL(addedSubject(QString,QString,QString)),this,SLOT(AddSubject(QString,QString,QString)));
+        disconnect(currentDataset,SIGNAL(removedSubject(QString)),this,SLOT(removeSubjectFromList(QString)));
+    }
     currentDataset = dataset;
 
     if(currentDataset != 0){
         connect(currentDataset,SIGNAL(addedSubject(QString,QString,QString)),this,SLOT(AddSubject(QString,QString,QString)));
+        connect(currentDataset,SIGNAL(removedSubject(QString)),this,SLOT(removeSubjectFromList(QString)));
     }
     fillSubjectsList();
 
@@ -116,12 +130,26 @@ void SubjectsPanel::fillSubjectsList(){
         }
 
     }
-
     else{
         setAcceptDrops(false);
         ui->newButton->setEnabled(false);
         ui->deleteButton->setEnabled(false);
-
     }
+}
 
+
+void SubjectsPanel::onDeleteClicked(){
+    QList<QTreeWidgetItem*> selectedSubject =ui->subjectsList->selectedItems();
+    if(!selectedSubject.isEmpty()){
+       QString subjectName = selectedSubject.at(0)->data(0,Qt::DisplayRole).toString();
+       emit deleteSubject(subjectName);
+    }
+}
+
+void SubjectsPanel::removeSubjectFromList(QString subjectName){
+    QList<QTreeWidgetItem*> subject = ui->subjectsList->findItems(subjectName,Qt::MatchExactly,0);
+    if(!subject.isEmpty()){
+        qDebug() << "PROBA";
+       delete subject[0];
+    }
 }

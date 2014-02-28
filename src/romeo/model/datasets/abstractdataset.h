@@ -82,6 +82,7 @@ public:
 
     AbstractSubject* getSubject(const QString& subjectName) const;
 
+    void deleteSubject(const QString& subjectName);
 signals:
     void addedSubject(QString subjectName, QString dataPath, QString maskPath);
     void removedSubject(QString subjectName);

@@ -129,6 +129,9 @@ void Controller::connectViewsSignals(){
     connect(datasetsExplorer,SIGNAL(currentDatasetChanged(QString)),this,SLOT(changeCurrentDataset(QString)));
     connect(subjectsPanel,SIGNAL(createNewSubject(QString,QString,QString)),this,SLOT(addSubject(QString,QString,QString)));
     connect(mainWindow,SIGNAL(deleteCurrentDataset()),this,SLOT(deleteCurrentDataset()));
+    connect(addSubjectDialog,SIGNAL(createNewSubject(QString,QString,QString)),this,SLOT(addSubject(QString,QString,QString)));
+    connect(addSubjectDialog,SIGNAL(nameChanged(QString)),this,SLOT(checkSubjectName(QString)));
+    connect(subjectsPanel,SIGNAL(deleteSubject(QString)),this,SLOT(deleteSubject(QString)));
 }
 
 Controller* Controller::getInstance(QObject *parent){
@@ -209,6 +212,15 @@ void Controller::checkDatasetName(QString datasetName){
     }
 }
 
+void Controller::checkSubjectName(QString subjectName){
+    if(mainWindow->getDatasetPanel()->getCurrentDataset()->getSubject(subjectName)){
+        addSubjectDialog->showErrorName(true);
+    }
+    else{
+        addSubjectDialog->showErrorName(false);
+    }
+}
+
 void Controller::addProtocol(QString protocolName, QString desc, bool test, QList<QString> features, QString algorithm, ProtocolType type, int windowSize, int distanceGLCM){
     AbstractAlgorithm* associatedAlgorithm = algorithmsList->getAlgorithm(algorithm);
     QList<AbstractFeature*> associatedFeatures;
@@ -251,4 +263,9 @@ void Controller::deleteCurrentDataset(){
         currentDataset = datasetsList->getFirstDataset();
         mainWindow->getDatasetPanel()->setCurrentDataset(currentDataset);
     }
+}
+
+
+void Controller::deleteSubject(QString subjectName){
+    mainWindow->getDatasetPanel()->getCurrentDataset()->deleteSubject(subjectName);
 }

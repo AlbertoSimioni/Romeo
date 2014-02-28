@@ -83,6 +83,12 @@ public slots:
     void checkDatasetName(QString datasetName);
 
     /*!
+     * \brief controlla se il nome del subject dato in input è già in uso nel dataset corrente  e in caso si preoccupa di
+     * di far visualizzare un messaggio di errore sul dialogo di creazione di un subject
+     */
+    void checkSubjectName(QString subjectName);
+
+    /*!
      * \brief Slot connesso con il segnale createProtocol della classe ProtocolDialog, crea un nuovo protocollo con i parametri in input
      * \param protocolName
      * \param desc
@@ -121,6 +127,14 @@ public slots:
      * \brief Slot che elimina dal model il dataset corrente, recupera il primo dataset dalla lista dei dataset e lo fa diventare il dataset corrente.
      */
     void deleteCurrentDataset();
+
+    /*!
+     * \brief Slot che elimina dal dataset corrente il subject che ha come nome il parametro in input
+     */
+    void deleteSubject(QString subjectName);
+
+
+
 private:
 
     /*!

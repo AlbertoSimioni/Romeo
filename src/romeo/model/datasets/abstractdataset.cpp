@@ -63,3 +63,17 @@ QList<AbstractSubject*> AbstractDataset::getSubjectList()const{
     return subjects;
 
 }
+
+void AbstractDataset::deleteSubject(const QString &subjectName){
+    bool subjectFind = false;
+    for(int i = 0; i< subjects.size() && !subjectFind;i++){
+        if(subjects[i]->getName() == subjectName){
+            subjects.removeAt(i);
+            subjectFind = true;
+        }
+    }
+    if(subjectFind){
+        emit removedSubject(subjectName);
+    }
+
+}

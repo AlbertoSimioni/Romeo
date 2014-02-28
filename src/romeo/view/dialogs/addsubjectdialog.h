@@ -57,6 +57,14 @@ signals:
      * \brief Segnala la modifica del nome del subject da parte dell'utente
      */
     void nameChanged(QString datasetName);
+
+    /*!
+     * \brief Segnale emesso quando l'utente ha terminato le operazioni necessarie per la creazione di un nuovo subject
+     * \param name
+     * \param data
+     * \param mask
+     */
+    void createNewSubject(QString name, QString data, QString mask);
 private slots:
 
     /*!
@@ -65,6 +73,12 @@ private slots:
      * Verifica che la linee di testo per l'inserimento del nome del subject e del percorso all'immagine non siano vuoti. Se non sono vuoti abilita la pressione del pulsante "ok", altrimenti la disabilita
      */
     void checkForm();
+
+
+    /*!
+     * \brief Slot avviato alla pressione dell'utente del tasto ok
+     */
+    void okButtonClicked();
 
 private:
     /*!

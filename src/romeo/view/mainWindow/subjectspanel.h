@@ -44,8 +44,19 @@ signals:
      * \brief Segnale emesso quando l'utente preme il tasto per la creazione di un nuovo subject
      */
     void openAddSubjectDialog();
-
+    /*!
+     * \brief Segnale emesso quando l'utente effettua un'azione di drag & drop per l'aggiunta di un nuovo subject
+     * \param name
+     * \param data
+     * \param mask
+     */
     void createNewSubject(QString name, QString data, QString mask);
+
+    /*!
+     * \brief deleteSubject
+     * \param name
+     */
+    void deleteSubject(QString name);
 
 protected:
     virtual void dragEnterEvent(QDragEnterEvent * event);
@@ -54,7 +65,17 @@ protected:
     virtual void dropEvent(QDropEvent * event);
 
 private slots:
+    /*!
+     * \brief Slot che aggiunge un subject al widget che mostra la lista dei subject
+     */
     void AddSubject(QString name, QString dataFileName, QString maskFileName);
+
+
+    void removeSubjectFromList(QString subjectName);
+    /*!
+     * \brief Slot avviato alla pressione del tasto delete, si preoccupa di recuperare il nome del subject correntemente selezionato e di emettere il segnale deleteSubject()
+     */
+    void onDeleteClicked();
 private:
 
 

@@ -25,6 +25,7 @@ void AddSubjectDialog::connectUI(){
     connect(ui->pathDataLineEdit,SIGNAL(textChanged(QString)),this,SLOT(checkForm()));
     connect(ui->pathMaskLineEdit,SIGNAL(textChanged(QString)),this,SLOT(checkForm()));
     connect(ui->okCancel,SIGNAL(rejected()),this,SLOT(reject()));
+    connect(ui->okCancel->button(QDialogButtonBox::Ok),SIGNAL(clicked()),this,SLOT(okButtonClicked()));
 }
 
 
@@ -75,4 +76,14 @@ void AddSubjectDialog::checkForm(){
     if(!valid)ui->okCancel->button(QDialogButtonBox::Ok)->setEnabled(false);
 
     else if(ui->errorLabel->isHidden())ui->okCancel->button(QDialogButtonBox::Ok)->setEnabled(true);
+}
+
+
+void AddSubjectDialog::okButtonClicked(){
+    QString name = ui->nameLineEdit->text();
+    QString dataPath = ui->pathDataLineEdit->text();
+    QString maskPath = ui->pathMaskLineEdit->text();
+    resetForms();
+    emit createNewSubject(name,dataPath,maskPath);
+    reject();
 }
