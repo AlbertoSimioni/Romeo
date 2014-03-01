@@ -66,6 +66,7 @@ public:
     QDir getDataHome() const;
     void setDataHome(const QDir &value);
 
+    void save();
 private:
     /*!
      * \brief Costruttore privato, poiché la classe ModelCore implementa il design pattern singleton

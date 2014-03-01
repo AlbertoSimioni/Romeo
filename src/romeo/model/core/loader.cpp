@@ -145,17 +145,17 @@ bool Loader::parseFeature(FeaturesList* featureList,const QDomNode& node)
     nextElement=nextElement.nextSiblingElement("functionName");
     dyfn=nextElement.text();
 
-    if( type.compare("FIRSTORDER", Qt::CaseInsensitive))
+    if( type == "FIRSTORDER")
     {
         featureList->addFeature(name, FIRSTORDER, description, dyln, dyfn);
     }
-    else if( type.compare("SECONDORDER", Qt::CaseInsensitive))
+    else if( type =="SECONDORDER")
     {
         featureList->addFeature(name, SECONDORDER, description, dyln, dyfn);
     }
     else
     {
-        if( type.compare("DYNAMIC", Qt::CaseInsensitive))
+        if( type =="DYNAMIC")
             featureList->addFeature(name, DYNAMIC, description, dyln, dyfn);
     }
     return true;
@@ -210,7 +210,7 @@ bool Loader::parseProtocol(romeo::model::protocols::ProtocolsList *protocolsList
     description=nextElement.text();
     nextElement=nextElement.nextSiblingElement("type");
     typeString=nextElement.text();
-    if (typeString.compare("STATIC", Qt::CaseInsensitive))
+    if (typeString == "STATIC")
     {
         type=protocols::STATIC;
     }
@@ -221,7 +221,7 @@ bool Loader::parseProtocol(romeo::model::protocols::ProtocolsList *protocolsList
     nextElement=nextElement.nextSiblingElement("test");
     testString=nextElement.text();
 
-    bool test=testString.compare("true", Qt::CaseInsensitive);
+    bool test=testString == "true";
     nextElement=nextElement.nextSiblingElement("algorithm");
     algorithm=nextElement.text();
     alg=AlgorithmsList::getInstance()->getAlgorithm(algorithm);
@@ -261,15 +261,15 @@ bool Loader::parseParameter(QList<AbstractAlgorithm::AlgorithmParameter>& list, 
     nextElement=nextElement.nextSiblingElement("type");
     if(!nextElement.isNull()){
         type=nextElement.text();
-        if(type.compare("INT"), Qt::CaseInsensitive)
+        if(type == "INT")
             ptype=AbstractAlgorithm::INT;
-        else if(type.compare("DOUBLE"), Qt::CaseInsensitive)
+        else if(type == "DOUBLE")
             ptype=AbstractAlgorithm::DOUBLE;
-        else if(type.compare("BOOL"), Qt::CaseInsensitive)
+        else if(type == "BOOL")
             ptype=AbstractAlgorithm::BOOL;
         else
         {
-            if(type.compare("CHAR"), Qt::CaseInsensitive)
+            if(type == "CHAR")
                 ptype=AbstractAlgorithm::CHAR;
         }
     }

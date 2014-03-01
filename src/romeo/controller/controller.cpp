@@ -27,48 +27,13 @@ Controller* Controller::instance=0;
 Controller::Controller(QObject *parent): QObject(parent)
 {
     modelCore = ModelCore::getInstance(this);
-
+    //modelCore->save();
 
     algorithmsList = modelCore->getAlgorithmsList();
     featuresList = modelCore->getFeaturesList();
     protocolsList = modelCore->getProtocolsList();
     datasetsList = modelCore->getDatasetsList();
 
-    ////////////PROVA TEST
-    QList<AbstractAlgorithm::AlgorithmParameter> param;
-    AbstractAlgorithm::AlgorithmParameter param1 (QString("param1"), AbstractAlgorithm::BOOL, QString("default"));
-    AbstractAlgorithm::AlgorithmParameter param2 (QString("param2"), AbstractAlgorithm::CHAR, QString("default"));
-    param.append(param1);
-    param.append(param2);
-    AbstractAlgorithm* alg=new UserDefinedAlgorithm(param, QString("Algoritmo1"), QString("desc"), QString("libreria"), QString("nomefunz"));
-    algorithmsList->addAlgorithm(alg);
-
-    QList<AbstractAlgorithm::AlgorithmParameter> params;
-    AbstractAlgorithm::AlgorithmParameter param11 (QString("Param1"), AbstractAlgorithm::INT, QString("25"));
-    AbstractAlgorithm::AlgorithmParameter param22 (QString("Param2"), AbstractAlgorithm::CHAR, QString("default"));
-    params.append(param11);
-    params.append(param22);
-    AbstractAlgorithm* alg2=new UserDefinedAlgorithm(params, QString("Algoritmo"), QString("desc2"), QString("libreria"), QString("nomefunz"));
-    algorithmsList->addAlgorithm(alg2);
-
-
-    AbstractFeature* feat1 = new FirstOrderFeature("FeatureFO1","PATH","PATH","DESC1");
-    AbstractFeature* feat2 = new FirstOrderFeature("FeatureFO2","PATH","PATH","DESC2");
-    AbstractFeature* feat3 = new DynamicFeature("FeatureD1","PATH","PATH","DESC3");
-    AbstractFeature* feat4 = new SecondOrderFeature("FeatureSO1","PATH","PATH","DESC4");
-    featuresList->addFeature(feat1);
-    featuresList->addFeature(feat2);
-    featuresList->addFeature(feat3);
-    featuresList->addFeature(feat4);
-
-
-    QList<AbstractFeature*> features;
-    features.append(feat1);
-    features.append(feat2);
-    features.append(feat4);
-    protocolsList->addProtocol("PROVA","descrizione",alg,features,false, STATIC);
-
-    ///////////////PROVA TEST
 
     mainWindow = new MainWindow();
 
