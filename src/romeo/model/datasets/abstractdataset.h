@@ -82,7 +82,16 @@ public:
      */
     QList<protocols::AbstractProtocol*> getAssociatedProtocolsList();
 
+    /*!
+     * \brief Ritorna il tipo del dataset
+     */
     virtual romeo::model::InputFormat getType() = 0;
+    /*!
+     * \brief Ritorna il tipo di protocolli che è possibile associare al dataset
+     */
+    virtual romeo::model::protocols::ProtocolType getProtocolsType() = 0;
+
+
 
     bool execute(protocols::AbstractProtocol* alg, QList<AbstractSubject*> selectedSubjects);
     QStringList getProtocolResults(const QString& protocol) const;

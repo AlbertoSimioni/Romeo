@@ -1,9 +1,10 @@
 #include "addsubjectdialog.h"
 #include "ui_addsubjectdialog.h"
+#include <QFileDialog>
 using namespace romeo::view::dialogs;
-
+using namespace romeo::model;
 AddSubjectDialog::AddSubjectDialog(QWidget *parent) :
-    QDialog(parent),
+    QDialog(parent), currentInputFormat(TYPE2D),
     ui(new Ui::AddSubjectDialog)
 {
     ui->setupUi(this);
@@ -11,6 +12,7 @@ AddSubjectDialog::AddSubjectDialog(QWidget *parent) :
     ui->errorLabel->setHidden(true);
     ui->okCancel->button(QDialogButtonBox::Ok)->setEnabled(false);
     connectUI();
+    changeFilters();
 }
 
 AddSubjectDialog::~AddSubjectDialog()
@@ -26,6 +28,8 @@ void AddSubjectDialog::connectUI(){
     connect(ui->pathMaskLineEdit,SIGNAL(textChanged(QString)),this,SLOT(checkForm()));
     connect(ui->okCancel,SIGNAL(rejected()),this,SLOT(reject()));
     connect(ui->okCancel->button(QDialogButtonBox::Ok),SIGNAL(clicked()),this,SLOT(okButtonClicked()));
+    connect(ui->browseDataButton,SIGNAL(clicked()),this,SLOT(openBrowseDataDialog()));
+    connect(ui->browseMaskButton_2,SIGNAL(clicked()),this,SLOT(openBrowseMaskDialog()));
 }
 
 
@@ -50,14 +54,12 @@ void AddSubjectDialog::resetForms(){
     ui->errorLabel->setHidden(true);
 
 }
-romeo::model::datasets::AbstractDataset *AddSubjectDialog::getCurrentDataset() const
-{
-    return currentDataset;
-}
 
-void AddSubjectDialog::setCurrentDataset(romeo::model::datasets::AbstractDataset *value)
+
+void AddSubjectDialog::setCurrentInputFormat(const romeo::model::InputFormat &value)
 {
-    currentDataset = value;
+    currentInputFormat = value;
+    changeFilters();
 }
 
 
@@ -86,4 +88,36 @@ void AddSubjectDialog::okButtonClicked(){
     resetForms();
     emit createNewSubject(name,dataPath,maskPath);
     reject();
+}
+
+
+void AddSubjectDialog::changeFilters(){
+
+    switch(currentInputFormat){
+    case TYPE2D: currentFilters = "Image 2D (*.jpg *.png *.bmp *.tiff *.tif)";
+        break;
+    case TYPE2DT: currentFilters = "Video 2D (*.avi)";
+        break;
+    case TYPE3D: currentFilters = "Image 3D (*.hdr *.nii *.nii.gz)";
+        break;
+    case TYPE3DT: currentFilters = "Images 3DT (*.hdr *.nii *.nii.gz)";
+        break;
+    }
+}
+
+
+
+void AddSubjectDialog::openBrowseMaskDialog(){
+    QString fileName = QFileDialog::getOpenFileName(this,
+        tr("Select Data"), QDir::home().path(), currentFilters);
+    if(!fileName.isNull())
+        ui->pathMaskLineEdit->setText(fileName);
+}
+
+
+void AddSubjectDialog::openBrowseDataDialog(){
+    QString fileName = QFileDialog::getOpenFileName(this,
+        tr("Select Mask"), QDir::home().path(), currentFilters);
+    if(!fileName.isNull())
+        ui->pathDataLineEdit->setText(fileName);
 }

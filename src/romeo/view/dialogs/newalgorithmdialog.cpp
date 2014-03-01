@@ -27,6 +27,7 @@ void NewAlgorithmDialog::connectUI(){
     connect(ui->addParameterButton,SIGNAL(clicked()),this,SLOT(addButtonClicked()));
     connect(ui->okCancel,SIGNAL(rejected()),this,SLOT(reject()));
     connect(ui->okCancel->button(QDialogButtonBox::Ok),SIGNAL(clicked()),this,SLOT(okButtonClicked()));
+
 }
 
 NewAlgorithmDialog::~NewAlgorithmDialog()

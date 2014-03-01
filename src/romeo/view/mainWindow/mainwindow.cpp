@@ -49,3 +49,8 @@ void MainWindow::onDeleteProtocolClicked(){
     if(!selectedProtocolName.isEmpty())
         emit deleteProtocol(selectedProtocolName);
 }
+
+
+FileSystemExplorer* MainWindow::getFileSystemExplorer(){
+    return ui->fileSystemExplorer;
+}

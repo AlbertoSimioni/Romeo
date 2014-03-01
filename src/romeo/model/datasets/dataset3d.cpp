@@ -2,6 +2,7 @@
 #include "subject3d.h"
 using namespace romeo::model::datasets;
 using namespace romeo::model;
+using namespace romeo::model::protocols;
 Dataset3D::Dataset3D(QString &name): AbstractDataset(name)
 {
 }
@@ -13,4 +14,9 @@ AbstractSubject *Dataset3D::makeSubject(QString &name, QString &fileSubject, QSt
 
 InputFormat Dataset3D::getType(){
     return TYPE3D;
+}
+
+
+ProtocolType Dataset3D::getProtocolsType(){
+    return STATIC;
 }

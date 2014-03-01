@@ -3,6 +3,7 @@
 
 using namespace romeo::model::datasets;
 using namespace romeo::model;
+using namespace romeo::model::protocols;
 Dataset2DT::Dataset2DT(QString &name): AbstractDataset(name)
 {
 }
@@ -14,4 +15,9 @@ AbstractSubject *Dataset2DT::makeSubject(QString &name, QString &fileSubject, QS
 
 InputFormat Dataset2DT::getType(){
     return TYPE2DT;
+}
+
+
+ProtocolType Dataset2DT::getProtocolsType(){
+    return DYNAMIC;
 }

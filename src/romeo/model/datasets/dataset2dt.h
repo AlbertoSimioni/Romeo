@@ -27,6 +27,7 @@ public:
     Dataset2DT(QString &name);
     virtual AbstractSubject* makeSubject(QString& name, QString& fileSubject, QString& mask);
     virtual romeo::model::InputFormat getType();
+    virtual romeo::model::protocols::ProtocolType getProtocolsType();
 };
 }}}
 #endif // DATASET2DT_H

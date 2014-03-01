@@ -101,3 +101,4 @@ void DatasetsList::deleteProtocolAssociations(QString protocolName){
         datasets[i]->removeProtocolAssociation(protocolName);
     }
 }
+

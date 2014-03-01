@@ -11,6 +11,7 @@
 
 #include <QDialog>
 #include <src/romeo/model/datasets/abstractdataset.h>
+#include <src/romeo/model/inputformats.h>
 namespace Ui {
 class AddSubjectDialog;
 }
@@ -33,14 +34,11 @@ public:
      * se il flag é false nasconde il messaggio
      */
     void showErrorName(bool show);
+
     /*!
-     * \brief Ritorna il riferimento al dataset corrente
+     * \brief Cambia il formato corrente dei dati in input
      */
-    romeo::model::datasets::AbstractDataset *getCurrentDataset() const;
-    /*!
-     * \brief Cambia il riferimento al dataset corrente
-     */
-    void setCurrentDataset(romeo::model::datasets::AbstractDataset *dataset);
+    void setCurrentInputFormat(const romeo::model::InputFormat &value);
 
 public slots:
     /*!
@@ -74,6 +72,20 @@ private slots:
      */
     void checkForm();
 
+    /*!
+     * \brief Apre la finestra di dialogo per selezionare l'immagine del campo data del subject
+     *
+     * Il dialogo deve mostrare solamente le estensioni dei file coerenti col tipo di dataset corrente
+     */
+    void openBrowseDataDialog();
+
+
+    /*!
+     * \brief Apre la finestra di dialogo per selezionare l'immagine corrispondente alla maschera del subject
+     *
+     * Il dialogo deve mostrare solamente le estensioni dei file coerenti col tipo di dataset corrente
+     */
+    void openBrowseMaskDialog();
 
     /*!
      * \brief Slot avviato alla pressione dell'utente del tasto ok
@@ -92,13 +104,17 @@ private:
      */
     void resetForms();
 
+    /*!
+     * \brief Cambia i filtri sulle estensioni dei file da visualizzare in base al formato di input corrente
+     */
+    void changeFilters();
+    /*!
+     * \brief Tipo delle immagini che possono essere associate al dataset correntemente visualizzato
+     */
+    romeo::model::InputFormat currentInputFormat;
 
-    romeo::model::datasets::AbstractDataset * currentDataset;
+    QString currentFilters;
 
-
-
-
-private:
     Ui::AddSubjectDialog *ui;
 };
 

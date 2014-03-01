@@ -87,7 +87,10 @@ void ProtocolsPanel::fillProtocolsList(){
         for(int i = 0; i< protocols.size(); i++){
             AbstractProtocol* protocol = protocols[i];
             QString protocolName = protocol->getName();
+
             QStringList protocolResults = currentDataset->getProtocolResults(protocolName);
+
+            if(protocol->getTest()) protocolName = protocolName.append("  [Test]");
             addProtocol(protocolName,protocolResults);
         }
 
@@ -114,7 +117,7 @@ void ProtocolsPanel::addProtocol(QString protocolName, QStringList results){
 void ProtocolsPanel::changeDescription(){
     QTreeWidgetItem* protocolSelected = ui->protocolsList->currentItem();
     if(protocolSelected){
-        QString protocolName = protocolSelected->data(0,Qt::DisplayRole).toString();
+        QString protocolName = protocolSelected->data(0,Qt::DisplayRole).toString().split("  [Test").takeFirst();
         AbstractProtocol * protocol = currentDataset->getProtocol(protocolName);
         ui->descriptionText->setText(protocol->getDescription());
     }

@@ -13,6 +13,7 @@
 #include "datasetsexplorer.h"
 #include "protocolsexplorer.h"
 #include "datasetpanel.h"
+#include "filesystemexplorer.h"
 namespace Ui {
 class MainWindow;
 }
@@ -37,6 +38,10 @@ public:
     ProtocolsExplorer* getProtocolsExplorer();
 
     DatasetPanel* getDatasetPanel();
+    /*!
+     * \brief Ritorna il riferimento widget che mostra il file system
+     */
+    FileSystemExplorer *getFileSystemExplorer();
 
 
 

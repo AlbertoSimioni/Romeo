@@ -28,6 +28,7 @@ public:
     Dataset3D(QString &name);
     virtual AbstractSubject* makeSubject(QString& name, QString& fileSubject, QString& mask);
     virtual romeo::model::InputFormat getType();
+    virtual romeo::model::protocols::ProtocolType getProtocolsType();
 };
 }}}
 #endif // DATASET3D_H

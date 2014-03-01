@@ -71,6 +71,7 @@ Controller::Controller(QObject *parent): QObject(parent)
     ///////////////PROVA TEST
 
     mainWindow = new MainWindow();
+
     protocolDialog = new ProtocolDialog(algorithmsList,featuresList,mainWindow);
     newDatasetDialog = new NewDatasetDialog(mainWindow);
     newAlgorithmDialog = new NewAlgorithmDialog(mainWindow);
@@ -251,13 +252,11 @@ void Controller::addDataset(QString name, romeo::model::InputFormat type){
 void Controller::changeCurrentDataset(QString name){
 
     AbstractDataset* dataset = datasetsList->getDataset(name);
+
     InputFormat datasetType = dataset->getType();
-    if(datasetType == TYPE2D || datasetType == TYPE3D ){
-        protocolsExplorer->setCurrentProtocolsType(STATIC);
-    }
-    else{
-        protocolsExplorer->setCurrentProtocolsType(protocols::DYNAMIC);
-    }
+    protocolsExplorer->setCurrentProtocolsType(dataset->getProtocolsType());
+    mainWindow->getFileSystemExplorer()->setCurrentInputFormat(datasetType);
+    addSubjectDialog->setCurrentInputFormat(datasetType);
     mainWindow->getDatasetPanel()->setCurrentDataset(dataset);
 }
 
@@ -273,6 +272,7 @@ void Controller::deleteCurrentDataset(){
         datasetsList->deleteDataset(currentDataset);
         currentDataset = datasetsList->getFirstDataset();
         mainWindow->getDatasetPanel()->setCurrentDataset(currentDataset);
+        //changeCurrentDataset(currentDataset->getName());
     }
 }
 

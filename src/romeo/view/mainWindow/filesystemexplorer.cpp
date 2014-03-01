@@ -1,15 +1,16 @@
 #include "filesystemexplorer.h"
 #include "ui_filesystemexplorer.h"
 using namespace romeo::view::mainWindow;
+using namespace romeo::model;
 FileSystemExplorer::FileSystemExplorer(QWidget *parent) :
-    QWidget(parent),
+    QWidget(parent), currentInputFormat(TYPE2D),
     ui(new Ui::FileSystemExplorer)
 {
     ui->setupUi(this);
 
     dirModel = new QFileSystemModel(this);
     dirModel->setFilter(QDir::NoDotAndDotDot | QDir::AllDirs);
-    //setDragEnabled(true);
+
 
     ui->foldersView->setModel(dirModel);
     ui->foldersView->setRootIndex(dirModel->setRootPath(QDir::homePath()));
@@ -21,10 +22,8 @@ FileSystemExplorer::FileSystemExplorer(QWidget *parent) :
 
     fileModel = new QFileSystemModel(this);
     fileModel->setFilter(QDir::NoDotAndDotDot | QDir::Files);
-    QStringList filters;
-    filters << "*.jpg" <<"*.png";
-    fileModel->setNameFilters(filters);
-    fileModel->setNameFilterDisables(false);
+    changeFilters();
+
 
     ui->filesView->setModel(fileModel);
     ui->filesView->setRootIndex(fileModel->setRootPath(QDir::homePath()));
@@ -45,4 +44,26 @@ void FileSystemExplorer::treeView_clicked(QModelIndex index)
     ui->filesView->setRootIndex(fileModel->setRootPath(aPath));
 }
 
+
+void FileSystemExplorer::setCurrentInputFormat(const romeo::model::InputFormat &value)
+{
+    currentInputFormat = value;
+    changeFilters();
+}
+
+void FileSystemExplorer::changeFilters(){
+    QStringList filters;
+    switch(currentInputFormat){
+    case TYPE2D: filters << "*.jpg" <<"*.png" <<"*.bmp" <<"*.tiff" <<"*.tif";
+        break;
+    case TYPE2DT: filters << "*.avi";
+        break;
+    case TYPE3D: filters << "*.hdr" <<"*.nii" <<"*.nii.gz";
+        break;
+    case TYPE3DT: filters << "*.hdr" <<"*.nii" <<"*.nii.gz";
+        break;
+    }
+    fileModel->setNameFilters(filters);
+    fileModel->setNameFilterDisables(false);
+}
 
