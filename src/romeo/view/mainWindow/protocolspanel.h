@@ -34,6 +34,13 @@ public:
      */
     void setCurrentDataset(romeo::model::datasets::AbstractDataset *dataset);
 
+signals:
+    /*!
+     * \brief Segnale emesso quando l'utente effettua un'azione di drag & drop per l'associazione di un nuovo protocollo
+     * \param name
+     */
+    void associateProtocol(QString protocolName);
+
 protected:
 
     //metodi per il drag & drop da commentare maggiormente
@@ -42,11 +49,15 @@ protected:
     virtual void dragMoveEvent(QDragMoveEvent * event);
     virtual void dropEvent(QDropEvent * event);
 
-protected slots:
+private slots:
     /*!
      * \brief Riempie la lista degli algoritmi con gli algoritmi presenti nel modello
      */
     void fillProtocolsList();
+    /*!
+     * \brief Mostra la descrizione del protocollo correntemente selezionato
+     */
+    void changeDescription();
 private:
     void connectUI();
     /*!

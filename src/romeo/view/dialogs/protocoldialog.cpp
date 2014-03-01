@@ -47,7 +47,7 @@ void ProtocolDialog::connectUI(){
     connect(ui->AlgorithmCombo,SIGNAL(currentIndexChanged(int)),this,SLOT(changeParametersForm()));
     connect(ui->dataTypeCombo,SIGNAL(currentIndexChanged(QString)),this,SLOT(fillFeaturesList()));
     connect(ui->finish3,SIGNAL(clicked()),this,SLOT(finishButtonClicked()));
-    connect(ui->glcmLineEdit,SIGNAL(textChanged(QString)),this,SLOT(checkWindowSizeGLCM()));
+    connect(ui->glcmLineEdit,SIGNAL(textEdited(QString)),this,SLOT(checkWindowSizeGLCM()));
     connect(ui->WindowSizeCombo,SIGNAL(currentIndexChanged(int)),this,SLOT(checkWindowSizeGLCM()));
     connect(featuresList,SIGNAL(featuresListModified()),this,SLOT(fillFeaturesList()));
     connect(algorithmsList,SIGNAL(algorithmsListModified()),this,SLOT(fillAlgorithmsCombo()));
@@ -172,6 +172,7 @@ void ProtocolDialog::fillFeaturesList(){
             if((feature->getType() == romeo::model::protocols::features::DYNAMIC))
                 ui->featuresList->addItem(feature->getName());
         }
+        ui->next2->setEnabled(true);
         ui->glcmLineEdit->clear();
         ui->glcmLineEdit->setEnabled(false);
         ui->WindowSizeCombo->setEnabled(false);

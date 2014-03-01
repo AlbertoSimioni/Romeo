@@ -124,6 +124,11 @@ public slots:
     void addSubject(QString subjectName, QString dataPath, QString maskPath);
 
     /*!
+     * \brief Slot che si preoccura di associare al dataset corrente il protocollo con nome dato in input
+     */
+    void associateProtocol(QString protocolName);
+
+    /*!
      * \brief Slot che elimina dal model il dataset corrente, recupera il primo dataset dalla lista dei dataset e lo fa diventare il dataset corrente.
      */
     void deleteCurrentDataset();

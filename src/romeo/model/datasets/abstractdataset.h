@@ -58,9 +58,8 @@ public:
     /*!
      * \brief Associa un nuovo protocollo al dataset. Se il protocollo appartiene già al dataset, non viene modificato nulla e viene ritornato il valore false, altrimenti il protocollo viene aggiunto al dataset e viene ritornato true
      * \param protocol Il protocollo da aggiungere al dataset
-     * \return Valore booleano che indica la riuscita dell'operazione
      */
-    bool associateProtocol(protocols::AbstractProtocol* protocol);
+    void associateProtocol(protocols::AbstractProtocol* protocol);
     /*!
      * \brief Ritorna il nome del dataset
      */

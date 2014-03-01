@@ -9,6 +9,7 @@
 #include <src/romeo/model/protocols/abstractprotocol.h>
 #include <src/romeo/model/datasets/abstractdataset.h>
 #include <QDebug>
+#include <src/romeo/model/inputformats.h>
 ////////PROVA TEST
 using namespace romeo::controller;
 using namespace romeo::view::mainWindow;
@@ -19,6 +20,7 @@ using namespace romeo::model::protocols::algorithms;
 using namespace romeo::model::protocols::features;
 using namespace romeo::model::protocols;
 using namespace romeo::model::datasets;
+using namespace romeo::model;
 
 Controller* Controller::instance=0;
 
@@ -133,6 +135,7 @@ void Controller::connectViewsSignals(){
     connect(addSubjectDialog,SIGNAL(nameChanged(QString)),this,SLOT(checkSubjectName(QString)));
     connect(subjectsPanel,SIGNAL(deleteSubject(QString)),this,SLOT(deleteSubject(QString)));
     connect(mainWindow,SIGNAL(deleteProtocol(QString)),this,SLOT(deleteProtocol(QString)));
+    connect(protocolsPanel,SIGNAL(associateProtocol(QString)),this,SLOT(associateProtocol(QString)));
 }
 
 Controller* Controller::getInstance(QObject *parent){
@@ -248,6 +251,13 @@ void Controller::addDataset(QString name, romeo::model::InputFormat type){
 void Controller::changeCurrentDataset(QString name){
 
     AbstractDataset* dataset = datasetsList->getDataset(name);
+    InputFormat datasetType = dataset->getType();
+    if(datasetType == TYPE2D || datasetType == TYPE3D ){
+        protocolsExplorer->setCurrentProtocolsType(STATIC);
+    }
+    else{
+        protocolsExplorer->setCurrentProtocolsType(protocols::DYNAMIC);
+    }
     mainWindow->getDatasetPanel()->setCurrentDataset(dataset);
 }
 
@@ -275,4 +285,9 @@ void Controller::deleteSubject(QString subjectName){
 void Controller::deleteProtocol(QString protocolName){
     datasetsList->deleteProtocolAssociations(protocolName);
     protocolsList->removeProtocol(protocolName);
+}
+
+void Controller::associateProtocol(QString protocolName){
+    AbstractProtocol* protocol = protocolsList->getProtocol(protocolName);
+    mainWindow->getDatasetPanel()->getCurrentDataset()->associateProtocol(protocol);
 }

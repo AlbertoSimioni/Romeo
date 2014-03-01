@@ -96,3 +96,8 @@ void AbstractDataset::removeProtocolAssociation(QString protocolName){
 QList<AbstractProtocol*> AbstractDataset::getAssociatedProtocolsList(){
     return protocols.keys();
 }
+
+void AbstractDataset::associateProtocol(protocols::AbstractProtocol *protocol){
+    protocols.insert(protocol,QList<Result*>());
+    emit protocolsModified();
+}

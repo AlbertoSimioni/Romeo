@@ -3,7 +3,7 @@
 using namespace romeo::view::mainWindow;
 using namespace romeo::model::protocols;
 ProtocolsExplorer::ProtocolsExplorer(QWidget *parent) :
-    QWidget(parent),
+    QWidget(parent), currentProtocolsType(STATIC),
     ui(new Ui::ProtocolsExplorer)
 {
     ui->setupUi(this);
@@ -39,12 +39,19 @@ void ProtocolsExplorer::fillProtocolsExplorer(){
             if(protocols[i]->getTest()){
                name.append("  [Test]");
             }
-
-            ui->protocolsTable->addItem(name);
+            if(protocols[i]->getType() == currentProtocolsType)
+                ui->protocolsTable->addItem(name);
 
         }
     }
 }
+
+void ProtocolsExplorer::setCurrentProtocolsType(const romeo::model::protocols::ProtocolType &value)
+{
+    currentProtocolsType = value;
+    fillProtocolsExplorer();
+}
+
 
 
 QString ProtocolsExplorer::getSelectedProtocolName(){

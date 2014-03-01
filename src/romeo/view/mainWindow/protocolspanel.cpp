@@ -5,6 +5,7 @@
 #include <QDragLeaveEvent>
 #include <QDragMoveEvent>
 #include <QMimeData>
+#include <QDebug>
 using namespace romeo::view::mainWindow;
 using namespace romeo::model::datasets;
 using namespace romeo::model::protocols;
@@ -14,6 +15,7 @@ ProtocolsPanel::ProtocolsPanel(QWidget *parent) :
 {
     ui->setupUi(this);
     setAcceptDrops(true);
+    connectUI();
 }
 
 ProtocolsPanel::~ProtocolsPanel()
@@ -23,7 +25,7 @@ ProtocolsPanel::~ProtocolsPanel()
 
 
 void ProtocolsPanel::connectUI(){
-    //connect(currentDataset,SIGNAL())
+    connect(ui->protocolsList,SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),this,SLOT(changeDescription()));
 }
 
 void ProtocolsPanel::dragEnterEvent(QDragEnterEvent * event){
@@ -47,6 +49,7 @@ void ProtocolsPanel::dropEvent(QDropEvent * event){
         QList<QTreeWidgetItem*> match = ui->protocolsList->findItems(protocol,Qt::MatchExactly);
         if(match.isEmpty()){
             QString protocolName = protocol.split("  [Test").takeFirst();
+            emit associateProtocol(protocolName);
 
         }
     } else
@@ -75,6 +78,7 @@ void ProtocolsPanel::setCurrentDataset(romeo::model::datasets::AbstractDataset *
 
 void ProtocolsPanel::fillProtocolsList(){
     ui->protocolsList->clear();
+    ui->descriptionText->clear();
     if(currentDataset != 0){
         ui->newButton->setEnabled(true);
         ui->deleteButton->setEnabled(true);
@@ -103,5 +107,15 @@ void ProtocolsPanel::addProtocol(QString protocolName, QStringList results){
          QTreeWidgetItem *resultItem =new QTreeWidgetItem();
          resultItem->setText(0,results[i]);
          protocolItem->addChild(resultItem);
+    }
+}
+
+
+void ProtocolsPanel::changeDescription(){
+    QTreeWidgetItem* protocolSelected = ui->protocolsList->currentItem();
+    if(protocolSelected){
+        QString protocolName = protocolSelected->data(0,Qt::DisplayRole).toString();
+        AbstractProtocol * protocol = currentDataset->getProtocol(protocolName);
+        ui->descriptionText->setText(protocol->getDescription());
     }
 }

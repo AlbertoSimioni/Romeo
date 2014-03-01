@@ -33,12 +33,19 @@ public:
      */
     QString getSelectedProtocolName();
 
+    /*!
+     * \brief Metodo che permette di modificare il tipo di protocolli che vengono visualizzati
+     */
+    void setCurrentProtocolsType(const romeo::model::protocols::ProtocolType &value);
+
 private slots:
 
     void fillProtocolsExplorer();
 
 private:
     Ui::ProtocolsExplorer *ui;
+
+    romeo::model::protocols::ProtocolType currentProtocolsType;
 
     romeo::model::protocols::ProtocolsList* protocolsList;
 };
