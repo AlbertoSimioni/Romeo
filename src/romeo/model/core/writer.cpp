@@ -246,12 +246,11 @@ void Writer::writeDatasetProtocols(const AbstractDataset *dataset, QXmlStreamWri
     for (int i=0; i< protocolList.length(); ++i)
     {
         writer.writeStartElement(protocolList[i]->getName());
-        QList<Result*> protocolResults= dataset->getProtocolResults(protocolList[i]->getName());
+        QStringList protocolResults= dataset->getProtocolResults(protocolList[i]->getName());
         writer.writeStartElement("results");
         for( int i=0; i< protocolResults.length(); ++i)
         {
-            writer.writeTextElement("result" ,protocolResults[i]->getResultPath());
-            writer.writeAttribute("name", protocolResults[i]->getExecutionDate().toString());
+            writer.writeTextElement("result" ,protocolResults.at(i));
         }
         writer.writeEndElement(); //end results
     }
