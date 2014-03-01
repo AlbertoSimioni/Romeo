@@ -74,6 +74,11 @@ public:
      */
     QList<AbstractSubject*> getSubjectList()const;
 
+    /*!
+     * \brief Se è presente un protocollo con nome uguale a quello in input, lo rimuove dalla lista dei protocolli associati
+     */
+    void removeProtocolAssociation(QString protocolName);
+
     virtual romeo::model::InputFormat getType() = 0;
 
     bool execute(protocols::AbstractProtocol* alg, QList<AbstractSubject*> selectedSubjects);
@@ -86,8 +91,7 @@ public:
 signals:
     void addedSubject(QString subjectName, QString dataPath, QString maskPath);
     void removedSubject(QString subjectName);
-    void addedProtocol(QString protocolName);
-    void removedProtocol(QString protocolName);
+    void protocolsModified();
     void newResults();
 
 private:

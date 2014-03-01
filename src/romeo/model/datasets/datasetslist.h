@@ -39,6 +39,11 @@ public:
     */
    QList<AbstractDataset*> getDatasetsList() const;
    void addDataset(QString name, InputFormat datasetType);
+   /*!
+    * \brief Si preoccupa di elimare dai dataset tutte le associazioni al protocollo con nome dato in input
+    */
+   void deleteProtocolAssociations(QString protocolName);
+
    ~DatasetsList();
 
    AbstractDataset* getFirstDataset();

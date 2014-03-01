@@ -80,3 +80,10 @@ void DatasetsList::deleteDataset(AbstractDataset *dataset){
     datasets.removeAll(dataset);
     emit datasetsListModified();
 }
+
+
+void DatasetsList::deleteProtocolAssociations(QString protocolName){
+    for(int i = 0; i < datasets.size(); i++){
+        datasets[i]->removeProtocolAssociation(protocolName);
+    }
+}

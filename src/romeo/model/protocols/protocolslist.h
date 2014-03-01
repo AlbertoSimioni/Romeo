@@ -45,6 +45,11 @@ public:
      * \return Riferimento al protocollo
      */
     AbstractProtocol* getProtocol(QString name);
+    /*!
+     * \brief Rimuove il protocollo con nome uguale al nome dato in input
+     */
+    void removeProtocol(QString protocolName);
+
 
     QList<protocols::AbstractProtocol *> getProtocolsList() const;
 

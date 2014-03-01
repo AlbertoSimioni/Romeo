@@ -75,5 +75,17 @@ void AbstractDataset::deleteSubject(const QString &subjectName){
     if(subjectFind){
         emit removedSubject(subjectName);
     }
+}
 
+void AbstractDataset::removeProtocolAssociation(QString protocolName){
+    QList<AbstractProtocol*> protocolsList=protocols.keys();
+    bool matchProtocolName = false;
+    for( int i=0; i<protocolsList.length() && !matchProtocolName; ++i){
+        if( protocolsList[i]->getName() == protocolName ){
+            matchProtocolName = true;
+            protocols.remove(protocolsList[i]);
+        }
+
+    }
+    if(matchProtocolName) emit protocolsModified();
 }

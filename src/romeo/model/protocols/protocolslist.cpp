@@ -62,3 +62,16 @@ void ProtocolsList::addProtocol(QString nomeP, QString desc, AbstractAlgorithm *
     }
     emit ProtocolsList::protocolsListModified();
 }
+
+void ProtocolsList::removeProtocol(QString protocolName){
+    bool protocolFind = false;
+    for(int i = 0; i < protocolsList.size() && !protocolFind; i++ ){
+        if(protocolsList[i]->getName() == protocolName){
+            protocolFind = true;
+            protocolsList.removeAt(i);
+        }
+    }
+
+    emit protocolsListModified();
+
+}
