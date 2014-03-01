@@ -48,6 +48,11 @@ AbstractProtocol *AbstractDataset::getProtocol(const QString &protocolName) cons
     return 0;
 }
 
+QList<AbstractProtocol *> AbstractDataset::getProtocolList() const
+{
+    return protocols.keys();
+}
+
 
 AbstractSubject* AbstractDataset::getSubject(const QString &subjectName) const
 {

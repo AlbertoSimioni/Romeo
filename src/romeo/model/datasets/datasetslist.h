@@ -29,7 +29,7 @@ public:
      * \brief Metodo statico che ritorna l'istanza del DatasetList, in caso sia la prima volta ad essere invocato
      *  si preoccupa anche di costruire l'istanza.
      */
-   static DatasetsList* getInstance(QObject *parent);
+   static DatasetsList* getInstance(QObject *parent=0);
    /*!
     * \brief Ritorna un puntatore al dataset con il nome name.
     */
@@ -45,10 +45,12 @@ public:
    void deleteProtocolAssociations(QString protocolName);
 
    ~DatasetsList();
-
    AbstractDataset* getFirstDataset();
 
    void deleteDataset(AbstractDataset* dataset);
+
+   QHash<QString, QString> getDatasetsFiles() const;
+   void addDatasetFile(const QString& name,const QString& file);
 
 private:
    /*!

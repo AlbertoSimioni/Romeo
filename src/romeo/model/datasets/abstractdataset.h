@@ -87,7 +87,7 @@ public:
     bool execute(protocols::AbstractProtocol* alg, QList<AbstractSubject*> selectedSubjects);
     QStringList getProtocolResults(const QString& protocol) const;
     protocols::AbstractProtocol* getProtocol(const QString& protocolName)const;
-
+    QList<protocols::AbstractProtocol*> getProtocolList() const;
     AbstractSubject* getSubject(const QString& subjectName) const;
 
     void deleteSubject(const QString& subjectName);

@@ -3,6 +3,7 @@
 #include "dataset2dt.h"
 #include "dataset3d.h"
 #include "dataset3dt.h"
+#include<QDebug>
 
 using namespace romeo::model::datasets;
 
@@ -66,6 +67,19 @@ DatasetsList::~DatasetsList()
 DatasetsList::DatasetsList(QObject *parent): QObject(parent)
 {
 }
+QHash<QString, QString> DatasetsList::getDatasetsFiles() const
+{
+    return datasetsFiles;
+}
+
+void DatasetsList::addDatasetFile(const QString &name, const QString &file)
+{
+    if(!datasetsFiles.contains(name))
+    {
+        datasetsFiles.insert(name, file);
+    }
+}
+
 
 AbstractDataset* DatasetsList::getFirstDataset(){
     AbstractDataset* firstDataset = 0;

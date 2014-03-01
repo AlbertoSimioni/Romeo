@@ -54,6 +54,15 @@ void FeaturesList::addFeature(const QString &name, FeatureType type, const QStri
 
 
 void  FeaturesList::addFeature(AbstractFeature *aa){
+    //controllo che non ci siano altre feature nella lista con lo stesso nome
+    bool ok=false;
+    for(int i=0; i<features.length() && !ok; ++i)
+    {
+        if( features[i]->getName() == aa->getName()){
+            ok=true;
+            return;
+        }
+    }
     features.append(aa);
     emit FeaturesList::featuresListModified();
 }

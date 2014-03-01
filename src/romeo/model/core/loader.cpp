@@ -2,7 +2,6 @@
 #include <QFile>
 #include <QIODevice>
 #include <QDomDocument>
-#include <QMessageBox>
 #include "loader.h"
 #include "modelcore.h"
 #include <src/romeo/model/protocols/algorithms/algorithmslist.h>
@@ -11,6 +10,7 @@
 using namespace romeo::model::core;
 using namespace romeo::model::protocols::algorithms;
 using namespace romeo::model::protocols::features;
+
 Loader* Loader::instance=0;
 Loader *Loader::getInstance(QObject *parent)
 {
@@ -87,6 +87,34 @@ bool Loader::loadProtocols(const QString &protocolFile, romeo::model::protocols:
     for(int i=0; i<nodeList.length(); ++i)
     {
         parseProtocol(protocolList, nodeList.at(i));
+    }
+    file.close();
+    return true;
+}
+
+bool Loader::loadDatasetsNames(const QString &datasetsFile)
+{
+    QFile file(datasetsFile);
+    if(!file.open(QIODevice::ReadOnly))
+    {
+        return false;
+    }
+    QDomDocument doc;
+    if(!doc.setContent(&file))
+    {
+        file.close();
+        return false;
+    }
+    QDomElement docElem= doc.documentElement();
+    QDomNodeList nodeList=docElem.elementsByTagName(QString("dataset"));
+    QString name;
+    QString datasetFile;
+    for(int i=0; i<nodeList.length(); ++i)
+    {
+        QDomElement elem=nodeList.at(i).toElement();
+        name=elem.attribute("name");
+        datasetFile=elem.attribute("file");
+        datasets::DatasetsList::getInstance()->addDatasetFile(name, datasetFile);
     }
     file.close();
     return true;

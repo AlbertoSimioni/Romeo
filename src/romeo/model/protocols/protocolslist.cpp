@@ -54,6 +54,16 @@ AbstractProtocol* ProtocolsList::getProtocol(QString name){
 }
 
 void ProtocolsList::addProtocol(QString nomeP, QString desc, AbstractAlgorithm *alg, QList<features::AbstractFeature *> feat,bool test,ProtocolType type, int window, int distanceGLCM){
+
+    //controllo che non ci siano altre feature nella lista con lo stesso nome
+    bool ok=false;
+    for(int i=0; i<protocolsList.length() && !ok; ++i)
+    {
+        if( protocolsList[i]->getName() == nomeP){
+            ok=true;
+            return;
+        }
+    }
     switch(type){
     case STATIC : protocolsList.append(new StaticProtocol(nomeP,desc,alg,feat,test,window,distanceGLCM));
         break;

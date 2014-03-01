@@ -2,12 +2,13 @@
 #include "modelcore.h"
 #include <QtXml>
 #include <QXmlStreamWriter>
-#include <QMessageBox>
 
 #include <src/romeo/model/protocols/features/abstractfeature.h>
-
 #include <src/romeo/model/protocols/algorithms/abstractalgorithm.h>
 #include <src/romeo/model/protocols/algorithms/userdefinedalgorithm.h>
+#include <src/romeo/model/datasets/abstractdataset.h>
+
+using namespace romeo::model::datasets;
 using namespace romeo::model::core;
 using namespace romeo::model::protocols;
 using namespace romeo::model::protocols::features;
@@ -28,9 +29,30 @@ Writer::Writer(QObject* parent): QObject(parent)
 {
 }
 
-bool Writer::saveDatasetsList()
+bool Writer::saveDatasetsList(const QString& datasetFile)
 {
-    return true;
+    QFile file(datasetFile);
+    if(!file.open(QFile::WriteOnly))
+    {
+        return false;
+    }
+    QXmlStreamWriter writer;
+    writer.setDevice(&file);
+
+    writer.writeStartDocument();
+    writer.writeStartElement("datasets");
+    QHash<QString, QString> datasetList=datasets::DatasetsList::getInstance()->getDatasetsFiles();
+    QHash<QString, QString>::iterator it=datasetList.begin();
+    while( it != datasetList.end())
+    {
+        writer.writeStartElement("dataset");
+        writer.writeAttribute("name", it.key(), QString(""));
+        writer.writeAttribute("file", it.value(), QString(""));
+        writer.writeEndElement();
+        ++it;
+    }
+    writer.writeEndElement();
+    writer.writeEndDocument();
 }
 
 bool Writer::saveProtocolsList()
@@ -166,6 +188,74 @@ bool Writer::saveFeaturesList()
 bool Writer::saveDataset(QString &datasetName)
 {
     return true;
+}
+
+bool Writer::saveDataset(const QString &datasetName, const QString &datasetFile)
+{
+    QString dataHome=ModelCore::getInstance()->getDataHome().path();
+
+    QFile file(dataHome.append(datasetFile));
+    if(!file.open(QFile::WriteOnly))
+    {
+        return false;
+    }
+    AbstractDataset* dataset=DatasetsList::getInstance()->getDataset(datasetName);
+
+    QXmlStreamWriter writer;
+    writer.setDevice(&file);
+    writer.writeStartDocument();
+    writer.writeStartElement("dataset");
+    writer.writeTextElement("name", dataset->getName());
+    switch (dataset->getType()) {
+    case TYPE2D:
+        writer.writeTextElement("type", "TYPE2D");
+        break;
+    case TYPE3D:
+        writer.writeTextElement("type", "TYPE3D");
+        break;
+    case TYPE2DT:
+        writer.writeTextElement("type", "TYPE2DT");
+        break;
+    case TYPE3DT:
+        writer.writeTextElement("type", "TYPE3DT");
+        break;
+    }
+    Writer::writeDatasetSubjects(dataset, writer);
+    writer.writeEndElement();
+    writer.writeEndDocument();
+}
+
+void Writer::writeDatasetSubjects(const AbstractDataset *dataset, QXmlStreamWriter &writer)
+{
+    QList<AbstractSubject*> subjectList= dataset->getSubjectList();
+    writer.writeStartElement("subjects");
+    for(int i=0; i< subjectList.length(); ++i)
+    {
+        writer.writeEmptyElement("subject");
+        writer.writeAttribute("name", subjectList[i]->getName());
+        writer.writeAttribute("img", subjectList[i]->getSubject());
+        writer.writeAttribute("mask", subjectList[i]->getMask());
+    }
+    writer.writeEndElement(); //end subjects
+}
+
+void Writer::writeDatasetProtocols(const AbstractDataset *dataset, QXmlStreamWriter &writer)
+{
+    QList<AbstractProtocol*> protocolList=dataset->getProtocolList();
+    writer.writeStartElement("protocols");
+    for (int i=0; i< protocolList.length(); ++i)
+    {
+        writer.writeStartElement(protocolList[i]->getName());
+        QList<Result*> protocolResults= dataset->getProtocolResults(protocolList[i]->getName());
+        writer.writeStartElement("results");
+        for( int i=0; i< protocolResults.length(); ++i)
+        {
+            writer.writeTextElement("result" ,protocolResults[i]->getResultPath());
+            writer.writeAttribute("name", protocolResults[i]->getExecutionDate().toString());
+        }
+        writer.writeEndElement(); //end results
+    }
+    writer.writeEndElement(); //end protocols
 }
 
 

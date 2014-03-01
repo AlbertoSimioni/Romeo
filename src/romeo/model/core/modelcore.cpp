@@ -1,5 +1,5 @@
 #include "modelcore.h"
-#include<QMessageBox>
+
 using namespace romeo::model::core;
 using namespace romeo::model::imageIO;
 using namespace romeo::model::datasets;
@@ -7,18 +7,24 @@ using namespace romeo::model::protocols;
 
 ModelCore* ModelCore::instance=0;
 
-
 ModelCore::ModelCore(QObject *parent): QObject(parent)
 {
     writer=Writer::getInstance(this);
     loader=Loader::getInstance(this);
-    createLists();
     dataHome=QDir::current();
     if(!dataHome.cd("data"))
     {
-        emit ioError(QString("Data directory not found, please make sure a directory named 'data' is in the software folder"));
+        qDebug("non ho caricato");
     }
+    createLists();
 
+    writer->saveDatasetsList(dataHome.absolutePath().append("/dat.xml"));
+
+    connect(protocolsList, SIGNAL(protocolsListModified()), writer, SLOT(saveProtocolsList()));
+    //connect(datasetsList, SIGNAL(datasetsListModified()), writer, SLOT(saveDatasetsList()), Qt::QueuedConnection);
+    connect(algorithmsList, SIGNAL(algorithmsListModified()), writer, SLOT(saveAlgorithmsList()));
+    connect(featuresList, SIGNAL(featuresListModified()), writer, SLOT(saveFeaturesList()));
+    connect(datasetsList, SIGNAL(datasetModified(QString&)), writer, SLOT(saveDataset(QString&)));
 
 }
 
@@ -29,15 +35,11 @@ void ModelCore::createLists()
     algorithmsList=algorithms::AlgorithmsList::getInstance(this);
     featuresList=features::FeaturesList::getInstance(this);
 
-    //loader->loadFeatures(dataHome.absolutePath().append("/features.xml"), featuresList);
-    //loader->loadAlgorithms(dataHome.absolutePath().append("/algorithms.xml"), algorithmsList);
-    //loader->loadProtocols(dataHome.absolutePath().append("/protocols.xml"), protocolsList);
+    loader->loadFeatures(dataHome.absolutePath().append("/features.xml"), featuresList);
+    loader->loadAlgorithms(dataHome.absolutePath().append("/algorithms.xml"), algorithmsList);
+    loader->loadProtocols(dataHome.absolutePath().append("/protocols.xml"), protocolsList);
+    loader->loadDatasetsNames(dataHome.absolutePath().append("/datasets.xml"));
 
-    connect(protocolsList, SIGNAL(protocolsListModified()), writer, SLOT(saveProtocolsList()));
-    connect(datasetsList, SIGNAL(datasetsListModified()), writer, SLOT(saveDatasetsList()));
-    connect(algorithmsList, SIGNAL(algorithmsListModified()), writer, SLOT(saveAlgorithmsList()));
-    connect(featuresList, SIGNAL(featuresListModified()), writer, SLOT(saveFeaturesList()));
-    connect(datasetsList, SIGNAL(datasetModified(QString&)), writer, SLOT(saveDataset(QString&)));
 }
 QDir ModelCore::getDataHome() const
 {
