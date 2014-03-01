@@ -11,6 +11,8 @@
 
 #include "testabstractalgorithm.h"
 #include "testalgorithmslist.h"
+#include "testsettings.h"
+#include "testdynamicprotocol.h"
 
 int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
     QApplication a(argc, argv);
@@ -44,6 +46,12 @@ int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
 
     TestAlgorithmsList taa2;
     QTest::qExec(&taa2);
+
+    TestSettings ts;
+    QTest::qExec(&ts);
+
+    TestDynamicProtocol tdd;
+    QTest::qExec(&tdd);
 
     return 0;
 }
