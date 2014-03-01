@@ -45,3 +45,13 @@ void ProtocolsExplorer::fillProtocolsExplorer(){
         }
     }
 }
+
+
+QString ProtocolsExplorer::getSelectedProtocolName(){
+    QList<QListWidgetItem*> selectedProtocol = ui->protocolsTable->selectedItems();
+    QString protocolName = QString();
+    if(!selectedProtocol.isEmpty()){
+        protocolName = selectedProtocol.at(0)->text().split("  [Test").takeFirst();
+    }
+    return protocolName;
+}

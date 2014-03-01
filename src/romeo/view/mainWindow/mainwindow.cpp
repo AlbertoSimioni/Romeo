@@ -27,6 +27,7 @@ void MainWindow::connectActionsToSignal(){
     connect(ui->actionAlgorithms_List,SIGNAL(triggered()),this,SIGNAL(openAlgorithmsListDialog()));
     connect(ui->actionFeatures_List,SIGNAL(triggered()),this,SIGNAL(openFeaturesListDialog()));
     connect(ui->actionRemoveDataset,SIGNAL(triggered()),this,SIGNAL(deleteCurrentDataset()));
+    connect(ui->actionProtocolRemove,SIGNAL(triggered()),this,SLOT(onDeleteProtocolClicked()));
 }
 
 
@@ -42,3 +43,9 @@ DatasetPanel* MainWindow::getDatasetPanel(){
     return ui->datasetPanel;
 }
 
+
+void MainWindow::onDeleteProtocolClicked(){
+    QString selectedProtocolName = ui->explorer->getProtocolsExplorer()->getSelectedProtocolName();
+    if(!selectedProtocolName.isEmpty())
+        emit deleteProtocol(selectedProtocolName);
+}

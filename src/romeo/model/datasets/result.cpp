@@ -1,23 +1,12 @@
 #include "result.h"
 using namespace romeo::model::datasets;
 
-bool Result::getFeatureResult() const
+
+Result::Result(QDate execDate, QString pathToResult):
+    executionDate(execDate), resultPath(pathToResult)
 {
-    return featureResult;
+
 }
-
-
-QString Result::getFeatureName() const
-{
-    return featureName;
-}
-
-
-QString Result::getProtocolName() const
-{
-    return protocolName;
-}
-
 
 QDate Result::getExecutionDate() const
 {
@@ -30,6 +19,4 @@ QString Result::getResultPath() const
 }
 
 
-/*Result::Result()
-{
-}*/
+

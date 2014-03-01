@@ -46,9 +46,13 @@ protected slots:
     /*!
      * \brief Riempie la lista degli algoritmi con gli algoritmi presenti nel modello
      */
-   // void fillProtocolsList();
+    void fillProtocolsList();
 private:
     void connectUI();
+    /*!
+     * \brief Slot che aggiunge un protocollo e i suoi risultati al widget che mostra la lista dei subject
+     */
+    void addProtocol(QString protocolName, QStringList results);
 
     /*!
      * \brief Riferimento al dataset attualmente attivo nella schermata

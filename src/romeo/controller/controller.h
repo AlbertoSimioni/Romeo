@@ -133,7 +133,10 @@ public slots:
      */
     void deleteSubject(QString subjectName);
 
-
+    /*!
+     * \brief Slot che elimina dalla lista dei protocolli il nome del protocollo dato in input e rimuove tutte le associazioni a tale protocollo nei vari dataset
+     */
+    void deleteProtocol(QString protocolName);
 
 private:
 

@@ -154,17 +154,15 @@ QLabel{color:white}</string>
              </layout>
             </item>
             <item>
-             <widget class="QListWidget" name="protocolsList">
-              <item>
+             <widget class="QTreeWidget" name="protocolsList">
+              <property name="headerHidden">
+               <bool>true</bool>
+              </property>
+              <column>
                <property name="text">
-                <string>Protocol 1</string>
+                <string notr="true">1</string>
                </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Protocol 2</string>
-               </property>
-              </item>
+              </column>
              </widget>
             </item>
            </layout>

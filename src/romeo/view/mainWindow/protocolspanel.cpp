@@ -7,6 +7,7 @@
 #include <QMimeData>
 using namespace romeo::view::mainWindow;
 using namespace romeo::model::datasets;
+using namespace romeo::model::protocols;
 ProtocolsPanel::ProtocolsPanel(QWidget *parent) :
     QWidget(parent), currentDataset(0),
     ui(new Ui::ProtocolsPanel)
@@ -43,9 +44,10 @@ void ProtocolsPanel::dropEvent(QDropEvent * event){
         event->accept();
         event->setDropAction(Qt::MoveAction);
         QString protocol = event->mimeData()->data("protocol");
-        QList<QListWidgetItem*> match = ui->protocolsList->findItems(protocol,Qt::MatchExactly);
+        QList<QTreeWidgetItem*> match = ui->protocolsList->findItems(protocol,Qt::MatchExactly);
         if(match.isEmpty()){
-            ui->protocolsList->addItem(protocol);
+            QString protocolName = protocol.split("  [Test").takeFirst();
+
         }
     } else
         event->ignore();
@@ -59,5 +61,47 @@ AbstractDataset *ProtocolsPanel::getCurrentDataset() const
 
 void ProtocolsPanel::setCurrentDataset(romeo::model::datasets::AbstractDataset *dataset)
 {
+    if(currentDataset != 0){
+        disconnect(currentDataset,SIGNAL(protocolsModified()),this,SLOT(fillProtocolsList()));
+    }
     currentDataset = dataset;
+
+    if(currentDataset != 0){
+        connect(currentDataset,SIGNAL(protocolsModified()),this,SLOT(fillProtocolsList()));
+    }
+    fillProtocolsList();
+}
+
+
+void ProtocolsPanel::fillProtocolsList(){
+    ui->protocolsList->clear();
+    if(currentDataset != 0){
+        ui->newButton->setEnabled(true);
+        ui->deleteButton->setEnabled(true);
+        setAcceptDrops(true);
+        QList<AbstractProtocol*> protocols = currentDataset->getAssociatedProtocolsList();
+        for(int i = 0; i< protocols.size(); i++){
+            AbstractProtocol* protocol = protocols[i];
+            QString protocolName = protocol->getName();
+            QStringList protocolResults = currentDataset->getProtocolResults(protocolName);
+            addProtocol(protocolName,protocolResults);
+        }
+
+    }
+    else{
+        setAcceptDrops(false);
+        ui->newButton->setEnabled(false);
+        ui->deleteButton->setEnabled(false);
+    }
+}
+
+
+void ProtocolsPanel::addProtocol(QString protocolName, QStringList results){
+    QTreeWidgetItem *protocolItem =new QTreeWidgetItem(ui->protocolsList);
+    protocolItem->setText(0,protocolName);
+    for(int i = 0; i < results.size(); i++){
+         QTreeWidgetItem *resultItem =new QTreeWidgetItem();
+         resultItem->setText(0,results[i]);
+         protocolItem->addChild(resultItem);
+    }
 }

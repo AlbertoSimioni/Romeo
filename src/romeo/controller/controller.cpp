@@ -132,6 +132,7 @@ void Controller::connectViewsSignals(){
     connect(addSubjectDialog,SIGNAL(createNewSubject(QString,QString,QString)),this,SLOT(addSubject(QString,QString,QString)));
     connect(addSubjectDialog,SIGNAL(nameChanged(QString)),this,SLOT(checkSubjectName(QString)));
     connect(subjectsPanel,SIGNAL(deleteSubject(QString)),this,SLOT(deleteSubject(QString)));
+    connect(mainWindow,SIGNAL(deleteProtocol(QString)),this,SLOT(deleteProtocol(QString)));
 }
 
 Controller* Controller::getInstance(QObject *parent){
@@ -268,4 +269,10 @@ void Controller::deleteCurrentDataset(){
 
 void Controller::deleteSubject(QString subjectName){
     mainWindow->getDatasetPanel()->getCurrentDataset()->deleteSubject(subjectName);
+}
+
+
+void Controller::deleteProtocol(QString protocolName){
+    datasetsList->deleteProtocolAssociations(protocolName);
+    protocolsList->removeProtocol(protocolName);
 }

@@ -71,9 +71,17 @@ signals:
      */
     void deleteCurrentDataset();
 
+    /*!
+     * \brief Segnale emesso alla pressione da parte dell'utente del tasto per l'eliminazione del protocollo correntemente selezionato
+     */
+    void deleteProtocol(QString protocolName);
 
+private slots:
 
-
+    /*!
+     * \brief Slot che recupera il nome del protocollo correntemente selezionato e in caso emette il segnale deleteProtocol
+     */
+    void onDeleteProtocolClicked();
 
 private:
     Ui::MainWindow *ui;

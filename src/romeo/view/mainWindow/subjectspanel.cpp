@@ -47,11 +47,6 @@ void SubjectsPanel::AddSubject(QString name, QString dataFileName, QString maskF
     itm->setCheckState(0,Qt::Checked);
 }
 
-/*void SubjectsPanel::AddChild(QTreeWidgetItem *parent,QString protocolName){
-     QTreeWidgetItem *itm =new QTreeWidgetItem();
-     itm->setText(0,protocolName);
-     parent->addChild(itm);
-}*/
 
 void SubjectsPanel::dragEnterEvent(QDragEnterEvent * event){
     event->accept();

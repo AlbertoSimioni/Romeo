@@ -78,11 +78,15 @@ public:
      * \brief Se è presente un protocollo con nome uguale a quello in input, lo rimuove dalla lista dei protocolli associati
      */
     void removeProtocolAssociation(QString protocolName);
+    /*!
+     * \brief Ritorna la lista di protocolli associati al dataset
+     */
+    QList<protocols::AbstractProtocol*> getAssociatedProtocolsList();
 
     virtual romeo::model::InputFormat getType() = 0;
 
     bool execute(protocols::AbstractProtocol* alg, QList<AbstractSubject*> selectedSubjects);
-    QList<Result *> getProtocolResults(const QString& protocol) const;
+    QStringList getProtocolResults(const QString& protocol) const;
     protocols::AbstractProtocol* getProtocol(const QString& protocolName)const;
 
     AbstractSubject* getSubject(const QString& subjectName) const;

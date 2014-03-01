@@ -28,6 +28,10 @@ public:
     romeo::model::protocols::ProtocolsList *getProtocolsList() const;
     void setProtocolsList(romeo::model::protocols::ProtocolsList *value);
 
+    /*!
+     * \brief Ritorna il nome del protocollo correntemente selezionato, se nessun protocollo è selezionato ritorna una stringa vuota
+     */
+    QString getSelectedProtocolName();
 
 private slots:
 

@@ -1,4 +1,5 @@
 #include "abstractdataset.h"
+#include <QStringList>
 using namespace romeo::model::datasets;
 using namespace romeo::model::protocols;
 AbstractDataset::AbstractDataset()
@@ -25,14 +26,15 @@ void AbstractDataset::setName(QString &value)
     name = value;
 }
 
-QList<Result*> AbstractDataset::getProtocolResults(const QString & protocol) const
+QStringList AbstractDataset::getProtocolResults(const QString & protocol) const
 {
-    QList<Result*> protocolResults;
+    QStringList protocolResults;
     AbstractProtocol* prot=this->getProtocol(protocol);
-    if( prot )
-    {
-        return protocols.value(prot);
+    QList<Result*> resultsAssociated = protocols.value(prot);
+    for(int i = 0; i < resultsAssociated.size(); i++){
+        protocolResults.append(resultsAssociated[i]->getExecutionDate().toString());
     }
+
     return protocolResults;
 }
 
@@ -88,4 +90,9 @@ void AbstractDataset::removeProtocolAssociation(QString protocolName){
 
     }
     if(matchProtocolName) emit protocolsModified();
+}
+
+
+QList<AbstractProtocol*> AbstractDataset::getAssociatedProtocolsList(){
+    return protocols.keys();
 }
