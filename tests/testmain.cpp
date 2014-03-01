@@ -9,6 +9,9 @@
 //#include "testalgorithmslistdialog.h" da PENSARE
 //#include "testaddsubjectdialog.h" da PENSARE
 
+#include "testabstractalgorithm.h"
+#include "testalgorithmslist.h"
+
 int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
     QApplication a(argc, argv);
 
@@ -35,6 +38,12 @@ int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
 
     //TestAddSubjectDialog tasd;
     //QTest::qExec(&tasd);
+
+    TestAbstractAlgorithm taa;
+    QTest::qExec(&taa);
+
+    TestAlgorithmsList taa2;
+    QTest::qExec(&taa2);
 
     return 0;
 }

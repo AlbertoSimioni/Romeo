@@ -5,6 +5,8 @@ SET(romeoTest_SOURCES
 testparametervalueform.cpp
 testnewfeaturedialog.cpp
 testnewdatasetdialog.cpp
+testabstractalgorithm.cpp
+testalgorithmslist.cpp
 testmain.cpp
  ../src/romeo/view/dialogs/addsubjectdialog.cpp
  ../src/romeo/view/dialogs/executedialog.cpp
@@ -63,11 +65,15 @@ testmain.cpp
   ../src/romeo/model/inputformats.h
   ../src/romeo/view/dialogs/parametervalueform.cpp
   ../src/romeo/view/dialogs/newalgorithmparameterform.cpp
+  ../src/romeo/view/mainWindow/listwidget.cpp
+  ../src/romeo/view/mainWindow/listview.cpp
 )
 SET(romeoTest_HEADERS
  testparametervalueform.h
  testnewfeaturedialog.h
  testnewdatasetdialog.h
+ testabstractalgorithm.h
+ testalgorithmslist.h
 )
 
 #SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -Wall -W -Wshadow -Wunused-variable -Wunused-parameter -Wunused-function -Wunused -Wno-system-headers -Wno-deprecated -Woverloaded-virtual -Wwrite-strings -fprofile-arcs -ftest-coverage")
