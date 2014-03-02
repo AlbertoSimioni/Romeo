@@ -87,9 +87,9 @@ AbstractDataset* DatasetsList::getNextDataset(AbstractDataset* dataset){
     AbstractDataset* nextDataset = 0;
     bool stop = false;
     for(int i = 0; i < datasets.size() && !stop; i++){
-        if(datasets.at(i) != dataset){
-            nextDataset = datasets.at(i);
-            bool stop = true;
+        if(datasets[i] != dataset){
+            nextDataset = datasets[i];
+            stop = true;
         }
     }
     return nextDataset;

@@ -3,7 +3,7 @@
 using namespace romeo::view::mainWindow;
 using namespace romeo::model::datasets;
 DatasetPanel::DatasetPanel(QWidget *parent) :
-    QWidget(parent),
+    QWidget(parent),currentDataset(0),
     ui(new Ui::DatasetPanel)
 {
     ui->setupUi(this);

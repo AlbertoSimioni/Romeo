@@ -70,10 +70,14 @@ Controller::Controller(QObject *parent): QObject(parent)
 
 
 
-
-    changeCurrentDataset(datasetsList->getNextDataset(0)->getName());
     connectViewsSignals();
     mainWindow->show();
+    AbstractDataset* nextDataset = datasetsList->getNextDataset(0);
+    if(nextDataset)
+        changeCurrentDataset(nextDataset->getName());
+    else{
+        mainWindow->getDatasetPanel()->setCurrentDataset(0);
+    }
 }
 
 Controller::~Controller(){
@@ -224,9 +228,11 @@ void Controller::addDataset(QString name, romeo::model::InputFormat type){
 
 void Controller::changeCurrentDataset(QString name){
 
+
     AbstractDataset* dataset = datasetsList->getDataset(name);
 
     InputFormat datasetType = dataset->getType();
+
     protocolsExplorer->setCurrentProtocolsType(dataset->getProtocolsType());
     associateProtocolDialog->setCurrentProtocolsType(dataset->getProtocolsType());
     mainWindow->getFileSystemExplorer()->setCurrentInputFormat(datasetType);

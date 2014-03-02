@@ -4,7 +4,7 @@
 using namespace romeo::view::dialogs;
 using namespace romeo::model::protocols;
 AssociateProtocolDialog::AssociateProtocolDialog(ProtocolsList *pl, QWidget *parent) :
-    QDialog(parent), protocolsList(pl),
+    QDialog(parent), protocolsList(pl), currentProtocolsType(STATIC),
     ui(new Ui::AssociateProtocolDialog)
 {
     ui->setupUi(this);
@@ -32,7 +32,6 @@ void AssociateProtocolDialog::setCurrentProtocolsType(const ProtocolType &value)
 
 void AssociateProtocolDialog::fillProtocolsList(){
     ui->protocolsList->clear();
-    qDebug() << "ADS";
     QList<AbstractProtocol*> protocols = protocolsList->getProtocolsList();
 
     for(int i = 0; i< protocols.size(); i++){

@@ -35,15 +35,11 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
     }
     createLists();
 
-    connect(protocolsList, SIGNAL(protocolsListModified()), writer, SLOT(saveProtocolsList()));
-    connect(datasetsList, SIGNAL(datasetsListModified()), writer, SLOT(saveDatasetsList()));
-    connect(algorithmsList, SIGNAL(algorithmsListModified()), writer, SLOT(saveAlgorithmsList()));
-    connect(featuresList, SIGNAL(featuresListModified()), writer, SLOT(saveFeaturesList()));
-    connect(datasetsList, SIGNAL(datasetModified(QString&)), writer, SLOT(saveDataset(QString&)));
+
 
 
     ////////////PROVA TEST
-         QList<AbstractAlgorithm::AlgorithmParameter> param;
+        /* QList<AbstractAlgorithm::AlgorithmParameter> param;
         AbstractAlgorithm::AlgorithmParameter param1 (QString("param1"), AbstractAlgorithm::BOOL, QString("default"));
         AbstractAlgorithm::AlgorithmParameter param2 (QString("param2"), AbstractAlgorithm::CHAR, QString("default"));
         param.append(param1);
@@ -76,7 +72,7 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
         features.append(feat4);
         protocolsList->addProtocol("PROVA","descrizione",alg,features,false, STATIC);
 
-
+    */
         ///////////////PROVA TEST
 
 
@@ -86,9 +82,8 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
     loader->loadProtocols(dataHome.absolutePath().append("/protocols.xml"), protocolsList);
     loader->loadDatasetsNames(dataHome.absolutePath().append("/datasets.xml"));
 
-
     ///////////prova test
-
+    /*
     datasetsList->addDataset("PROVO",TYPE2D);
 
     AbstractDataset* dataset = datasetsList->getDataset("PROVO");
@@ -97,9 +92,14 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
         dataset->associateProtocol(protocol);;
 
     dataset->addResult(protocol,new Result(QDate(1982,10,5),"/home/alberto/Scrivania/Dati/"));
-    }
+    }*/
     ////////// provatest
 
+    connect(protocolsList, SIGNAL(protocolsListModified()), writer, SLOT(saveProtocolsList()));
+    connect(datasetsList, SIGNAL(datasetsListModified()), writer, SLOT(saveDatasetsList()));
+    connect(algorithmsList, SIGNAL(algorithmsListModified()), writer, SLOT(saveAlgorithmsList()));
+    connect(featuresList, SIGNAL(featuresListModified()), writer, SLOT(saveFeaturesList()));
+    connect(datasetsList, SIGNAL(datasetModified(QString&)), writer, SLOT(saveDataset(QString&)));
 }
 
 

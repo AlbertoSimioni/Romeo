@@ -144,7 +144,6 @@ void SubjectsPanel::onDeleteClicked(){
 void SubjectsPanel::removeSubjectFromList(QString subjectName){
     QList<QTreeWidgetItem*> subject = ui->subjectsList->findItems(subjectName,Qt::MatchExactly,0);
     if(!subject.isEmpty()){
-        qDebug() << "PROBA";
        delete subject[0];
     }
 }
