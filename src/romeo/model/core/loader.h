@@ -83,7 +83,13 @@ private:
      * \brief Funzione statica di Loader che carica le informazioni presenti in un nodo xml e aggiunge l'algoritmo corrispondente alla lista degli algoritmi.
      */
     static bool parseAlgorithm(protocols::algorithms::AlgorithmsList* algorithmsList, const QDomNode &node);
+    /*!
+     * \brief Metodo di classe che legge le informazioni di un protocollo contenuto in un nodo xml, inserendo il protocollo ottenuto nella lista dei protocolli ricevuta in input.
+     */
     static bool parseProtocol(protocols::ProtocolsList* protocolsList, const QDomNode &node);
+    /*!
+     * \brief  Metodo che estrae da un nodo xml una lista di AlgorithmParameter.
+     */
     static bool parseParameter(QList<protocols::algorithms::AbstractAlgorithm::AlgorithmParameter>& paramList, const QDomNode& node= QDomNode());
 };
 }}}

@@ -34,7 +34,13 @@ public:
      * \brief Funzione virtuale che ritorna il tipo del protocollo corrente, per la classe DynamicProtocol ritornerà ProtocolType::DYNAMIC. La funzione è override di quella definita nella superclasse e può essere chiamata avendo solo un riferimento a AbstractProtocol.
      */
     virtual ProtocolType getType();
+    /*!
+     * \brief Ritorna la dimensione della finestra su cui vengono eseguite le operazioni.
+     */
     virtual int getWindowSize() const;
+    /*!
+     * \brief Ritorna un intero che indica la dimensione della GLCM(Gray Level Concurrency Matrix).
+     */
     virtual int getDistanceToGlcm() const;
 };
 }}}

@@ -43,10 +43,19 @@ class AbstractFeature
      * \brief Descrizione della feature.
      */
     QString description;
+    /*!
+     * \brief Indica il tipo della feature tra quelli disponibili in FeatureType.
+     */
     FeatureType type;
 public:
-    AbstractFeature(QString n,QString dylp,QString dyfn,QString desc = QString());
-
+    /*!
+     * \brief Costruisce una nuova feature con i parametri indicati.
+     * \param featureName Nome della feature da costruire.
+     * \param dylp Percorso al file contenente la libreria dinamica della feature.
+     * \param dyfn Nome della funzione da utilizzare per eseguire la feature.
+     * \param description Descrizione della feature.
+     */
+    AbstractFeature(QString featureName,QString dylp,QString dyfn,QString description = QString());
     /*!
      * \brief Restituisce il percorso alla libreria dinamica contente il codice del feature extractor.
      */

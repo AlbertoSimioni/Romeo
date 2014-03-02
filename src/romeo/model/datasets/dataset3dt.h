@@ -24,9 +24,25 @@ namespace datasets{
 class Dataset3DT : public AbstractDataset
 {
 public:
+    /*!
+     * \brief Costruisce un dataset per immagini 3DT.
+     * \param name Nome dato al dataset e con cui verrà salvato.
+     */
     Dataset3DT(QString &name);
+    /*!
+     * \brief Override del metodo makeSubject di AbstractDataset che si occupa di costruire un subject di tipo Subject3DT, compatibile con i metodi di Dataset3DT. Il subject viene automaticamente aggiunto dalla superclasse AbstractDataset alla lista dei subject.
+     * \param name Nome del subject da creare.
+     * \param fileSubject Percorso al file immagine selezionata per il subject.
+     * \param mask Percorso al file contenente la maschera compatibile con il subject indicato.
+     */
     virtual AbstractSubject* makeSubject(QString& name, QString& fileSubject, QString& mask);
+    /*!
+     * \brief Ritorna il tipo dinamico del dataset, quindi Dataset3DT.
+     */
     virtual romeo::model::InputFormat getType();
+    /*!
+     * \brief Ritorna il tipo dei protocolli associati al dataset, che per i Dataset3DT è "DYNAMIC".
+     */
     virtual romeo::model::protocols::ProtocolType getProtocolsType();
 };
 }}}

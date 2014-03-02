@@ -21,7 +21,6 @@ namespace datasets{
  * Descrizione dettagliata
  */
 
-
 class Subject2D : public AbstractSubject
 {
 public:

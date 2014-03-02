@@ -32,13 +32,26 @@ public:
      * \brief Funzione virtuale che ritorna il tipo del protocollo corrente, per la classe StaticProtocol ritornerà ProtocolType::STATIC. La funzione è override di quella definita nella superclasse e può essere chiamata avendo solo un riferimento a AbstractProtocol.
      */
     virtual ProtocolType getType();
+    /*!
+     * \brief Ritorna la dimensione della finestra su cui vengono eseguite le operazioni.
+     */
     virtual int getWindowSize() const;
+    /*!
+     * \brief Ritorna un intero che indica la dimensione della GLCM(Gray Level Concurrency Matrix).
+     */
     virtual int getDistanceToGlcm() const;
+    /*!
+     * \brief Imposta ia valore della matrice GLCM a value.
+     */
     void setDistanceToGlcm(int value);
+    /*!
+     * \brief Imposta la dimensione della finestra su cui eseguiere le operazioni a value.
+     */
     void setWindowSize(int value);
 private:
-    int distanceToGLCM;
     int windowSize;
+    int distanceToGLCM;
+
 };
 }}}
 #endif // STATICPROTOCOL_H

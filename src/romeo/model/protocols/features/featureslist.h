@@ -34,6 +34,9 @@ public:
      *  si preoccupa anche di costruire l'istanza.
      */
     static FeaturesList* getInstance(QObject *parent=0);
+    /*!
+      * \brief Distruttore della lista delle feature che si preoccupa di eliminare in modo opportuno i riferimenti alle feature senza lasciare dati inutilizzati in memoria.
+      */
     ~FeaturesList();
     /*!
      * \brief Inserisce nella lista dei protocolli un nuovo protocollo definito dai parametri passati
@@ -53,6 +56,9 @@ public:
      * \brief Ritorna l'intera lista di features del modello.
      */
     QList<AbstractFeature*> getFeaturesList();
+    /*!
+     * \brief Ritorna un puntatore alla feature con il nome passato come parametro.
+     */
     AbstractFeature* getFeature(QString feature) const;
 
 signals:
@@ -69,7 +75,6 @@ private:
      * \brief Il vettore contiene la lista delle feature presenti nel programma
      */
     QList<AbstractFeature*> features;
-
 
     /*!
      * \brief Campo dati statico che contiene il riferimento all'unica istanza della lista delle feature

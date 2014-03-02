@@ -10,11 +10,9 @@
 
 #include <QHash>
 #include <QString>
-
 #include <src/romeo/model/protocols/abstractprotocol.h>
 #include "src/romeo/model/inputformats.h"
 #include <src/romeo/model/protocols/abstractprotocol.h>
-
 #include <src/romeo/model/protocols/abstractprotocol.h>
 
 
@@ -40,6 +38,9 @@ public:
      * \param name Nome con cui costruire in nuovo dataset
      */
     AbstractDataset(QString& name);
+    /*!
+      * \brief Distruttore di AbstractDataset, si preoccupa di non lasciare memoria garbage nel sistema e quindi di fare una distruzione profonda dei puntatori che ha come campi dato.
+      */
     ~AbstractDataset();
     /*!
      * \brief Metodo per la creazione di un nuovo subject che prende in input le informazioni necessarie alla creazione e richiama il metodo virtuale makeSubject() che viene ridefinito dalle sottoclassi e permette di creare i vari tipi di subjects.
@@ -91,24 +92,67 @@ public:
      * \brief Ritorna il tipo di protocolli che è possibile associare al dataset
      */
     virtual romeo::model::protocols::ProtocolType getProtocolsType() = 0;
-
+    /*!
+     * \brief Aggiunge un risultato al protocollo identificato da protocol per il dataset in uso.
+     * \param protocol Il protocollo per il quale è presente il risultato da aggiungere.
+     * \param result Il risultato che deve essere aggiunto.
+     */
     void addResult(romeo::model::protocols::AbstractProtocol* protocol,Result* result);
 
     bool execute(protocols::AbstractProtocol* alg, QList<AbstractSubject*> selectedSubjects);
+    /*!
+     * \brief Ritorna una lista che rappresenta i percorsi ai risultati per il protocollo di nome protocol
+     */
     QStringList getProtocolResults(const QString& protocol) const;
 
-
+    /*!
+     * \brief getResultPath
+     * \param protocol
+     * \param resultDate
+     * \return
+     */
     QString getResultPath(QString protocol,QString resultDate);
-
+    /*!
+     * \brief Ritorna un puntatore al protocollo di nome protocolName, prendendolo dalla lista dei protocolli assiociati al dataset. Se il protocollo non è presente viene ritornato un puntatore nullo.
+     */
     protocols::AbstractProtocol* getProtocol(const QString& protocolName)const;
+    /*!
+     * \brief Ritorna i protocolli associati al dataset sotto forma di lista cotenente i nomi dei protocolli.
+     */
     QList<protocols::AbstractProtocol*> getProtocolList() const;
+    /*!
+     * \brief Ritorna un puntatore al subject presente nel dataset con nome subjectName.
+     */
     AbstractSubject* getSubject(const QString& subjectName) const;
+    /*!
+     * \brief Aggiunge al protocollo protocolName un percorso riguardante un risultato ottenuto eseguento tale protocollo.
+     */
     void addResult(QString protocolName, QString resultPath);
+    /*!
+     * \brief Elimina il subject di nome subjectName contenuto del dataset, rimuovendolo inoltre dalla lista dei subject.
+     */
     void deleteSubject(const QString& subjectName);
+
 signals:
+    /*!
+     * \brief Segnale che indica l'inserimento di un nuovo subject nel dataset corrente.
+     * \param subjectName Il nome del subject inserito.
+     * \param dataPath Il percorso al file di immagine del subject.
+     * \param maskPath Il percorso al file contenente la maschera del subject.
+     */
     void addedSubject(QString subjectName, QString dataPath, QString maskPath);
+    /*!
+     * \brief Segnale che indica la rimozione di un subject.
+     * \param subjectName Nome del subject rimosso dal dasatet attuale.
+     */
     void removedSubject(QString subjectName);
+    /*!
+     * \brief Segnale che viene inviato quando viene fatta una modifica alla lista dei protocolli associati al dataset.
+     */
     void protocolsModified();
+    /*!
+     * \brief Segnale che indica la presenza di nuovi risultati per il dataset corrente.
+     */
     void newResults();
 
 private:
@@ -120,7 +164,6 @@ private:
      * \brief Una hashmap che contiene i subject collegati al dataset e i risultati dei protocolli a loro legati.
      */
     QHash<protocols::AbstractProtocol*, QList<Result*> >  protocols;
-
     /*!
      * \brief Lista dei protocolli che si possono invocare dal dataset.
      */

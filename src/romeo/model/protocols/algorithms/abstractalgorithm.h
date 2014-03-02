@@ -24,6 +24,9 @@ namespace algorithms{
 class AbstractAlgorithm
 {
 public:
+    /*!
+     * \brief Tipo enumerazione che definisce i vari tipi che possono avere i parametri definiti dall'utente.
+     */
     enum ParameterType{INT,CHAR,DOUBLE,BOOL};
     class AlgorithmParameter
     {
@@ -36,9 +39,7 @@ public:
         /*!
          * \brief Ritorna il tipo del parametro
          */
-
         ParameterType getType() const;
-
         /*!
          * \brief Ritorna il valore di default del parametro
          */
@@ -64,16 +65,8 @@ public:
         QString defaultParameter;
     };
 
-
-
-
     AbstractAlgorithm();
     explicit AbstractAlgorithm(QString name,QList<AlgorithmParameter>, QString description=QString());
-    /*!
-     * \brief Tipo enumerazione che definisce i vari tipi che possono avere i parametri definiti dall'utente
-     */
-
-
     /*!
      * \brief The AlgorithmParameter classe che rappresenta un parametro di un algoritmo di clustering definibile
      * dall'utente

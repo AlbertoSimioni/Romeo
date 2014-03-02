@@ -17,8 +17,10 @@ namespace romeo {
 namespace model {
 namespace protocols{
 
+/*!
+ * \brief Enumerazione che rappresenta i tipi di protocollo disponibili: STATIC e DYNAMIC.
+ */
 enum ProtocolType{STATIC,DYNAMIC};
-
 
 /**
  * \brief a classe astratta AbstractProtocol rappresenta un protocollo eseguibile dall'utente
@@ -29,8 +31,6 @@ enum ProtocolType{STATIC,DYNAMIC};
 class AbstractProtocol
 {
 public:
-
-
     /*!
      * \brief Costruisce un nuovo protocollo con l''algoritmo e le features indicate
      * \param nomeP Nome del protocollo da costruire
@@ -61,19 +61,46 @@ public:
      * \return Ritorna il percorso dove vengono salvati i risultati dell'analisi
      */
     virtual void execute(datasets::AbstractSubject* subject) = 0;
-
+    /*!
+     * \brief Metodo virtuale puro che ritorna il tipo del protocollo, determinato dinamicamente.
+     */
     virtual ProtocolType getType() = 0;
     //virtual void featureExtract() = 0;
+    /*!
+     * \brief Ritorna la dimensione della finestra su cui vengono eseguite le operazioni.
+     */
     virtual int getWindowSize() const = 0;
+    /*!
+     * \brief Ritorna un intero che indica la dimensione della GLCM(Gray Level Concurrency Matrix).
+     */
     virtual int getDistanceToGlcm() const = 0;
+    /*!
+     * \brief Ritorna il nome del protocollo.
+     */
     QString getName() const;
-
+    /*!
+     * \brief Ritorna la descrizione del protocollo.
+     */
     QString getDescription() const;
-
+    /*!
+     * \brief Ritorna un valore booleano: vero se il protocollo è di test, falso altrimenti.
+     */
     bool getTest() const;
+    /*!
+     * \brief Ritorna un puntatore all'algoritmo di clustering del protocollo. Il puntatore è nullo se nessun algoritmo è stato ancora caricato.
+     */
     algorithms::AbstractAlgorithm* getAlgorithm() const;
+    /*!
+     * \brief Ritorna una lista contenente i puntatori ai feature extractor selezionati per il protocollo.
+     */
     QList<protocols::features::AbstractFeature*> getFeatures() const;
+    /*!
+     * \brief Ritorna una lista contenente i nomi delle feature selezionate per il protocollo.
+     */
     QStringList getFeaturesName() const;
+    /*!
+     * \brief Ritorna il nome dell'algoritmo caricato nel protocollo
+     */
     QString getAlgorithmName() const;
 
 
