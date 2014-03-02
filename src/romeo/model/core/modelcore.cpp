@@ -42,25 +42,6 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
     connect(datasetsList, SIGNAL(datasetModified(QString&)), writer, SLOT(saveDataset(QString&)));
 
 
-
-}
-
-
-//test
-void ModelCore::save(){
-    writer->saveAlgorithmsList();
-    writer->saveFeaturesList();
-    writer->saveProtocolsList();
-
-}
-//test
-
-void ModelCore::createLists()
-{
-    datasetsList=DatasetsList::getInstance(this);
-    protocolsList=ProtocolsList::getInstance(this);
-    algorithmsList=algorithms::AlgorithmsList::getInstance(this);
-    featuresList=features::FeaturesList::getInstance(this);
     ////////////PROVA TEST
          QList<AbstractAlgorithm::AlgorithmParameter> param;
         AbstractAlgorithm::AlgorithmParameter param1 (QString("param1"), AbstractAlgorithm::BOOL, QString("default"));
@@ -112,10 +93,32 @@ void ModelCore::createLists()
 
     AbstractDataset* dataset = datasetsList->getDataset("PROVO");
     AbstractProtocol * protocol = protocolsList->getProtocol("PROVA");
-    dataset->associateProtocol(protocol);;
+    if(dataset){
+        dataset->associateProtocol(protocol);;
 
     dataset->addResult(protocol,new Result(QDate(1982,10,5),"/home/alberto/Scrivania/Dati/"));
+    }
     ////////// provatest
+
+}
+
+
+//test
+void ModelCore::save(){
+    writer->saveAlgorithmsList();
+    writer->saveFeaturesList();
+    writer->saveProtocolsList();
+
+}
+//test
+
+void ModelCore::createLists()
+{
+    datasetsList=DatasetsList::getInstance(this);
+    protocolsList=ProtocolsList::getInstance(this);
+    algorithmsList=algorithms::AlgorithmsList::getInstance(this);
+    featuresList=features::FeaturesList::getInstance(this);
+
 
 
 }

@@ -37,7 +37,7 @@ bool Writer::saveDatasetsList()
     }
     QXmlStreamWriter writer;
     writer.setDevice(&file);
-
+    writer.setAutoFormatting(true);
     writer.writeStartDocument();
     writer.writeStartElement("datasets");
     QHash<QString, QString> datasetList=datasets::DatasetsList::getInstance()->getDatasetsFiles();
