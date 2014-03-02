@@ -9,6 +9,11 @@ testabstractalgorithm.cpp
 testalgorithmslist.cpp
 testsettings.cpp
 testdynamicprotocol.cpp
+teststaticprotocol.cpp
+testprotocolslist.cpp
+testdynamicfeature.cpp
+testfirstorderfeature.cpp
+testsecondorderfeature.cpp
 testmain.cpp
  ../src/romeo/view/dialogs/addsubjectdialog.cpp
  ../src/romeo/view/dialogs/executedialog.cpp
@@ -69,7 +74,7 @@ testmain.cpp
   ../src/romeo/view/dialogs/newalgorithmparameterform.cpp
   ../src/romeo/view/mainWindow/listwidget.cpp
   ../src/romeo/view/mainWindow/listview.cpp
-  ..src/romeo/view/dialogs/associateprotocoldialog.cpp
+  ../src/romeo/view/dialogs/associateprotocoldialog.cpp
 )
 SET(romeoTest_HEADERS
  testparametervalueform.h
@@ -79,6 +84,11 @@ SET(romeoTest_HEADERS
  testalgorithmslist.h
  testsettings.h
  testdynamicprotocol.h
+ teststaticprotocol.h
+ testprotocolslist.h
+ testdynamicfeature.h
+ testfirstorderfeature.h
+ testsecondorderfeature.h
 )
 
 #SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -Wall -W -Wshadow -Wunused-variable -Wunused-parameter -Wunused-function -Wunused -Wno-system-headers -Wno-deprecated -Woverloaded-virtual -Wwrite-strings -fprofile-arcs -ftest-coverage")

@@ -12,9 +12,9 @@ void TestNewDatasetDialog::OkButtonClicked(){
     //ui->ErrorLabel->setHidden(true);
     //ui->okCancel->button(QDialogButtonBox::Ok)->setEnabled(false);
     qRegisterMetaType<romeo::model::InputFormat>("romeo::model::InputFormat");
-    romeo::view::dialogs::NewDatasetDialog ndd(0);
-    QSignalSpy spy(&ndd, SIGNAL(createDataset(QString,romeo::model::InputFormat)));
-    ndd.okButtonClicked();
+    romeo::view::dialogs::NewDatasetDialog *ndd = new romeo::view::dialogs::NewDatasetDialog(0);
+    QSignalSpy spy(ndd, SIGNAL(createDataset(QString,romeo::model::InputFormat)));
+    ndd->okButtonClicked();
     QCOMPARE(spy.count(),1);
 
     QList<QVariant> arguments = spy.takeFirst(); // take the first signal

@@ -1,12 +1,11 @@
-#include "testdynamicprotocol.h"
+#include "teststaticprotocol.h"
 
-TestDynamicProtocol::TestDynamicProtocol(QObject *parent) :
+TestStaticProtocol::TestStaticProtocol(QObject *parent) :
     QObject(parent){
 }
 
 
-
-void TestDynamicProtocol::dynamicProtocol(){
+void TestStaticProtocol::staticProtocol(){
     QString algName = "algName";
     QString algDescr = "algDescription";
     QList<algorithms::AbstractAlgorithm::AlgorithmParameter> paramList;
@@ -18,15 +17,18 @@ void TestDynamicProtocol::dynamicProtocol(){
     QString protDescr = "protDescription";
     QList<romeo::model::protocols::features::AbstractFeature*> feat;
     bool testProtocol = false;
+    int protWindow = 0;
+    int protDistance = 0;
 
-    DynamicProtocol *dp = new DynamicProtocol(protName,protDescr,myAlg,feat,testProtocol);
+    StaticProtocol *dp = new StaticProtocol(protName,protDescr,myAlg,feat,testProtocol,protWindow,protDistance);
     QCOMPARE(protName,dp->getName());
     QCOMPARE(protDescr,dp->getDescription());
     QCOMPARE(algName,dp->getAlgorithmName());
     QCOMPARE(testProtocol,dp->getTest());
-    QCOMPARE(DYNAMIC,dp->getType());
+    QCOMPARE(STATIC,dp->getType());
+    QCOMPARE(protWindow,dp->getWindowSize());
+    QCOMPARE(protDistance,dp->getDistanceToGlcm());
 }
 
 
-//QTEST_MAIN(TestDynamicProtocol)
-
+//QTEST_MAIN(TestStaticProtocol)

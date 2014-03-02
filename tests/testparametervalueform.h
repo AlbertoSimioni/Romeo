@@ -5,10 +5,7 @@
 #define private public
 #include <../src/romeo/view/dialogs/parametervalueform.h>
 
-using namespace romeo::view;
-using namespace romeo::view::dialogs;
 using namespace romeo::model::protocols::algorithms;
-using namespace romeo::model::protocols;
 
 #ifndef PARAM_H
 #define PARAM_H

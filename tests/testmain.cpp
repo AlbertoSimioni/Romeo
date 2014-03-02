@@ -13,6 +13,11 @@
 #include "testalgorithmslist.h"
 #include "testsettings.h"
 #include "testdynamicprotocol.h"
+#include "teststaticprotocol.h"
+#include "testprotocolslist.h"
+#include "testdynamicfeature.h"
+#include "testfirstorderfeature.h"
+#include "testsecondorderfeature.h"
 
 int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
     QApplication a(argc, argv);
@@ -45,13 +50,28 @@ int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
     QTest::qExec(&taa);
 
     TestAlgorithmsList taa2;
-    QTest::qExec(&taa2);
+    QTest::qExec(&taa2); //MEMORY LEAK
 
     TestSettings ts;
     QTest::qExec(&ts);
 
-    TestDynamicProtocol tdd;
-    QTest::qExec(&tdd);
+    TestDynamicProtocol tdp;
+    QTest::qExec(&tdp);
+
+    TestStaticProtocol tsp;
+    QTest::qExec(&tsp);
+
+    TestProtocolsList tpl;
+    QTest::qExec(&tpl);
+
+    TestDynamicFeature tdf;
+    QTest::qExec(&tdf);
+
+    TestFirstOrderFeature tdof;
+    QTest::qExec(&tdof);
+
+    TestSecondOrderFeature tsof;
+    QTest::qExec(&tsof);
 
     return 0;
 }

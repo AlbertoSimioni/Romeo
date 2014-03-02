@@ -21,9 +21,9 @@ void TestAlgorithmsList::getAlgorithm()
     QList<AbstractAlgorithm::AlgorithmParameter> paramList;
     QString algDylp = "dylp";
     QString algDyfn = "dyfn";
-    UserDefinedAlgorithm myAlg(paramList,algName,algDescr,algDylp,algDyfn);
+    UserDefinedAlgorithm *myAlg = new UserDefinedAlgorithm(paramList,algName,algDescr,algDylp,algDyfn);
 
-    list.addAlgorithm(&myAlg);
+    list.addAlgorithm(myAlg);
     AbstractAlgorithm *expectedAlg = list.getAlgorithmsList().last(); //estraggo l'algoritmo appena aggiunto
 
     AbstractAlgorithm *extractedAlg = list.getAlgorithm(algName); //estraggo l'algoritmo con nome algName
@@ -64,11 +64,10 @@ void TestAlgorithmsList::addAlgorithmByCopy(){
         QList<AbstractAlgorithm::AlgorithmParameter> paramList;
         QString algDylp = "dylp";
         QString algDyfn = "dyfn";
-        UserDefinedAlgorithm myAlg(paramList,algName,algDescr,algDylp,algDyfn);
-
+        UserDefinedAlgorithm *myAlg = new UserDefinedAlgorithm(paramList,algName,algDescr,algDylp,algDyfn);
         QSignalSpy spy(&list, SIGNAL(algorithmsListModified())); //controlla i segnali emessi
 
-        list.addAlgorithm(&myAlg); //aggiungo l'algoritmo alla lista tramite copia
+        list.addAlgorithm(myAlg); //aggiungo l'algoritmo alla lista tramite copia
         AbstractAlgorithm *extractedAlg = list.getAlgorithmsList().last(); //estraggo l'algoritmo appena aggiunto e controllo i suoi attributi
 
         QCOMPARE(algName,extractedAlg->getName());

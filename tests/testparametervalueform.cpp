@@ -20,23 +20,23 @@ void TestParameterValueForm::ParameterValueForm(){
 
     AbstractAlgorithm::AlgorithmParameter param(QString("param"), type, QString("default"));
 
-    romeo::view::dialogs::ParameterValueForm pvf(param);
+    romeo::view::dialogs::ParameterValueForm *pvf = new romeo::view::dialogs::ParameterValueForm(param);
 
-    QString expectedName=param.getName();
+    QString expectedName = param.getName();
 
-    QCOMPARE(expectedName,pvf.getName());
+    QCOMPARE(expectedName,pvf->getName());
 
-    QCOMPARE(pvf.isValid(),expectedValidity);
+    QCOMPARE(pvf->isValid(),expectedValidity);
 
     AbstractAlgorithm::ParameterType expectedType = param.getType();
 
-    QCOMPARE(expectedType,pvf.getType());
+    QCOMPARE(expectedType,pvf->getType());
 
-    QCOMPARE(QTest::toString(param),QTest::toString(pvf.getParameter()));
+    QCOMPARE(QTest::toString(param),QTest::toString(pvf->getParameter()));
 
     QString expectedValue=param.getDefaultParameter();
 
-    QCOMPARE(expectedValue,pvf.getValue());
+    QCOMPARE(expectedValue,pvf->getValue());
     }
 
 
@@ -77,12 +77,12 @@ void TestParameterValueForm::CheckValidity()
 
     AbstractAlgorithm::AlgorithmParameter param (QString("param"),type, QString("default"));
 
-    romeo::view::dialogs::ParameterValueForm pvf(param);
-    QSignalSpy spy(&pvf, SIGNAL(valueEntered(bool))); //controlla i segnali emessi
-    pvf.checkValidity(inputvalue);
+    romeo::view::dialogs::ParameterValueForm *pvf = new romeo::view::dialogs::ParameterValueForm(param);
+    QSignalSpy spy(pvf, SIGNAL(valueEntered(bool))); //controlla i segnali emessi
+    pvf->checkValidity(inputvalue);
     QVERIFY2(spy.takeFirst().at(0).type() == QVariant::Bool, "Il segnale emesso da CheckValidity() non ha un bool come parametro"); //controlla che il segnale emesso abbia un bool come parametro
     //QCOMPARE(spy.count(), 1); ERRORE?
-    QCOMPARE(pvf.isValid(),expectedValidity);
+    QCOMPARE(pvf->isValid(),expectedValidity);
 }
 
 
