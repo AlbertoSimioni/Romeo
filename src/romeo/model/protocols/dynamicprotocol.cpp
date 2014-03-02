@@ -16,3 +16,13 @@ void DynamicProtocol::execute(romeo::model::datasets::AbstractSubject *subject)
 ProtocolType DynamicProtocol::getType(){
     return DYNAMIC;
 }
+
+int DynamicProtocol::getWindowSize() const
+{
+    return 0;
+}
+
+int DynamicProtocol::getDistanceToGlcm() const
+{
+    return 0;
+}

@@ -64,6 +64,8 @@ public:
 
     virtual ProtocolType getType() = 0;
     //virtual void featureExtract() = 0;
+    virtual int getWindowSize() const = 0;
+    virtual int getDistanceToGlcm() const = 0;
     QString getName() const;
 
     QString getDescription() const;
@@ -71,8 +73,9 @@ public:
     bool getTest() const;
     algorithms::AbstractAlgorithm* getAlgorithm() const;
     QList<protocols::features::AbstractFeature*> getFeatures() const;
-    QList<QString> getFeaturesName() const;
+    QStringList getFeaturesName() const;
     QString getAlgorithmName() const;
+
 
 private:
     /*!

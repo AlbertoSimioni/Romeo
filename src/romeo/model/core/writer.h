@@ -49,6 +49,7 @@ private:
     static Writer* instance;
     static void writeDatasetSubjects(const datasets::AbstractDataset* dataset, QXmlStreamWriter& writer);
     static void writeDatasetProtocols(const datasets::AbstractDataset* dataset, QXmlStreamWriter& writer);
+    static void writeProtocolFeatures(QStringList featureNames, QXmlStreamWriter& writer);
 
 public slots:
 

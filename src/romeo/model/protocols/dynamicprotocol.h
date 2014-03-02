@@ -30,9 +30,12 @@ public:
      * \param subject Il soggetto su cui eseguire il protocollo
      */
     virtual void execute(datasets::AbstractSubject *subject);
-
-
+    /*!
+     * \brief Funzione virtuale che ritorna il tipo del protocollo corrente, per la classe DynamicProtocol ritornerà ProtocolType::DYNAMIC. La funzione è override di quella definita nella superclasse e può essere chiamata avendo solo un riferimento a AbstractProtocol.
+     */
     virtual ProtocolType getType();
+    virtual int getWindowSize() const;
+    virtual int getDistanceToGlcm() const;
 };
 }}}
 #endif // DYNAMICPROTOCOL_H

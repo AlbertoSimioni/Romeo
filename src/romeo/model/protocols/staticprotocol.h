@@ -28,11 +28,13 @@ public:
      * \param Il soggetto utilizzato per eseguire l'analisi, deve contenere un immagine di tipo statico
      */
     virtual void execute(datasets::AbstractSubject *subject);
-
+    /*!
+     * \brief Funzione virtuale che ritorna il tipo del protocollo corrente, per la classe StaticProtocol ritornerà ProtocolType::STATIC. La funzione è override di quella definita nella superclasse e può essere chiamata avendo solo un riferimento a AbstractProtocol.
+     */
     virtual ProtocolType getType();
-    int getDistanceToGLCM() const;
-    void setDistanceToGLCM(int value);
-    int getWindowSize() const;
+    virtual int getWindowSize() const;
+    virtual int getDistanceToGlcm() const;
+    void setDistanceToGlcm(int value);
     void setWindowSize(int value);
 private:
     int distanceToGLCM;

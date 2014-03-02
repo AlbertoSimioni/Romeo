@@ -1,4 +1,6 @@
 #include "abstractprotocol.h"
+
+#include <QStringList>
 using namespace romeo::model::protocols;
 using namespace romeo::model::protocols::algorithms;
 using namespace romeo::model::protocols::features;
@@ -23,6 +25,16 @@ QString AbstractProtocol::getDescription() const
 bool AbstractProtocol::getTest() const
 {
     return test;
+}
+
+QStringList AbstractProtocol::getFeaturesName() const
+{
+    QStringList featureNames;
+    for(int i=0; i< features.length(); ++i)
+    {
+        featureNames << features.at(i)->getName();
+    }
+    return featureNames;
 }
 
 QString AbstractProtocol::getAlgorithmName() const

@@ -27,12 +27,12 @@ void StaticProtocol::setWindowSize(int value)
     windowSize = value;
 }
 
-int StaticProtocol::getDistanceToGLCM() const
+int StaticProtocol::getDistanceToGlcm() const
 {
     return distanceToGLCM;
 }
 
-void StaticProtocol::setDistanceToGLCM(int value)
+void StaticProtocol::setDistanceToGlcm(int value)
 {
     distanceToGLCM = value;
 }

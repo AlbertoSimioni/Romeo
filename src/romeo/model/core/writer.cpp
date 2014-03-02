@@ -75,8 +75,10 @@ bool Writer::saveProtocolsList()
         writer.writeTextElement("name", protocolsList[i]->getName());
         writer.writeTextElement("description", protocolsList[i]->getDescription());
         ProtocolType ptype= protocolsList[i]->getType();
+        bool staticProtocol=false;
         if( ptype == protocols::STATIC )
         {
+            staticProtocol=true;
             writer.writeTextElement("type", "STATIC" );
         }
         else{
@@ -89,7 +91,9 @@ bool Writer::saveProtocolsList()
             writer.writeTextElement("test", "false" );
         }
         writer.writeTextElement("algorithm", protocolsList[i]->getAlgorithmName());
-
+        Writer::writeProtocolFeatures(protocolsList[i]->getFeaturesName(), writer);
+        writer.writeTextElement("window", QString::number(protocolsList[i]->getWindowSize()));
+        writer.writeTextElement("glcm", QString::number(protocolsList[i]->getDistanceToGlcm()));
         writer.writeEndElement(); //end protocol
     }
     writer.writeEndElement(); //end protocols
@@ -255,6 +259,16 @@ void Writer::writeDatasetProtocols(const AbstractDataset *dataset, QXmlStreamWri
         writer.writeEndElement(); //end results
     }
     writer.writeEndElement(); //end protocols
+}
+
+void Writer::writeProtocolFeatures(QStringList featureNames, QXmlStreamWriter &writer)
+{
+    writer.writeStartElement("features");
+    for(int i=0; i<featureNames.length(); ++i)
+    {
+        writer.writeTextElement("feature", featureNames.at(i));
+    }
+    writer.writeEndElement(); // end features
 }
 
 
