@@ -58,6 +58,10 @@ private slots:
      * \brief Mostra la descrizione del protocollo correntemente selezionato
      */
     void changeDescription();
+    /*!
+     * \brief Recupera il percorso al risultato correntemente selezionato e apre il gestore delle cartelle a tale percorso
+     */
+    void openResultFolder();
 private:
     void connectUI();
     /*!

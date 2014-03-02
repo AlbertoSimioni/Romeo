@@ -1,5 +1,6 @@
 #include "abstractdataset.h"
 #include <QStringList>
+#include <QDebug>
 using namespace romeo::model::datasets;
 using namespace romeo::model::protocols;
 AbstractDataset::AbstractDataset()
@@ -75,7 +76,7 @@ void AbstractDataset::deleteSubject(const QString &subjectName){
     bool subjectFind = false;
     for(int i = 0; i< subjects.size() && !subjectFind;i++){
         if(subjects[i]->getName() == subjectName){
-            subjects.removeAt(i);
+            delete subjects.takeAt(i);
             subjectFind = true;
         }
     }
@@ -90,7 +91,10 @@ void AbstractDataset::removeProtocolAssociation(QString protocolName){
     for( int i=0; i<protocolsList.length() && !matchProtocolName; ++i){
         if( protocolsList[i]->getName() == protocolName ){
             matchProtocolName = true;
-            protocols.remove(protocolsList[i]);
+            QList<Result*> removedResults =protocols.take(protocolsList[i]);
+            while(!removedResults.isEmpty()){
+                delete removedResults.takeLast();
+            }
         }
 
     }
@@ -105,4 +109,26 @@ QList<AbstractProtocol*> AbstractDataset::getAssociatedProtocolsList(){
 void AbstractDataset::associateProtocol(protocols::AbstractProtocol *protocol){
     protocols.insert(protocol,QList<Result*>());
     emit protocolsModified();
+}
+
+void AbstractDataset::addResult(AbstractProtocol* protocol, Result *result){
+    QList<Result*> results = protocols.value(protocol);
+    results.append(result);
+    protocols.insert(protocol,results);
+}
+
+
+QString AbstractDataset::getResultPath(QString protocol, QString resultDate){
+
+    QList<Result*> results = protocols.value(getProtocol(protocol));
+    bool findedResult = false;
+    QString path;
+
+    for(int i = 0; i < results.size() && !findedResult; i++){
+        if(results[i]->getExecutionDate().toString() == resultDate ){
+                findedResult = true;
+                path = results[i]->getResultPath();
+        }
+    }
+    return path;
 }

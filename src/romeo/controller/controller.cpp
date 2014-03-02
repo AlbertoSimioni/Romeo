@@ -41,7 +41,7 @@ Controller::Controller(QObject *parent): QObject(parent)
     newDatasetDialog = new NewDatasetDialog(mainWindow);
     newAlgorithmDialog = new NewAlgorithmDialog(mainWindow);
 
-    mainWindow->getDatasetPanel()->setCurrentDataset(datasetsList->getFirstDataset());
+    mainWindow->getDatasetPanel()->setCurrentDataset(datasetsList->getNextDataset(0));
 
 
     newFeatureDialog = new NewFeatureDialog(mainWindow);
@@ -234,9 +234,9 @@ void Controller::addSubject(QString subjectName, QString dataPath, QString maskP
 void Controller::deleteCurrentDataset(){
     AbstractDataset * currentDataset = mainWindow->getDatasetPanel()->getCurrentDataset();
     if(currentDataset != 0){
+        AbstractDataset* nextDataset = datasetsList->getNextDataset(currentDataset);
+        mainWindow->getDatasetPanel()->setCurrentDataset(nextDataset);
         datasetsList->deleteDataset(currentDataset);
-        currentDataset = datasetsList->getFirstDataset();
-        mainWindow->getDatasetPanel()->setCurrentDataset(currentDataset);
         //changeCurrentDataset(currentDataset->getName());
     }
 }

@@ -91,10 +91,14 @@ public:
      */
     virtual romeo::model::protocols::ProtocolType getProtocolsType() = 0;
 
-
+    void addResult(romeo::model::protocols::AbstractProtocol* protocol,Result* result);
 
     bool execute(protocols::AbstractProtocol* alg, QList<AbstractSubject*> selectedSubjects);
     QStringList getProtocolResults(const QString& protocol) const;
+
+
+    QString getResultPath(QString protocol,QString resultDate);
+
     protocols::AbstractProtocol* getProtocol(const QString& protocolName)const;
     QList<protocols::AbstractProtocol*> getProtocolList() const;
     AbstractSubject* getSubject(const QString& subjectName) const;

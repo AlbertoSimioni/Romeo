@@ -16,6 +16,7 @@ using namespace romeo::model::protocols;
 #include <src/romeo/model/datasets/abstractdataset.h>
 #include <QDebug>
 #include <src/romeo/model/inputformats.h>
+#include <QDate>
 using namespace romeo::model::protocols::algorithms;
 using namespace romeo::model::protocols::features;
 ////////PROVA TEST
@@ -63,7 +64,7 @@ void ModelCore::createLists()
     algorithmsList=algorithms::AlgorithmsList::getInstance(this);
     featuresList=features::FeaturesList::getInstance(this);
     ////////////PROVA TEST
-      /*  QList<AbstractAlgorithm::AlgorithmParameter> param;
+         QList<AbstractAlgorithm::AlgorithmParameter> param;
         AbstractAlgorithm::AlgorithmParameter param1 (QString("param1"), AbstractAlgorithm::BOOL, QString("default"));
         AbstractAlgorithm::AlgorithmParameter param2 (QString("param2"), AbstractAlgorithm::CHAR, QString("default"));
         param.append(param1);
@@ -96,12 +97,28 @@ void ModelCore::createLists()
         features.append(feat4);
         protocolsList->addProtocol("PROVA","descrizione",alg,features,false, STATIC);
 
-        */
+
         ///////////////PROVA TEST
+
+
+
     loader->loadFeatures(dataHome.absolutePath().append("/features.xml"), featuresList);
     loader->loadAlgorithms(dataHome.absolutePath().append("/algorithms.xml"), algorithmsList);
     loader->loadProtocols(dataHome.absolutePath().append("/protocols.xml"), protocolsList);
     loader->loadDatasetsNames(dataHome.absolutePath().append("/datasets.xml"));
+
+
+    ///////////prova test
+
+    datasetsList->addDataset("PROVO",TYPE2D);
+
+    AbstractDataset* dataset = datasetsList->getDataset("PROVO");
+    AbstractProtocol * protocol = protocolsList->getProtocol("PROVA");
+    dataset->associateProtocol(protocol);;
+
+    dataset->addResult(protocol,new Result(QDate(1982,10,5),"/home/alberto/Scrivania/Dati/"));
+    ////////// provatest
+
 
 }
 QDir ModelCore::getDataHome() const

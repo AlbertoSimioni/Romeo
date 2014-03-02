@@ -6,6 +6,7 @@
 #include <QDragMoveEvent>
 #include <QMimeData>
 #include <QDebug>
+#include <QDesktopServices>
 using namespace romeo::view::mainWindow;
 using namespace romeo::model::datasets;
 using namespace romeo::model::protocols;
@@ -26,6 +27,7 @@ ProtocolsPanel::~ProtocolsPanel()
 
 void ProtocolsPanel::connectUI(){
     connect(ui->protocolsList,SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),this,SLOT(changeDescription()));
+    connect(ui->protocolsList,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(openResultFolder()));
 }
 
 void ProtocolsPanel::dragEnterEvent(QDragEnterEvent * event){
@@ -115,10 +117,21 @@ void ProtocolsPanel::addProtocol(QString protocolName, QStringList results){
 
 
 void ProtocolsPanel::changeDescription(){
-    QTreeWidgetItem* protocolSelected = ui->protocolsList->currentItem();
-    if(protocolSelected){
-        QString protocolName = protocolSelected->data(0,Qt::DisplayRole).toString().split("  [Test").takeFirst();
+    QTreeWidgetItem* currentItem = ui->protocolsList->currentItem();
+    QTreeWidgetItem* parent = currentItem->parent();
+    if(!parent){
+        QString protocolName = currentItem->data(0,Qt::DisplayRole).toString().split("  [Test").takeFirst();
         AbstractProtocol * protocol = currentDataset->getProtocol(protocolName);
         ui->descriptionText->setText(protocol->getDescription());
+    }
+}
+
+void ProtocolsPanel::openResultFolder(){
+    QTreeWidgetItem* currentItem = ui->protocolsList->currentItem();
+    QTreeWidgetItem* parent = currentItem->parent();
+    if(parent){
+        QString protocolName = parent->data(0,Qt::DisplayRole).toString().split("  [Test").takeFirst();
+        QString pathResult = currentDataset->getResultPath(protocolName,currentItem->data(0,Qt::DisplayRole).toString());
+        QDesktopServices::openUrl(QUrl(pathResult));
     }
 }

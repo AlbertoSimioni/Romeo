@@ -78,7 +78,7 @@ void ProtocolsList::removeProtocol(QString protocolName){
     for(int i = 0; i < protocolsList.size() && !protocolFind; i++ ){
         if(protocolsList[i]->getName() == protocolName){
             protocolFind = true;
-            protocolsList.removeAt(i);
+            delete protocolsList.takeAt(i);
         }
     }
 

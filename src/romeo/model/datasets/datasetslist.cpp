@@ -81,17 +81,28 @@ void DatasetsList::addDatasetFile(const QString &name, const QString &file)
 }
 
 
-AbstractDataset* DatasetsList::getFirstDataset(){
-    AbstractDataset* firstDataset = 0;
-    if(!datasets.isEmpty()){
-        firstDataset = datasets.at(0);
+AbstractDataset* DatasetsList::getNextDataset(AbstractDataset* dataset){
+    AbstractDataset* nextDataset = 0;
+    bool stop = false;
+    for(int i = 0; i < datasets.size() && !stop; i++){
+        if(datasets.at(i) != dataset){
+            nextDataset = datasets.at(i);
+            bool stop = true;
+        }
     }
-    return firstDataset;
+    return nextDataset;
 }
 
 
 void DatasetsList::deleteDataset(AbstractDataset *dataset){
-    datasets.removeAll(dataset);
+    bool findedDataset = false;
+    for(int i = 0; i < datasets.size() && !findedDataset; i++ ){
+        if(datasets[i] == dataset){
+           delete datasets.takeAt(i);
+            findedDataset = true;
+        }
+
+    }
     emit datasetsListModified();
 }
 

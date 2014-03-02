@@ -38,6 +38,7 @@ public:
     * \brief Ritorna la lista di dataset attualmente caricata dall'applicazione. La lista contiene dei puntatori ai dataset su cui possono essere eseguite operazioni.
     */
    QList<AbstractDataset*> getDatasetsList() const;
+
    void addDataset(QString name, InputFormat datasetType);
    /*!
     * \brief Si preoccupa di elimare dai dataset tutte le associazioni al protocollo con nome dato in input
@@ -45,7 +46,11 @@ public:
    void deleteProtocolAssociations(QString protocolName);
 
    ~DatasetsList();
-   AbstractDataset* getFirstDataset();
+
+   /*!
+    * \brief Ritorna il primo dataset diverso da quello dato in input
+    */
+   AbstractDataset* getNextDataset(AbstractDataset* dataset);
 
    void deleteDataset(AbstractDataset* dataset);
 
