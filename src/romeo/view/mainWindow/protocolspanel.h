@@ -18,6 +18,7 @@ namespace romeo {
 namespace view {
 namespace mainWindow{
 class ProtocolsPanel : public QWidget
+
 {
     Q_OBJECT
 
@@ -40,6 +41,9 @@ signals:
      * \param name
      */
     void associateProtocol(QString protocolName);
+
+
+    void openAssociateProtocolDialog();
 
 protected:
 

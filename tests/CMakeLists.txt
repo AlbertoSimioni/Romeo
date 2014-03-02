@@ -69,6 +69,7 @@ testmain.cpp
   ../src/romeo/view/dialogs/newalgorithmparameterform.cpp
   ../src/romeo/view/mainWindow/listwidget.cpp
   ../src/romeo/view/mainWindow/listview.cpp
+  ..src/romeo/view/dialogs/associateprotocoldialog.cpp
 )
 SET(romeoTest_HEADERS
  testparametervalueform.h

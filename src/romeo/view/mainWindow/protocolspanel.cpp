@@ -28,6 +28,7 @@ ProtocolsPanel::~ProtocolsPanel()
 void ProtocolsPanel::connectUI(){
     connect(ui->protocolsList,SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),this,SLOT(changeDescription()));
     connect(ui->protocolsList,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(openResultFolder()));
+    connect(ui->newButton,SIGNAL(clicked()),this,SIGNAL(openAssociateProtocolDialog()));
 }
 
 void ProtocolsPanel::dragEnterEvent(QDragEnterEvent * event){

@@ -44,9 +44,13 @@ private slots:
 
 private:
     Ui::ProtocolsExplorer *ui;
-
+    /*!
+     * \brief Tipo dei protocolli correntemente visualizzati
+     */
     romeo::model::protocols::ProtocolType currentProtocolsType;
-
+    /*!
+     * \brief Riferimento alla lista dei protocolli nel modello
+     */
     romeo::model::protocols::ProtocolsList* protocolsList;
 };
 }}}

@@ -31,6 +31,7 @@
 #include<src/romeo/view/mainWindow/executepanel.h>
 #include<src/romeo/view/mainWindow/protocolspanel.h>
 #include<src/romeo/view/mainWindow/subjectspanel.h>
+#include<src/romeo/view/dialogs/associateprotocoldialog.h>
 
 namespace romeo {
 namespace controller{
@@ -62,6 +63,7 @@ public slots:
     void viewAlgorithmsListDialog();
     void viewFeaturesListDialog();
     void viewAddSubjectDialog();
+    void viewAssociateProtocolDialog();
 
     /*!
      * \brief Controlla se il nome del protocollo passato in input è già impegnato da un protocollo e in caso si preoccupa di
@@ -208,6 +210,9 @@ private:
       * \brief Riferimento al dialogo per la visualizzazione della lista degli algoritmi di clustering
       */
      romeo::view::dialogs::AlgorithmsListDialog* algorithmsListDialog;
+
+
+     romeo::view::dialogs::AssociateProtocolDialog* associateProtocolDialog;
 
      /*!
       * \brief Riferimento al widget che mostra la lista dei dataset del programma

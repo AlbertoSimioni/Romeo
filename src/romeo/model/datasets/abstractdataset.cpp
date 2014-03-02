@@ -122,6 +122,7 @@ QList<AbstractProtocol*> AbstractDataset::getAssociatedProtocolsList(){
 }
 
 void AbstractDataset::associateProtocol(protocols::AbstractProtocol *protocol){
+
     protocols.insert(protocol,QList<Result*>());
     emit protocolsModified();
 }

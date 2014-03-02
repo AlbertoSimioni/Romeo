@@ -41,7 +41,7 @@ Controller::Controller(QObject *parent): QObject(parent)
     newDatasetDialog = new NewDatasetDialog(mainWindow);
     newAlgorithmDialog = new NewAlgorithmDialog(mainWindow);
 
-    mainWindow->getDatasetPanel()->setCurrentDataset(datasetsList->getNextDataset(0));
+
 
 
     newFeatureDialog = new NewFeatureDialog(mainWindow);
@@ -49,6 +49,8 @@ Controller::Controller(QObject *parent): QObject(parent)
     featuresListDialog = new FeaturesListDialog(featuresList,mainWindow);
 
     addSubjectDialog = new AddSubjectDialog(mainWindow);
+
+    associateProtocolDialog = new AssociateProtocolDialog(protocolsList,mainWindow);
 
     protocolsExplorer = mainWindow->getProtocolsExplorer();
 
@@ -69,7 +71,7 @@ Controller::Controller(QObject *parent): QObject(parent)
 
 
 
-
+    changeCurrentDataset(datasetsList->getNextDataset(0)->getName());
     connectViewsSignals();
     mainWindow->show();
 }
@@ -102,6 +104,8 @@ void Controller::connectViewsSignals(){
     connect(subjectsPanel,SIGNAL(deleteSubject(QString)),this,SLOT(deleteSubject(QString)));
     connect(mainWindow,SIGNAL(deleteProtocol(QString)),this,SLOT(deleteProtocol(QString)));
     connect(protocolsPanel,SIGNAL(associateProtocol(QString)),this,SLOT(associateProtocol(QString)));
+    connect(protocolsPanel,SIGNAL(openAssociateProtocolDialog()),this,SLOT(viewAssociateProtocolDialog()));
+    connect(associateProtocolDialog,SIGNAL(associateProtocol(QString)),this,SLOT(associateProtocol(QString)));
 }
 
 Controller* Controller::getInstance(QObject *parent){
@@ -143,6 +147,10 @@ void Controller::viewAddSubjectDialog(){
     addSubjectDialog->exec();
 }
 
+
+void Controller::viewAssociateProtocolDialog(){
+    associateProtocolDialog->exec();
+}
 
 void Controller::checkProtocolName(QString protocolName){
     if(protocolsList->getProtocol(protocolName)){
@@ -220,6 +228,7 @@ void Controller::changeCurrentDataset(QString name){
 
     InputFormat datasetType = dataset->getType();
     protocolsExplorer->setCurrentProtocolsType(dataset->getProtocolsType());
+    associateProtocolDialog->setCurrentProtocolsType(dataset->getProtocolsType());
     mainWindow->getFileSystemExplorer()->setCurrentInputFormat(datasetType);
     addSubjectDialog->setCurrentInputFormat(datasetType);
     mainWindow->getDatasetPanel()->setCurrentDataset(dataset);
@@ -253,6 +262,10 @@ void Controller::deleteProtocol(QString protocolName){
 }
 
 void Controller::associateProtocol(QString protocolName){
-    AbstractProtocol* protocol = protocolsList->getProtocol(protocolName);
-    mainWindow->getDatasetPanel()->getCurrentDataset()->associateProtocol(protocol);
+    AbstractDataset* currentDataset = mainWindow->getDatasetPanel()->getCurrentDataset();
+    AbstractProtocol* alreadyPresent = currentDataset->getProtocol(protocolName);
+    if(!alreadyPresent){
+        AbstractProtocol* protocol = protocolsList->getProtocol(protocolName);
+        currentDataset->associateProtocol(protocol);
+    }
 }

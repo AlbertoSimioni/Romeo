@@ -88,6 +88,7 @@ SET(romeo_SOURCES
  src/romeo/view/dialogs/newalgorithmparameterform.cpp
  src/romeo/view/mainWindow/listwidget.cpp
  src/romeo/view/mainWindow/listview.cpp
+ src/romeo/view/dialogs/associateprotocoldialog.cpp
 )
 SET(romeo_HEADERS
  src/romeo/view/dialogs/addsubjectdialog.h
@@ -147,6 +148,7 @@ SET(romeo_HEADERS
  src/romeo/view/dialogs/newalgorithmparameterform.h
  src/romeo/view/mainWindow/listwidget.h
  src/romeo/view/mainWindow/listview.h
+ src/romeo/view/dialogs/associateprotocoldialog.h
 )
 
 SET(romeo_FORMS
@@ -169,6 +171,7 @@ SET(romeo_FORMS
  src/romeo/view/dialogs/algorithmslistdialog.ui
  src/romeo/view/dialogs/parametervalueform.ui
  src/romeo/view/dialogs/newalgorithmparameterform.ui
+ src/romeo/view/dialogs/associateprotocoldialog.ui
 )
 SET(romeo_RESOURCES src/immagini.qrc)
 
