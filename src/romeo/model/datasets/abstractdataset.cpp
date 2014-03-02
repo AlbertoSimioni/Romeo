@@ -53,7 +53,6 @@ QStringList AbstractDataset::getProtocolResults(const QString & protocol) const
     for(int i = 0; i < resultsAssociated.size(); i++){
         protocolResults.append(resultsAssociated[i]->getExecutionDate().toString());
     }
-
     return protocolResults;
 }
 
@@ -114,19 +113,27 @@ void AbstractDataset::deleteSubject(const QString &subjectName){
 }
 
 void AbstractDataset::removeProtocolAssociation(QString protocolName){
+
     QList<AbstractProtocol*> protocolsList=protocols.keys();
     bool matchProtocolName = false;
+
     for( int i=0; i<protocolsList.length() && !matchProtocolName; ++i){
+
         if( protocolsList[i]->getName() == protocolName ){
+
             matchProtocolName = true;
+
             QList<Result*> removedResults =protocols.take(protocolsList[i]);
+
             while(!removedResults.isEmpty()){
+
                 delete removedResults.takeLast();
             }
+
         }
 
     }
-    if(matchProtocolName) emit protocolsModified();
+    if(matchProtocolName){ emit protocolsModified();}
 }
 
 

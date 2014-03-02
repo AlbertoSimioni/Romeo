@@ -145,6 +145,11 @@ public slots:
      */
     void deleteProtocol(QString protocolName);
 
+    /*!
+     * \brief Slot che elimina dal dataset corrente l'associazione con il protocollo dato in input
+     */
+    void removeProtocolAssociation(QString protocolName);
+
 private:
 
     /*!

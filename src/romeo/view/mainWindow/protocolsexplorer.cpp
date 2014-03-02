@@ -1,5 +1,6 @@
 #include "protocolsexplorer.h"
 #include "ui_protocolsexplorer.h"
+#include <QDebug>
 using namespace romeo::view::mainWindow;
 using namespace romeo::model::protocols;
 ProtocolsExplorer::ProtocolsExplorer(QWidget *parent) :

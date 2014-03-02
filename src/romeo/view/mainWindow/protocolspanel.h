@@ -41,8 +41,10 @@ signals:
      * \param name
      */
     void associateProtocol(QString protocolName);
-
-
+    /*!
+     * \brief Segnale emesso quando l'utente seleziona un protocollo e preme il tasto delete per eliminare l'associazione del protocollo al dataset corrente
+     */
+    void removeProtocolAssociation(QString protocolName);
     void openAssociateProtocolDialog();
 
 protected:
@@ -66,6 +68,12 @@ private slots:
      * \brief Recupera il percorso al risultato correntemente selezionato e apre il gestore delle cartelle a tale percorso
      */
     void openResultFolder();
+
+    /*!
+     * \brief Slot che recupera il nome del protocollo correntemente selezionato e in caso esista emette il segnale removeProtocolAssociation
+     */
+    void onDeleteClicked();
+
 private:
     void connectUI();
     /*!

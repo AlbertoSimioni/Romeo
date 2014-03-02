@@ -29,6 +29,7 @@ void ProtocolsPanel::connectUI(){
     connect(ui->protocolsList,SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),this,SLOT(changeDescription()));
     connect(ui->protocolsList,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(openResultFolder()));
     connect(ui->newButton,SIGNAL(clicked()),this,SIGNAL(openAssociateProtocolDialog()));
+    connect(ui->deleteButton,SIGNAL(clicked()),this,SLOT(onDeleteClicked()));
 }
 
 void ProtocolsPanel::dragEnterEvent(QDragEnterEvent * event){
@@ -82,12 +83,16 @@ void ProtocolsPanel::setCurrentDataset(romeo::model::datasets::AbstractDataset *
 void ProtocolsPanel::fillProtocolsList(){
     ui->protocolsList->clear();
     ui->descriptionText->clear();
+
     if(currentDataset != 0){
+
         ui->newButton->setEnabled(true);
         ui->deleteButton->setEnabled(true);
         setAcceptDrops(true);
         QList<AbstractProtocol*> protocols = currentDataset->getAssociatedProtocolsList();
+
         for(int i = 0; i< protocols.size(); i++){
+
             AbstractProtocol* protocol = protocols[i];
             QString protocolName = protocol->getName();
 
@@ -95,16 +100,19 @@ void ProtocolsPanel::fillProtocolsList(){
 
             if(protocol->getTest()) protocolName = protocolName.append("  [Test]");
             addProtocol(protocolName,protocolResults);
+
         }
 
     }
+
     else{
+
         setAcceptDrops(false);
         ui->newButton->setEnabled(false);
         ui->deleteButton->setEnabled(false);
     }
-}
 
+}
 
 void ProtocolsPanel::addProtocol(QString protocolName, QStringList results){
     QTreeWidgetItem *protocolItem =new QTreeWidgetItem(ui->protocolsList);
@@ -119,12 +127,15 @@ void ProtocolsPanel::addProtocol(QString protocolName, QStringList results){
 
 void ProtocolsPanel::changeDescription(){
     QTreeWidgetItem* currentItem = ui->protocolsList->currentItem();
-    QTreeWidgetItem* parent = currentItem->parent();
-    if(!parent){
-        QString protocolName = currentItem->data(0,Qt::DisplayRole).toString().split("  [Test").takeFirst();
-        AbstractProtocol * protocol = currentDataset->getProtocol(protocolName);
-        ui->descriptionText->setText(protocol->getDescription());
+    if(currentItem){
+        QTreeWidgetItem* parent = currentItem->parent();
+        if(!parent){
+         QString protocolName = currentItem->data(0,Qt::DisplayRole).toString().split("  [Test").takeFirst();
+            AbstractProtocol * protocol = currentDataset->getProtocol(protocolName);
+            ui->descriptionText->setText(protocol->getDescription());
+         }
     }
+    else ui->descriptionText->clear();
 }
 
 void ProtocolsPanel::openResultFolder(){
@@ -134,5 +145,17 @@ void ProtocolsPanel::openResultFolder(){
         QString protocolName = parent->data(0,Qt::DisplayRole).toString().split("  [Test").takeFirst();
         QString pathResult = currentDataset->getResultPath(protocolName,currentItem->data(0,Qt::DisplayRole).toString());
         QDesktopServices::openUrl(QUrl(pathResult));
+    }
+}
+
+
+void ProtocolsPanel::onDeleteClicked(){
+    QTreeWidgetItem* currentItem = ui->protocolsList->currentItem();
+    if(currentItem){
+        QTreeWidgetItem* parent = currentItem->parent();
+        if(!parent){
+         QString protocolName = currentItem->data(0,Qt::DisplayRole).toString().split("  [Test").takeFirst();
+            emit removeProtocolAssociation(protocolName);
+        }
     }
 }
