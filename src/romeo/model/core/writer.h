@@ -32,10 +32,7 @@ public:
      *  si preoccupa anche di costruire l'istanza.
      */
     static Writer* getInstance(QObject* parent=0);
-    /*!
-     * \brief Slot pubblico che viene chiamato ogni qualvolta sia stato effettuato un cambiamento nei datasets, questa funzione si assicura di aggiornare il file di database che contiene i dataset per mantenerlo consistente con i dati del programma.
-     */
-    bool saveDatasetsList(const QString &datasetFile);
+
 
 private:
     /*!
@@ -70,6 +67,10 @@ public slots:
      * \brief Slot pubblico che viene chiamato ogni qualvolta sia stato effettuato un cambiamento in un dataset, questa funzione si assicura di aggiornare il file relativo a tale dataset per mantenerlo consistente con i dati del programma.
      */
     bool saveDataset(QString& datasetName);
+    /*!
+     * \brief Slot pubblico che viene chiamato ogni qualvolta sia stato effettuato un cambiamento nei datasets, questa funzione si assicura di aggiornare il file di database che contiene i dataset per mantenerlo consistente con i dati del programma.
+     */
+    bool saveDatasetsList();
 
     bool saveDataset(const QString& datasetName, const QString& datasetFile);
 };

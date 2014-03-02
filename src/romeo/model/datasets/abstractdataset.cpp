@@ -11,6 +11,11 @@ AbstractDataset::AbstractDataset(QString &n): name(n)
 {
 }
 
+AbstractDataset::~AbstractDataset()
+{
+
+}
+
 void AbstractDataset::createNewSubject(QString &name, QString &fileSubject, QString &mask)
 {
     subjects.append(this->makeSubject(name, fileSubject, mask));
@@ -64,6 +69,16 @@ AbstractSubject* AbstractDataset::getSubject(const QString &subjectName) const
     }
 
     return subj;
+}
+
+void AbstractDataset::addResult(QString protocolName, QString resultPath)
+{
+    AbstractProtocol* pro=this->getProtocol(protocolName);
+    QHash<AbstractProtocol*, QList<Result*> >::iterator it=protocols.find(pro);
+    if(it != protocols.end()){//ho trovato un protocollo
+        it.value().append(new Result(resultPath));
+    }
+
 }
 
 

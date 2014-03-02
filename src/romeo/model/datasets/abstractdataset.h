@@ -40,6 +40,7 @@ public:
      * \param name Nome con cui costruire in nuovo dataset
      */
     AbstractDataset(QString& name);
+    ~AbstractDataset();
     /*!
      * \brief Metodo per la creazione di un nuovo subject che prende in input le informazioni necessarie alla creazione e richiama il metodo virtuale makeSubject() che viene ridefinito dalle sottoclassi e permette di creare i vari tipi di subjects.
      * \param n Nome del subject da creare e aggiungere al dataset
@@ -102,7 +103,7 @@ public:
     protocols::AbstractProtocol* getProtocol(const QString& protocolName)const;
     QList<protocols::AbstractProtocol*> getProtocolList() const;
     AbstractSubject* getSubject(const QString& subjectName) const;
-
+    void addResult(QString protocolName, QString resultPath);
     void deleteSubject(const QString& subjectName);
 signals:
     void addedSubject(QString subjectName, QString dataPath, QString maskPath);
@@ -119,8 +120,6 @@ private:
      * \brief Una hashmap che contiene i subject collegati al dataset e i risultati dei protocolli a loro legati.
      */
     QHash<protocols::AbstractProtocol*, QList<Result*> >  protocols;
-
-
 
     /*!
      * \brief Lista dei protocolli che si possono invocare dal dataset.

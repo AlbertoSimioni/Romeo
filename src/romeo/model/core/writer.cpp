@@ -2,7 +2,6 @@
 #include "modelcore.h"
 #include <QtXml>
 #include <QXmlStreamWriter>
-
 #include <src/romeo/model/protocols/features/abstractfeature.h>
 #include <src/romeo/model/protocols/algorithms/abstractalgorithm.h>
 #include <src/romeo/model/protocols/algorithms/userdefinedalgorithm.h>
@@ -29,9 +28,9 @@ Writer::Writer(QObject* parent): QObject(parent)
 {
 }
 
-bool Writer::saveDatasetsList(const QString& datasetFile)
+bool Writer::saveDatasetsList()
 {
-    QFile file(datasetFile);
+    QFile file(ModelCore::getDataHome().absolutePath().append("/datasets.xml"));
     if(!file.open(QFile::WriteOnly))
     {
         return false;
@@ -57,7 +56,7 @@ bool Writer::saveDatasetsList(const QString& datasetFile)
 
 bool Writer::saveProtocolsList()
 {
-    QString dataHome=ModelCore::getInstance()->getDataHome().path();
+    QString dataHome=ModelCore::getInstance()->getDataHome().absolutePath();
     QFile file(dataHome.append("/protocols.xml"));
     if(!file.open(QFile::WriteOnly))
     {
@@ -225,7 +224,8 @@ bool Writer::saveDataset(const QString &datasetName, const QString &datasetFile)
         break;
     }
     Writer::writeDatasetSubjects(dataset, writer);
-    writer.writeEndElement();
+    Writer::writeDatasetProtocols(dataset, writer);
+    writer.writeEndElement(); //end dataset
     writer.writeEndDocument();
 }
 
@@ -249,7 +249,8 @@ void Writer::writeDatasetProtocols(const AbstractDataset *dataset, QXmlStreamWri
     writer.writeStartElement("protocols");
     for (int i=0; i< protocolList.length(); ++i)
     {
-        writer.writeStartElement(protocolList[i]->getName());
+        writer.writeStartElement("protocol");
+        writer.writeAttribute("name", protocolList[i]->getName());
         QStringList protocolResults= dataset->getProtocolResults(protocolList[i]->getName());
         writer.writeStartElement("results");
         for( int i=0; i< protocolResults.length(); ++i)
@@ -257,6 +258,7 @@ void Writer::writeDatasetProtocols(const AbstractDataset *dataset, QXmlStreamWri
             writer.writeTextElement("result" ,protocolResults.at(i));
         }
         writer.writeEndElement(); //end results
+        writer.writeEndElement();//end protocol
     }
     writer.writeEndElement(); //end protocols
 }

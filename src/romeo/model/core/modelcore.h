@@ -63,7 +63,7 @@ public:
     protocols::features::AbstractFeature* getFeature(QString& feature) const;
     protocols::algorithms::AbstractAlgorithm* getAlgorithm(QString& alg) const;
 
-    QDir getDataHome() const;
+    static QDir getDataHome();
     void setDataHome(const QDir &value);
 
     void save();
@@ -113,7 +113,7 @@ private:
     /*!
      * \brief Campo dati che indica la directory dove si trovano i file informativi rispetto alla cartella da cui viene fatto partire l'applicazione.
      */
-    QDir dataHome;
+    static QDir dataHome;
 
 signals:
     /*!

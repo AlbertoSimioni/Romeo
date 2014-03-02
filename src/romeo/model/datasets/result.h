@@ -37,6 +37,7 @@ class Result
 
 public:
     Result(QDate execDate,QString pathToResult);
+    Result(QString pathToResult);
 
     /*!
      * \brief Ritorna la data in cui è stato creato il risultato

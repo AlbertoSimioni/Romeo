@@ -8,6 +8,10 @@ Result::Result(QDate execDate, QString pathToResult):
 
 }
 
+Result::Result(QString pathToResult): resultPath(pathToResult)
+{
+}
+
 QDate Result::getExecutionDate() const
 {
     return executionDate;

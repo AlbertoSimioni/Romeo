@@ -23,7 +23,7 @@ using namespace romeo::model::protocols::features;
 
 
 ModelCore* ModelCore::instance=0;
-
+QDir ModelCore::dataHome=QDir::current();
 ModelCore::ModelCore(QObject *parent): QObject(parent)
 {
     writer=Writer::getInstance(this);
@@ -35,10 +35,8 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
     }
     createLists();
 
-    writer->saveDatasetsList(dataHome.absolutePath().append("/dat.xml"));
-
     connect(protocolsList, SIGNAL(protocolsListModified()), writer, SLOT(saveProtocolsList()));
-    //connect(datasetsList, SIGNAL(datasetsListModified()), writer, SLOT(saveDatasetsList()), Qt::QueuedConnection);
+    connect(datasetsList, SIGNAL(datasetsListModified()), writer, SLOT(saveDatasetsList()));
     connect(algorithmsList, SIGNAL(algorithmsListModified()), writer, SLOT(saveAlgorithmsList()));
     connect(featuresList, SIGNAL(featuresListModified()), writer, SLOT(saveFeaturesList()));
     connect(datasetsList, SIGNAL(datasetModified(QString&)), writer, SLOT(saveDataset(QString&)));
@@ -121,7 +119,7 @@ void ModelCore::createLists()
 
 
 }
-QDir ModelCore::getDataHome() const
+QDir ModelCore::getDataHome()
 {
     return dataHome;
 }

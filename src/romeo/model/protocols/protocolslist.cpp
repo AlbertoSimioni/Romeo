@@ -55,7 +55,7 @@ AbstractProtocol* ProtocolsList::getProtocol(QString name){
 
 void ProtocolsList::addProtocol(QString nomeP, QString desc, AbstractAlgorithm *alg, QList<features::AbstractFeature *> feat,bool test,ProtocolType type, int window, int distanceGLCM){
 
-    //controllo che non ci siano altre feature nella lista con lo stesso nome
+    //controllo che non ci siano altri protocolli nella lista con lo stesso nome
     bool ok=false;
     for(int i=0; i<protocolsList.length() && !ok; ++i)
     {
@@ -81,7 +81,5 @@ void ProtocolsList::removeProtocol(QString protocolName){
             delete protocolsList.takeAt(i);
         }
     }
-
     emit protocolsListModified();
-
 }

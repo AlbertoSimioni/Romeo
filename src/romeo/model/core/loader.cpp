@@ -6,10 +6,15 @@
 #include "modelcore.h"
 #include <src/romeo/model/protocols/algorithms/algorithmslist.h>
 #include <src/romeo/model/protocols/features/featureslist.h>
+#include<QDebug>
+#include <src/romeo/model/datasets/abstractdataset.h>
+#include <src/romeo/model/protocols/protocolslist.h>
 
 using namespace romeo::model::core;
 using namespace romeo::model::protocols::algorithms;
 using namespace romeo::model::protocols::features;
+using namespace romeo::model::protocols;
+using namespace romeo::model::datasets;
 
 Loader* Loader::instance=0;
 Loader *Loader::getInstance(QObject *parent)
@@ -120,6 +125,51 @@ bool Loader::loadDatasetsNames(const QString &datasetsFile)
     return true;
 }
 
+bool Loader::LoadDataset(const QString &datasetFile)
+{
+    QFile file(datasetFile);
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        return false;
+    }
+    QDomDocument doc;
+    if(!doc.setContent(&file))
+    {
+        file.close();
+        return false;
+    }
+    QDomElement docElem= doc.documentElement();
+    QDomElement nameElem= docElem.firstChildElement("name");
+    QDomElement typeElem= docElem.firstChildElement("type");
+    AbstractDataset* dataset=DatasetsList::getInstance()->getDataset(nameElem.text());
+    if(!dataset){
+        return false;
+    }
+    QDomNodeList subjectList=docElem.elementsByTagName(QString("subject"));
+    for(int i=0; i<subjectList.length(); ++i)
+    {
+        QString sName=subjectList.at(i).toElement().attribute("name");
+        QString sImg=subjectList.at(i).toElement().attribute("img");
+        QString sMask=subjectList.at(i).toElement().attribute("mask");
+        dataset->makeSubject(sName, sImg, sMask);
+    }
+
+    QDomNodeList protocolList=docElem.elementsByTagName(QString("protocol"));
+    for( int i=0; i< protocolList.length(); ++i)
+    {
+        QDomElement protocolElem=protocolList.at(i).toElement();
+        QString protocolName=protocolElem.attribute("name");
+        dataset->associateProtocol(ProtocolsList::getInstance()->getProtocol(protocolName));
+        QDomNodeList results=protocolElem.elementsByTagName("result");
+        for (int i=0; i< results.length(); ++i)
+        {
+            dataset->addResult(protocolName, results.at(i).toElement().text());
+        }
+    }
+    file.close();
+    return true;
+}
+
 bool Loader::parseFeature(FeaturesList* featureList,const QDomNode& node)
 {
     QString name;
@@ -156,7 +206,7 @@ bool Loader::parseFeature(FeaturesList* featureList,const QDomNode& node)
     else
     {
         if( type =="DYNAMIC")
-            featureList->addFeature(name, DYNAMIC, description, dyln, dyfn);
+            featureList->addFeature(name, features::DYNAMIC, description, dyln, dyfn);
     }
     return true;
 }
@@ -220,7 +270,6 @@ bool Loader::parseProtocol(romeo::model::protocols::ProtocolsList *protocolsList
 
     nextElement=nextElement.nextSiblingElement("test");
     testString=nextElement.text();
-
     bool test=testString == "true";
     nextElement=nextElement.nextSiblingElement("algorithm");
     algorithm=nextElement.text();
@@ -237,7 +286,6 @@ bool Loader::parseProtocol(romeo::model::protocols::ProtocolsList *protocolsList
     }
 
     nextElement=nextElement.nextSiblingElement("window");
-
     window = nextElement.text().toInt();
     if ( window<0 )
         window=3;

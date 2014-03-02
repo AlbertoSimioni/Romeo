@@ -4,6 +4,7 @@
 #include "dataset3d.h"
 #include "dataset3dt.h"
 #include<QDebug>
+#include <src/romeo/model/core/writer.h>
 
 using namespace romeo::model::datasets;
 
@@ -77,6 +78,7 @@ void DatasetsList::addDatasetFile(const QString &name, const QString &file)
     if(!datasetsFiles.contains(name))
     {
         datasetsFiles.insert(name, file);
+        emit datasetsListModified();
     }
 }
 

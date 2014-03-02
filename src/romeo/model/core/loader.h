@@ -43,6 +43,7 @@ public:
     bool loadFeatures(const QString &featFile, protocols::features::FeaturesList* featureList);
     bool loadProtocols(const QString& protocolFile, protocols::ProtocolsList* protocolList);
     bool loadDatasetsNames(const QString& datasetsFile);
+    bool LoadDataset(const QString& datasetFile);
 private:
     /*!
      * \brief Costruttore privato, poiché la classe Loader implementa il design pattern singleton

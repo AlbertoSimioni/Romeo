@@ -36,7 +36,7 @@ public:
     * \brief Metodo statico che ritorna l'istanza di AlgorithmList, in caso sia la prima volta ad essere invocato
     *  si preoccupa anche di costruire l'istanza.
     */
-    static ProtocolsList* getInstance(QObject* parent);
+    static ProtocolsList* getInstance(QObject* parent=0);
 
     void addProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, QList<features::AbstractFeature *> feat, bool test, ProtocolType type, int window=3, int distanceGLCM=1);
     /*!
