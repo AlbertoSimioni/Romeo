@@ -17,6 +17,15 @@ AlgorithmsList *AlgorithmsList::getInstance(QObject* parent)
     return instance;
 }
 
+AlgorithmsList::~AlgorithmsList()
+{
+    for (int i=0; i<algorithms.length(); ++i)
+    {
+        if(algorithms.at(i))
+            delete algorithms.at(i);
+    }
+}
+
 void AlgorithmsList::addAlgorithm(QString name, QString description, QList<AbstractAlgorithm::AlgorithmParameter> parameters,QString dylp,QString dyfn)
 {
     if (!this->getAlgorithm(name)){

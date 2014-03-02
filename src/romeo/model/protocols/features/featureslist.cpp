@@ -20,6 +20,15 @@ FeaturesList *FeaturesList::getInstance(QObject* parent)
     return instance;
 }
 
+FeaturesList::~FeaturesList()
+{
+    int k=features.length();
+    for(int i=0; i<k && !features.isEmpty(); ++i)
+    {
+        delete features.takeLast();
+    }
+}
+
 void FeaturesList::addFeature(const QString &name, FeatureType type, const QString &description, const QString &dylp, const QString &dyfn)
 {
     //controllo che non ci siano altre feature nella lista con lo stesso nome

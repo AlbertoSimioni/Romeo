@@ -55,17 +55,17 @@ public:
      */
     protocols::features::FeaturesList *getFeaturesList() const;
 
-    /* Metodi per ricavare i vari dati e che vengono usati da loader e writer per processare i file xml
-    */
-    datasets::AbstractDataset* getDataset() const;
-    datasets::AbstractSubject* getSubject() const;
-    protocols::AbstractProtocol* getProtocol(QString& protocol) const;
-    protocols::features::AbstractFeature* getFeature(QString& feature) const;
-    protocols::algorithms::AbstractAlgorithm* getAlgorithm(QString& alg) const;
-
+    /*!
+     * \brief Ritorna la cartella dove sono contenuti i file xml utilizzati come database.
+     */
     static QDir getDataHome();
+    /*!
+     * \brief Modifica il campo dataHome con la cartella value specificata.
+     */
     void setDataHome(const QDir &value);
-
+    /*!
+     * \brief Funzione che salva i dati imporanti del programma come la lista degli algoritmi o i dataset in uso.
+     */
     void save();
 private:
     /*!

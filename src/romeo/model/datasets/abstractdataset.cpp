@@ -13,7 +13,20 @@ AbstractDataset::AbstractDataset(QString &n): name(n)
 
 AbstractDataset::~AbstractDataset()
 {
+    QHash<AbstractProtocol*, QList<Result*> >::iterator it=protocols.begin();
+    while( it!= protocols.end() )
+    {
+        while( !it.value().isEmpty() )
+        {
+            delete it.value().takeLast();
+        }
+        ++it;
+    }
 
+    while( !subjects.isEmpty() )
+    {
+        delete subjects.takeLast();
+    }
 }
 
 void AbstractDataset::createNewSubject(QString &name, QString &fileSubject, QString &mask)

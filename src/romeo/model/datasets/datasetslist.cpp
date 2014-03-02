@@ -32,6 +32,11 @@ AbstractDataset *DatasetsList::getDataset(QString name) const
 
 void DatasetsList::addDataset(QString name, romeo::model::InputFormat datasetType)
 {
+    if(datasetsFiles.contains(name))
+        return;
+    else{
+        datasetsFiles.insert(name, QString(name).append("xml"));
+    }
     switch (datasetType) {
     case TYPE2D:
         datasets.append(new Dataset2D(name));

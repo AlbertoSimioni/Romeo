@@ -42,11 +42,10 @@ bool Writer::saveDatasetsList()
     writer.writeStartElement("datasets");
     QHash<QString, QString> datasetList=datasets::DatasetsList::getInstance()->getDatasetsFiles();
     QHash<QString, QString>::iterator it=datasetList.begin();
-    while( it != datasetList.end())
+    while( it != datasetList.end() )
     {
         writer.writeStartElement("dataset");
-        writer.writeAttribute("name", it.key(), QString(""));
-        writer.writeAttribute("file", it.value(), QString(""));
+        writer.writeAttribute("name", it.key());
         writer.writeEndElement();
         ++it;
     }

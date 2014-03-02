@@ -5,8 +5,6 @@
 **
 * \brief  Header della classe AbstractAlgorithm del package romeo::model::protocols::algorithms
 */
-
-
 #ifndef ABSTRACTALGORITHM_H
 #define ABSTRACTALGORITHM_H
 #include <QString>

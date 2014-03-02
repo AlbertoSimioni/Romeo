@@ -34,7 +34,7 @@ public:
      *  si preoccupa anche di costruire l'istanza.
      */
     static FeaturesList* getInstance(QObject *parent=0);
-
+    ~FeaturesList();
     /*!
      * \brief Inserisce nella lista dei protocolli un nuovo protocollo definito dai parametri passati
      * \param name Nome della feature da inserire

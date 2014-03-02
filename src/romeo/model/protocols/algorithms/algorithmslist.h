@@ -32,6 +32,7 @@ public:
      *  si preoccupa anche di costruire l'istanza.
      */
     static AlgorithmsList* getInstance(QObject *parent=0);
+    ~AlgorithmsList();
     /*!
      * \brief Inserisce nella lista degli algoritmi un nuovo algoritmo di clustering con i parametri passati.
      * \param name Nome dell'algoritmo di clustering da inserire
