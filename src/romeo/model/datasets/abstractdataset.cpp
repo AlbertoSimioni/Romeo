@@ -14,14 +14,15 @@ AbstractDataset::AbstractDataset(QString &n): name(n)
 AbstractDataset::~AbstractDataset()
 {
     QHash<AbstractProtocol*, QList<Result*> >::iterator it=protocols.begin();
-    while( it!= protocols.end() )
+    for(; it!= protocols.end(); ++it)
     {
-        while( !it.value().isEmpty() )
+        for(int i=0; i< it.value().length(); ++i)
         {
-            delete it.value().takeLast();
+            delete it.value().at(i); //distruggo i risultati allocati in memoria
         }
-        ++it;
+        it.value().clear(); //elimino il contenuto della lista dei risultati
     }
+    protocols.clear();
 
     while( !subjects.isEmpty() )
     {
@@ -33,6 +34,7 @@ void AbstractDataset::createNewSubject(QString &name, QString &fileSubject, QStr
 {
     subjects.append(this->makeSubject(name, fileSubject, mask));
     emit addedSubject(name,fileSubject,mask);
+    emit datasetModified(this->getName());
     return;
 }
 QString AbstractDataset::getName() const
@@ -54,6 +56,15 @@ QStringList AbstractDataset::getProtocolResults(const QString & protocol) const
         protocolResults.append(resultsAssociated[i]->getExecutionDate().toString());
     }
     return protocolResults;
+}
+
+QList<Result *> AbstractDataset::getResultsList(const QString &protocol) const
+{
+    AbstractProtocol* pro=this->getProtocol(protocol);
+    if (pro){
+        return protocols.find(pro).value();
+    }
+    return QList<Result*>();
 }
 
 AbstractProtocol *AbstractDataset::getProtocol(const QString &protocolName) const
@@ -139,6 +150,29 @@ void AbstractDataset::removeProtocolAssociation(QString protocolName){
 
 QList<AbstractProtocol*> AbstractDataset::getAssociatedProtocolsList(){
     return protocols.keys();
+}
+
+QString AbstractDataset::getTypeString()
+{
+    InputFormat type=getType();
+    QString returnType;
+    switch (type) {
+    case TYPE2D:
+        returnType=QString("TYPE2D");
+        break;
+    case TYPE2DT:
+        returnType=QString("TYPE2DT");
+        break;
+    case TYPE3D:
+        returnType=QString("TYPE3D");
+        break;
+    case TYPE3DT:
+        returnType=QString("TYPE3DT");
+        break;
+    default:
+        break;
+    }
+    return returnType;
 }
 
 void AbstractDataset::associateProtocol(protocols::AbstractProtocol *protocol){

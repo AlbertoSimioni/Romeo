@@ -9,6 +9,7 @@
 #include<QDebug>
 #include <src/romeo/model/datasets/abstractdataset.h>
 #include <src/romeo/model/protocols/protocolslist.h>
+#include <src/romeo/model/inputformats.h>
 
 using namespace romeo::model::core;
 using namespace romeo::model::protocols::algorithms;
@@ -118,8 +119,9 @@ bool Loader::loadDatasetsNames(const QString &datasetsFile)
     {
         QDomElement elem=nodeList.at(i).toElement();
         name=elem.attribute("name");
-        datasetFile=elem.attribute("file");
-        datasets::DatasetsList::getInstance()->addDatasetFile(name, datasetFile);
+        datasets::DatasetsList::getInstance()->addDatasetFile(name);
+        datasetFile=ModelCore::getDataHome().absolutePath().append("/" + name + ".xml");
+        LoadDataset(datasetFile);
     }
     file.close();
     return true;
@@ -141,10 +143,17 @@ bool Loader::LoadDataset(const QString &datasetFile)
     QDomElement docElem= doc.documentElement();
     QDomElement nameElem= docElem.firstChildElement("name");
     QDomElement typeElem= docElem.firstChildElement("type");
+    InputFormat type;
+    if( typeElem.text() == "2D")
+        type=TYPE2D;
+    else if( typeElem.text() == "2D" )
+        type=TYPE2DT;
+    else if( typeElem.text() == "3D" )
+        type=TYPE3D;
+    else
+        type=TYPE3DT;
+    DatasetsList::getInstance()->addDataset(nameElem.text(), type);
     AbstractDataset* dataset=DatasetsList::getInstance()->getDataset(nameElem.text());
-    if(!dataset){
-        return false;
-    }
     QDomNodeList subjectList=docElem.elementsByTagName(QString("subject"));
     for(int i=0; i<subjectList.length(); ++i)
     {
@@ -163,7 +172,9 @@ bool Loader::LoadDataset(const QString &datasetFile)
         QDomNodeList results=protocolElem.elementsByTagName("result");
         for (int i=0; i< results.length(); ++i)
         {
-            dataset->addResult(protocolName, results.at(i).toElement().text());
+            QDate resultDate=QDate::fromString(results.at(i).toElement().attribute("date"));
+            Result* result=new Result(resultDate, results.at(i).toElement().attribute("path"));
+            dataset->addResult(ProtocolsList::getInstance()->getProtocol(protocolName), result);
         }
     }
     file.close();

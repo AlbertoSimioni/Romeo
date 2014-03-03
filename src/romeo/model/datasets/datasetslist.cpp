@@ -32,29 +32,32 @@ AbstractDataset *DatasetsList::getDataset(QString name) const
 
 void DatasetsList::addDataset(QString name, romeo::model::InputFormat datasetType)
 {
-    if(datasetsFiles.contains(name))
-        return;
-    else{
-        datasetsFiles.insert(name, QString(name).append("xml"));
+    for(int i=0; i<datasets.length(); ++i){
+        if( name == datasets.at(i)->getName())
+            return;
     }
+    AbstractDataset* newDataset=0;
     switch (datasetType) {
     case TYPE2D:
-        datasets.append(new Dataset2D(name));
+        newDataset=new Dataset2D(name);
         break;
     case TYPE2DT:
-        datasets.append(new Dataset2DT(name));
+        newDataset=new Dataset2DT(name);
         break;
     case TYPE3D:
-        datasets.append(new Dataset3D(name));
+        newDataset=new Dataset3D(name);
         break;
     case TYPE3DT:
-        datasets.append(new Dataset3DT(name));
+        newDataset=new Dataset3DT(name);
         break;
     default:
         break;
     }
-    emit datasetsListModified();
-
+    if(newDataset){
+        datasets.append(newDataset);
+        connect(newDataset, SIGNAL(datasetModified(QString)), model::core::Writer::getInstance(), SLOT(saveDataset(QString)));
+        emit datasetsListModified();
+    }
 }
 
 QList<AbstractDataset*> DatasetsList::getDatasetsList() const {
@@ -68,21 +71,22 @@ DatasetsList::~DatasetsList()
         if(datasets.at(i))
             delete datasets.at(i);
     }
+    datasets.clear();
 }
 
 DatasetsList::DatasetsList(QObject *parent): QObject(parent)
 {
 }
-QHash<QString, QString> DatasetsList::getDatasetsFiles() const
+QList<QString> DatasetsList::getDatasetsFiles() const
 {
     return datasetsFiles;
 }
 
-void DatasetsList::addDatasetFile(const QString &name, const QString &file)
+void DatasetsList::addDatasetFile(const QString &name)
 {
     if(!datasetsFiles.contains(name))
     {
-        datasetsFiles.insert(name, file);
+        datasetsFiles.append(name);
         emit datasetsListModified();
     }
 }

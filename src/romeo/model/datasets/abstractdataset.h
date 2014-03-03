@@ -88,6 +88,7 @@ public:
      * \brief Ritorna il tipo del dataset
      */
     virtual romeo::model::InputFormat getType() = 0;
+    QString getTypeString();
     /*!
      * \brief Ritorna il tipo di protocolli che è possibile associare al dataset
      */
@@ -104,6 +105,7 @@ public:
      * \brief Ritorna una lista che rappresenta i percorsi ai risultati per il protocollo di nome protocol
      */
     QStringList getProtocolResults(const QString& protocol) const;
+    QList<Result*> getResultsList(const QString& protocol) const;
 
     /*!
      * \brief getResultPath
@@ -154,6 +156,10 @@ signals:
      * \brief Segnale che indica la presenza di nuovi risultati per il dataset corrente.
      */
     void newResults();
+    /*!
+     * \brief Segnale che indica una modifica avvenuta su un dataset
+     */
+    void datasetModified(QString datasetName);
 
 private:
     /*!

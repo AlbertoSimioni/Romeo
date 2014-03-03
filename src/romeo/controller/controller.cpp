@@ -71,7 +71,8 @@ Controller::Controller(QObject *parent): QObject(parent)
 
 
     connectViewsSignals();
-    mainWindow->show();
+    mainWindow->showMaximized();
+
     AbstractDataset* nextDataset = datasetsList->getNextDataset(0);
     if(nextDataset)
         changeCurrentDataset(nextDataset->getName());

@@ -54,8 +54,8 @@ public:
 
    void deleteDataset(AbstractDataset* dataset);
 
-   QHash<QString, QString> getDatasetsFiles() const;
-   void addDatasetFile(const QString& name,const QString& file);
+   QList<QString> getDatasetsFiles() const;
+   void addDatasetFile(const QString& name);
 
 private:
    /*!
@@ -69,7 +69,7 @@ private:
     /*!
      * \brief Campo dati che mappa i nomi dei file di dataset con i rispettivi file
      */
-    QHash<QString, QString> datasetsFiles;
+    QList<QString> datasetsFiles;
     /*!
      * \brief Puntatore che si riferisce all'unica istanza di DatasetList
      */
@@ -79,10 +79,6 @@ signals:
      * \brief Segnale che indica una modifica avvenuta sulla lista dei dataset
      */
     void datasetsListModified();
-    /*!
-     * \brief Segnale che indica una modifica avvenuta su un dataset
-     */
-    void datasetModified(QString& datasetName);
 
 };
 }}}

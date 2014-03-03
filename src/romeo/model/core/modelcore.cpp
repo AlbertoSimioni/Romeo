@@ -1,5 +1,4 @@
 #include "modelcore.h"
-
 using namespace romeo::model::core;
 using namespace romeo::model::imageIO;
 using namespace romeo::model::datasets;
@@ -31,7 +30,7 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
     dataHome=QDir::current();
     if(!dataHome.cd("data"))
     {
-        qDebug("non ho caricato");
+        qDebug("non ho trovato la cartella data nel path dell'applicazione. i file saranno salvati nella cartella d'esecuzione");
     }
     createLists();
 
@@ -95,11 +94,10 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
     }*/
     ////////// provatest
 
-    connect(protocolsList, SIGNAL(protocolsListModified()), writer, SLOT(saveProtocolsList()));
-    connect(datasetsList, SIGNAL(datasetsListModified()), writer, SLOT(saveDatasetsList()));
     connect(algorithmsList, SIGNAL(algorithmsListModified()), writer, SLOT(saveAlgorithmsList()));
     connect(featuresList, SIGNAL(featuresListModified()), writer, SLOT(saveFeaturesList()));
-    connect(datasetsList, SIGNAL(datasetModified(QString&)), writer, SLOT(saveDataset(QString&)));
+    connect(protocolsList, SIGNAL(protocolsListModified()), writer, SLOT(saveProtocolsList()));
+    connect(datasetsList, SIGNAL(datasetsListModified()), writer, SLOT(saveDatasetsList()));
 }
 
 
@@ -118,9 +116,6 @@ void ModelCore::createLists()
     protocolsList=ProtocolsList::getInstance(this);
     algorithmsList=algorithms::AlgorithmsList::getInstance(this);
     featuresList=features::FeaturesList::getInstance(this);
-
-
-
 }
 QDir ModelCore::getDataHome()
 {

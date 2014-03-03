@@ -40,14 +40,14 @@ bool Writer::saveDatasetsList()
     writer.setAutoFormatting(true);
     writer.writeStartDocument();
     writer.writeStartElement("datasets");
-    QHash<QString, QString> datasetList=datasets::DatasetsList::getInstance()->getDatasetsFiles();
-    QHash<QString, QString>::iterator it=datasetList.begin();
-    while( it != datasetList.end() )
+    QList<QString> datasetList=datasets::DatasetsList::getInstance()->getDatasetsFiles();
+    for(int i=0; i< datasetList.length(); ++i)
     {
+        AbstractDataset* dataset=DatasetsList::getInstance()->getDataset(datasetList.at(i));
         writer.writeStartElement("dataset");
-        writer.writeAttribute("name", it.key());
+        writer.writeAttribute("name", datasetList.at(i));
+        writer.writeAttribute("type", dataset->getTypeString());
         writer.writeEndElement();
-        ++it;
     }
     writer.writeEndElement();
     writer.writeEndDocument();
@@ -187,16 +187,11 @@ bool Writer::saveFeaturesList()
 
 }
 
-bool Writer::saveDataset(QString &datasetName)
-{
-    return true;
-}
-
-bool Writer::saveDataset(const QString &datasetName, const QString &datasetFile)
+bool Writer::saveDataset(const QString &datasetName)
 {
     QString dataHome=ModelCore::getInstance()->getDataHome().path();
-
-    QFile file(dataHome.append(datasetFile));
+    QString datasetFile=dataHome.append("/");
+    QFile file(datasetFile.append(QString(datasetName).append(".xml")));
     if(!file.open(QFile::WriteOnly))
     {
         return false;
@@ -205,6 +200,7 @@ bool Writer::saveDataset(const QString &datasetName, const QString &datasetFile)
 
     QXmlStreamWriter writer;
     writer.setDevice(&file);
+    writer.setAutoFormatting(true);
     writer.writeStartDocument();
     writer.writeStartElement("dataset");
     writer.writeTextElement("name", dataset->getName());
@@ -250,11 +246,14 @@ void Writer::writeDatasetProtocols(const AbstractDataset *dataset, QXmlStreamWri
     {
         writer.writeStartElement("protocol");
         writer.writeAttribute("name", protocolList[i]->getName());
-        QStringList protocolResults= dataset->getProtocolResults(protocolList[i]->getName());
+        QList<Result*> protocolResults= dataset->getResultsList(protocolList[i]->getName());
         writer.writeStartElement("results");
         for( int i=0; i< protocolResults.length(); ++i)
         {
-            writer.writeTextElement("result" ,protocolResults.at(i));
+            writer.writeEmptyElement("result");
+            writer.writeAttribute("path", protocolResults.at(i)->getResultPath());
+            QString date=protocolResults.at(i)->getExecutionDate().toString();
+            writer.writeAttribute("date", date);
         }
         writer.writeEndElement(); //end results
         writer.writeEndElement();//end protocol
