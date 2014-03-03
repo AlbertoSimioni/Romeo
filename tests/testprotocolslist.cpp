@@ -15,7 +15,6 @@ void TestProtocolsList::getInstance(){
     QCOMPARE(protList3->getInstance(protList),protList3->getInstance(0));
 }
 
-
 void TestProtocolsList::addRemoveGetProtocol(){
     QString algName = "algName";
     QString algDescr = "algDescription";
@@ -40,10 +39,37 @@ void TestProtocolsList::addRemoveGetProtocol(){
     QSignalSpy spy(protList,SIGNAL(protocolsListModified()));
 
     protList->addProtocol(staticProtName,staticProtDescr,myAlg,feat,testStaticProtocol,STATIC,staticProtWindow,staticProtDistance);
+    QString extractedName = protList->protocolsList.last()->getName();
+    QString extractedDescr = protList->protocolsList.last()->getDescription();
+    QString extractedAlgName = protList->protocolsList.last()->getAlgorithmName();
+    ProtocolType extractedType = protList->protocolsList.last()->getType();
+    int extractedWindow = protList->protocolsList.last()->getWindowSize();
+    int extractedDistance = protList->protocolsList.last()->getDistanceToGlcm();
+    bool extractedTest = protList->protocolsList.last()->getTest();
 
+    QCOMPARE(staticProtName,extractedName);
+    QCOMPARE(staticProtDescr,extractedDescr);
+    QCOMPARE(myAlg->getName(),extractedAlgName);
+    QCOMPARE(STATIC,extractedType);
+    QCOMPARE(testStaticProtocol,extractedTest);
+    QCOMPARE(staticProtWindow,extractedWindow);
+    QCOMPARE(staticProtDistance,extractedDistance);
     QCOMPARE(spy.count(),1);
 
     protList->addProtocol(dynamicProtName,dynamicProtDescr,myAlg,feat2,testDynamicProtocol,DYNAMIC);
+    extractedName = protList->protocolsList.last()->getName();
+    extractedDescr = protList->protocolsList.last()->getDescription();
+    extractedAlgName = protList->protocolsList.last()->getAlgorithmName();
+    extractedType = protList->protocolsList.last()->getType();
+    extractedWindow = protList->protocolsList.last()->getWindowSize();
+    extractedDistance = protList->protocolsList.last()->getDistanceToGlcm();
+    extractedTest = protList->protocolsList.last()->getTest();
+
+    QCOMPARE(dynamicProtName,extractedName);
+    QCOMPARE(dynamicProtDescr,extractedDescr);
+    QCOMPARE(myAlg->getName(),extractedAlgName);
+    QCOMPARE(DYNAMIC,extractedType);
+    QCOMPARE(testDynamicProtocol,extractedTest);
 
     QCOMPARE(spy.count(),2);
 
