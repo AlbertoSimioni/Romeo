@@ -83,7 +83,7 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
     loader->loadDatasetsNames(dataHome.absolutePath().append("/datasets.xml"));
 
     ///////////prova test
-    /*
+    /*!
     datasetsList->addDataset("PROVO",TYPE2D);
 
     AbstractDataset* dataset = datasetsList->getDataset("PROVO");

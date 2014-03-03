@@ -129,6 +129,14 @@ void NewAlgorithmDialog::okButtonClicked(){
         msgBox.exec();
     }
     else{
+        QDir currentDir = QDir(QDir::currentPath());
+        if(currentDir.cd("algorithms")){}
+        else{
+            currentDir.mkdir("algorithms");
+            currentDir.cd("algorithms");
+        }
+        QString newFilePath = currentDir.path() +"/" +name+"."+ (dylp.split(".").takeLast()) ;
+        QFile::copy(dylp, newFilePath);
 
     resetForms();
     emit createAlgorithm(name,desc,dyfn,dylp,newAlgorithmParameters);

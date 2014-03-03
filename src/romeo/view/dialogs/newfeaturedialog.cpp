@@ -133,9 +133,16 @@ void NewFeatureDialog::okButtonClicked(){
     }
 
     else{
-
-    resetForms();
-    emit createFeature(name,desc,dyfn,dylp,type);
-    accept();
+        QDir currentDir = QDir(QDir::currentPath());
+        if(currentDir.cd("features")){}
+        else{
+            currentDir.mkdir("features");
+            currentDir.cd("features");
+        }
+        QString newFilePath = currentDir.path() +"/" +name+"."+ (dylp.split(".").takeLast()) ;
+        QFile::copy(dylp, newFilePath);
+        resetForms();
+        emit createFeature(name,desc,dyfn,newFilePath,type);
+        accept();
     }
 }
