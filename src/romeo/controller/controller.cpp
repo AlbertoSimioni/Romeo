@@ -276,6 +276,7 @@ void Controller::associateProtocol(QString protocolName){
         AbstractProtocol* protocol = protocolsList->getProtocol(protocolName);
         currentDataset->associateProtocol(protocol);
     }
+
 }
 
 

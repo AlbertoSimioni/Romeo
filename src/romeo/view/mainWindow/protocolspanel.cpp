@@ -54,7 +54,6 @@ void ProtocolsPanel::dropEvent(QDropEvent * event){
         if(match.isEmpty()){
             QString protocolName = protocol.split("  [Test").takeFirst();
             emit associateProtocol(protocolName);
-
         }
     } else
         event->ignore();
@@ -90,9 +89,7 @@ void ProtocolsPanel::fillProtocolsList(){
         ui->deleteButton->setEnabled(true);
         setAcceptDrops(true);
         QList<AbstractProtocol*> protocols = currentDataset->getAssociatedProtocolsList();
-
         for(int i = 0; i< protocols.size(); i++){
-
             AbstractProtocol* protocol = protocols[i];
             QString protocolName = protocol->getName();
 
@@ -113,6 +110,7 @@ void ProtocolsPanel::fillProtocolsList(){
     }
 
 }
+
 
 void ProtocolsPanel::addProtocol(QString protocolName, QStringList results){
     QTreeWidgetItem *protocolItem =new QTreeWidgetItem(ui->protocolsList);

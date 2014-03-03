@@ -12,7 +12,7 @@ void ListWidget::startDrag(Qt::DropActions)
 {
     QListWidgetItem *item = currentItem();
     QMimeData *mimeData = new QMimeData;
-    QByteArray ba = item->text().toLatin1().data();
+    QByteArray ba = item->text().toUtf8().data();
     QString theText = "protocol";
     mimeData->setData(theText, ba);
     QDrag *drag = new QDrag(this);

@@ -21,7 +21,7 @@ void ListView::startDrag(Qt::DropActions)
         list += (content.append("%%%"));
     }
     QMimeData *mimeData = new QMimeData;
-    QByteArray ba = list.toLatin1().data();
+    QByteArray ba = list.toUtf8().data();
     QString theText = "subject";
     mimeData->setData(theText, ba);
     QDrag *drag = new QDrag(this);
