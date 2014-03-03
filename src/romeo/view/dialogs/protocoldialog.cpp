@@ -1,7 +1,7 @@
 #include "protocoldialog.h"
 #include "ui_protocoldialog.h"
 #include <QList>
-
+#include <QDebug>
 using namespace romeo::model::protocols::algorithms;
 using namespace romeo::view::dialogs;
 using namespace romeo::model::protocols::features;
@@ -21,6 +21,11 @@ ProtocolDialog::ProtocolDialog(
     ui->Wizard->setCurrentIndex(0);
     ui->next1->setEnabled(false);
     ui->glcmLineEdit->setText("1");
+    AbstractAlgorithm::AlgorithmParameter parameter("Number of clusters",AbstractAlgorithm::INT,"3");
+    ParameterValueForm* parameterForm = new ParameterValueForm(parameter,this);
+    connect(parameterForm,SIGNAL(valueEntered(bool)),this,SLOT(checkParametersValidity()));
+    parameters.append(parameterForm);
+    ui->parameterLayout->addWidget(parameterForm);
     fillAlgorithmsCombo();
     fillFeaturesList();
     changeParametersForm();
@@ -57,6 +62,7 @@ void ProtocolDialog::connectUI(){
 ProtocolDialog::~ProtocolDialog()
 {
     delete ui;
+
 }
 
 
@@ -197,8 +203,9 @@ void ProtocolDialog::fillAlgorithmsCombo(){
 
 void ProtocolDialog::changeParametersForm(){
 
-    while(!parameters.isEmpty()){
-        delete parameters.takeFirst();
+    while(parameters.size() != 1){
+        qDebug() << "ciao";
+        delete parameters.takeLast();
     }
 
     AbstractAlgorithm* algorithm= algorithmsList->getAlgorithm(ui->AlgorithmCombo->currentText());
@@ -249,8 +256,15 @@ void ProtocolDialog::finishButtonClicked(){
     for(int i =0;i<number;i++){
         feats.append(ui->featuresList->item(i)->text());
     }
+    bool okClusters = false;
+    int nClusters = parameters[0]->getValue().toInt(&okClusters);
+    QList<QString> parametersValue;
+    for(int i = 1; i < parameters.size(); i++){
+        parametersValue.append(parameters[i]->getValue());
+    }
+
     resetForms();
-    emit createProtocol(name,desc,test,feats,alg,protType,windowSize,glcmDistance);
+    emit createProtocol(name,desc,test,feats,alg,protType,windowSize,glcmDistance,nClusters,parametersValue);
     accept();
 
 

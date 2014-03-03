@@ -9,7 +9,6 @@
 
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
-
 #include<QObject>
 #include<src/romeo/view/viewmanager.h>
 #include<src/romeo/model/core/modelcore.h>
@@ -101,7 +100,7 @@ public slots:
      * \param windowSize
      * \param distanceGLCM
      */
-    void addProtocol(QString protocolName,QString desc,bool test,QList<QString>features,QString algorithm,romeo::model::protocols::ProtocolType type,int windowSize,int distanceGLCM);
+    void addProtocol(QString protocolName,QString desc,bool test,QList<QString>features,QString algorithm,romeo::model::protocols::ProtocolType type,int windowSize,int distanceGLCM,int nClusters,QList<QString> parametersValue);
     /*!
      * \brief Slot connesso con il segnale createAlgorithm della classe NewAlgorithmDialog, crea un nuovo algoritmo con i parametri in input
      */

@@ -83,6 +83,7 @@ Controller::Controller(QObject *parent): QObject(parent)
 
 Controller::~Controller(){
     delete mainWindow;
+
 }
 
 void Controller::connectViewsSignals(){
@@ -96,7 +97,7 @@ void Controller::connectViewsSignals(){
     connect(newAlgorithmDialog,SIGNAL(nameChanged(QString)),this,SLOT(checkAlgorithmName(QString)));
     connect(newFeatureDialog,SIGNAL(nameChanged(QString)),this,SLOT(checkFeatureName(QString)));
     connect(newDatasetDialog,SIGNAL(nameChanged(QString)),this,SLOT(checkDatasetName(QString)));
-    connect(protocolDialog,SIGNAL(createProtocol(QString,QString,bool,QList<QString>,QString,romeo::model::protocols::ProtocolType,int,int)),this,SLOT(addProtocol(QString,QString,bool,QList<QString>,QString,romeo::model::protocols::ProtocolType,int,int)));
+    connect(protocolDialog,SIGNAL(createProtocol(QString,QString,bool,QList<QString>,QString,romeo::model::protocols::ProtocolType,int,int,int,QList<QString>)),this,SLOT(addProtocol(QString,QString,bool,QList<QString>,QString,romeo::model::protocols::ProtocolType,int,int,int,QList<QString>)));
     connect(newAlgorithmDialog,SIGNAL(createAlgorithm(QString,QString,QString,QString,QList<romeo::model::protocols::algorithms::AbstractAlgorithm::AlgorithmParameter>)),this,SLOT(addAlgorithm(QString,QString,QString,QString,QList<romeo::model::protocols::algorithms::AbstractAlgorithm::AlgorithmParameter>)));
     connect(newFeatureDialog,SIGNAL(createFeature(QString,QString,QString,QString,romeo::model::protocols::features::FeatureType)),this,SLOT(addFeature(QString,QString,QString,QString,romeo::model::protocols::features::FeatureType)));
     connect(newDatasetDialog,SIGNAL(createDataset(QString,romeo::model::InputFormat)),this,SLOT(addDataset(QString,romeo::model::InputFormat)));
@@ -205,14 +206,14 @@ void Controller::checkSubjectName(QString subjectName){
     }
 }
 
-void Controller::addProtocol(QString protocolName, QString desc, bool test, QList<QString> features, QString algorithm, ProtocolType type, int windowSize, int distanceGLCM){
+void Controller::addProtocol(QString protocolName, QString desc, bool test, QList<QString> features, QString algorithm, ProtocolType type, int windowSize, int distanceGLCM,int nClusters,QList<QString> parametersValue){
     AbstractAlgorithm* associatedAlgorithm = algorithmsList->getAlgorithm(algorithm);
     QList<AbstractFeature*> associatedFeatures;
     for(int i = 0; i<features.size();i++){
         associatedFeatures.append(featuresList->getFeature(features[i]));
     }
 
-    protocolsList->addProtocol(protocolName,desc,associatedAlgorithm,associatedFeatures,test,type,windowSize,distanceGLCM);
+    protocolsList->addProtocol(protocolName,desc,associatedAlgorithm,nClusters,parametersValue,associatedFeatures,test,type,windowSize,distanceGLCM);
 }
 
 void Controller::addAlgorithm(QString name, QString desc, QString dyfn, QString dylp, QList<AbstractAlgorithm::AlgorithmParameter> parameters){
@@ -276,7 +277,6 @@ void Controller::associateProtocol(QString protocolName){
         AbstractProtocol* protocol = protocolsList->getProtocol(protocolName);
         currentDataset->associateProtocol(protocol);
     }
-
 }
 
 
