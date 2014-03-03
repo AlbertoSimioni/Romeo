@@ -38,7 +38,7 @@ public:
     */
     static ProtocolsList* getInstance(QObject* parent=0);
 
-    void addProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, QList<features::AbstractFeature *> feat, bool test, ProtocolType type, int window=3, int distanceGLCM=1);
+    void addProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, int clusterNum, QList<QString> algParameters, QList<features::AbstractFeature *> feat, bool test, ProtocolType type, int window=3, int distanceGLCM=1);
     /*!
      * \brief Ritorna il riferimento al protocollo con nome uguale al parametro name
      * \param name Nome dell'algoritmo da ritornare

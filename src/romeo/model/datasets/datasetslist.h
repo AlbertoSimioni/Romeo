@@ -76,9 +76,17 @@ private:
     static DatasetsList* instance;
 signals:
     /*!
-     * \brief Segnale che indica una modifica avvenuta sulla lista dei dataset
+     * \brief Segnale che indica una modifica avvenuta sulla lista dei dataset.
      */
     void datasetsListModified();
+    /*!
+     * \brief Segnale che viene inviato quando un dataset viene eliminato.
+     */
+    void datasetDeleted(QString datasetName);
+    /*!
+     * \brief Segnale che deve emettere DatasetList quando viene modificato un dataset, indicandone il nome.
+     */
+    void datasetModified(QString datasetName);
 
 };
 }}}

@@ -55,8 +55,9 @@ void DatasetsList::addDataset(QString name, romeo::model::InputFormat datasetTyp
     }
     if(newDataset){
         datasets.append(newDataset);
-        connect(newDataset, SIGNAL(datasetModified(QString)), model::core::Writer::getInstance(), SLOT(saveDataset(QString)));
+        connect(newDataset, SIGNAL(modified(QString)), this, SIGNAL(datasetModified(QString)));
         emit datasetsListModified();
+        emit datasetModified(name);
     }
 }
 
@@ -107,6 +108,7 @@ AbstractDataset* DatasetsList::getNextDataset(AbstractDataset* dataset){
 
 void DatasetsList::deleteDataset(AbstractDataset *dataset){
     bool findedDataset = false;
+    QString name=dataset->getName();
     for(int i = 0; i < datasets.size() && !findedDataset; i++ ){
         if(datasets[i] == dataset){
            delete datasets.takeAt(i);
@@ -114,7 +116,12 @@ void DatasetsList::deleteDataset(AbstractDataset *dataset){
         }
 
     }
-    emit datasetsListModified();
+    if(findedDataset)
+    {
+        emit datasetDeleted(name);
+        emit datasetsListModified();
+    }
+
 }
 
 

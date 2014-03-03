@@ -305,7 +305,7 @@ bool Loader::parseProtocol(romeo::model::protocols::ProtocolsList *protocolsList
     glcm=nextElement.text().toInt();
     if ( glcm<0 )
         glcm=1;
-    protocolsList->addProtocol(name, description, alg, featureList, test, type, window, glcm );
+    //protocolsList->addProtocol(name, description, alg, clusterNum, algParameters, featureList, test, type, window, glcm );
     return true;
 }
 

@@ -34,7 +34,7 @@ void AbstractDataset::createNewSubject(QString &name, QString &fileSubject, QStr
 {
     subjects.append(this->makeSubject(name, fileSubject, mask));
     emit addedSubject(name,fileSubject,mask);
-    emit datasetModified(this->getName());
+    emit modified(this->getName());
     return;
 }
 QString AbstractDataset::getName() const
@@ -101,7 +101,8 @@ void AbstractDataset::addResult(QString protocolName, QString resultPath)
     if(it != protocols.end()){//ho trovato un protocollo
         it.value().append(new Result(resultPath));
     }
-
+    if(pro)
+        emit modified(this->getName());
 }
 
 
@@ -120,6 +121,7 @@ void AbstractDataset::deleteSubject(const QString &subjectName){
     }
     if(subjectFind){
         emit removedSubject(subjectName);
+        emit modified(this->getName());
     }
 }
 
@@ -144,7 +146,10 @@ void AbstractDataset::removeProtocolAssociation(QString protocolName){
         }
 
     }
-    if(matchProtocolName){ emit protocolsModified();}
+    if(matchProtocolName){
+        emit protocolsModified();
+        emit modified(this->getName());
+    }
 }
 
 
@@ -179,6 +184,7 @@ void AbstractDataset::associateProtocol(protocols::AbstractProtocol *protocol){
 
     protocols.insert(protocol,QList<Result*>());
     emit protocolsModified();
+    emit modified(this->getName());
 }
 
 void AbstractDataset::addResult(AbstractProtocol* protocol, Result *result){

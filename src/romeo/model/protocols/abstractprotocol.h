@@ -36,9 +36,11 @@ public:
      * \param nomeP Nome del protocollo da costruire
      * \param desc La descrizione del protocollo sotto forma di stringa
      * \param alg Un puntatore all'algoritmo di clustering che il protocollo deve eseguire
+     * \param clusterNum
+     * \param parameters
      * \param feat Un vettore di puntatori a features che fanno parte del protocollo
      */
-    AbstractProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, QList<features::AbstractFeature*>& feat,bool testProtocol);
+    AbstractProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, int clusterNum, QList<QString> parameters, QList<features::AbstractFeature*>& feat,bool testProtocol);
     /*!
      * \brief Sostituisce la lista delle feature che il protocollo possiede con quella indicata. Si può modificare la lista delle feature solo se il protocollo corrente è un protocollo di test
      * \param feat Vettore di features che si vogliono inserire nel protocollo
@@ -104,6 +106,12 @@ public:
     QString getAlgorithmName() const;
 
 
+    int getNClusters() const;
+    void setNClusters(int value);
+
+    QList<QString> getAlgorithmParameters() const;
+    void setAlgorithmParameters(const QList<QString> &value);
+
 private:
     /*!
      * \brief Nome del protocollo
@@ -118,13 +126,21 @@ private:
      */
     bool test;
     /*!
-     * \brief Puntatore all'algoritmo di clustering definito per il protocollo
+     * \brief Puntatore all'algoritmo di clustering definito per il protocollo.
      */
     algorithms::AbstractAlgorithm* algorithm;
     /*!
-     * \brief Vettore di puntatori alle features definite per il protocollo
+     * \brief Vettore di puntatori alle features definite per il protocollo.
      */
     QList<features::AbstractFeature*> features;
+    /*!
+     * \brief Lista che contiene i valori dei parametri dell'algoritmo di clustering associato al protocollo.
+     */
+    QList<QString> algorithmParameters;
+    /*!
+     * \brief Numero di cluster con cui verrà eseguito l'algoritmo.
+     */
+    int nClusters;
 };
 
 }}}

@@ -120,6 +120,8 @@ signals:
      * \brief Segnale che indica un evento anomalo che si è verificato e viene riportato un messaggio di errore tramite la stringa errorMessage.
      */
     void ioError(QString errorMessage);
+public slots:
+    void deleteDataset(QString datasetName);
 };
 
 

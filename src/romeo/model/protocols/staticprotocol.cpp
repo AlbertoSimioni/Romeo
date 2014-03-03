@@ -1,8 +1,8 @@
 #include "staticprotocol.h"
 using namespace romeo::model::protocols;
 
-StaticProtocol::StaticProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, QList<features::AbstractFeature*> feat,bool testProtocol, int window, int distance):
-    AbstractProtocol(nomeP,desc,alg,feat,testProtocol), windowSize(window), distanceToGLCM(distance)
+StaticProtocol::StaticProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, int clusterNum, QList<QString> algParameters, QList<features::AbstractFeature*> feat, bool testProtocol, int window, int distance):
+    AbstractProtocol(nomeP,desc,alg, clusterNum, algParameters, feat,testProtocol), windowSize(window), distanceToGLCM(distance)
 {
 
 }

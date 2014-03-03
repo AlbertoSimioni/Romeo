@@ -23,7 +23,7 @@ class DynamicProtocol : public AbstractProtocol
 {
 public:
 
-    DynamicProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, QList<features::AbstractFeature*> feat,bool testProtocol);
+    DynamicProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, int clusterNum, QList<QString> algParameters, QList<features::AbstractFeature*> feat,bool testProtocol);
 
     /*!
      * \brief Override del metodo execute della classe astratta AbstractProtocol

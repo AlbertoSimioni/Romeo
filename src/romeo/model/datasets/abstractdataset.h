@@ -157,9 +157,9 @@ signals:
      */
     void newResults();
     /*!
-     * \brief Segnale che indica una modifica avvenuta su un dataset
+     * \brief Segnale che indica una modifica avvenuta sul dataset di nome datasetName
      */
-    void datasetModified(QString datasetName);
+    void modified(QString datasetName);
 
 private:
     /*!

@@ -98,6 +98,8 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
     connect(featuresList, SIGNAL(featuresListModified()), writer, SLOT(saveFeaturesList()));
     connect(protocolsList, SIGNAL(protocolsListModified()), writer, SLOT(saveProtocolsList()));
     connect(datasetsList, SIGNAL(datasetsListModified()), writer, SLOT(saveDatasetsList()));
+    connect(datasetsList, SIGNAL(datasetDeleted(QString)), this, SLOT(deleteDataset(QString)));
+    connect(datasetsList, SIGNAL(datasetModified(QString)), writer, SLOT(saveDataset(QString)));
 }
 
 
@@ -116,6 +118,15 @@ void ModelCore::createLists()
     protocolsList=ProtocolsList::getInstance(this);
     algorithmsList=algorithms::AlgorithmsList::getInstance(this);
     featuresList=features::FeaturesList::getInstance(this);
+}
+
+void ModelCore::deleteDataset(QString datasetName)
+{
+    QFile file;
+    file.setFileName(dataHome.absolutePath()+ "/" + datasetName +".xml");
+    if (file.exists()){
+        file.remove();
+    }
 }
 QDir ModelCore::getDataHome()
 {
