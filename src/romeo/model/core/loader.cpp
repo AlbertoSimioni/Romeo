@@ -144,11 +144,11 @@ bool Loader::LoadDataset(const QString &datasetFile)
     QDomElement nameElem= docElem.firstChildElement("name");
     QDomElement typeElem= docElem.firstChildElement("type");
     InputFormat type;
-    if( typeElem.text() == "2D")
+    if( typeElem.text() == "TYPE2D")
         type=TYPE2D;
-    else if( typeElem.text() == "2D" )
+    else if( typeElem.text() == "TYPE2DT" )
         type=TYPE2DT;
-    else if( typeElem.text() == "3D" )
+    else if( typeElem.text() == "TYPE3D" )
         type=TYPE3D;
     else
         type=TYPE3DT;

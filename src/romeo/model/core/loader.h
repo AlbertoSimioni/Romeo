@@ -30,13 +30,14 @@ class Loader: public QObject
 public:
     /*!
      * \brief Metodo statico che ritorna l'istanza del Loader, in caso sia la prima volta ad essere invocato
-     *  si preoccupa anche di costruire l'istanza.
+     *  si preoccupa anche di costruire l'istanza alla prima chiamata del metodo.
+     * \param parent
      */
     static Loader* getInstance(QObject* parent);
     /*!
-     * \brief Carica la lista delle features che l'utente ha definito e che può utilizzare.
+     * \brief Carica la lista degli algoritmi che l'utente ha definito e che può utilizzare.
      * \param algFile Il nome del file da caricare viene stabilito dalla classe che chiama il metodo di load.
-     * \param algorithmList La lista degli algoritmi in cui devono essere inserite le informazioni raccolte dal file.
+     * \param algorithmList La lista degli algoritmi in cui devono essere inserite le informazioni raccolte dal file. Andrà a creare gli algoritmi come definiti nel file selezionato.
      * \return Ritorna true se il caricamento ha avuto successo.
      */
     bool loadAlgorithms(const QString& algFile, protocols::algorithms::AlgorithmsList *algorithmList);
@@ -55,20 +56,20 @@ public:
      */
     bool loadProtocols(const QString& protocolFile, protocols::ProtocolsList* protocolList);
     /*!
-     * \brief Carica la lista dei dataset che l'utente ha definito e che può utilizzare. Il caricamento delle informazioni sui dataset veri e propri viene fatto solo quando necessario.
+     * \brief Carica la lista dei dataset che l'utente ha definito e che può utilizzare. Non vengono creati direttamente i dataset.
      * \param datasetsFile Il nome del file da caricare viene stabilito dalla classe che chiama il metodo di load.
      * \return Ritorna true se il caricamento ha avuto successo.
      */
     bool loadDatasetsNames(const QString& datasetsFile);
     /*!
-     * \brief Carica il dataset contenuto nel file "datasetFile".
+     * \brief Carica il dataset contenuto nel file "datasetFile" e  lo aggiunge alla DatasetList.
      * \param datasetFile Il nome del file da caricare.
      * \return Ritorna true se il caricamento ha avuto successo.
      */
     bool LoadDataset(const QString& datasetFile);
 private:
     /*!
-     * \brief Costruttore privato, poiché la classe Loader implementa il design pattern singleton
+     * \brief Costruttore privato, poiché la classe Loader implementa il design pattern singleton.
      */
     Loader(QObject *parent=0);
     /*!

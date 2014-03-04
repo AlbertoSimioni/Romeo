@@ -63,11 +63,11 @@ private:
     */
     DatasetsList(QObject* parent=0);
     /*!
-     * \brief Lista di puntatori a dataset attualmente caricati nell'applicazione
+     * \brief Lista di puntatori a dataset attualmente caricati nell'applicazione.
      */
     QList<AbstractDataset*> datasets;
     /*!
-     * \brief Campo dati che mappa i nomi dei file di dataset con i rispettivi file
+     * \brief Campo dati che contiene i nomi dei dataset.
      */
     QList<QString> datasetsFiles;
     /*!

@@ -18,9 +18,10 @@ namespace model {
 namespace core{
 
 /**
- * \brief La classe Writer da completare
+ * \brief Classe che si preoccupa di salvare le informazioni sullo stato del Model permanentemente.
  *
- * Descrizione dettagliata
+ * Per il salvataggio delle informazioni vengono utilizzati dei file XML, usufruendo delle classi di Qt XML. In particolare questa classe è stata progettata cercando di renderla indipendente dalla classe ModelCore contenente le informazioni del Model. Inoltre la classe realizza il design pattern Singleton, poiché l'entità rappresentata non deve avere più di un'istanza.
+ * Mette a disposizione i metodi per salvare permanentemente su file XML le informazioni che varranno passate in input ai vari metodi.
  */
 
 class Writer: public QObject
@@ -44,8 +45,23 @@ private:
      * \brief Campo dati statico che contiene il riferimento all'unica istanza del Writer
      */
     static Writer* instance;
+    /*!
+     * \brief Metodo che si occupa di salvare le informazioni dei subject un dataset su disco.
+     * \param dataset Il dataset da salvare
+     * \param writer Lo streamWriter che andrà a salvare le informazioni.
+     */
     static void writeDatasetSubjects(const datasets::AbstractDataset* dataset, QXmlStreamWriter& writer);
+    /*!
+     * \brief Metodo che salva le informazioni dei protocolli associati a un subject su disco.
+     * \param dataset Il dataset da cui estrarre le informazioni.
+     * \param writer Lo stream che va a salva le informazioni.
+     */
     static void writeDatasetProtocols(const datasets::AbstractDataset* dataset, QXmlStreamWriter& writer);
+    /*!
+     * \brief Metodo che salva le informazioni delle feature associate a un protocollo.
+     * \param featureNames I nomi delle feature da salvare.
+     * \param writer Lo stream di scrittura che salva le informazioni sul buffer.
+     */
     static void writeProtocolFeatures(QStringList featureNames, QXmlStreamWriter& writer);
 
 public slots:

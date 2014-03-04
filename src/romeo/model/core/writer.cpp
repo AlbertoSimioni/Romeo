@@ -91,9 +91,9 @@ bool Writer::saveProtocolsList()
         writer.writeTextElement("algorithm", protocolsList[i]->getAlgorithmName());
         writer.writeTextElement("nCluster", QString::number(protocolsList[i]->getNClusters()));
         QList<QString> algParameters =protocolsList[i]->getAlgorithmParameters();
-        for(int i=0; i<algParameters.length(); ++i)
+        for(int j=0; j<algParameters.length(); ++j)
         {
-            writer.writeTextElement("parameter", algParameters.at(i));
+            writer.writeTextElement("parameter", algParameters.at(j));
         }
         Writer::writeProtocolFeatures(protocolsList[i]->getFeaturesName(), writer);
         writer.writeTextElement("window", QString::number(protocolsList[i]->getWindowSize()));

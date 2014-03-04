@@ -78,29 +78,9 @@ private:
      */
     void createLists();
     /*!
-     * \brief Campo dati statico che contiene il riferimento all'unica istanza del controller.
+     * \brief Campo dati statico che contiene il riferimento all'unica istanza del ModelCore.
      */
     static ModelCore* instance;
-    /*!
-     * \brief Contiene la lista dei percorsi ai file che hanno le informazioni sui dataset in uso.
-     */
-    QHash<QString, QString> datasetsFiles;
-    /*!
-     * \brief Puntatore alla lista dei dataset.
-     */
-    datasets::DatasetsList* datasetsList;
-    /*!
-     * \brief Puntatore alla lista dei protocolli.
-     */
-    protocols::ProtocolsList* protocolsList;
-    /*!
-     * \brief Puntatore alla lista degli algoritmi.
-     */
-    protocols::algorithms::AlgorithmsList* algorithmsList;
-    /*!
-     * \brief Puntatore alla lista delle features.
-     */
-    protocols::features::FeaturesList* featuresList;
 
     /*!
      * \brief Campo dati che contiene un puntatore al modulo che gestisce il caricamento dei dati.
@@ -121,6 +101,10 @@ signals:
      */
     void ioError(QString errorMessage);
 public slots:
+    /*!
+     * \brief Slot che elimina il dataset di nome datasetName e i file su disco che ne conteneva le informazioni.
+     * \param datasetName Nome del dataset da eliminare.
+     */
     void deleteDataset(QString datasetName);
 };
 

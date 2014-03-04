@@ -77,9 +77,9 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
 
 
 
-    loader->loadFeatures(dataHome.absolutePath().append("/features.xml"), featuresList);
-    loader->loadAlgorithms(dataHome.absolutePath().append("/algorithms.xml"), algorithmsList);
-    loader->loadProtocols(dataHome.absolutePath().append("/protocols.xml"), protocolsList);
+    loader->loadFeatures(dataHome.absolutePath().append("/features.xml"), getFeaturesList());
+    loader->loadAlgorithms(dataHome.absolutePath().append("/algorithms.xml"), getAlgorithmsList());
+    loader->loadProtocols(dataHome.absolutePath().append("/protocols.xml"), getProtocolsList());
     loader->loadDatasetsNames(dataHome.absolutePath().append("/datasets.xml"));
 
     ///////////prova test
@@ -94,10 +94,10 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
     dataset->addResult(protocol,new Result(QDate(1982,10,5),"C://"));
     }*/
     ////////// provatest
-
-    connect(algorithmsList, SIGNAL(algorithmsListModified()), writer, SLOT(saveAlgorithmsList()));
-    connect(featuresList, SIGNAL(featuresListModified()), writer, SLOT(saveFeaturesList()));
-    connect(protocolsList, SIGNAL(protocolsListModified()), writer, SLOT(saveProtocolsList()));
+    DatasetsList* datasetsList=getDatasetsList();
+    connect(getAlgorithmsList(), SIGNAL(algorithmsListModified()), writer, SLOT(saveAlgorithmsList()));
+    connect(getFeaturesList(), SIGNAL(featuresListModified()), writer, SLOT(saveFeaturesList()));
+    connect(getProtocolsList(), SIGNAL(protocolsListModified()), writer, SLOT(saveProtocolsList()));
     connect(datasetsList, SIGNAL(datasetsListModified()), writer, SLOT(saveDatasetsList()));
     connect(datasetsList, SIGNAL(datasetDeleted(QString)), this, SLOT(deleteDataset(QString)));
     connect(datasetsList, SIGNAL(datasetModified(QString)), writer, SLOT(saveDataset(QString)));
@@ -115,10 +115,10 @@ void ModelCore::save(){
 
 void ModelCore::createLists()
 {
-    datasetsList=DatasetsList::getInstance(this);
-    protocolsList=ProtocolsList::getInstance(this);
-    algorithmsList=algorithms::AlgorithmsList::getInstance(this);
-    featuresList=features::FeaturesList::getInstance(this);
+    DatasetsList::getInstance(this);
+    ProtocolsList::getInstance(this);
+    algorithms::AlgorithmsList::getInstance(this);
+    features::FeaturesList::getInstance(this);
 }
 
 void ModelCore::deleteDataset(QString datasetName)
@@ -149,22 +149,22 @@ ModelCore* ModelCore::getInstance(QObject *parent){
 
 DatasetsList* ModelCore::getDatasetsList() const
 {
-    return datasetsList;
+    return DatasetsList::getInstance();
 }
 
 
 features::FeaturesList* ModelCore::getFeaturesList() const
 {
-    return featuresList;
+    return FeaturesList::getInstance();
 }
 
 algorithms::AlgorithmsList* ModelCore::getAlgorithmsList() const
 {
-    return algorithmsList;
+    return AlgorithmsList::getInstance();
 }
 
 
 ProtocolsList* ModelCore::getProtocolsList() const
 {
-    return protocolsList;
+    return ProtocolsList::getInstance();
 }
