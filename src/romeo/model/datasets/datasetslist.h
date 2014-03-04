@@ -38,7 +38,11 @@ public:
     * \brief Ritorna la lista di dataset attualmente caricata dall'applicazione. La lista contiene dei puntatori ai dataset su cui possono essere eseguite operazioni.
     */
    QList<AbstractDataset*> getDatasetsList() const;
-
+   /*!
+    * \brief Aggiunge un nuovo dataset del tipo indicato alla lista dei dataset.
+    * \param name Nome del dataset.
+    * \param datasetType Tipo del dataset.
+    */
    void addDataset(QString name, InputFormat datasetType);
    /*!
     * \brief Si preoccupa di elimare dai dataset tutte le associazioni al protocollo con nome dato in input
@@ -59,7 +63,7 @@ public:
 
 private:
    /*!
-    * \brief Costruttore privato, poiché la classe Loader implementa il design pattern singleton
+    * \brief Costruttore privato, poiché la classe DatasetsList implementa il design pattern singleton
     */
     DatasetsList(QObject* parent=0);
     /*!

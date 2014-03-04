@@ -160,7 +160,7 @@ bool Loader::LoadDataset(const QString &datasetFile)
         QString sName=subjectList.at(i).toElement().attribute("name");
         QString sImg=subjectList.at(i).toElement().attribute("img");
         QString sMask=subjectList.at(i).toElement().attribute("mask");
-        dataset->makeSubject(sName, sImg, sMask);
+        dataset->createNewSubject(sName, sImg, sMask);
     }
 
     QDomNodeList protocolList=docElem.elementsByTagName(QString("protocol"));
