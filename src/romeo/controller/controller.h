@@ -149,6 +149,18 @@ public slots:
      */
     void removeProtocolAssociation(QString protocolName);
 
+    /*!
+     * \brief Slot che riceve in input i dati per l'esecuzione e invoca l'esecuzione sul dataset corrente
+     * \param protocol
+     * \param subjects
+     * \param resultsPath
+     * \param viewResults
+     * \param viewFeatures
+     * \param saveFeatures
+     * \param format
+     */
+    void startAnalysis(QString protocol,QList<QString> subjects,QString resultsPath,bool viewResults,bool viewFeatures,bool saveFeatures,QString format);
+
 private:
 
     /*!

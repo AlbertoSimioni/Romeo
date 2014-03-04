@@ -3,12 +3,12 @@
 #include <QFileDialog>
 
 using namespace romeo::view::mainWindow;
+using namespace romeo::model;
 ExecutePanel::ExecutePanel(QWidget *parent) :
     QWidget(parent), currentDataset(0),
     ui(new Ui::ExecutePanel)
 {
     ui->setupUi(this);
-    ui->resultLineEdit->setText("asd");
     connectUI();
     checkForm();
 }
@@ -30,6 +30,22 @@ void ExecutePanel::connectUI(){
 void ExecutePanel::setCurrentDataset(romeo::model::datasets::AbstractDataset *dataset)
 {
     currentDataset = dataset;
+    ui->formatCombo->clear();
+    if(currentDataset){
+        QStringList formats;
+        formats << "INPUT";
+        switch(currentDataset->getType()){
+        case TYPE2D : formats << "JPG" << "PNG" << "TIFF" << "BMP";
+            break;
+        case TYPE3D : formats << "NIfTI" << "Analyze";
+            break;
+        case TYPE2DT : formats << "AVI";
+            break;
+        case TYPE3DT: formats << "NIfTI" << "Analyze";
+            break;
+        }
+        ui->formatCombo->addItems(formats);
+    }
     checkForm();
 
 }

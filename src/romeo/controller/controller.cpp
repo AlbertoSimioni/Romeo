@@ -113,6 +113,7 @@ void Controller::connectViewsSignals(){
     connect(protocolsPanel,SIGNAL(openAssociateProtocolDialog()),this,SLOT(viewAssociateProtocolDialog()));
     connect(associateProtocolDialog,SIGNAL(associateProtocol(QString)),this,SLOT(associateProtocol(QString)));
     connect(protocolsPanel,SIGNAL(removeProtocolAssociation(QString)),this,SLOT(removeProtocolAssociation(QString)));
+    connect(mainWindow->getDatasetPanel(),SIGNAL(executeAnalysis(QString,QList<QString>,QString,bool,bool,bool,QString)),this,SLOT(startAnalysis(QString,QList<QString>,QString,bool,bool,bool,QString)));
 }
 
 Controller* Controller::getInstance(QObject *parent){
@@ -285,4 +286,9 @@ void Controller::removeProtocolAssociation(QString protocolName){
     AbstractDataset* currentDataset = mainWindow->getDatasetPanel()->getCurrentDataset();
     currentDataset->removeProtocolAssociation(protocolName);
 
+}
+
+void Controller::startAnalysis(QString protocol, QList<QString> subjects, QString resultsPath, bool viewResults, bool viewFeatures, bool saveFeatures, QString format)
+{
+    mainWindow->getDatasetPanel()->getCurrentDataset()->executeAnalysis(protocol,subjects,resultsPath,viewResults,viewFeatures,saveFeatures,format);
 }

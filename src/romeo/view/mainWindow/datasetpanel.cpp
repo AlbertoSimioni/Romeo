@@ -10,9 +10,7 @@ DatasetPanel::DatasetPanel(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(ui->executePanel,SIGNAL(executeAnalysis(QString,bool,bool,bool,QString)),this,SLOT(onExecuteclicked(QString,bool,bool,bool,QString)));
-    msgBox = new QMessageBox(this);
-    msgBox->setIcon(QMessageBox::Critical);
-    msgBox->setText("Check at least one Subject and select one Protocol");
+
 }
 
 DatasetPanel::~DatasetPanel()
@@ -60,8 +58,9 @@ void DatasetPanel::onExecuteclicked(QString resultsPath, bool viewResults, bool 
        emit this->executeAnalysis(protocol,subjects,resultsPath,viewResults,viewFeatures,saveFeatures,format);
    }
    else{
-
-       //msgBox->exec();
+       QMessageBox msgBox(this);
+       msgBox.setIcon(QMessageBox::Critical);
+       msgBox.setText("Check at least one Subject and select one Protocol");
+       msgBox.exec();
    }
-   qDebug() << "FUCKOFF";
 }

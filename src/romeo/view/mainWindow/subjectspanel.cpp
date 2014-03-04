@@ -157,5 +157,6 @@ QList<QString> SubjectsPanel::getCheckedSubjects(){
 
         }
     }
+    return subjectsName;
 
 }

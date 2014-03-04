@@ -100,7 +100,7 @@ public:
      */
     void addResult(romeo::model::protocols::AbstractProtocol* protocol,Result* result);
 
-    bool execute(protocols::AbstractProtocol* alg, QList<AbstractSubject*> selectedSubjects);
+
     /*!
      * \brief Ritorna una lista che rappresenta i percorsi ai risultati per il protocollo di nome protocol
      */
@@ -135,6 +135,10 @@ public:
      */
     void deleteSubject(const QString& subjectName);
 
+    /*!
+     * \brief Metodo che avvia un nuovo thread in cui esegue le analisi sui subjects con nome dato in input applicando il protocollo dato in input
+     */
+    void executeAnalysis(QString protocol,QList<QString> subjects,QString resultsPath,bool viewResults,bool viewFeatures,bool saveFeatures,QString exportFormat);
 signals:
     /*!
      * \brief Segnale che indica l'inserimento di un nuovo subject nel dataset corrente.

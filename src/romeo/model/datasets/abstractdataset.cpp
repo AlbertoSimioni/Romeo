@@ -125,6 +125,20 @@ void AbstractDataset::deleteSubject(const QString &subjectName){
     }
 }
 
+void AbstractDataset::executeAnalysis(QString protocol, QList<QString> subjects, QString resultsPath, bool viewResults, bool viewFeatures, bool saveFeatures, QString exportFormat)
+{
+   QList<AbstractSubject*> subjectsToAnalyze;
+   for(int i = 0; i < subjects.size();i++){
+       AbstractSubject* subject =  getSubject(subjects[i]);
+       if(subject){
+           subjectsToAnalyze.append(subject);
+       }
+   }
+
+   AbstractProtocol* protocolToExecute = getProtocol(protocol);
+
+}
+
 void AbstractDataset::removeProtocolAssociation(QString protocolName){
 
     QList<AbstractProtocol*> protocolsList=protocols.keys();
