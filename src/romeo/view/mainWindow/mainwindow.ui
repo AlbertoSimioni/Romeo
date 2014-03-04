@@ -159,7 +159,6 @@ QHeaderView::section:checked
    <addaction name="actionNewProtocol"/>
    <addaction name="actionProtocolRemove"/>
    <addaction name="separator"/>
-   <addaction name="actionExecute_protocol"/>
    <addaction name="actionFeatures_List"/>
    <addaction name="actionAdd_Feature"/>
    <addaction name="actionAlgorithms_List"/>

@@ -54,9 +54,9 @@ font-size: 15px;
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QPushButton" name="previousButton">
           <property name="text">
-           <string>&amp;Prevoius</string>
+           <string>Previous</string>
           </property>
          </widget>
         </item>
@@ -74,9 +74,9 @@ font-size: 15px;
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="cancelButton">
           <property name="text">
-           <string>&amp;Cancel</string>
+           <string>Cancel</string>
           </property>
           <property name="icon">
            <iconset resource="../../../immagini.qrc">
@@ -98,9 +98,9 @@ font-size: 15px;
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="nextButton">
           <property name="text">
-           <string>&amp;Next</string>
+           <string>Next</string>
           </property>
          </widget>
         </item>
@@ -110,11 +110,22 @@ font-size: 15px;
        <widget class="QVTKWidget" name="widget" native="true"/>
       </item>
       <item>
-       <widget class="QProgressBar" name="progressBar">
-        <property name="value">
-         <number>24</number>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QProgressBar" name="progressBar">
+          <property name="value">
+           <number>24</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="closeButton">
+          <property name="text">
+           <string>Close</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>

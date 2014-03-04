@@ -41,19 +41,19 @@ public:
     /*!
      * \brief Ritorna la lista dei dataset.
      */
-    datasets::DatasetsList *getDatasetsList() const;
+    datasets::DatasetsList *getDatasetsList();
     /*!
      * \brief Ritorna la lista dei protocolli.
      */
-    protocols::ProtocolsList *getProtocolsList() const;
+    protocols::ProtocolsList *getProtocolsList();
     /*!
      * \brief Ritorna la lista degli algoritmi.
      */
-    protocols::algorithms::AlgorithmsList *getAlgorithmsList() const;
+    protocols::algorithms::AlgorithmsList *getAlgorithmsList();
     /*!
      * \brief Ritorna la lista delle feature.
      */
-    protocols::features::FeaturesList *getFeaturesList() const;
+    protocols::features::FeaturesList *getFeaturesList();
 
     /*!
      * \brief Ritorna la cartella dove sono contenuti i file xml utilizzati come database.

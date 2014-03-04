@@ -47,7 +47,6 @@ SET(romeo_SOURCES
  src/romeo/model/core/modelcore.cpp
  src/romeo/model/core/writer.cpp
  src/romeo/model/core/loader.cpp
- src/romeo/model/settings.cpp
  src/romeo/model/protocols/abstractprotocol.cpp
  src/romeo/model/protocols/staticprotocol.cpp
  src/romeo/model/protocols/dynamicprotocol.cpp
@@ -108,7 +107,6 @@ SET(romeo_HEADERS
  src/romeo/model/core/modelCore.h
  src/romeo/model/core/writer.h
  src/romeo/model/core/loader.h
- src/romeo/model/settings.h
  src/romeo/model/protocols/abstractprotocol.h
  src/romeo/model/protocols/staticprotocol.h
  src/romeo/model/protocols/dynamicprotocol.h

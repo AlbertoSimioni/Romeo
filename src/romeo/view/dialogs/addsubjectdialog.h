@@ -54,7 +54,7 @@ signals:
     /*!
      * \brief Segnala la modifica del nome del subject da parte dell'utente
      */
-    void nameChanged(QString datasetName);
+    void nameChanged(QString subjectName);
 
     /*!
      * \brief Segnale emesso quando l'utente ha terminato le operazioni necessarie per la creazione di un nuovo subject

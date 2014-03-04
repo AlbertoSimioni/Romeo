@@ -48,7 +48,7 @@ font-size: 14px;
        <number>9</number>
       </property>
       <item row="1" column="0" colspan="3">
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="start">
         <property name="text">
          <string>Start Analysis</string>
         </property>
@@ -73,25 +73,10 @@ font-size: 14px;
        </spacer>
       </item>
       <item row="3" column="2" colspan="3">
-       <widget class="QComboBox" name="comboBox">
+       <widget class="QComboBox" name="formatCombo">
         <item>
          <property name="text">
-          <string>PNG</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>JPEG</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>TIFF</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>BMP</string>
+          <string>INPUT</string>
          </property>
         </item>
        </widget>
@@ -123,7 +108,7 @@ font-size: 14px;
        </spacer>
       </item>
       <item row="2" column="1" colspan="5">
-       <widget class="QLineEdit" name="lineEdit"/>
+       <widget class="QLineEdit" name="resultLineEdit"/>
       </item>
       <item row="3" column="0" colspan="2">
        <widget class="QLabel" name="label_3">
@@ -133,14 +118,14 @@ font-size: 14px;
        </widget>
       </item>
       <item row="4" column="0" colspan="3">
-       <widget class="QCheckBox" name="checkBox">
+       <widget class="QCheckBox" name="viewResultsCheck">
         <property name="text">
          <string>View Results</string>
         </property>
        </widget>
       </item>
       <item row="2" column="6">
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="browseButton">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -175,14 +160,14 @@ font-size: 14px;
        </widget>
       </item>
       <item row="5" column="0">
-       <widget class="QCheckBox" name="checkBox_2">
+       <widget class="QCheckBox" name="viewFeaturesCheck">
         <property name="text">
          <string>View Features</string>
         </property>
        </widget>
       </item>
       <item row="6" column="0">
-       <widget class="QCheckBox" name="checkBox_3">
+       <widget class="QCheckBox" name="saveFeaturesCheck">
         <property name="text">
          <string>Save Features</string>
         </property>

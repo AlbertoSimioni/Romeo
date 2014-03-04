@@ -111,7 +111,7 @@ QLabel{color:white}</string>
               <item>
                <widget class="QToolButton" name="newButton">
                 <property name="text">
-                 <string>New</string>
+                 <string>Associate</string>
                 </property>
                 <property name="icon">
                  <iconset>

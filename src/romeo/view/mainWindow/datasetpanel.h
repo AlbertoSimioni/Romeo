@@ -14,6 +14,7 @@
 #include "protocolspanel.h"
 #include "executepanel.h"
 #include "subjectspanel.h"
+#include <QMessageBox>
 namespace Ui {
 class DatasetPanel;
 }
@@ -53,12 +54,27 @@ public:
      */
     void setCurrentDataset(romeo::model::datasets::AbstractDataset *dataset);
 
+
+
+signals:
+    /*!
+     * \brief Segnale emesso per segnale la volontà dell'utente di eseguire un protocollo, contiene i campi dati necessari all'esecuzione
+     */
+    void executeAnalysis(QString protocol,QList<QString> subjects,QString resultsPath,bool viewResults,bool viewFeatures,bool saveFeatures,QString format);
+private slots:
+    /*!
+     * \brief Slot che riceve le informazioni dall'execute panel per l'esecuzione del protocollo ed emette il segnale executeAnalysis aggiungendo le informazioni sul protocollo selezionato i subjects selezionati, in caso non ci siano non emette il segnale
+     */
+    void onExecuteclicked(QString resultsPath,bool viewResults,bool viewFeatures,bool saveFeatures,QString format);
 private:
     /*!
      * \brief Riferimento al dataset attualmente attivo nella schermata
      */
     romeo::model::datasets::AbstractDataset* currentDataset;
-
+    /*!
+     * \brief Riferimento al dialogo d'errore mostrato quando l'utente prova ad avviare le analisi senza aver selezionato almeno un protocollo e un subject
+     */
+    QMessageBox* msgBox;
 
     Ui::DatasetPanel *ui;
 };

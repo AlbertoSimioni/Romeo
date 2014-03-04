@@ -147,3 +147,15 @@ void SubjectsPanel::removeSubjectFromList(QString subjectName){
        delete subject[0];
     }
 }
+
+QList<QString> SubjectsPanel::getCheckedSubjects(){
+    QList<QString> subjectsName;
+    for (int i = 0; i < ui->subjectsList->topLevelItemCount(); i++){
+        QTreeWidgetItem* item = ui->subjectsList->topLevelItem(i);
+        if(item->checkState(0) == Qt::Checked){
+            subjectsName.append(item->data(0,Qt::DisplayRole).toString());
+
+        }
+    }
+
+}

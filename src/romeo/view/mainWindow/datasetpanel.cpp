@@ -1,5 +1,7 @@
 #include "datasetpanel.h"
 #include "ui_datasetpanel.h"
+
+#include <QDebug>
 using namespace romeo::view::mainWindow;
 using namespace romeo::model::datasets;
 DatasetPanel::DatasetPanel(QWidget *parent) :
@@ -7,7 +9,10 @@ DatasetPanel::DatasetPanel(QWidget *parent) :
     ui(new Ui::DatasetPanel)
 {
     ui->setupUi(this);
-
+    connect(ui->executePanel,SIGNAL(executeAnalysis(QString,bool,bool,bool,QString)),this,SLOT(onExecuteclicked(QString,bool,bool,bool,QString)));
+    msgBox = new QMessageBox(this);
+    msgBox->setIcon(QMessageBox::Critical);
+    msgBox->setText("Check at least one Subject and select one Protocol");
 }
 
 DatasetPanel::~DatasetPanel()
@@ -30,6 +35,7 @@ void DatasetPanel::setCurrentDataset(romeo::model::datasets::AbstractDataset *da
     }
     ui->protocolsPanel->setCurrentDataset(currentDataset);
     ui->subjectsPanel->setCurrentDataset(currentDataset);
+    ui->executePanel->setCurrentDataset(currentDataset);
 }
 
 
@@ -45,4 +51,17 @@ SubjectsPanel* DatasetPanel::getSubjectsPanel(){
 
 ExecutePanel* DatasetPanel::getExecutePanel(){
     return ui->executePanel;
+}
+
+void DatasetPanel::onExecuteclicked(QString resultsPath, bool viewResults, bool viewFeatures, bool saveFeatures, QString format){
+   QString protocol = ui->protocolsPanel->getSelectedProtocol();
+   QList<QString> subjects = ui->subjectsPanel->getCheckedSubjects();
+   if((!protocol.isEmpty()) && (!subjects.isEmpty())){
+       emit this->executeAnalysis(protocol,subjects,resultsPath,viewResults,viewFeatures,saveFeatures,format);
+   }
+   else{
+
+       //msgBox->exec();
+   }
+   qDebug() << "FUCKOFF";
 }

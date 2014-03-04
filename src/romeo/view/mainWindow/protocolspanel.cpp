@@ -157,3 +157,16 @@ void ProtocolsPanel::onDeleteClicked(){
         }
     }
 }
+
+QString ProtocolsPanel::getSelectedProtocol(){
+    QString protocolName;
+    QTreeWidgetItem* currentItem = ui->protocolsList->currentItem();
+    if(currentItem){
+        QTreeWidgetItem* parent = currentItem->parent();
+        if(!parent){
+            protocolName = currentItem->data(0,Qt::DisplayRole).toString().split("  [Test").takeFirst();
+
+         }
+    }
+    return protocolName;
+}

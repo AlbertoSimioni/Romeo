@@ -39,6 +39,11 @@ public:
      * \brief Cambia il riferimento al dataset corrente
      */
     void setCurrentDataset(romeo::model::datasets::AbstractDataset *dataset);
+
+    /*!
+     * \brief Ritorna una lista contente i subjects correntemente selezionati
+     */
+    QList<QString> getCheckedSubjects();
 signals:
     /*!
      * \brief Segnale emesso quando l'utente preme il tasto per la creazione di un nuovo subject

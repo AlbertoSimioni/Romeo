@@ -204,7 +204,6 @@ void ProtocolDialog::fillAlgorithmsCombo(){
 void ProtocolDialog::changeParametersForm(){
 
     while(parameters.size() != 1){
-        qDebug() << "ciao";
         delete parameters.takeLast();
     }
 

@@ -39,6 +39,7 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
 
 
     ////////////PROVA TEST
+    ///
         /* QList<AbstractAlgorithm::AlgorithmParameter> param;
         AbstractAlgorithm::AlgorithmParameter param1 (QString("param1"), AbstractAlgorithm::BOOL, QString("default"));
         AbstractAlgorithm::AlgorithmParameter param2 (QString("param2"), AbstractAlgorithm::CHAR, QString("default"));
@@ -60,7 +61,7 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
         AbstractFeature* feat2 = new FirstOrderFeature("FeatureFO2","PATH","PATH","DESC2");
         AbstractFeature* feat3 = new DynamicFeature("FeatureD1","PATH","PATH","DESC3");
         AbstractFeature* feat4 = new SecondOrderFeature("FeatureSO1","PATH","PATH","DESC4");
-        featuresList->addFeature(feat1);
+        FeaturesList::getInstance()->addFeature(feat1);
         featuresList->addFeature(feat2);
         featuresList->addFeature(feat3);
         featuresList->addFeature(feat4);
@@ -70,9 +71,9 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
         features.append(feat1);
         features.append(feat2);
         features.append(feat4);
-        protocolsList->addProtocol("PROVA","descrizione",alg,features,false, STATIC);
+        protocolsList->addProtocol("PROVA","descrizione",alg,5,QList<QString>(),features,false, STATIC);
 
-    */
+        */
         ///////////////PROVA TEST
 
 
@@ -147,24 +148,24 @@ ModelCore* ModelCore::getInstance(QObject *parent){
     return instance;
 }
 
-DatasetsList* ModelCore::getDatasetsList() const
+DatasetsList* ModelCore::getDatasetsList()
 {
-    return DatasetsList::getInstance();
+    return DatasetsList::getInstance(this);
 }
 
 
-features::FeaturesList* ModelCore::getFeaturesList() const
+features::FeaturesList* ModelCore::getFeaturesList()
 {
-    return FeaturesList::getInstance();
+    return FeaturesList::getInstance(this);
 }
 
-algorithms::AlgorithmsList* ModelCore::getAlgorithmsList() const
+algorithms::AlgorithmsList* ModelCore::getAlgorithmsList()
 {
-    return AlgorithmsList::getInstance();
+    return AlgorithmsList::getInstance(this);
 }
 
 
-ProtocolsList* ModelCore::getProtocolsList() const
+ProtocolsList* ModelCore::getProtocolsList()
 {
-    return ProtocolsList::getInstance();
+    return ProtocolsList::getInstance(this);
 }

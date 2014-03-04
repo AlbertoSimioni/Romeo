@@ -34,6 +34,10 @@ public:
      * \brief Cambia il riferimento al dataset corrente
      */
     void setCurrentDataset(romeo::model::datasets::AbstractDataset *dataset);
+    /*!
+     * \brief Ritorna il nome del protocollo correntemente selezionato, in caso non ci sia ritorna una stringa vuota
+     */
+    QString getSelectedProtocol();
 
 signals:
     /*!
