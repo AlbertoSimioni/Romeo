@@ -20,9 +20,9 @@ namespace model {
 namespace core{
 
 /**
- * \brief La classe Loader da completare
- *
- * Descrizione dettagliata
+ * \brief Classe che carica le informazioni sullo stato del Model che sono state salvate dalla classe Writer su un file XML.
+ * Per scorrere il file XML la classe usufruisce delle classi di Qt XML. In particolare questa classe è stata progettata cercando di renderla indipendente dalla classe ModelCore contenente le informazioni del Model. Inoltre la classe realizza il design pattern Singleton, poiché l'entità rappresentata non deve avere più di un'istanza.
+ * Mette a disposizione i metodi per caricare le varie informazioni sullo stato del Model salvate sui file XML.
  */
 class Loader: public QObject
 {
@@ -72,7 +72,7 @@ private:
      */
     Loader(QObject *parent=0);
     /*!
-     * \brief Campo dati statico che contiene il riferimento all'unica istanza del Loader
+     * \brief Campo dati statico che contiene il riferimento all'unica istanza del Loader.
      */
     static Loader* instance;
     /*!

@@ -80,7 +80,12 @@ DatasetsList::DatasetsList(QObject *parent): QObject(parent)
 }
 QList<QString> DatasetsList::getDatasetsFiles() const
 {
-    return datasetsFiles;
+    QList<QString> datasetList;
+    for(int i=0; i< datasets.length(); ++i)
+    {
+        datasetList.append(datasets.at(i)->getName());
+    }
+    return datasetList;
 }
 
 void DatasetsList::addDatasetFile(const QString &name)

@@ -30,7 +30,8 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
     dataHome=QDir::current();
     if(!dataHome.cd("data"))
     {
-        qDebug("non ho trovato la cartella data nel path dell'applicazione. i file saranno salvati nella cartella d'esecuzione");
+        dataHome.mkdir("data");
+        dataHome.cd("data");
     }
     createLists();
 
@@ -82,7 +83,7 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
     loader->loadDatasetsNames(dataHome.absolutePath().append("/datasets.xml"));
 
     ///////////prova test
-    /*!
+/*
     datasetsList->addDataset("PROVO",TYPE2D);
 
     AbstractDataset* dataset = datasetsList->getDataset("PROVO");
@@ -90,7 +91,7 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
     if(dataset){
         dataset->associateProtocol(protocol);;
 
-    dataset->addResult(protocol,new Result(QDate(1982,10,5),"/home/alberto/Scrivania/Dati/"));
+    dataset->addResult(protocol,new Result(QDate(1982,10,5),"C://"));
     }*/
     ////////// provatest
 
@@ -108,7 +109,7 @@ void ModelCore::save(){
     writer->saveAlgorithmsList();
     writer->saveFeaturesList();
     writer->saveProtocolsList();
-
+    writer->saveDatasetsList();
 }
 //test
 
