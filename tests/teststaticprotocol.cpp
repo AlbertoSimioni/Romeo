@@ -9,6 +9,8 @@ void TestStaticProtocol::staticProtocol(){
     QString algName = "algName";
     QString algDescr = "algDescription";
     QList<algorithms::AbstractAlgorithm::AlgorithmParameter> paramList;
+    QList<QString> algParameters;
+    int clusterNum = 1;
     QString algDylp = "dylp";
     QString algDyfn = "dyfn";
     algorithms::UserDefinedAlgorithm *myAlg = new algorithms::UserDefinedAlgorithm(paramList,algName,algDescr,algDylp,algDyfn);
@@ -20,7 +22,7 @@ void TestStaticProtocol::staticProtocol(){
     int protWindow = 0;
     int protDistance = 0;
 
-    StaticProtocol *dp = new StaticProtocol(protName,protDescr,myAlg,feat,testProtocol,protWindow,protDistance);
+    StaticProtocol *dp = new StaticProtocol(protName,protDescr,myAlg,clusterNum,algParameters,feat,testProtocol,protWindow,protDistance);
     QCOMPARE(protName,dp->getName());
     QCOMPARE(protDescr,dp->getDescription());
     QCOMPARE(algName,dp->getAlgorithmName());

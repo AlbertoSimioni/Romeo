@@ -11,7 +11,7 @@ using namespace romeo::model::protocols::algorithms;
 Q_DECLARE_METATYPE(AbstractAlgorithm::ParameterType);
 #endif
 
-class TestAbstractAlgorithm : public QObject // LCOV_EXCL_LINE
+class TestAbstractAlgorithm : public QObject
 {
     Q_OBJECT
 

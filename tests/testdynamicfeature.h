@@ -7,7 +7,7 @@
 
 using namespace romeo::model::protocols::features;
 
-class TestDynamicFeature : public QObject // LCOV_EXCL_LINE
+class TestDynamicFeature : public QObject
 {
     Q_OBJECT
 

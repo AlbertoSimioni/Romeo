@@ -7,7 +7,7 @@
 
 using namespace romeo::model::protocols::features;
 
-class TestFirstOrderFeature : public QObject // LCOV_EXCL_LINE
+class TestFirstOrderFeature : public QObject
 {
     Q_OBJECT
 

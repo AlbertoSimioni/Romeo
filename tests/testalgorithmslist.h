@@ -8,7 +8,7 @@
 
 using namespace romeo::model::protocols::algorithms;
 
-class TestAlgorithmsList : public QObject // LCOV_EXCL_LINE
+class TestAlgorithmsList : public QObject
 {
     Q_OBJECT
 

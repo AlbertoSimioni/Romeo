@@ -7,7 +7,7 @@
 
 using namespace romeo::model;
 
-class TestSettings : public QObject // LCOV_EXCL_LINE
+class TestSettings : public QObject
 {
     Q_OBJECT
 

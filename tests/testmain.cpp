@@ -18,6 +18,7 @@
 #include "testdynamicfeature.h"
 #include "testfirstorderfeature.h"
 #include "testsecondorderfeature.h"
+#include "testfeatureslist.h"
 
 int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
     QApplication a(argc, argv);
@@ -72,6 +73,9 @@ int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
 
     TestSecondOrderFeature tsof;
     QTest::qExec(&tsof);
+
+    TestFeaturesList tfl;
+    QTest::qExec(&tfl);
 
     return 0;
 }

@@ -8,7 +8,7 @@
 
 using namespace romeo::model::protocols;
 
-class TestStaticProtocol : public QObject // LCOV_EXCL_LINE
+class TestStaticProtocol : public QObject // _LINE
 {
     Q_OBJECT
 

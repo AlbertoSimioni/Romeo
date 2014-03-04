@@ -19,6 +19,8 @@ void TestProtocolsList::addRemoveGetProtocol(){
     QString algName = "algName";
     QString algDescr = "algDescription";
     QList<algorithms::AbstractAlgorithm::AlgorithmParameter> paramList;
+    QList<QString> algParameters;
+    int clusterNum = 1;
     QString algDylp = "dylp";
     QString algDyfn = "dyfn";
     algorithms::UserDefinedAlgorithm *myAlg = new algorithms::UserDefinedAlgorithm(paramList,algName,algDescr,algDylp,algDyfn);
@@ -38,7 +40,7 @@ void TestProtocolsList::addRemoveGetProtocol(){
     ProtocolsList *protList = new ProtocolsList(0);
     QSignalSpy spy(protList,SIGNAL(protocolsListModified()));
 
-    protList->addProtocol(staticProtName,staticProtDescr,myAlg,feat,testStaticProtocol,STATIC,staticProtWindow,staticProtDistance);
+    protList->addProtocol(staticProtName,staticProtDescr,myAlg,clusterNum,algParameters,feat,testStaticProtocol,STATIC,staticProtWindow,staticProtDistance);
     QString extractedName = protList->protocolsList.last()->getName();
     QString extractedDescr = protList->protocolsList.last()->getDescription();
     QString extractedAlgName = protList->protocolsList.last()->getAlgorithmName();
@@ -56,7 +58,7 @@ void TestProtocolsList::addRemoveGetProtocol(){
     QCOMPARE(staticProtDistance,extractedDistance);
     QCOMPARE(spy.count(),1);
 
-    protList->addProtocol(dynamicProtName,dynamicProtDescr,myAlg,feat2,testDynamicProtocol,DYNAMIC);
+    protList->addProtocol(dynamicProtName,dynamicProtDescr,myAlg,clusterNum,algParameters,feat2,testDynamicProtocol,DYNAMIC);
     extractedName = protList->protocolsList.last()->getName();
     extractedDescr = protList->protocolsList.last()->getDescription();
     extractedAlgName = protList->protocolsList.last()->getAlgorithmName();
