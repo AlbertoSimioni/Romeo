@@ -2,7 +2,7 @@
 #define TESTDYNAMICPROTOCOL_H
 
 #include <QtTest>
-//#define private public
+#define private public
 #include <../src/romeo/model/protocols/dynamicprotocol.h>
 #include <../src/romeo/model/protocols/algorithms/userdefinedalgorithm.h>
 
@@ -14,9 +14,13 @@ class TestDynamicProtocol : public QObject
 
 public:
     explicit TestDynamicProtocol(QObject *parent = 0);
+    DynamicProtocol* createProtocol();
 
 private slots:
     void dynamicProtocol();
+    void setNClusters();
+    void setAlgorithmParameters();
+    void getFeaturesName();
 };
 
 

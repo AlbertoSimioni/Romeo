@@ -7,7 +7,6 @@ testnewfeaturedialog.cpp
 testnewdatasetdialog.cpp
 testabstractalgorithm.cpp
 testalgorithmslist.cpp
-testsettings.cpp
 testdynamicprotocol.cpp
 teststaticprotocol.cpp
 testprotocolslist.cpp
@@ -15,6 +14,8 @@ testdynamicfeature.cpp
 testfirstorderfeature.cpp
 testsecondorderfeature.cpp
 testfeatureslist.cpp
+testwriter.cpp
+testuserdefinedalgorithm.cpp
 testmain.cpp
  ../src/romeo/view/dialogs/addsubjectdialog.cpp
  ../src/romeo/view/dialogs/executedialog.cpp
@@ -33,7 +34,6 @@ testmain.cpp
   ../src/romeo/model/core/modelcore.cpp
   ../src/romeo/model/core/writer.cpp
   ../src/romeo/model/core/loader.cpp
-  ../src/romeo/model/settings.cpp
   ../src/romeo/model/protocols/abstractprotocol.cpp
   ../src/romeo/model/protocols/staticprotocol.cpp
   ../src/romeo/model/protocols/dynamicprotocol.cpp
@@ -83,7 +83,6 @@ SET(romeoTest_HEADERS
  testnewdatasetdialog.h
  testabstractalgorithm.h
  testalgorithmslist.h
- testsettings.h
  testdynamicprotocol.h
  teststaticprotocol.h
  testprotocolslist.h
@@ -91,13 +90,15 @@ SET(romeoTest_HEADERS
  testfirstorderfeature.h
  testsecondorderfeature.h
  testfeatureslist.h
+ testwriter.h
+ testuserdefinedalgorithm.h
 )
 
-#SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -Wall -W -Wshadow -Wunused-variable -Wunused-parameter -Wunused-function -Wunused -Wno-system-headers -Wno-deprecated -Woverloaded-virtual -Wwrite-strings -fprofile-arcs -ftest-coverage")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -Wall -W -Wshadow -Wunused-variable -Wunused-parameter -Wunused-function -Wunused -Wno-system-headers -Wno-deprecated -Woverloaded-virtual -Wwrite-strings -fprofile-arcs -ftest-coverage")
 
-#set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O0 -Wall -W -fprofile-arcs -ftest-coverage")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O0 -Wall -W -fprofile-arcs -ftest-coverage")
 
-#set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-coverage")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-coverage")
 
 
 ADD_EXECUTABLE(romeoTest ${romeoTest_SOURCES}

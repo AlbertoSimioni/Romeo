@@ -12,7 +12,7 @@ using namespace romeo::model::protocols::algorithms;
 Q_DECLARE_METATYPE(AbstractAlgorithm::ParameterType);
 #endif
 
-class TestParameterValueForm : public QObject // _LINE
+class TestParameterValueForm : public QObject 
 {
     Q_OBJECT
 

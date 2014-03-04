@@ -16,7 +16,7 @@ using namespace romeo::model::protocols::features;
 Q_DECLARE_METATYPE(FeatureType);
 #endif
 
-class TestFeaturesList : public QObject // _LINE
+class TestFeaturesList : public QObject 
 {
     Q_OBJECT
 

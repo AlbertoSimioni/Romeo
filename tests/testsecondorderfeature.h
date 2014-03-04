@@ -7,7 +7,7 @@
 
 using namespace romeo::model::protocols::features;
 
-class TestSecondOrderFeature : public QObject // _LINE
+class TestSecondOrderFeature : public QObject 
 {
     Q_OBJECT
 

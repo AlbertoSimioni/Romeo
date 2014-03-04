@@ -7,12 +7,8 @@ TestNewDatasetDialog::TestNewDatasetDialog(QObject *parent) :
 
 
 void TestNewDatasetDialog::OkButtonClicked(){
-    //Ui::NewDatasetDialog *ui(Ui::NewDatasetDialog);
-    //ui->setupUi(this);
-    //ui->ErrorLabel->setHidden(true);
-    //ui->okCancel->button(QDialogButtonBox::Ok)->setEnabled(false);
     qRegisterMetaType<romeo::model::InputFormat>("romeo::model::InputFormat");
-    romeo::view::dialogs::NewDatasetDialog *ndd = new romeo::view::dialogs::NewDatasetDialog(0);
+    NewDatasetDialog *ndd = new NewDatasetDialog(0);
     QSignalSpy spy(ndd, SIGNAL(createDataset(QString,romeo::model::InputFormat)));
     ndd->okButtonClicked();
     QCOMPARE(spy.count(),1);
@@ -40,6 +36,26 @@ void TestNewDatasetDialog::OkButtonClicked(){
     //QVERIFY(spy.takeFirst().at(0).type() == QString);
     //QVERIFY(spy.takeFirst().at(0).type() == romeo::model::InputFormat);
     //QCOMPARE(ui,a.ui);
+}
+
+void TestNewDatasetDialog::showErrorName(){
+    NewDatasetDialog *ndd = new NewDatasetDialog(0);
+    ndd->showErrorName(true);
+    //ndd->ui->ErrorLabel->setHidden(true);
+    ndd->showErrorName(false);
+
+}
+
+void TestNewDatasetDialog::resetForms(){
+
+}
+
+void TestNewDatasetDialog::reject(){
+
+}
+
+void TestNewDatasetDialog::checkForm(){
+
 }
 
 

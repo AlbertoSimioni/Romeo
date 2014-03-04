@@ -10,7 +10,7 @@
 
 using namespace romeo::model::protocols;
 
-class TestProtocolsList : public QObject // _LINE
+class TestProtocolsList : public QObject 
 {
     Q_OBJECT
 

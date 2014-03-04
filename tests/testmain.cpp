@@ -11,7 +11,6 @@
 
 #include "testabstractalgorithm.h"
 #include "testalgorithmslist.h"
-#include "testsettings.h"
 #include "testdynamicprotocol.h"
 #include "teststaticprotocol.h"
 #include "testprotocolslist.h"
@@ -19,6 +18,8 @@
 #include "testfirstorderfeature.h"
 #include "testsecondorderfeature.h"
 #include "testfeatureslist.h"
+#include "testwriter.h"
+#include "testuserdefinedalgorithm.h"
 
 int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
     QApplication a(argc, argv);
@@ -51,10 +52,7 @@ int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
     QTest::qExec(&taa);
 
     TestAlgorithmsList taa2;
-    QTest::qExec(&taa2); //MEMORY LEAK
-
-    TestSettings ts;
-    QTest::qExec(&ts);
+    QTest::qExec(&taa2);
 
     TestDynamicProtocol tdp;
     QTest::qExec(&tdp);
@@ -76,6 +74,12 @@ int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
 
     TestFeaturesList tfl;
     QTest::qExec(&tfl);
+
+    TestWriter tw;
+    QTest::qExec(&tw);
+
+    TestUserDefinedAlgorithm tuda;
+    QTest::qExec(&tuda);
 
     return 0;
 }

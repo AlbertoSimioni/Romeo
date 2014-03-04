@@ -6,6 +6,7 @@
 #include <QtTest>
 #include "../src/romeo/view/dialogs/newdatasetdialog.h"
 
+using namespace romeo::view::dialogs;
 
 class TestNewDatasetDialog : public QObject
 {
@@ -16,6 +17,10 @@ public:
 
 private slots:
     void OkButtonClicked();
+    void showErrorName();
+    void resetForms();
+    void reject();
+    void checkForm();
 };
 
 #endif // TESTNEWDATASETDIALOG_H
