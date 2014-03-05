@@ -51,7 +51,7 @@ private slots:
 
 private:
     /*!
-     * \brief Riferimento alla lista degli algoritmi
+     * \brief Riferimento alla lista degli protocolli
      */
     romeo::model::protocols::ProtocolsList * protocolsList;
     /*!
@@ -59,7 +59,7 @@ private:
      */
     romeo::model::protocols::ProtocolType currentProtocolsType;
     /*!
-     * \brief Effettua le connessioni dei segnali inviati dai vari widget che compongono la classe AlgorithmsDialog
+     * \brief Effettua le connessioni dei segnali inviati dai vari widget che compongono la classe AssociateProtocolDialog
      */
     void connectUI();
 
