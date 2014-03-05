@@ -25,6 +25,12 @@ namespace datasets{
 class Subject3DT : public AbstractSubject
 {
 public:
+    /*!
+     * \brief Costruttore di Subject3DT che prende in input tre parametri per il nome, il file immagine e la maschera.
+     * \param name Nome del subject.
+     * \param imagePath Percorso al file immagine.
+     * \param maskPath Percorso al file di maschera.
+     */
     Subject3DT(QString &name, QString &imagePath, QString &maskPath);
     virtual romeo::model::InputFormat getType();
 };

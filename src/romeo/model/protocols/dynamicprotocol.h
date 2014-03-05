@@ -22,7 +22,16 @@ namespace protocols{
 class DynamicProtocol : public AbstractProtocol
 {
 public:
-
+    /*!
+     * \brief Costruisce un nuovo protocollo che opera su immagini dinamiche.
+     * \param nomeP Nome del protocollo.
+     * \param desc Descrizione del protocollo.
+     * \param alg Algoritmo di clustering associato al protocollo.
+     * \param clusterNum Numero di cluster con cui deve operare l'algoritmo.
+     * \param algParameters Valori associati ai parametri dell'algoritmo.
+     * \param feat Lista delle feature che il protocollo esegue.
+     * \param testProtocol Valore booleano che indica se il protocollo è di test.
+     */
     DynamicProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, int clusterNum, QList<QString> algParameters, QList<features::AbstractFeature*> feat,bool testProtocol);
 
     /*!

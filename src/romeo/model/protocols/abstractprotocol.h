@@ -38,19 +38,20 @@ public:
      * \param nomeP Nome del protocollo da costruire
      * \param desc La descrizione del protocollo sotto forma di stringa
      * \param alg Un puntatore all'algoritmo di clustering che il protocollo deve eseguire
-     * \param clusterNum
-     * \param parameters
-     * \param feat Un vettore di puntatori a features che fanno parte del protocollo
+     * \param clusterNum Parametro che indica il numero di cluster che deve generare l'algoritmo.
+     * \param parameters Lista dei valori dei parametri dell'algoritmo associato al protocollo.
+     * \param feat Un vettore di puntatori a features che fanno parte del protocollo.
+     * \param testProtocol Valore booleano che indica se il protocollo è di test.
      */
     AbstractProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, int clusterNum, QList<QString> parameters, QList<features::AbstractFeature*>& feat,bool testProtocol);
     /*!
      * \brief Sostituisce la lista delle feature che il protocollo possiede con quella indicata. Si può modificare la lista delle feature solo se il protocollo corrente è un protocollo di test
-     * \param feat Vettore di features che si vogliono inserire nel protocollo
+     * \param feat Lista di features che si vogliono inserire nel protocollo
      * \return Ritorna true se la modifica è avvenuta correttamente, false se si è cercati di modificare un protocollo non di test.
      */
     bool setFeatures(QList<features::AbstractFeature*>& feat);
     /*!
-     * \brief Inserisce nel protocollo l'algoritmo di clustering che va a eseguire, sostituendo quello attualmente in uso
+     * \brief Inserisce nel protocollo l'algoritmo di clustering indicato, sostituendo quello attualmente in uso
      * \param alg puntatore all'algoritmo di clustering
      */
     bool setAlgorithm(algorithms::AbstractAlgorithm* alg);
@@ -103,15 +104,19 @@ public:
      */
     QStringList getFeaturesName() const;
     /*!
-     * \brief Ritorna il nome dell'algoritmo caricato nel protocollo
+     * \brief Ritorna il nome dell'algoritmo caricato nel protocollo.
      */
     QString getAlgorithmName() const;
-
-
+    /*!
+     * \brief Ritorna il numero di cluster che attualmente viene generato dall'algoritmo.
+     */
     int getNClusters() const;
     void setNClusters(int value);
 
     QList<QString> getAlgorithmParameters() const;
+    /*!
+     * \brief Imposta i valori associati ai parametri dell'algoritmo a quelli indicati come parametro.
+     */
     void setAlgorithmParameters(const QList<QString> &value);
 
 
@@ -135,7 +140,7 @@ private:
      */
     algorithms::AbstractAlgorithm* algorithm;
     /*!
-     * \brief Vettore di puntatori alle features definite per il protocollo.
+     * \brief Lista di puntatori alle features definite per il protocollo.
      */
     QList<features::AbstractFeature*> features;
     /*!

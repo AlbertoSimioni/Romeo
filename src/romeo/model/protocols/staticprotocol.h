@@ -35,6 +35,18 @@ namespace protocols{
 class StaticProtocol : public AbstractProtocol
 {
 public:
+    /*!
+     * \brief Costruisce un nuovo protocollo di tipo statico con l''algoritmo e le features indicate.
+     * \param nomeP Nome del protocollo da costruire.
+     * \param desc La descrizione del protocollo sotto forma di stringa.
+     * \param alg Un puntatore all'algoritmo di clustering che il protocollo deve eseguire.
+     * \param clusterNum Parametro che indica il numero di cluster che deve generare l'algoritmo.
+     * \param parameters Lista dei valori dei parametri dell'algoritmo associato al protocollo.
+     * \param feat Un vettore di puntatori a features che fanno parte del protocollo.
+     * \param testProtocol Valore booleano che indica se il protocollo è di test.
+     * \param window Valore della finestra di elaborazione.
+     * \param distance Valore della distanceToGLCM voluta.
+     */
     StaticProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, int clusterNum, QList<QString> algParameters, QList<features::AbstractFeature*> feat, bool testProtocol, int window=3, int distance=1);
     /*!
      * \brief Override del metodo execute della classe astratta AbstractProtocol
@@ -261,7 +273,13 @@ public:
         }
     }
 private:
+    /*!
+     * \brief windowSize Campo dati che indica la dimensione della finestra di pixel da analizzare.
+     */
     int windowSize;
+    /*!
+     * \brief distanceToGLCM Valore richiesto per il calcolo della matrice GLCM.
+     */
     int distanceToGLCM;
 
 };

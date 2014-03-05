@@ -15,9 +15,9 @@ namespace model {
 namespace datasets{
 
 /**
- * \brief La classe Dataset3D da completare
+ * \brief Questa classe rappresenta un dataset che contiene subject con immagini 3D statiche, quindi tale classe potrà contenere associazioni a subject solamente appartenenti alla classe Subject3D.
  *
- * Descrizione dettagliata
+ * Contiene le informazioni proprie dei Dataset3D, e inoltre definisce i metodi per la modifica di tali informazioni
  */
 
 
