@@ -140,9 +140,7 @@ public:
      * \brief Metodo che avvia un nuovo thread in cui esegue le analisi sui subjects con nome dato in input applicando il protocollo dato in input
      */
     void executeAnalysis(QString protocol,QList<QString> subjects,QString resultsPath,bool viewResults,bool viewFeatures,bool saveFeatures,QString exportFormat);
-   QFuture<void> provaFuture;
-public slots:
-    void prova();
+
 signals:
 
     /*!

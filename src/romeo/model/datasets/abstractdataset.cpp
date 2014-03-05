@@ -224,16 +224,11 @@ void AbstractDataset::executeAnalysis(QString protocol, QList<QString> subjects,
    }
 
    AbstractProtocol* protocolToExecute = getProtocol(protocol);
-    connect(protocolToExecute,SIGNAL(prova()),this,SLOT(prova()),Qt::QueuedConnection);
-   provaFuture = QtConcurrent::run(protocolToExecute, &AbstractProtocol::execute, subjectsToAnalyze[0]);
+
+   protocolToExecute->execute(subjectsToAnalyze[0]);
+   // connect(protocolToExecute,SIGNAL(prova()),this,SLOT(prova()),Qt::QueuedConnection);
+   //provaFuture = QtConcurrent::run(protocolToExecute, &AbstractProtocol::execute, subjectsToAnalyze[0]);
 
 }
 
 
-void AbstractDataset::prova(){
-    int i = 0;
-    qDebug() << "DATASET";
-    disconnect(dynamic_cast<AbstractProtocol*>( QObject::sender()),SIGNAL(prova()),this,SLOT(prova()));
-    provaFuture.pause();
-     qDebug() << "DATASETAFETRPAUSE";
-}

@@ -13,9 +13,9 @@ StaticProtocol::StaticProtocol(QString nomeP, QString desc, algorithms::Abstract
 
 void StaticProtocol::execute(romeo::model::datasets::AbstractSubject *subject)
 {
-    emit prova();
-    qDebug() << "PROTOCOL";
-    while(true){int i = 0;}
+    //if(subject->getType() == "2D"){fun<2>();}
+    //else{fun<3>();}
+
 
 }
 

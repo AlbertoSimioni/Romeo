@@ -170,8 +170,10 @@ SET(romeo_FORMS
  src/romeo/view/dialogs/parametervalueform.ui
  src/romeo/view/dialogs/newalgorithmparameterform.ui
  src/romeo/view/dialogs/associateprotocoldialog.ui
+
 )
 SET(romeo_RESOURCES src/immagini.qrc)
+
 
 
 INCLUDE_DIRECTORIES(
@@ -183,7 +185,7 @@ INCLUDE_DIRECTORIES(
 
 
 #QT5_WRAP_CPP(romeo_HEADERS_MOC ${romeo_HEADERS})
-QT5_WRAP_UI(romeo_FORMS_HEADERS ${romeo_FORMS})
+QT5_WRAP_UI(romeo_FORMS_HEADERS ${romeo_FORMS} ${MainUI})
 QT5_ADD_RESOURCES(romeo_RESOURCES_RCC ${romeo_RESOURCES})
 
 #SOURCE_GROUP("Resources" FILES
@@ -207,3 +209,4 @@ ADD_EXECUTABLE(romeo ${romeo_SOURCES}
 QT5_USE_MODULES(romeo Widgets Xml XmlPatterns Test)
 TARGET_LINK_LIBRARIES( romeo ${ITK_LIBRARIES}  ${VTK_LIBRARIES} )
 #ADD_SUBDIRECTORY(tests)
+
