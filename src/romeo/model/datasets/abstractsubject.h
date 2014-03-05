@@ -9,6 +9,7 @@
 #ifndef ABSTRACTSUBJECT_H
 #define ABSTRACTSUBJECT_H
 #include<QString>
+#include <src/romeo/model/inputformats.h>
 namespace romeo {
 namespace model {
 namespace datasets{
@@ -46,7 +47,7 @@ public:
     /*!
      * \brief Ritorna il tipo del subject sotto forma di QString. I tipi possibili sono "2D", "2DT", "3D" e "3DT" e dipendono dal tipo dinamico del subject
      */
-    virtual QString getType()=0;
+    virtual romeo::model::InputFormat getType()=0;
 
 private:
     /*!

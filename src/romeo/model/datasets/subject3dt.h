@@ -26,7 +26,7 @@ class Subject3DT : public AbstractSubject
 {
 public:
     Subject3DT(QString &name, QString &imagePath, QString &maskPath);
-    virtual QString getType();
+    virtual romeo::model::InputFormat getType();
 };
 }}}
 #endif // SUBJECT3DT_H

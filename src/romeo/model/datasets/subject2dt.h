@@ -24,7 +24,7 @@ class Subject2DT : public AbstractSubject
 {
 public:
     Subject2DT(QString &name, QString &imagePath, QString &maskPath);
-    QString getType();
+    romeo::model::InputFormat getType();
 };
 }}}
 #endif // SUBJECT2DT_H

@@ -25,7 +25,7 @@ class Subject2D : public AbstractSubject
 {
 public:
     Subject2D(QString& name, QString& imagePath, QString& maskPath);
-    virtual QString getType();
+    virtual romeo::model::InputFormat getType();
 };
 }}}
 #endif // SUBJECT2D_H
