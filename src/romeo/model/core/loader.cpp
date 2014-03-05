@@ -172,7 +172,7 @@ bool Loader::LoadDataset(const QString &datasetFile)
         QDomNodeList results=protocolElem.elementsByTagName("result");
         for (int i=0; i< results.length(); ++i)
         {
-            QDate resultDate=QDate::fromString(results.at(i).toElement().attribute("date"));
+            QDateTime resultDate=QDateTime::fromString(results.at(i).toElement().attribute("date"));
             Result* result=new Result(resultDate, results.at(i).toElement().attribute("path"));
             dataset->addResult(ProtocolsList::getInstance()->getProtocol(protocolName), result);
         }

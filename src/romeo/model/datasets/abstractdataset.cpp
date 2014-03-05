@@ -1,6 +1,8 @@
 #include "abstractdataset.h"
 #include <QStringList>
 #include <QDebug>
+#include <QtConcurrent/QtConcurrent>
+#include <QMessageBox>
 using namespace romeo::model::datasets;
 using namespace romeo::model::protocols;
 AbstractDataset::AbstractDataset()
@@ -125,19 +127,6 @@ void AbstractDataset::deleteSubject(const QString &subjectName){
     }
 }
 
-void AbstractDataset::executeAnalysis(QString protocol, QList<QString> subjects, QString resultsPath, bool viewResults, bool viewFeatures, bool saveFeatures, QString exportFormat)
-{
-   QList<AbstractSubject*> subjectsToAnalyze;
-   for(int i = 0; i < subjects.size();i++){
-       AbstractSubject* subject =  getSubject(subjects[i]);
-       if(subject){
-           subjectsToAnalyze.append(subject);
-       }
-   }
-
-   AbstractProtocol* protocolToExecute = getProtocol(protocol);
-
-}
 
 void AbstractDataset::removeProtocolAssociation(QString protocolName){
 
@@ -221,4 +210,30 @@ QString AbstractDataset::getResultPath(QString protocol, QString resultDate){
         }
     }
     return path;
+}
+
+
+void AbstractDataset::executeAnalysis(QString protocol, QList<QString> subjects, QString resultsPath, bool viewResults, bool viewFeatures, bool saveFeatures, QString exportFormat)
+{
+   QList<AbstractSubject*> subjectsToAnalyze;
+   for(int i = 0; i < subjects.size();i++){
+       AbstractSubject* subject =  getSubject(subjects[i]);
+       if(subject){
+           subjectsToAnalyze.append(subject);
+       }
+   }
+
+   AbstractProtocol* protocolToExecute = getProtocol(protocol);
+    connect(protocolToExecute,SIGNAL(prova()),this,SLOT(prova()),Qt::QueuedConnection);
+   provaFuture = QtConcurrent::run(protocolToExecute, &AbstractProtocol::execute, subjectsToAnalyze[0]);
+
+}
+
+
+void AbstractDataset::prova(){
+    int i = 0;
+    qDebug() << "DATASET";
+    disconnect(dynamic_cast<AbstractProtocol*>( QObject::sender()),SIGNAL(prova()),this,SLOT(prova()));
+    provaFuture.pause();
+     qDebug() << "DATASETAFETRPAUSE";
 }

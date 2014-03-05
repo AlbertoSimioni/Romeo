@@ -52,6 +52,8 @@ Controller::Controller(QObject *parent): QObject(parent)
 
     associateProtocolDialog = new AssociateProtocolDialog(protocolsList,mainWindow);
 
+    executeDialog = new ExecuteDialog(mainWindow);
+
     protocolsExplorer = mainWindow->getProtocolsExplorer();
 
     datasetsExplorer = mainWindow->getDatasetsExplorer();
@@ -291,4 +293,5 @@ void Controller::removeProtocolAssociation(QString protocolName){
 void Controller::startAnalysis(QString protocol, QList<QString> subjects, QString resultsPath, bool viewResults, bool viewFeatures, bool saveFeatures, QString format)
 {
     mainWindow->getDatasetPanel()->getCurrentDataset()->executeAnalysis(protocol,subjects,resultsPath,viewResults,viewFeatures,saveFeatures,format);
+    executeDialog->exec();
 }

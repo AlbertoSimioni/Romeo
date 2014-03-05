@@ -10,6 +10,7 @@
 
 #include <QHash>
 #include <QString>
+#include <QFuture>
 #include <src/romeo/model/protocols/abstractprotocol.h>
 #include "src/romeo/model/inputformats.h"
 #include <src/romeo/model/protocols/abstractprotocol.h>
@@ -139,7 +140,11 @@ public:
      * \brief Metodo che avvia un nuovo thread in cui esegue le analisi sui subjects con nome dato in input applicando il protocollo dato in input
      */
     void executeAnalysis(QString protocol,QList<QString> subjects,QString resultsPath,bool viewResults,bool viewFeatures,bool saveFeatures,QString exportFormat);
+   QFuture<void> provaFuture;
+public slots:
+    void prova();
 signals:
+
     /*!
      * \brief Segnale che indica l'inserimento di un nuovo subject nel dataset corrente.
      * \param subjectName Il nome del subject inserito.

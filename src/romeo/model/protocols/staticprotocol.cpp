@@ -1,4 +1,7 @@
 #include "staticprotocol.h"
+#include <QMessageBox>
+#include <QDebug>
+#include <QThread>
 using namespace romeo::model::protocols;
 
 StaticProtocol::StaticProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, int clusterNum, QList<QString> algParameters, QList<features::AbstractFeature*> feat, bool testProtocol, int window, int distance):
@@ -10,7 +13,10 @@ StaticProtocol::StaticProtocol(QString nomeP, QString desc, algorithms::Abstract
 
 void StaticProtocol::execute(romeo::model::datasets::AbstractSubject *subject)
 {
- return;
+    emit prova();
+    qDebug() << "PROTOCOL";
+    while(true){int i = 0;}
+
 }
 
 

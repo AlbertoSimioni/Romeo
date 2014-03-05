@@ -2,7 +2,7 @@
 using namespace romeo::model::datasets;
 
 
-Result::Result(QDate execDate, QString pathToResult):
+Result::Result(QDateTime execDate, QString pathToResult):
     executionDate(execDate), resultPath(pathToResult)
 {
 
@@ -12,7 +12,7 @@ Result::Result(QString pathToResult): resultPath(pathToResult)
 {
 }
 
-QDate Result::getExecutionDate() const
+QDateTime Result::getExecutionDate() const
 {
     return executionDate;
 }

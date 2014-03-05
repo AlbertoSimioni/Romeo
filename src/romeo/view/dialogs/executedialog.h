@@ -27,6 +27,8 @@ public:
     explicit ExecuteDialog(QWidget *parent = 0);
     ~ExecuteDialog();
 
+    void closeEvent(QCloseEvent *event);
+
 private:
     Ui::ExecuteDialog *ui;
 };

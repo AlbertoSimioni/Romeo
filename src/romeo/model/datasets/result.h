@@ -10,7 +10,7 @@
 #ifndef RESULT_H
 #define RESULT_H
 
-#include<QDate>
+#include<QDateTime>
 #include<QString>
 namespace romeo {
 namespace model {
@@ -25,7 +25,7 @@ namespace datasets{
 class Result
 {
 public:
-    Result(QDate execDate,QString pathToResult);
+    Result(QDateTime execDate,QString pathToResult);
     /*!
      * \brief Costruisce un nuovo oggetto di tipo risultato indicando il percorso dove sono salvati i risultati delle esecuzioni.
      */
@@ -33,7 +33,7 @@ public:
     /*!
      * \brief Ritorna la data in cui è stato creato il risultato
      */
-    QDate getExecutionDate() const;
+    QDateTime getExecutionDate() const;
     /*!
      * \brief Ritorna il percorso relativo nel file system dove è presente l'immagine contenente il risultato
      */
@@ -43,7 +43,7 @@ private:
     /*!
      * \brief Data di esecuzione dell'algoritmo
      */
-    QDate executionDate;
+    QDateTime executionDate;
 
     /*!
      * \brief Stringa contenente il percorso nel file system dove è presente il l'immagine contenente il risultato

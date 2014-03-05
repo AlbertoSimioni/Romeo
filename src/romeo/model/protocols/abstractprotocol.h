@@ -9,6 +9,7 @@
 #define ABSTRACTPROTOCOL_H
 #include<QString>
 #include<QList>
+#include <QObject>
 #include "algorithms/abstractalgorithm.h"
 #include "features/abstractfeature.h"
 #include "../datasets/abstractsubject.h"
@@ -28,8 +29,9 @@ enum ProtocolType{STATIC,DYNAMIC};
  * La classe contiene metodi per modificare le feature e gli algoritmi di clustering definiti per il protocollo e i metodi per eseguire le funzionalità sui dati passati.
  *
  */
-class AbstractProtocol
+class AbstractProtocol : public QObject
 {
+    Q_OBJECT
 public:
     /*!
      * \brief Costruisce un nuovo protocollo con l''algoritmo e le features indicate
@@ -112,6 +114,9 @@ public:
     QList<QString> getAlgorithmParameters() const;
     void setAlgorithmParameters(const QList<QString> &value);
 
+
+signals:
+    void prova();
 private:
     /*!
      * \brief Nome del protocollo

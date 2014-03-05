@@ -84,16 +84,16 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
     loader->loadDatasetsNames(dataHome.absolutePath().append("/datasets.xml"));
 
     ///////////prova test
-/*
-    datasetsList->addDataset("PROVO",TYPE2D);
 
-    AbstractDataset* dataset = datasetsList->getDataset("PROVO");
-    AbstractProtocol * protocol = protocolsList->getProtocol("PROVA");
+    DatasetsList::getInstance()->addDataset("PROVO",TYPE2D);
+
+    AbstractDataset* dataset = DatasetsList::getInstance()->getDataset("PROVO");
+    AbstractProtocol * protocol = ProtocolsList::getInstance()->getProtocol("PROVA");
     if(dataset){
         dataset->associateProtocol(protocol);;
 
-    dataset->addResult(protocol,new Result(QDate(1982,10,5),"C://"));
-    }*/
+    dataset->addResult(protocol,new Result(QDateTime(QDate(1982,10,5),QTime(15,30,30)),"/home/alberto/"));
+    }
     ////////// provatest
     DatasetsList* datasetsList=getDatasetsList();
     connect(getAlgorithmsList(), SIGNAL(algorithmsListModified()), writer, SLOT(saveAlgorithmsList()));
