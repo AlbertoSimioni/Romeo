@@ -53,6 +53,7 @@ testmain.cpp
   ../src/romeo/model/protocols/algorithms/hierarchical.cpp
   ../src/romeo/model/protocols/algorithms/userdefinedalgorithm.cpp
   ../src/romeo/model/imageIO/handlerio.cpp
+  ../src/romeo/model/imageIO/handleriostatic.cpp
   ../src/romeo/model/imageIO/handlerio2d.cpp
   ../src/romeo/model/imageIO/handlerio3d.cpp
   ../src/romeo/model/datasets/result.cpp
