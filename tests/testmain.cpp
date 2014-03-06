@@ -4,7 +4,7 @@
 #include "testnewfeaturedialog.h"
 #include "testnewdatasetdialog.h"
 //#include "testnewalgorithmparameterform.h" da PENSARCI
-//#include "testprotocoldialog.h" da FIXARE
+#include "testprotocoldialog.h"
 //#include "testfeatureslistdialog.h" da PENSARE
 //#include "testalgorithmslistdialog.h" da PENSARE
 //#include "testaddsubjectdialog.h" da PENSARE
@@ -20,6 +20,16 @@
 #include "testfeatureslist.h"
 #include "testwriter.h"
 #include "testuserdefinedalgorithm.h"
+#include "testdataset2d.h"
+#include "testdataset2dt.h"
+#include "testdataset3d.h"
+#include "testdataset3dt.h"
+#include "testsubject2d.h"
+#include "testsubject2dt.h"
+#include "testsubject3d.h"
+#include "testsubject3dt.h"
+#include "testresult.h"
+#include "testdatasetslist.h"
 
 int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
     QApplication a(argc, argv);
@@ -36,8 +46,8 @@ int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
     //TestNewAlgorithmParameterForm tnapf;
     //QTest::qExec(&tnapf);
 
-    //TestProtocolDialog tpd;
-    //QTest::qExec(&tpd);
+    TestProtocolDialog tpd;
+    QTest::qExec(&tpd);
 
     //TestFeaturesListDialog tfld;
     //QTest::qExec(&tfld);
@@ -80,6 +90,36 @@ int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
 
     TestUserDefinedAlgorithm tuda;
     QTest::qExec(&tuda);
+
+    TestDataset2D tds2d;
+    QTest::qExec(&tds2d);
+
+    TestDataset2DT tds2dt;
+    QTest::qExec(&tds2dt);
+
+    TestDataset3D tds3d;
+    QTest::qExec(&tds3d);
+
+    TestDataset3DT tds3dt;
+    QTest::qExec(&tds3dt);
+
+    TestSubject2D ts2d;
+    QTest::qExec(&ts2d);
+
+    TestSubject2DT ts2dt;
+    QTest::qExec(&ts2dt);
+
+    TestSubject3D ts3d;
+    QTest::qExec(&ts3d);
+
+    TestSubject3DT ts3dt;
+    QTest::qExec(&ts3dt);
+
+    TestResult tres;
+    QTest::qExec(&tres);
+
+    TestDatasetsList tdsL;
+    QTest::qExec(&tdsL);
 
     return 0;
 }

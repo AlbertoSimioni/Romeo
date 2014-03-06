@@ -24,7 +24,9 @@ namespace model {
 namespace datasets{
 
 /**
- * \brief La classe AbstractDataset da completare
+ * \brief Classe astratta che rappresenta un dataset contente più subject e protocolli. Questa classe è stata progettata seguendo il design pattern Factory Method, in particolare la classe mette a disposizione un metodo per creare un nuovo subject e delega alle sottoclassi l'effettiva istanziazione di tale subject.
+ *
+ * Mette a disposizione i metodi per inserire nuove associazioni a subject e protocolli. Contiene le informazioni necessarie e comuni a tutti i tipi dataset e mette a disposizione i metodi per reperire e modificare tali informazioni.
  *
  * Descrizione dettagliata
  */
@@ -174,11 +176,11 @@ private:
      */
     QString name;
     /*!
-     * \brief Una hashmap che contiene i subject collegati al dataset e i risultati dei protocolli a loro legati.
+     * \brief Una hashmap che contiene i protocolli collegati al dataset e i risultati a loro legati.
      */
     QHash<protocols::AbstractProtocol*, QList<Result*> >  protocols;
     /*!
-     * \brief Lista dei protocolli che si possono invocare dal dataset.
+     * \brief Lista dei subject contenuti nel dataset.
      */
     QList<AbstractSubject*> subjects;
 };

@@ -1,4 +1,6 @@
 #include "testnewdatasetdialog.h"
+#include "ui_newdatasetdialog.h"
+#include <QPushButton>
 
 TestNewDatasetDialog::TestNewDatasetDialog(QObject *parent) :
     QObject(parent)
@@ -10,6 +12,7 @@ void TestNewDatasetDialog::OkButtonClicked(){
     qRegisterMetaType<romeo::model::InputFormat>("romeo::model::InputFormat");
     NewDatasetDialog *ndd = new NewDatasetDialog(0);
     QSignalSpy spy(ndd, SIGNAL(createDataset(QString,romeo::model::InputFormat)));
+
     ndd->okButtonClicked();
     QCOMPARE(spy.count(),1);
 
@@ -41,21 +44,31 @@ void TestNewDatasetDialog::OkButtonClicked(){
 void TestNewDatasetDialog::showErrorName(){
     NewDatasetDialog *ndd = new NewDatasetDialog(0);
     ndd->showErrorName(true);
-    //ndd->ui->ErrorLabel->setHidden(true);
+    QCOMPARE(ndd->ui->ErrorLabel->isHidden(),false);
     ndd->showErrorName(false);
-
+    QCOMPARE(ndd->ui->ErrorLabel->isHidden(),true);
 }
 
 void TestNewDatasetDialog::resetForms(){
-
+    NewDatasetDialog *ndd = new NewDatasetDialog(0);
+    ndd->resetForms();
+    QCOMPARE(ndd->ui->nameLineEdit->text().isEmpty(),true);
 }
 
 void TestNewDatasetDialog::reject(){
-
+    NewDatasetDialog *ndd = new NewDatasetDialog(0);
+    ndd->reject();
+    QCOMPARE(ndd->ui->nameLineEdit->text().isEmpty(),true);
 }
 
 void TestNewDatasetDialog::checkForm(){
-
+    NewDatasetDialog *ndd = new NewDatasetDialog(0);
+    ndd->checkForm();
+    QCOMPARE(ndd->ui->okCancel->button(QDialogButtonBox::Ok)->isEnabled(),false);
+    ndd->ui->nameLineEdit->setText(QString("sampletext"));
+    ndd->ui->ErrorLabel->setHidden(true);
+    ndd->checkForm();
+    QCOMPARE(ndd->ui->okCancel->button(QDialogButtonBox::Ok)->isEnabled(),true);
 }
 
 

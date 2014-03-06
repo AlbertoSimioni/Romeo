@@ -26,6 +26,11 @@ bool AbstractProtocol::getTest() const
     return test;
 }
 
+QList<AbstractFeature *> AbstractProtocol::getFeatures() const
+{
+    return features;
+}
+
 QStringList AbstractProtocol::getFeaturesName() const
 {
     QStringList featureNames;

@@ -25,6 +25,12 @@ namespace datasets{
 class Result
 {
 public:
+
+    /*!
+     * \brief Costruisce un nuovo risultato con la data di esecuzione e il percorso indicati.
+     * \param execDate Data di esecuzione del protocollo.
+     * \param pathToResult Percorso alla cartella dei risultati.
+     */
     Result(QDateTime execDate,QString pathToResult);
     /*!
      * \brief Costruisce un nuovo oggetto di tipo risultato indicando il percorso dove sono salvati i risultati delle esecuzioni.

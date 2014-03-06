@@ -40,7 +40,7 @@ bool Writer::saveDatasetsList()
     writer.setAutoFormatting(true);
     writer.writeStartDocument();
     writer.writeStartElement("datasets");
-    QList<QString> datasetList=datasets::DatasetsList::getInstance()->getDatasetsFiles();
+    QList<QString> datasetList=datasets::DatasetsList::getInstance()->getDatasetsNames();
     for(int i=0; i< datasetList.length(); ++i)
     {
         AbstractDataset* dataset=DatasetsList::getInstance()->getDataset(datasetList.at(i));

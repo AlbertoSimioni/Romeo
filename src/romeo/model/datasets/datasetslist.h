@@ -15,9 +15,9 @@ namespace model {
 namespace datasets{
 
 /**
- * \brief La classe DatasetsList da completare
+ * \brief La classe DatasetsList contiene la lista dei dataset che il programma ha caricato e l'utente può utilizzare.
  *
- * Descrizione dettagliata
+ * La classe fornisce agli utilizzatori i metodi per cercare e modificare i dataset, oltre a quelli per creare un nuovo dataset o per eliminarne uno dalla lista.
  */
 
 
@@ -57,8 +57,15 @@ public:
    AbstractDataset* getNextDataset(AbstractDataset* dataset);
 
    void deleteDataset(AbstractDataset* dataset);
-
-   QList<QString> getDatasetsFiles() const;
+   /*!
+    * \brief Ritorna la lista dei nomi dei dataset attualmente presenti nella lista dei dataset.
+    * \return
+    */
+   QList<QString> getDatasetsNames() const;
+   /*!
+    * \brief Aggiunge un file dataset alla lista dei dataset. Tale dataset può ora essere caricato in memoria. Se il dataset è già presente nella lista il metodo non compie modifiche.
+    * \param name Nome del dataset da aggiungere.
+    */
    void addDatasetFile(const QString& name);
 
 private:

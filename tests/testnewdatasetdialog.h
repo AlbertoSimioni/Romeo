@@ -7,6 +7,7 @@
 #include "../src/romeo/view/dialogs/newdatasetdialog.h"
 
 using namespace romeo::view::dialogs;
+using namespace romeo::model;
 
 class TestNewDatasetDialog : public QObject
 {

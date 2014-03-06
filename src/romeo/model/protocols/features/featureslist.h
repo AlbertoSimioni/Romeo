@@ -18,9 +18,9 @@ namespace protocols{
 namespace features{
 
 /**
- * \brief La classe DynamicFeature da completare
+ * \brief FeaturesList rappresenta la lista delle feature caricate nell'applicazione e che possono essere usate per operazioni di estrazione feature.
  *
- * Descrizione dettagliata
+ * FeatureList espone i metodi per aggiungere feature alla lista, rimuoverle oppure per cercare se un feature è presente o meno.
  */
 
 
@@ -30,7 +30,7 @@ class FeaturesList : public QObject
 
 public:
     /*!
-     * \brief Metodo statico che ritorna l'istanza di AlgorithmList, in caso sia la prima volta ad essere invocato
+     * \brief Metodo statico che ritorna l'istanza di FeaturesList, in caso sia la prima volta ad essere invocato
      *  si preoccupa anche di costruire l'istanza.
      */
     static FeaturesList* getInstance(QObject *parent=0);
@@ -43,12 +43,12 @@ public:
      * \param name Nome della feature da inserire
      * \param type Il tipo della feature tra i tipi disponibili: FIRSTORDER, SECONDORDER e DYNAMIC
      * \param description Descrizione dell'algoritmo di clustering da inserire
-     * \param dylp Il percorso alla libreria dinamica dove si trova l'algoritmo della feature
+     * \param dylp Il percorso alla libreria dinamica dove si trova la feature
      * \param dyfn Il nome della funzione contenuto nella libreria dinamica
      */
     void addFeature(const QString& name, FeatureType type, const QString& description, const QString& dylp, const QString& dyfn);
     /*!
-     * \brief Aggiunge alla lista degli algoritmi, l'algoritmo passato per riferimento
+     * \brief Aggiunge alla lista la feature passata per riferimento.
      */
     void addFeature(AbstractFeature* aa);
 
@@ -63,16 +63,16 @@ public:
 
 signals:
     /*!
-     * \brief Segnale che indica una modifica alla lista delle feature
+     * \brief Segnale che indica una modifica alla lista delle feature, come un nuovo inserimento, una eliminazione o una modifica a una feature.
      */
     void featuresListModified();
 private:
     /*!
-     * \brief Costruttore privato, poiché la classe Loader implementa il design pattern singleton
+     * \brief Costruttore privato, poiché la classe FeaturesList implementa il design pattern singleton
      */
     explicit FeaturesList(QObject *parent = 0);
     /*!
-     * \brief Il vettore contiene la lista delle feature presenti nel programma
+     * \brief La lista delle feature presenti nel programma
      */
     QList<AbstractFeature*> features;
 

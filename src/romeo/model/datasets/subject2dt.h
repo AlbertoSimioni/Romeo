@@ -23,6 +23,12 @@ namespace datasets{
 class Subject2DT : public AbstractSubject
 {
 public:
+    /*!
+     * \brief Costruttore di Subject2DT che prende in input tre parametri per il nome, il file immagine e la maschera.
+     * \param name Nome del subject.
+     * \param imagePath Percorso al file immagine.
+     * \param maskPath Percorso al file di maschera.
+     */
     Subject2DT(QString &name, QString &imagePath, QString &maskPath);
     romeo::model::InputFormat getType();
 };

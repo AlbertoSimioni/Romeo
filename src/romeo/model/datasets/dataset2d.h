@@ -15,9 +15,9 @@ namespace model {
 namespace datasets{
 
 /**
- * \brief La classe Dataset2D da completare
+ * \brief Questa classe rappresenta un dataset che contiene subject con immagini 2D statiche, quindi tale classe potrà contenere associazioni a subject solamente appartenenti alla classe Subject2D.
  *
- * Descrizione dettagliata
+ * Contiene le informazioni proprie dei Dataset2D, e inoltre definisce i metodi per la modifica di tali informazioni.
  */
 
 

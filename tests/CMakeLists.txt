@@ -5,6 +5,7 @@ SET(romeoTest_SOURCES
 testparametervalueform.cpp
 testnewfeaturedialog.cpp
 testnewdatasetdialog.cpp
+testprotocoldialog.cpp
 testabstractalgorithm.cpp
 testalgorithmslist.cpp
 testdynamicprotocol.cpp
@@ -17,6 +18,17 @@ testfeatureslist.cpp
 testwriter.cpp
 testuserdefinedalgorithm.cpp
 testmain.cpp
+ testdataset2d.cpp
+ testdataset2dt.cpp
+ testdataset3d.cpp
+ testdataset3dt.cpp
+ testsubject2d.cpp
+ testsubject2dt.cpp
+ testsubject3d.cpp
+ testsubject3dt.cpp
+ testresult.cpp
+ testdatasetslist.cpp
+ ../src/romeo/view/dialogs/newdatasetdialog.ui
  ../src/romeo/view/dialogs/addsubjectdialog.cpp
  ../src/romeo/view/dialogs/executedialog.cpp
   ../src/romeo/view/dialogs/newalgorithmdialog.cpp
@@ -51,6 +63,7 @@ testmain.cpp
   ../src/romeo/model/protocols/algorithms/hierarchical.cpp
   ../src/romeo/model/protocols/algorithms/userdefinedalgorithm.cpp
   ../src/romeo/model/imageIO/handlerio.cpp
+  ../src/romeo/model/imageIO/handleriostatic.cpp
   ../src/romeo/model/imageIO/handlerio2d.cpp
   ../src/romeo/model/imageIO/handlerio3d.cpp
   ../src/romeo/model/datasets/result.cpp
@@ -81,6 +94,7 @@ SET(romeoTest_HEADERS
  testparametervalueform.h
  testnewfeaturedialog.h
  testnewdatasetdialog.h
+ testprotocoldialog.h
  testabstractalgorithm.h
  testalgorithmslist.h
  testdynamicprotocol.h
@@ -92,6 +106,39 @@ SET(romeoTest_HEADERS
  testfeatureslist.h
  testwriter.h
  testuserdefinedalgorithm.h
+ testdataset2d.h
+ testdataset2dt.h
+ testdataset3d.h
+ testdataset3dt.h
+ testsubject2d.h
+ testsubject2dt.h
+ testsubject3d.h
+ testsubject3dt.h
+ testresult.h
+ testdatasetslist.h
+)
+
+SET(romeoTest_FORMS
+ ../src/romeo/view/dialogs/addsubjectdialog.ui
+ ../src/romeo/view/dialogs/executedialog.ui
+ ../src/romeo/view/dialogs/newalgorithmdialog.ui
+ ../src/romeo/view/dialogs/newfeaturedialog.ui
+ ../src/romeo/view/dialogs/protocoldialog.ui
+ ../src/romeo/view/mainWindow/datasetpanel.ui
+ ../src/romeo/view/mainWindow/datasetsexplorer.ui
+ ../src/romeo/view/mainWindow/executepanel.ui
+ ../src/romeo/view/mainWindow/mainwindow.ui
+ ../src/romeo/view/mainWindow/explorer.ui
+ ../src/romeo/view/mainWindow/filesystemexplorer.ui
+ ../src/romeo/view/mainWindow/protocolspanel.ui
+ ../src/romeo/view/mainWindow/protocolsexplorer.ui
+ ../src/romeo/view/mainWindow/subjectspanel.ui
+ ../src/romeo/view/dialogs/newdatasetdialog.ui
+ ../src/romeo/view/dialogs/featureslistdialog.ui
+ ../src/romeo/view/dialogs/algorithmslistdialog.ui
+ ../src/romeo/view/dialogs/parametervalueform.ui
+ ../src/romeo/view/dialogs/newalgorithmparameterform.ui
+ ../src/romeo/view/dialogs/associateprotocoldialog.ui
 )
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -Wall -W -Wshadow -Wunused-variable -Wunused-parameter -Wunused-function -Wunused -Wno-system-headers -Wno-deprecated -Woverloaded-virtual -Wwrite-strings -fprofile-arcs -ftest-coverage")
@@ -103,6 +150,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-cove
 
 ADD_EXECUTABLE(romeoTest ${romeoTest_SOURCES}
     ${romeoTest_HEADERS_MOC}
+    ${romeoTest_FORMS_HEADERS}
 )
 
 QT5_USE_MODULES(romeoTest Widgets Xml XmlPatterns Test)

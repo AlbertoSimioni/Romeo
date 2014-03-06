@@ -78,7 +78,7 @@ DatasetsList::~DatasetsList()
 DatasetsList::DatasetsList(QObject *parent): QObject(parent)
 {
 }
-QList<QString> DatasetsList::getDatasetsFiles() const
+QList<QString> DatasetsList::getDatasetsNames() const
 {
     QList<QString> datasetList;
     for(int i=0; i< datasets.length(); ++i)

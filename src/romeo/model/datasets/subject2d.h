@@ -24,8 +24,18 @@ namespace datasets{
 class Subject2D : public AbstractSubject
 {
 public:
+    /*!
+     * \brief Costruttore di Subject2D che prende in input tre parametri per il nome, il file immagine e la maschera.
+     * \param name Nome del subject.
+     * \param imagePath Percorso al file immagine.
+     * \param maskPath Percorso al file di maschera.
+     */
     Subject2D(QString& name, QString& imagePath, QString& maskPath);
-    virtual romeo::model::InputFormat getType();
+
+    /*!
+     * \brief Ritorna il tipo dinamico del subject.
+     */
+    virtual InputFormat getType();
 };
 }}}
 #endif // SUBJECT2D_H
