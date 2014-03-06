@@ -18,6 +18,16 @@ testfeatureslist.cpp
 testwriter.cpp
 testuserdefinedalgorithm.cpp
 testmain.cpp
+ testdataset2d.cpp
+ testdataset2dt.cpp
+ testdataset3d.cpp
+ testdataset3dt.cpp
+ testsubject2d.cpp
+ testsubject2dt.cpp
+ testsubject3d.cpp
+ testsubject3dt.cpp
+ testresult.cpp
+ testdatasetslist.cpp
  ../src/romeo/view/dialogs/newdatasetdialog.ui
  ../src/romeo/view/dialogs/addsubjectdialog.cpp
  ../src/romeo/view/dialogs/executedialog.cpp
@@ -96,6 +106,16 @@ SET(romeoTest_HEADERS
  testfeatureslist.h
  testwriter.h
  testuserdefinedalgorithm.h
+ testdataset2d.h
+ testdataset2dt.h
+ testdataset3d.h
+ testdataset3dt.h
+ testsubject2d.h
+ testsubject2dt.h
+ testsubject3d.h
+ testsubject3dt.h
+ testresult.h
+ testdatasetslist.h
 )
 
 SET(romeoTest_FORMS
