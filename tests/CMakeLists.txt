@@ -5,6 +5,7 @@ SET(romeoTest_SOURCES
 testparametervalueform.cpp
 testnewfeaturedialog.cpp
 testnewdatasetdialog.cpp
+testprotocoldialog.cpp
 testabstractalgorithm.cpp
 testalgorithmslist.cpp
 testdynamicprotocol.cpp
@@ -17,6 +18,7 @@ testfeatureslist.cpp
 testwriter.cpp
 testuserdefinedalgorithm.cpp
 testmain.cpp
+ ../src/romeo/view/dialogs/newdatasetdialog.ui
  ../src/romeo/view/dialogs/addsubjectdialog.cpp
  ../src/romeo/view/dialogs/executedialog.cpp
   ../src/romeo/view/dialogs/newalgorithmdialog.cpp
@@ -81,6 +83,7 @@ SET(romeoTest_HEADERS
  testparametervalueform.h
  testnewfeaturedialog.h
  testnewdatasetdialog.h
+ testprotocoldialog.h
  testabstractalgorithm.h
  testalgorithmslist.h
  testdynamicprotocol.h
@@ -94,6 +97,29 @@ SET(romeoTest_HEADERS
  testuserdefinedalgorithm.h
 )
 
+SET(romeoTest_FORMS
+ ../src/romeo/view/dialogs/addsubjectdialog.ui
+ ../src/romeo/view/dialogs/executedialog.ui
+ ../src/romeo/view/dialogs/newalgorithmdialog.ui
+ ../src/romeo/view/dialogs/newfeaturedialog.ui
+ ../src/romeo/view/dialogs/protocoldialog.ui
+ ../src/romeo/view/mainWindow/datasetpanel.ui
+ ../src/romeo/view/mainWindow/datasetsexplorer.ui
+ ../src/romeo/view/mainWindow/executepanel.ui
+ ../src/romeo/view/mainWindow/mainwindow.ui
+ ../src/romeo/view/mainWindow/explorer.ui
+ ../src/romeo/view/mainWindow/filesystemexplorer.ui
+ ../src/romeo/view/mainWindow/protocolspanel.ui
+ ../src/romeo/view/mainWindow/protocolsexplorer.ui
+ ../src/romeo/view/mainWindow/subjectspanel.ui
+ ../src/romeo/view/dialogs/newdatasetdialog.ui
+ ../src/romeo/view/dialogs/featureslistdialog.ui
+ ../src/romeo/view/dialogs/algorithmslistdialog.ui
+ ../src/romeo/view/dialogs/parametervalueform.ui
+ ../src/romeo/view/dialogs/newalgorithmparameterform.ui
+ ../src/romeo/view/dialogs/associateprotocoldialog.ui
+)
+
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -Wall -W -Wshadow -Wunused-variable -Wunused-parameter -Wunused-function -Wunused -Wno-system-headers -Wno-deprecated -Woverloaded-virtual -Wwrite-strings -fprofile-arcs -ftest-coverage")
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O0 -Wall -W -fprofile-arcs -ftest-coverage")
@@ -103,6 +129,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-cove
 
 ADD_EXECUTABLE(romeoTest ${romeoTest_SOURCES}
     ${romeoTest_HEADERS_MOC}
+    ${romeoTest_FORMS_HEADERS}
 )
 
 QT5_USE_MODULES(romeoTest Widgets Xml XmlPatterns Test)

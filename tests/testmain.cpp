@@ -4,7 +4,7 @@
 #include "testnewfeaturedialog.h"
 #include "testnewdatasetdialog.h"
 //#include "testnewalgorithmparameterform.h" da PENSARCI
-//#include "testprotocoldialog.h" da FIXARE
+#include "testprotocoldialog.h"
 //#include "testfeatureslistdialog.h" da PENSARE
 //#include "testalgorithmslistdialog.h" da PENSARE
 //#include "testaddsubjectdialog.h" da PENSARE
@@ -36,8 +36,8 @@ int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
     //TestNewAlgorithmParameterForm tnapf;
     //QTest::qExec(&tnapf);
 
-    //TestProtocolDialog tpd;
-    //QTest::qExec(&tpd);
+    TestProtocolDialog tpd;
+    QTest::qExec(&tpd);
 
     //TestFeaturesListDialog tfld;
     //QTest::qExec(&tfld);
