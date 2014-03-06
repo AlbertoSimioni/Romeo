@@ -66,7 +66,7 @@ signals:
     /*!
      * \brief Segnale emesso quando l'utente preme il pulsante per cancellare il parametro
      */
-    void deletePressed(NewAlgorithmParameterForm*);
+    void deletePressed(NewAlgorithmParameterForm* param);
 
 
 private slots:
