@@ -17,6 +17,7 @@ testsecondorderfeature.cpp
 testfeatureslist.cpp
 testwriter.cpp
 testuserdefinedalgorithm.cpp
+testcontroller.cpp
 testmain.cpp
  testdataset2d.cpp
  testdataset2dt.cpp
@@ -106,6 +107,7 @@ SET(romeoTest_HEADERS
  testfeatureslist.h
  testwriter.h
  testuserdefinedalgorithm.h
+ testcontroller.h
  testdataset2d.h
  testdataset2dt.h
  testdataset3d.h

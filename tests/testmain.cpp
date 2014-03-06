@@ -20,6 +20,7 @@
 #include "testfeatureslist.h"
 #include "testwriter.h"
 #include "testuserdefinedalgorithm.h"
+#include "testcontroller.h"
 #include "testdataset2d.h"
 #include "testdataset2dt.h"
 #include "testdataset3d.h"
@@ -120,6 +121,9 @@ int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
 
     TestDatasetsList tdsL;
     QTest::qExec(&tdsL);
+
+    TestController tc;
+    QTest::qExec(&tc);
 
     return 0;
 }
