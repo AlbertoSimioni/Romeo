@@ -30,7 +30,9 @@
 #include "testsubject3d.h"
 #include "testsubject3dt.h"
 #include "testresult.h"
-#include "testdatasetslist.h"
+#include "testdatasetslist.h"//da rivedere
+#include "testabstractsubject.h"
+#include "testabstractdataset.h"
 
 int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
     QApplication a(argc, argv);
@@ -124,6 +126,12 @@ int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
 
     TestController tc;
     QTest::qExec(&tc);
+
+    TestAbstractSubject taS;
+    QTest::qExec(&taS);
+
+    TestAbstractDataset tads;
+    QTest::qExec(&tads);
 
     return 0;
 }

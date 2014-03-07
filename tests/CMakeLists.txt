@@ -29,6 +29,8 @@ testmain.cpp
  testsubject3dt.cpp
  testresult.cpp
  testdatasetslist.cpp
+ testabstractsubject.cpp
+ testabstractdataset.cpp
  ../src/romeo/view/dialogs/newdatasetdialog.ui
  ../src/romeo/view/dialogs/addsubjectdialog.cpp
  ../src/romeo/view/dialogs/executedialog.cpp
@@ -118,6 +120,8 @@ SET(romeoTest_HEADERS
  testsubject3dt.h
  testresult.h
  testdatasetslist.h
+ testabstractsubject.h
+ testabstractdataset.h
 )
 
 SET(romeoTest_FORMS
