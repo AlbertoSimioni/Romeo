@@ -137,6 +137,7 @@ void NewAlgorithmDialog::okButtonClicked(){
         }
         QString newFilePath = currentDir.path() +"/" +name+"."+ (dylp.split(".").takeLast()) ;
         newFilePath = QDir::toNativeSeparators(newFilePath);
+        newFilePath = QUrl::fromLocalFile(newFilePath.replace(" ","\ ")).path();
         QFile::copy(dylp, newFilePath);
 
     resetForms();

@@ -14,6 +14,7 @@
 #include <QList>
 #include <QDir>
 #include <QDebug>
+#include <QUrl>
 // ITK
 #include "itkImage.h"
 #include "itkRGBPixel.h"
@@ -205,7 +206,9 @@ public:
 
         typedef double (*MyPrototype)(double* data,int size,int dimension);
         MyPrototype featureExtractor = (MyPrototype) QLibrary::resolve(feature->getDynamicLibraryPath(),feature->getDynamicFunctionName().toStdString().c_str());
-
+        if(!featureExtractor){
+            qDebug () << "NOT FIND LIB";
+        }
         int dimension = ImageType::GetImageDimension();
         // imposta raggio della finestra scorrevole: raggio = 1 -> finestra = 3
         typename ImageType::SizeType radius;
@@ -460,7 +463,7 @@ public:
             }
             if(saveFeatures) {
                 qDebug() << "Feature4";
-                QString fileName = subject->getName() + "_" + currentFeature->getName();
+                QString fileName = QUrl::fromLocalFile(subject->getName().replace(" ","\ ") + "_" + currentFeature->getName()).path();
                 qDebug() << "Feature5";
                 imageHandler->writeImage<typename RGBImageType::Pointer,RGBImageType>(outputFeature,fileName,path,outputFormat);
                 qDebug() << "Feature6";

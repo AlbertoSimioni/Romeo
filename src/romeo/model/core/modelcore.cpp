@@ -76,6 +76,28 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
     */
         ///////////////PROVA TEST
 
+    /*
+    AbstractFeature* feat1 = new FirstOrderFeature("Standard Deviation",QDir::toNativeSeparators("features/libfeatures"),"feat_p1_std","gran bella descrizione");
+    AbstractFeature* feat2 = new FirstOrderFeature("Mean",QDir::toNativeSeparators("features/libfeatures"),"feat_p1_mean","gran bella descrizione");
+    AbstractFeature* feat3 = new FirstOrderFeature("Skewness",QDir::toNativeSeparators("features/libfeatures"),"feat_p1_skew","gran bella descrizione");
+    AbstractFeature* feat4 = new FirstOrderFeature("Kurtosis",QDir::toNativeSeparators("features/libfeatures"),"feat_p1_kurt","gran bella descrizione");
+    AbstractFeature* feat5 = new SecondOrderFeature("Contrast",QDir::toNativeSeparators("features/libfeatures"),"feat_p2_contr","gran bella descrizione");
+    AbstractFeature* feat6 = new SecondOrderFeature("Correlation",QDir::toNativeSeparators("features/libfeatures"),"feat_p2_corr","gran bella descrizione");
+    AbstractFeature* feat7 = new SecondOrderFeature("Energy",QDir::toNativeSeparators("features/libfeatures"),"feat_p2_energy","gran bella descrizione");
+    AbstractFeature* feat8 = new SecondOrderFeature("Entropy",QDir::toNativeSeparators("features/libfeatures"),"feat_p2_entropy","gran bella descrizione");
+    AbstractFeature* feat9 = new SecondOrderFeature("Homogeneity",QDir::toNativeSeparators("features/libfeatures"),"feat_p2_homo","gran bella descrizione");
+
+    FeaturesList::getInstance()->addFeature(feat1);
+    FeaturesList::getInstance()->addFeature(feat2);
+    FeaturesList::getInstance()->addFeature(feat3);
+    FeaturesList::getInstance()->addFeature(feat4);
+    FeaturesList::getInstance()->addFeature(feat5);
+    FeaturesList::getInstance()->addFeature(feat6);
+    FeaturesList::getInstance()->addFeature(feat7);
+    FeaturesList::getInstance()->addFeature(feat8);
+    FeaturesList::getInstance()->addFeature(feat9);
+
+    */
 
 
     loader->loadFeatures(dataHome.absolutePath().append("/features.xml"), getFeaturesList());

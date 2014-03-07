@@ -210,5 +210,19 @@ ADD_EXECUTABLE(romeo ${romeo_SOURCES}
 
 QT5_USE_MODULES(romeo Widgets Xml XmlPatterns Test)
 TARGET_LINK_LIBRARIES( romeo ${ITK_LIBRARIES}  ${VTK_LIBRARIES} )
+
+set(features
+    ext/features.cpp
+    ext/features.h
+)
+
+add_library (core OBJECT ${features})
+add_library (features SHARED $<TARGET_OBJECTS:core>)
+set_target_properties(features PROPERTIES
+  LIBRARY_OUTPUT_DIRECTORY "features"
+)
+
+file(COPY data DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
 #ADD_SUBDIRECTORY(tests)
 
