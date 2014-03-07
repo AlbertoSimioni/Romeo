@@ -98,7 +98,7 @@ void NewFeatureDialog::okButtonClicked(){
 
     if(typeName == "Static First Order"){
         type = FIRSTORDER;
-        typedef int (*MyPrototype)(double* data,int size,int dimension);
+        typedef double (*MyPrototype)(double* data,int size,int dimension);
         MyPrototype myFunction =
                 (MyPrototype) QLibrary::resolve(dylp, dyfn.toStdString().c_str());
         if (myFunction){
@@ -140,6 +140,7 @@ void NewFeatureDialog::okButtonClicked(){
             currentDir.cd("features");
         }
         QString newFilePath = currentDir.path() +"/" +name+"."+ (dylp.split(".").takeLast()) ;
+        newFilePath = QDir::toNativeSeparators(newFilePath);
         QFile::copy(dylp, newFilePath);
         resetForms();
         emit createFeature(name,desc,dyfn,newFilePath,type);
