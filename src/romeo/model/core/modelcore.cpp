@@ -39,8 +39,8 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
 
 
     ////////////PROVA TEST
-    ///
-        QList<AbstractAlgorithm::AlgorithmParameter> param;
+    //
+        /*QList<AbstractAlgorithm::AlgorithmParameter> param;
         AbstractAlgorithm::AlgorithmParameter param1 (QString("param1"), AbstractAlgorithm::BOOL, QString("default"));
         AbstractAlgorithm::AlgorithmParameter param2 (QString("param2"), AbstractAlgorithm::CHAR, QString("default"));
         param.append(param1);
@@ -73,7 +73,7 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
         features.append(feat4);
         ProtocolsList::getInstance()->addProtocol("PROVA","descrizione",alg,5,QList<QString>(),features,false, STATIC);
 
-
+    */
         ///////////////PROVA TEST
 
 

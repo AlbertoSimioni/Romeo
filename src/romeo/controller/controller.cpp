@@ -21,7 +21,7 @@ Controller* Controller::instance=0;
 Controller::Controller(QObject *parent): QObject(parent)
 {
     modelCore = ModelCore::getInstance(this);
-    modelCore->save();
+   // modelCore->save();
 
     algorithmsList = modelCore->getAlgorithmsList();
     featuresList = modelCore->getFeaturesList();
