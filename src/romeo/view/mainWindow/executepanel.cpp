@@ -35,13 +35,13 @@ void ExecutePanel::setCurrentDataset(romeo::model::datasets::AbstractDataset *da
         QStringList formats;
         formats << "INPUT";
         switch(currentDataset->getType()){
-        case TYPE2D : formats << "JPG" << "PNG" << "TIFF" << "BMP";
+        case TYPE2D : formats << ".jpg" << ".png" << ".tif" << ".bmp";
             break;
-        case TYPE3D : formats << "NIfTI" << "Analyze";
+        case TYPE3D : formats << ".nii" << ".hdr";
             break;
-        case TYPE2DT : formats << "AVI";
+        case TYPE2DT : formats << ".avi";
             break;
-        case TYPE3DT: formats << "NIfTI" << "Analyze";
+        case TYPE3DT: formats << ".nifti" << ".hdr";
             break;
         }
         ui->formatCombo->addItems(formats);

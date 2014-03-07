@@ -136,6 +136,7 @@ void NewAlgorithmDialog::okButtonClicked(){
             currentDir.cd("algorithms");
         }
         QString newFilePath = currentDir.path() +"/" +name+"."+ (dylp.split(".").takeLast()) ;
+        newFilePath = QDir::toNativeSeparators(newFilePath);
         QFile::copy(dylp, newFilePath);
 
     resetForms();
