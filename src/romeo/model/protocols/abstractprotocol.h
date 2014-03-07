@@ -65,7 +65,7 @@ public:
      * \param subject Il soggetto su cui viene eseguito il protocolli
      * \return Ritorna il percorso dove vengono salvati i risultati dell'analisi
      */
-    virtual void execute(datasets::AbstractSubject* subject) = 0;
+    virtual void execute(datasets::AbstractSubject *subject,QString path,bool saveFeatures,QString outputFormat) = 0;
     /*!
      * \brief Metodo virtuale puro che ritorna il tipo del protocollo, determinato dinamicamente.
      */
@@ -119,9 +119,11 @@ public:
      */
     void setAlgorithmParameters(const QList<QString> &value);
 
-
 signals:
-    void prova();
+    /*!
+     * \brief Segnale inviato per notificare l'avventua estrazione di una feature
+     */
+    void featureExtracted(QString path);
 private:
     /*!
      * \brief Nome del protocollo

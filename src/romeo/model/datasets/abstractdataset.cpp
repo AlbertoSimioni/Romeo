@@ -215,8 +215,9 @@ QString AbstractDataset::getResultPath(QString protocol, QString resultDate){
 
 void AbstractDataset::executeAnalysis(QString protocol, QList<QString> subjects, QString resultsPath, bool saveFeatures, QString exportFormat)
 {
-
-    /*QList<AbstractSubject*> subjectsToAnalyze;
+    if(saveFeatures)
+    qDebug() << "zsdf";
+    QList<AbstractSubject*> subjectsToAnalyze;
    for(int i = 0; i < subjects.size();i++){
        AbstractSubject* subject =  getSubject(subjects[i]);
        if(subject){
@@ -227,9 +228,9 @@ void AbstractDataset::executeAnalysis(QString protocol, QList<QString> subjects,
    AbstractProtocol* protocolToExecute = getProtocol(protocol);
 
     for(int i = 0 ; i < subjectsToAnalyze.size(); i++){
-        protocolToExecute->execute(subjectsToAnalyze[i]);
+        protocolToExecute->execute(subjectsToAnalyze[i],resultsPath,saveFeatures,exportFormat);
     }
-*/
+
    // connect(protocolToExecute,SIGNAL(prova()),this,SLOT(prova()),Qt::QueuedConnection);
 
 }
