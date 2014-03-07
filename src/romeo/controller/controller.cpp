@@ -1,16 +1,10 @@
 #include "controller.h"
 #include <src/romeo/view/mainWindow/mainwindow.h>
 
-/////////PROVA TEST
-#include <src/romeo/model/protocols/algorithms/userdefinedalgorithm.h>
-#include <src/romeo/model/protocols/features/dynamicfeature.h>
-#include <src/romeo/model/protocols/features/firstorderfeature.h>
-#include <src/romeo/model/protocols/features/secondorderfeature.h>
-#include <src/romeo/model/protocols/abstractprotocol.h>
-#include <src/romeo/model/datasets/abstractdataset.h>
+
 #include <QDebug>
 #include <src/romeo/model/inputformats.h>
-////////PROVA TEST
+#include <QtConcurrent/QtConcurrent>
 using namespace romeo::controller;
 using namespace romeo::view::mainWindow;
 using namespace romeo::view;
@@ -292,6 +286,11 @@ void Controller::removeProtocolAssociation(QString protocolName){
 
 void Controller::startAnalysis(QString protocol, QList<QString> subjects, QString resultsPath, bool viewResults, bool viewFeatures, bool saveFeatures, QString format)
 {
-    mainWindow->getDatasetPanel()->getCurrentDataset()->executeAnalysis(protocol,subjects,resultsPath,viewResults,viewFeatures,saveFeatures,format);
+    AbstractDataset* currentDataset = mainWindow->getDatasetPanel()->getCurrentDataset();
+    AbstractProtocol* prot = protocolsList->getProtocol(protocol);
+    executeDialog->prepareAnalysis(currentDataset,viewResults,viewFeatures,subjects.size(),prot->getFeatures().size());
+    qDebug() << "PRIMA";
+    QtConcurrent::run(currentDataset, &AbstractDataset::executeAnalysis, protocol,subjects,resultsPath,saveFeatures,format);
+    qDebug()<< "DOPO";
     executeDialog->exec();
 }

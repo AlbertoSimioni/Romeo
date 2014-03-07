@@ -98,7 +98,7 @@ void NewFeatureDialog::okButtonClicked(){
 
     if(typeName == "Static First Order"){
         type = FIRSTORDER;
-        typedef int (*MyPrototype)(int* data,int size,int dimesion);
+        typedef int (*MyPrototype)(double* data,int size,int dimension);
         MyPrototype myFunction =
                 (MyPrototype) QLibrary::resolve(dylp, dyfn.toStdString().c_str());
         if (myFunction){
@@ -107,7 +107,7 @@ void NewFeatureDialog::okButtonClicked(){
     }
     if(typeName == "Static Second Order"){
         type = SECONDORDER;
-        typedef double (*MyPrototype)(int data[256][256] );
+        typedef double (*MyPrototype)(int data[4][4]);
         MyPrototype myFunction =
                 (MyPrototype) QLibrary::resolve(dylp, dyfn.toStdString().c_str());
         if (myFunction){

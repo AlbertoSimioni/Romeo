@@ -24,7 +24,7 @@ void ExecutePanel::connectUI(){
     connect(ui->browseButton,SIGNAL(clicked()),this,SLOT(onBrowseButtonClicked()));
     connect(ui->start,SIGNAL(clicked()),this,SLOT(onStartClicked()));
     connect(ui->viewResultsCheck,SIGNAL(clicked(bool)),this,SLOT(onViewResultsCliked(bool)));
-
+    connect(ui->saveFeaturesCheck,SIGNAL(clicked(bool)),this,SLOT(onViewResultsCliked(bool)));
 }
 
 void ExecutePanel::setCurrentDataset(romeo::model::datasets::AbstractDataset *dataset)
@@ -81,7 +81,7 @@ void ExecutePanel::onStartClicked(){
 
 
 void ExecutePanel::onViewResultsCliked(bool state){
-    if(state){
+    if(ui->viewResultsCheck->isChecked() && ui->saveFeaturesCheck->isChecked()){
         ui->viewFeaturesCheck->setEnabled(true);
     }
     else{

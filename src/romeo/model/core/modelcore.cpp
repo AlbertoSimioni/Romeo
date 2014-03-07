@@ -40,13 +40,13 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
 
     ////////////PROVA TEST
     ///
-        /* QList<AbstractAlgorithm::AlgorithmParameter> param;
+        QList<AbstractAlgorithm::AlgorithmParameter> param;
         AbstractAlgorithm::AlgorithmParameter param1 (QString("param1"), AbstractAlgorithm::BOOL, QString("default"));
         AbstractAlgorithm::AlgorithmParameter param2 (QString("param2"), AbstractAlgorithm::CHAR, QString("default"));
         param.append(param1);
         param.append(param2);
         AbstractAlgorithm* alg=new UserDefinedAlgorithm(param, QString("Algoritmo1"), QString("desc"), QString("libreria"), QString("nomefunz"));
-        algorithmsList->addAlgorithm(alg);
+        AlgorithmsList::getInstance()->addAlgorithm(alg);
 
         QList<AbstractAlgorithm::AlgorithmParameter> params;
         AbstractAlgorithm::AlgorithmParameter param11 (QString("Param1"), AbstractAlgorithm::INT, QString("25"));
@@ -54,7 +54,7 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
         params.append(param11);
         params.append(param22);
         AbstractAlgorithm* alg2=new UserDefinedAlgorithm(params, QString("Algoritmo"), QString("desc2"), QString("libreria"), QString("nomefunz"));
-        algorithmsList->addAlgorithm(alg2);
+        AlgorithmsList::getInstance()->addAlgorithm(alg2);
 
 
         AbstractFeature* feat1 = new FirstOrderFeature("FeatureFO1","PATH","PATH","DESC1");
@@ -62,18 +62,18 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
         AbstractFeature* feat3 = new DynamicFeature("FeatureD1","PATH","PATH","DESC3");
         AbstractFeature* feat4 = new SecondOrderFeature("FeatureSO1","PATH","PATH","DESC4");
         FeaturesList::getInstance()->addFeature(feat1);
-        featuresList->addFeature(feat2);
-        featuresList->addFeature(feat3);
-        featuresList->addFeature(feat4);
+        FeaturesList::getInstance()->addFeature(feat2);
+        FeaturesList::getInstance()->addFeature(feat3);
+        FeaturesList::getInstance()->addFeature(feat4);
 
 
         QList<AbstractFeature*> features;
         features.append(feat1);
         features.append(feat2);
         features.append(feat4);
-        protocolsList->addProtocol("PROVA","descrizione",alg,5,QList<QString>(),features,false, STATIC);
+        ProtocolsList::getInstance()->addProtocol("PROVA","descrizione",alg,5,QList<QString>(),features,false, STATIC);
 
-        */
+
         ///////////////PROVA TEST
 
 

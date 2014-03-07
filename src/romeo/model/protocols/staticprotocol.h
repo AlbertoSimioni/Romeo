@@ -183,7 +183,7 @@ public:
             int index =0;
             while(!inputIterator.IsAtEnd()) {
                 if(static_cast<int>(maskIterator.Get())!=0) {
-                    // pow(size,dimension) è il numero di elementi dentro la finestra scorrevole
+                    // pocopenhagenw(size,dimension) è il numero di elementi dentro la finestra scorrevole
                     // per ciascun colore creo tre array differenti
                     double redArray[static_cast<int>(pow(windowSize,dimension))];
                     double greenArray[static_cast<int>(pow(windowSize,dimension))];

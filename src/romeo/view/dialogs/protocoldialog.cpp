@@ -2,6 +2,7 @@
 #include "ui_protocoldialog.h"
 #include <QList>
 #include <QDebug>
+#include <QMessageBox>
 using namespace romeo::model::protocols::algorithms;
 using namespace romeo::view::dialogs;
 using namespace romeo::model::protocols::features;
@@ -192,10 +193,12 @@ void ProtocolDialog::fillFeaturesList(){
 
 void ProtocolDialog::fillAlgorithmsCombo(){
     ui->AlgorithmCombo->clear();
+
     QList<AbstractAlgorithm*> algorithms = algorithmsList->getAlgorithmsList();
     for(int i = 0; i < algorithms.size(); i++){
         ui->AlgorithmCombo->addItem(algorithms[i]->getName());
     }
+     ui->AlgorithmCombo->addItem(QString());
 }
 
 
@@ -206,8 +209,12 @@ void ProtocolDialog::changeParametersForm(){
     while(parameters.size() != 1){
         delete parameters.takeLast();
     }
+    QString algName = ui->AlgorithmCombo->currentText();
 
-    AbstractAlgorithm* algorithm= algorithmsList->getAlgorithm(ui->AlgorithmCombo->currentText());
+    AbstractAlgorithm* algorithm = 0;
+    if(!algName.isEmpty()){
+        algorithm= algorithmsList->getAlgorithm(algName);
+    }
     if(algorithm){
     QList<AbstractAlgorithm::AlgorithmParameter> param = algorithm->getParameters();
     while(!(param.isEmpty())){
@@ -250,10 +257,10 @@ void ProtocolDialog::finishButtonClicked(){
     if(type == "Static") protType = STATIC;
     if(type == "Dynamic") protType = romeo::model::protocols::DYNAMIC;
 
-    int number = ui->featuresList->count();
+    int number = ui->protocolFeaturesList->count();
     QList<QString> feats;
     for(int i =0;i<number;i++){
-        feats.append(ui->featuresList->item(i)->text());
+        feats.append(ui->protocolFeaturesList->item(i)->text());
     }
     bool okClusters = false;
     int nClusters = parameters[0]->getValue().toInt(&okClusters);
@@ -261,11 +268,17 @@ void ProtocolDialog::finishButtonClicked(){
     for(int i = 1; i < parameters.size(); i++){
         parametersValue.append(parameters[i]->getValue());
     }
-
-    resetForms();
-    emit createProtocol(name,desc,test,feats,alg,protType,windowSize,glcmDistance,nClusters,parametersValue);
-    accept();
-
+    if(alg.isNull() && (feats.size() == 0)){
+        QMessageBox msgBox;
+        msgBox.setIcon(QMessageBox::Critical);
+        msgBox.setText("Select at least one algorithm or one feature");
+        msgBox.exec();
+    }
+    else{
+        resetForms();
+        emit createProtocol(name,desc,test,feats,alg,protType,windowSize,glcmDistance,nClusters,parametersValue);
+        accept();
+    }
 
 }
 

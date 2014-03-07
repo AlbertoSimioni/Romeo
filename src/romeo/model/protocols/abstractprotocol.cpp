@@ -43,7 +43,9 @@ QStringList AbstractProtocol::getFeaturesName() const
 
 QString AbstractProtocol::getAlgorithmName() const
 {
-    return algorithm->getName();
+    QString algorithmName;
+    if(algorithm) algorithmName = algorithm->getName();
+    return algorithmName;
 }
 int AbstractProtocol::getNClusters() const
 {
