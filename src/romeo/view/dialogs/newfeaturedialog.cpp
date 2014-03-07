@@ -141,7 +141,7 @@ void NewFeatureDialog::okButtonClicked(){
         }
         QString newFilePath = currentDir.path() +"/" +name+"."+ (dylp.split(".").takeLast()) ;
         newFilePath = QDir::toNativeSeparators(newFilePath);
-        newFilePath = QUrl::fromLocalFile(newFilePath.replace(" ","\ ")).path();
+        newFilePath = QUrl::fromLocalFile(newFilePath).path();
         QFile::copy(dylp, newFilePath);
         resetForms();
         emit createFeature(name,desc,dyfn,newFilePath,type);

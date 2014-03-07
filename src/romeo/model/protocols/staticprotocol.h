@@ -463,7 +463,7 @@ public:
             }
             if(saveFeatures) {
                 qDebug() << "Feature4";
-                QString fileName = QUrl::fromLocalFile(subject->getName().replace(" ","\ ") + "_" + currentFeature->getName()).path();
+                QString fileName = QUrl::fromLocalFile(subject->getName() + "_" + currentFeature->getName()).path();
                 qDebug() << "Feature5";
                 imageHandler->writeImage<typename RGBImageType::Pointer,RGBImageType>(outputFeature,fileName,path,outputFormat);
                 qDebug() << "Feature6";
