@@ -3,9 +3,9 @@ using namespace romeo::model::core;
 using namespace romeo::model::imageIO;
 using namespace romeo::model::datasets;
 using namespace romeo::model::protocols;
-
-
-
+#include <src/romeo/model/protocols/algorithms/kmeans.h>
+#include <src/romeo/model/protocols/algorithms/hierarchical.h>
+#include <src/romeo/model/protocols/algorithms/fuzzycmeans.h>
 /////////PROVA TEST
 #include <src/romeo/model/protocols/algorithms/userdefinedalgorithm.h>
 #include <src/romeo/model/protocols/features/dynamicfeature.h>
@@ -19,6 +19,7 @@ using namespace romeo::model::protocols;
 using namespace romeo::model::protocols::algorithms;
 using namespace romeo::model::protocols::features;
 ////////PROVA TEST
+///
 
 
 ModelCore* ModelCore::instance=0;
@@ -98,6 +99,33 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
     FeaturesList::getInstance()->addFeature(feat9);
 
     */
+
+    QList<AbstractAlgorithm::AlgorithmParameter> param;
+    AbstractAlgorithm::AlgorithmParameter param1 (QString("Distance"), AbstractAlgorithm::CHAR, QString("e"));
+    AbstractAlgorithm::AlgorithmParameter param2 (QString("Linkage criteria"), AbstractAlgorithm::CHAR, QString("s"));
+    param.append(param1);
+    param.append(param2);
+    AbstractAlgorithm* alg=KMeans::getInstance(param, QString("K-means"), QString("desc"));
+    AlgorithmsList::getInstance()->addAlgorithm(alg);
+
+    QList<AbstractAlgorithm::AlgorithmParameter> paramh;
+    AbstractAlgorithm::AlgorithmParameter paramh1 (QString("Distance"), AbstractAlgorithm::CHAR, QString("e"));
+    AbstractAlgorithm::AlgorithmParameter paramh2 (QString("Maximum number of iterations"), AbstractAlgorithm::INT, QString("200"));
+    paramh.append(paramh1);
+    paramh.append(paramh2);
+    AbstractAlgorithm* algh=Hierarchical::getInstance(paramh, QString("Hierarchical"), QString("desc"));
+    AlgorithmsList::getInstance()->addAlgorithm(algh);
+
+
+    QList<AbstractAlgorithm::AlgorithmParameter> paramf;
+    AbstractAlgorithm::AlgorithmParameter paramf1 (QString("epsilon"), AbstractAlgorithm::DOUBLE, QString("0.0001"));
+    AbstractAlgorithm::AlgorithmParameter paramf2 (QString("Fuzzyness"), AbstractAlgorithm::INT, QString("2"));
+    paramf.append(paramf1);
+    paramf.append(paramf2);
+    AbstractAlgorithm* algf=FuzzyCMeans::getInstance(paramf, QString("Fuzzy C-Means"), QString("desc"));
+    AlgorithmsList::getInstance()->addAlgorithm(algf);
+
+
 
 
     loader->loadFeatures(dataHome.absolutePath().append("/features.xml"), getFeaturesList());

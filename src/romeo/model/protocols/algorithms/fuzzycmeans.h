@@ -31,10 +31,10 @@ public:
      * \brief Metodo statico che ritorna l'istanza del FuzzyCMeans, in caso sia la prima volta ad essere invocato
      *  si preoccupa anche di costruire l'istanza.
      */
-    static FuzzyCMeans* getInstance();
-    //virtual bool execute(double **data, int *mask, int nrows, int ncols, int *clusterid, QList<QString> parameters);
+    static FuzzyCMeans* getInstance(QList< AbstractAlgorithm::AlgorithmParameter > par, QString name, QString desc);
+    virtual bool execute(double **data, int *mask, int nrows, int ncols, int *clusterid,int nclusters, QList<QString> parameters);
 private:
-    FuzzyCMeans();
+    FuzzyCMeans(QList< AbstractAlgorithm::AlgorithmParameter > par, QString name, QString desc);
     /*!
      * \brief Implementazione del metodo virtuale pure presente in AbstractAlgorithm, eseguendo
      * l'algoritmo Fuzzy C-Means, utilizza l'algoritmo presente nella libreria C Cluster.

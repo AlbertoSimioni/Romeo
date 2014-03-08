@@ -157,6 +157,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-cove
 ADD_EXECUTABLE(romeoTest ${romeoTest_SOURCES}
     ${romeoTest_HEADERS_MOC}
     ${romeoTest_FORMS_HEADERS}
+    $<TARGET_OBJECTS:core2>
 )
 
 QT5_USE_MODULES(romeoTest Widgets Xml XmlPatterns Test)

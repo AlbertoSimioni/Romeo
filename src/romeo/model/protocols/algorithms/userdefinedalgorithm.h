@@ -39,7 +39,7 @@ class UserDefinedAlgorithm : public AbstractAlgorithm
 public:
     UserDefinedAlgorithm(QList<AlgorithmParameter> par, QString name, QString desc, QString dylp, QString dyfn);
 
-    bool execute(double **data, int *mask, int nrows, int ncols, int *clusterid, QList<QString> parameters);
+    bool execute(double **data, int *mask, int nrows, int ncols, int *clusterid,int nclusters, QList<QString> parameters);
     QString getDynamicLibraryPath() const;
     QString getDynamicFunctionName() const;
 };

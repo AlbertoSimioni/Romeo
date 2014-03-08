@@ -89,6 +89,7 @@ src/romeo/model/imageIO/handleriostatic.cpp
  src/romeo/view/mainWindow/listwidget.cpp
  src/romeo/view/mainWindow/listview.cpp
  src/romeo/view/dialogs/associateprotocoldialog.cpp
+
 )
 SET(romeo_HEADERS
  src/romeo/view/dialogs/addsubjectdialog.h
@@ -203,13 +204,25 @@ SET(GCC_COVERAGE_COMPILE_FLAGS "-fPIC")
 add_definitions(${GCC_COVERAGE_COMPILE_FLAGS})
 
 
+set(algorithms
+    ext/cluster.h
+    ext/cluster.cpp
+)
+add_library (core2 OBJECT ${algorithms})
+add_library (algorithms STATIC $<TARGET_OBJECTS:core2>)
+
+
 ADD_EXECUTABLE(romeo ${romeo_SOURCES}
     #${romeo_HEADERS_MOC}
     ${romeo_FORMS_HEADERS}
-    ${romeo_RESOURCES_RCC})
+    ${romeo_RESOURCES_RCC}
+    $<TARGET_OBJECTS:core2>
+)
+
+
 
 QT5_USE_MODULES(romeo Widgets Xml XmlPatterns Test)
-TARGET_LINK_LIBRARIES( romeo ${ITK_LIBRARIES}  ${VTK_LIBRARIES} )
+TARGET_LINK_LIBRARIES( romeo ${ITK_LIBRARIES}  ${VTK_LIBRARIES}  )
 
 set(features
     ext/features.cpp
