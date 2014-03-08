@@ -3,9 +3,9 @@ using namespace romeo::model::core;
 using namespace romeo::model::imageIO;
 using namespace romeo::model::datasets;
 using namespace romeo::model::protocols;
-
-
-
+#include <src/romeo/model/protocols/algorithms/kmeans.h>
+#include <src/romeo/model/protocols/algorithms/hierarchical.h>
+#include <src/romeo/model/protocols/algorithms/fuzzycmeans.h>
 /////////PROVA TEST
 #include <src/romeo/model/protocols/algorithms/userdefinedalgorithm.h>
 #include <src/romeo/model/protocols/features/dynamicfeature.h>
@@ -19,6 +19,7 @@ using namespace romeo::model::protocols;
 using namespace romeo::model::protocols::algorithms;
 using namespace romeo::model::protocols::features;
 ////////PROVA TEST
+///
 
 
 ModelCore* ModelCore::instance=0;
@@ -39,14 +40,14 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
 
 
     ////////////PROVA TEST
-    ///
-        /* QList<AbstractAlgorithm::AlgorithmParameter> param;
+    //
+        /*QList<AbstractAlgorithm::AlgorithmParameter> param;
         AbstractAlgorithm::AlgorithmParameter param1 (QString("param1"), AbstractAlgorithm::BOOL, QString("default"));
         AbstractAlgorithm::AlgorithmParameter param2 (QString("param2"), AbstractAlgorithm::CHAR, QString("default"));
         param.append(param1);
         param.append(param2);
         AbstractAlgorithm* alg=new UserDefinedAlgorithm(param, QString("Algoritmo1"), QString("desc"), QString("libreria"), QString("nomefunz"));
-        algorithmsList->addAlgorithm(alg);
+        AlgorithmsList::getInstance()->addAlgorithm(alg);
 
         QList<AbstractAlgorithm::AlgorithmParameter> params;
         AbstractAlgorithm::AlgorithmParameter param11 (QString("Param1"), AbstractAlgorithm::INT, QString("25"));
@@ -54,7 +55,7 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
         params.append(param11);
         params.append(param22);
         AbstractAlgorithm* alg2=new UserDefinedAlgorithm(params, QString("Algoritmo"), QString("desc2"), QString("libreria"), QString("nomefunz"));
-        algorithmsList->addAlgorithm(alg2);
+        AlgorithmsList::getInstance()->addAlgorithm(alg2);
 
 
         AbstractFeature* feat1 = new FirstOrderFeature("FeatureFO1","PATH","PATH","DESC1");
@@ -62,19 +63,69 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
         AbstractFeature* feat3 = new DynamicFeature("FeatureD1","PATH","PATH","DESC3");
         AbstractFeature* feat4 = new SecondOrderFeature("FeatureSO1","PATH","PATH","DESC4");
         FeaturesList::getInstance()->addFeature(feat1);
-        featuresList->addFeature(feat2);
-        featuresList->addFeature(feat3);
-        featuresList->addFeature(feat4);
+        FeaturesList::getInstance()->addFeature(feat2);
+        FeaturesList::getInstance()->addFeature(feat3);
+        FeaturesList::getInstance()->addFeature(feat4);
 
 
         QList<AbstractFeature*> features;
         features.append(feat1);
         features.append(feat2);
         features.append(feat4);
-        protocolsList->addProtocol("PROVA","descrizione",alg,5,QList<QString>(),features,false, STATIC);
+        ProtocolsList::getInstance()->addProtocol("PROVA","descrizione",alg,5,QList<QString>(),features,false, STATIC);
 
-        */
+    */
         ///////////////PROVA TEST
+
+    /*
+    AbstractFeature* feat1 = new FirstOrderFeature("Standard Deviation",QDir::toNativeSeparators("features/libfeatures"),"feat_p1_std","gran bella descrizione");
+    AbstractFeature* feat2 = new FirstOrderFeature("Mean",QDir::toNativeSeparators("features/libfeatures"),"feat_p1_mean","gran bella descrizione");
+    AbstractFeature* feat3 = new FirstOrderFeature("Skewness",QDir::toNativeSeparators("features/libfeatures"),"feat_p1_skew","gran bella descrizione");
+    AbstractFeature* feat4 = new FirstOrderFeature("Kurtosis",QDir::toNativeSeparators("features/libfeatures"),"feat_p1_kurt","gran bella descrizione");
+    AbstractFeature* feat5 = new SecondOrderFeature("Contrast",QDir::toNativeSeparators("features/libfeatures"),"feat_p2_contr","gran bella descrizione");
+    AbstractFeature* feat6 = new SecondOrderFeature("Correlation",QDir::toNativeSeparators("features/libfeatures"),"feat_p2_corr","gran bella descrizione");
+    AbstractFeature* feat7 = new SecondOrderFeature("Energy",QDir::toNativeSeparators("features/libfeatures"),"feat_p2_energy","gran bella descrizione");
+    AbstractFeature* feat8 = new SecondOrderFeature("Entropy",QDir::toNativeSeparators("features/libfeatures"),"feat_p2_entropy","gran bella descrizione");
+    AbstractFeature* feat9 = new SecondOrderFeature("Homogeneity",QDir::toNativeSeparators("features/libfeatures"),"feat_p2_homo","gran bella descrizione");
+
+    FeaturesList::getInstance()->addFeature(feat1);
+    FeaturesList::getInstance()->addFeature(feat2);
+    FeaturesList::getInstance()->addFeature(feat3);
+    FeaturesList::getInstance()->addFeature(feat4);
+    FeaturesList::getInstance()->addFeature(feat5);
+    FeaturesList::getInstance()->addFeature(feat6);
+    FeaturesList::getInstance()->addFeature(feat7);
+    FeaturesList::getInstance()->addFeature(feat8);
+    FeaturesList::getInstance()->addFeature(feat9);
+
+    */
+
+    QList<AbstractAlgorithm::AlgorithmParameter> param;
+    AbstractAlgorithm::AlgorithmParameter param1 (QString("Distance"), AbstractAlgorithm::CHAR, QString("e"));
+    AbstractAlgorithm::AlgorithmParameter param2 (QString("Maximum number of iterations"), AbstractAlgorithm::INT, QString("200"));
+
+    param.append(param1);
+    param.append(param2);
+    AbstractAlgorithm* alg=KMeans::getInstance(param, QString("K-means"), QString("desc"));
+    AlgorithmsList::getInstance()->addAlgorithm(alg);
+
+    QList<AbstractAlgorithm::AlgorithmParameter> paramh;
+    AbstractAlgorithm::AlgorithmParameter paramh1 (QString("Distance"), AbstractAlgorithm::CHAR, QString("e"));
+    AbstractAlgorithm::AlgorithmParameter paramh2 (QString("Linkage criteria"), AbstractAlgorithm::CHAR, QString("s"));
+    paramh.append(paramh1);
+    paramh.append(paramh2);
+    AbstractAlgorithm* algh=Hierarchical::getInstance(paramh, QString("Hierarchical"), QString("desc"));
+    AlgorithmsList::getInstance()->addAlgorithm(algh);
+
+
+    QList<AbstractAlgorithm::AlgorithmParameter> paramf;
+    AbstractAlgorithm::AlgorithmParameter paramf1 (QString("epsilon"), AbstractAlgorithm::DOUBLE, QString("0.0001"));
+    AbstractAlgorithm::AlgorithmParameter paramf2 (QString("Fuzzyness"), AbstractAlgorithm::INT, QString("2"));
+    paramf.append(paramf1);
+    paramf.append(paramf2);
+    AbstractAlgorithm* algf=FuzzyCMeans::getInstance(paramf, QString("Fuzzy C-Means"), QString("desc"));
+    AlgorithmsList::getInstance()->addAlgorithm(algf);
+
 
 
 

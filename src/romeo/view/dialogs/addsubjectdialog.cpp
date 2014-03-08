@@ -98,9 +98,9 @@ void AddSubjectDialog::changeFilters(){
         break;
     case TYPE2DT: currentFilters = "Video 2D (*.avi)";
         break;
-    case TYPE3D: currentFilters = "Image 3D (*.hdr *.nii *.nii.gz)";
+    case TYPE3D: currentFilters = "Image 3D (*.hdr *.nii )";
         break;
-    case TYPE3DT: currentFilters = "Images 3DT (*.hdr *.nii *.nii.gz)";
+    case TYPE3DT: currentFilters = "Images 3DT (*.hdr *.nii )";
         break;
     }
 }

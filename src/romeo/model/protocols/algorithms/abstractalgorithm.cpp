@@ -52,10 +52,7 @@ QString AbstractAlgorithm::AlgorithmParameter::getTypeString() const
 
 
 
-AbstractAlgorithm::AbstractAlgorithm()
-{
 
-}
 
 AbstractAlgorithm::AbstractAlgorithm(QString n,QList<AlgorithmParameter>par, QString d): name(n), parameters(par), description(d)
 {

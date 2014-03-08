@@ -1,9 +1,5 @@
 #include "userdefinedalgorithm.h"
 using namespace romeo::model::protocols::algorithms;
-/*UserDefinedAlgorithm::UserDefinedAlgorithm()
-{
-}
-*/
 
 
 
@@ -22,7 +18,7 @@ UserDefinedAlgorithm::UserDefinedAlgorithm(QList< AbstractAlgorithm::AlgorithmPa
 
 }
 
-bool UserDefinedAlgorithm::execute(double **data, int *mask, int nrows, int ncols, int *clusterid, QList<QString> parameters)
+bool UserDefinedAlgorithm::execute(double **data, int *mask, int nrows, int ncols, int *clusterid,int nclusters, QList<QString> parameters)
 {
  return true;
 }

@@ -17,6 +17,7 @@ testsecondorderfeature.cpp
 testfeatureslist.cpp
 testwriter.cpp
 testuserdefinedalgorithm.cpp
+testcontroller.cpp
 testmain.cpp
  testdataset2d.cpp
  testdataset2dt.cpp
@@ -28,6 +29,8 @@ testmain.cpp
  testsubject3dt.cpp
  testresult.cpp
  testdatasetslist.cpp
+ testabstractsubject.cpp
+ testabstractdataset.cpp
  ../src/romeo/view/dialogs/newdatasetdialog.ui
  ../src/romeo/view/dialogs/addsubjectdialog.cpp
  ../src/romeo/view/dialogs/executedialog.cpp
@@ -106,6 +109,7 @@ SET(romeoTest_HEADERS
  testfeatureslist.h
  testwriter.h
  testuserdefinedalgorithm.h
+ testcontroller.h
  testdataset2d.h
  testdataset2dt.h
  testdataset3d.h
@@ -116,6 +120,8 @@ SET(romeoTest_HEADERS
  testsubject3dt.h
  testresult.h
  testdatasetslist.h
+ testabstractsubject.h
+ testabstractdataset.h
 )
 
 SET(romeoTest_FORMS
@@ -151,6 +157,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-cove
 ADD_EXECUTABLE(romeoTest ${romeoTest_SOURCES}
     ${romeoTest_HEADERS_MOC}
     ${romeoTest_FORMS_HEADERS}
+    $<TARGET_OBJECTS:core2>
 )
 
 QT5_USE_MODULES(romeoTest Widgets Xml XmlPatterns Test)

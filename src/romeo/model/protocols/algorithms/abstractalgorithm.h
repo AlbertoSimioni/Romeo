@@ -10,6 +10,9 @@
 #include <QString>
 #include <QList>
 
+//#include "ext/fcm.cpp"
+//#include "ext/hierarchical.c"
+
 namespace romeo {
 namespace model {
 namespace protocols{
@@ -28,6 +31,13 @@ public:
      * \brief Tipo enumerazione che definisce i vari tipi che possono avere i parametri definiti dall'utente.
      */
     enum ParameterType{INT,CHAR,DOUBLE,BOOL};
+    /*!
+     * \brief The AlgorithmParameter classe che rappresenta un parametro di un algoritmo di clustering definibile
+     * dall'utente
+     *
+     *  Classe interna ad AbtractAlgorithm che rappresenta un parametro dell'algoritmo di clustering
+     *  definibile dall'utente contenente nome, tipo e valore di default del parametro.
+     */
     class AlgorithmParameter
     {
     public:
@@ -65,22 +75,16 @@ public:
         QString defaultParameter;
     };
 
-    AbstractAlgorithm();
+
+
     explicit AbstractAlgorithm(QString name,QList<AlgorithmParameter>, QString description=QString());
-    /*!
-     * \brief The AlgorithmParameter classe che rappresenta un parametro di un algoritmo di clustering definibile
-     * dall'utente
-     *
-     *  Classe interna ad AbtractAlgorithm che rappresenta un parametro dell'algoritmo di clustering
-     *  definibile dall'utente contenente nome, tipo e valore di default del parametro.
-     */
 
 
 private:
     /*!
      * \brief  Contiene tutti i parametri di un algoritmo di clustering che l'utente può modificare
      */
-    QList<AlgorithmParameter> parameters; //ricordarsi di delete nel distruttore
+    QList<AlgorithmParameter> parameters;
 
     /*!
      * \brief  Nome identificativo dell'algoritmo di clustering
@@ -94,7 +98,6 @@ private:
 
 
 public:
-    //AbstractAlgorithm(QList<AlgorithmParameter> p, QString n, QString d);
     /*!
      * \brief Metodo che esegue l'algoritmo di clustering s
      * \param data RawData su cui effettuare l'algoritmo di clustering ha dimensioni nrows x ncols
@@ -106,7 +109,7 @@ public:
      * \param parameters Vettore contenente i parametri definibili dall'utente, che variano per ogni algoritmo
      * \return Ritorna true se le analisi sono state eseguite correttamente altrimenti ritorna false
      */
-    virtual bool execute(double** data, int* mask, int nrows, int ncols,int* clusterid, QList<QString> parameters) =0 ;
+    virtual bool execute(double** data, int* mask, int nrows, int ncols,int* clusterid,int ncluster, QList<QString> parameters) =0 ;
 
     /*!
      * \brief Metodo che ritorna la descrizione dell'algoritmo.

@@ -13,13 +13,13 @@ StaticProtocol::StaticProtocol(QString nomeP, QString desc, algorithms::Abstract
 
 }
 
-void StaticProtocol::execute(romeo::model::datasets::AbstractSubject *subject)
+void StaticProtocol::execute(romeo::model::datasets::AbstractSubject *subject,QString path,bool saveFeatures,QString outputFormat)
 {
     InputFormat dimensions = subject->getType();
     if(dimensions == TYPE2D)
-        templateExecute<2>(subject);
+        templateExecute<2>(subject,path,saveFeatures,outputFormat);
     else
-        templateExecute<3>(subject);
+        templateExecute<3>(subject,path,saveFeatures,outputFormat);
 }
 
 

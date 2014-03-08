@@ -119,7 +119,7 @@ void NewAlgorithmDialog::okButtonClicked(){
         newAlgorithmParameters.append(AbstractAlgorithm::AlgorithmParameter(parameterName,type,defaultParameter));
     }
 
-    typedef void (*MyPrototype)(double** data, int* mask, int nrows, int ncols,int* clusterid, vector<string> parameters);
+    typedef void (*MyPrototype)(double** data, int* mask, int nrows, int ncols,int* clusterid,int nclusters, vector<string> parameters);
     MyPrototype myFunction =
             (MyPrototype) QLibrary::resolve(dylp, dyfn.toStdString().c_str());
     if (!myFunction){
@@ -136,6 +136,8 @@ void NewAlgorithmDialog::okButtonClicked(){
             currentDir.cd("algorithms");
         }
         QString newFilePath = currentDir.path() +"/" +name+"."+ (dylp.split(".").takeLast()) ;
+        newFilePath = QDir::toNativeSeparators(newFilePath);
+        newFilePath = QUrl::fromLocalFile(newFilePath).path();
         QFile::copy(dylp, newFilePath);
 
     resetForms();

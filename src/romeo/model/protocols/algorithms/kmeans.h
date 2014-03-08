@@ -31,14 +31,14 @@ public:
      * \brief Metodo statico che ritorna l'istanza del KMeans, in caso sia la prima volta ad essere invocato
      *  si preoccupa anche di costruire l'istanza.
      */
-    static KMeans* getInstance();
+    static KMeans* getInstance(QList< AbstractAlgorithm::AlgorithmParameter > par, QString name, QString desc);
     /*!
      * \brief Implementazione del metodo virtuale pure presente in AbstractAlgorithm, eseguendo
      * l'algoritmo K-Means, utilizza l'algoritmo presente nella libreria C Cluster.
      */
-    //virtual bool execute(double **data, int *mask, int nrows, int ncols, int *clusterid, QList<QString> parameters);
+    virtual bool execute(double **data, int *mask, int nrows, int ncols, int *clusterid,int nclusters, QList<QString> parameters);
 private:
-    KMeans();
+    KMeans(QList< AbstractAlgorithm::AlgorithmParameter > par, QString name, QString desc);
     /*!
      * \brief Campo dati statico che contiene il riferimento all'unica istanza di KMeans
      */

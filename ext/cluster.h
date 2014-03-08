@@ -39,7 +39,8 @@
 #endif
 
 #define CLUSTERVERSION "1.52"
-
+#ifndef CLUSTER
+#define CLUSTER
 /* Chapter 2 */
 double clusterdistance (int nrows, int ncolumns, double** data, int** mask,
   double weight[], int n1, int n2, int index1[], int index2[], char dist,
@@ -91,3 +92,10 @@ double median (int n, double x[]);
 
 double* calculate_weights(int nrows, int ncolumns, double** data, int** mask,
   double weights[], int transpose, char dist, double cutoff, double exponent);
+void hierarchicalAlgorithm(int nclusters, int nrows, int ncolumns, double** data, int** mask, double weight[], char dist, int transpose, char method, int clusterid[]);
+double get_norm(int i, int j,const int &ncolumns,double** data,double** cluster_centre,int* mask);
+double get_new_value(int i, int j,const int &nclusters,const int &ncolumns,const double &fuzziness,double** data,double** cluster_centre,int*mask);
+void calculate_centre_vectors(const int &nclusters,const int &nrows,const int &ncolumns,const double &fuzziness,double** data,double** degree_of_memb,double** cluster_centre,int*mask);
+double update_degree_of_membership(const int &nclusters,const int &nrows,const int &ncolumns,const double &fuzziness,double** data,double** degree_of_memb,double** cluster_centre,int*mask);
+void fcm(const int nclusters,const int nrows,const int ncolumns,double** data,double epsilon,double fuzziness,int clusterid[],int*mask);
+#endif // CLUSTER

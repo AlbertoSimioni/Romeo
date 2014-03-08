@@ -11,12 +11,9 @@ DynamicProtocol::DynamicProtocol(QString nomeP, QString desc, algorithms::Abstra
 }
 
 
-void DynamicProtocol::execute(romeo::model::datasets::AbstractSubject *subject)
+void DynamicProtocol::execute(romeo::model::datasets::AbstractSubject *subject,QString path,bool saveFeatures,QString outputFormat)
 {
-    emit prova();
-    qDebug() << "PROTOCOL";
-    int i = 0;
-    while(true){ i++; if(i%2)qDebug()<< "CIAO"; else qDebug()<<"MONA";}
+
 
 
 }

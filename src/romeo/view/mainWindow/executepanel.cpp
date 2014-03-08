@@ -24,7 +24,7 @@ void ExecutePanel::connectUI(){
     connect(ui->browseButton,SIGNAL(clicked()),this,SLOT(onBrowseButtonClicked()));
     connect(ui->start,SIGNAL(clicked()),this,SLOT(onStartClicked()));
     connect(ui->viewResultsCheck,SIGNAL(clicked(bool)),this,SLOT(onViewResultsCliked(bool)));
-
+    connect(ui->saveFeaturesCheck,SIGNAL(clicked(bool)),this,SLOT(onViewResultsCliked(bool)));
 }
 
 void ExecutePanel::setCurrentDataset(romeo::model::datasets::AbstractDataset *dataset)
@@ -35,13 +35,13 @@ void ExecutePanel::setCurrentDataset(romeo::model::datasets::AbstractDataset *da
         QStringList formats;
         formats << "INPUT";
         switch(currentDataset->getType()){
-        case TYPE2D : formats << "JPG" << "PNG" << "TIFF" << "BMP";
+        case TYPE2D : formats << ".jpg" << ".png" << ".tif" << ".bmp";
             break;
-        case TYPE3D : formats << "NIfTI" << "Analyze";
+        case TYPE3D : formats << ".nii" << ".hdr";
             break;
-        case TYPE2DT : formats << "AVI";
+        case TYPE2DT : formats << ".avi";
             break;
-        case TYPE3DT: formats << "NIfTI" << "Analyze";
+        case TYPE3DT: formats << ".nifti" << ".hdr";
             break;
         }
         ui->formatCombo->addItems(formats);
@@ -81,7 +81,7 @@ void ExecutePanel::onStartClicked(){
 
 
 void ExecutePanel::onViewResultsCliked(bool state){
-    if(state){
+    if(ui->viewResultsCheck->isChecked() && ui->saveFeaturesCheck->isChecked()){
         ui->viewFeaturesCheck->setEnabled(true);
     }
     else{

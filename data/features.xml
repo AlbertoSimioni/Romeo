@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features>
+    <feature>
+        <name>Standard Deviation</name>
+        <description>gran bella descrizione</description>
+        <type>FIRSTORDER</type>
+        <file>features/libfeatures</file>
+        <functionName>feat_p1_std</functionName>
+    </feature>
+    <feature>
+        <name>Mean</name>
+        <description>gran bella descrizione</description>
+        <type>FIRSTORDER</type>
+        <file>features/libfeatures</file>
+        <functionName>feat_p1_mean</functionName>
+    </feature>
+    <feature>
+        <name>Skewness</name>
+        <description>gran bella descrizione</description>
+        <type>FIRSTORDER</type>
+        <file>features/libfeatures</file>
+        <functionName>feat_p1_skew</functionName>
+    </feature>
+    <feature>
+        <name>Kurtosis</name>
+        <description>gran bella descrizione</description>
+        <type>FIRSTORDER</type>
+        <file>features/libfeatures</file>
+        <functionName>feat_p1_kurt</functionName>
+    </feature>
+    <feature>
+        <name>Contrast</name>
+        <description>gran bella descrizione</description>
+        <type>SECONDORDER</type>
+        <file>features/libfeatures</file>
+        <functionName>feat_p2_contr</functionName>
+    </feature>
+    <feature>
+        <name>Correlation</name>
+        <description>gran bella descrizione</description>
+        <type>SECONDORDER</type>
+        <file>features/libfeatures</file>
+        <functionName>feat_p2_corr</functionName>
+    </feature>
+    <feature>
+        <name>Energy</name>
+        <description>gran bella descrizione</description>
+        <type>SECONDORDER</type>
+        <file>features/libfeatures</file>
+        <functionName>feat_p2_energy</functionName>
+    </feature>
+    <feature>
+        <name>Entropy</name>
+        <description>gran bella descrizione</description>
+        <type>SECONDORDER</type>
+        <file>features/libfeatures</file>
+        <functionName>feat_p2_entropy</functionName>
+    </feature>
+    <feature>
+        <name>Homogeneity</name>
+        <description>gran bella descrizione</description>
+        <type>SECONDORDER</type>
+        <file>features/libfeatures</file>
+        <functionName>feat_p2_homo</functionName>
+    </feature>
+</features>

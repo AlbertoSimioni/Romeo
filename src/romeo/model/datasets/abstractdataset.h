@@ -141,7 +141,7 @@ public:
     /*!
      * \brief Metodo che avvia un nuovo thread in cui esegue le analisi sui subjects con nome dato in input applicando il protocollo dato in input
      */
-    void executeAnalysis(QString protocol,QList<QString> subjects,QString resultsPath,bool viewResults,bool viewFeatures,bool saveFeatures,QString exportFormat);
+    void executeAnalysis(QString protocol,QList<QString> subjects,QString resultsPath,bool saveFeatures,QString exportFormat);
 
 signals:
 
@@ -169,7 +169,19 @@ signals:
      * \brief Segnale che indica una modifica avvenuta sul dataset di nome datasetName
      */
     void modified(QString datasetName);
+    /*!
+     * \brief Segnale emesso quando il protocollo ha terminato di calcolare una feature ed
+     */
+    void featureExtracted(QString pathToResult);
+    /*!
+     * \brief Segnale emesso quando il protocollo ha terminato di eseguire l'algoritmo di clustering
+     */
+    void algorithmExecuted(QString pathToResult);
 
+    /*!
+     * \brief Segnale emesso quando il dataset ha finito eseguire le analisi
+     */
+    void analysisFinished();
 private:
     /*!
      * \brief Nome del dataset.
@@ -183,6 +195,9 @@ private:
      * \brief Lista dei subject contenuti nel dataset.
      */
     QList<AbstractSubject*> subjects;
+
+
+
 };
 }}}
 #endif // ABSTRACTDATASET_H

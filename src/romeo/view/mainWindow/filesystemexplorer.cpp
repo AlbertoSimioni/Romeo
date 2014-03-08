@@ -58,9 +58,9 @@ void FileSystemExplorer::changeFilters(){
         break;
     case TYPE2DT: filters << "*.avi";
         break;
-    case TYPE3D: filters << "*.hdr" <<"*.nii" <<"*.nii.gz";
+    case TYPE3D: filters << "*.hdr" <<"*.nii";
         break;
-    case TYPE3DT: filters << "*.hdr" <<"*.nii" <<"*.nii.gz";
+    case TYPE3DT: filters << "*.hdr" <<"*.nii";
         break;
     }
     fileModel->setNameFilters(filters);
