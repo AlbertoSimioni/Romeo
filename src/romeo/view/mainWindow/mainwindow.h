@@ -36,7 +36,9 @@ public:
      * \brief Ritorna il riferimento al widget che mostra la lista dei protocolli
      */
     ProtocolsExplorer* getProtocolsExplorer();
-
+    /*!
+     * \brief Ritorna il riferimento al widget che mostra la lista dei dataset
+     */
     DatasetPanel* getDatasetPanel();
     /*!
      * \brief Ritorna il riferimento widget che mostra il file system

@@ -51,7 +51,7 @@ private slots:
     /*!
      * \brief Slot avviato al doppio click da parte dell'utente di un elemento all'interno della lista dei dataset, richiede in input l'item premuto
      */
-    void onItemDoubleClicked(QTreeWidgetItem*);
+    void onItemDoubleClicked(QTreeWidgetItem* item);
 
 
 private:
