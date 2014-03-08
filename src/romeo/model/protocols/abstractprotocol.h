@@ -124,6 +124,10 @@ signals:
      * \brief Segnale inviato per notificare l'avventua estrazione di una feature
      */
     void featureExtracted(QString path);
+    /*!
+     * \brief Segnale inviato per notificare l'avvenuta esecuzione di un algoritmo di clustering
+     */
+    void algorithmExecuted(QString path);
 private:
     /*!
      * \brief Nome del protocollo

@@ -27,6 +27,8 @@
 #include <src/romeo/model/protocols/features/firstorderfeature.h>
 #include <src/romeo/model/protocols/features/secondorderfeature.h>
 #include <src/romeo/model/protocols/features/abstractfeature.h>
+#include <src/romeo/model/protocols/algorithms/abstractalgorithm.h>
+#include <src/romeo/model/protocols/color.h>
 
 namespace romeo {
 namespace model {
@@ -84,15 +86,35 @@ public:
     /*!
      *
      */
-    int roundToInt(double num);
+    static int roundToInt(double num);
     /*!
      *
      */
-    int* normalize(double* array,int length);
+    static int* normalize(double* array,int length);
     /*!
      *
      */
-    double** transform(double** result,const int nrows,const int ncolumns);
+    static double** transform(double** result,const int nrows,const int ncolumns);
+    /*!
+     *
+     */
+    template<typename PointerType,typename ImageType>
+    double** readImage(PointerType input) {
+        // legge l'immagine e torna una matrice [ncols][nrows]
+        double** result = new double*[3];
+        for(int i=0;i<3;i++)
+            result[i] = new double[input->GetLargestPossibleRegion().GetNumberOfPixels()];
+        itk::ImageRegionIterator<ImageType> inputIterator(input , input->GetLargestPossibleRegion());
+        int index=0;
+        while(!inputIterator.IsAtEnd()) {
+            result[0][index] = static_cast<double>(inputIterator.Get()[0]);
+            result[1][index] = static_cast<double>(inputIterator.Get()[1]);
+            result[2][index] = static_cast<double>(inputIterator.Get()[2]);
+            ++index;
+            ++inputIterator;
+        }
+        return result;
+    }
     /*!
      *
      */
@@ -117,6 +139,51 @@ public:
         delete[] redValues;
         delete[] greenValues;
         delete[] blueValues;
+    }
+    /*!
+     *
+     */
+    template<typename MaskPointer,typename MaskType>
+    int* getMask(MaskPointer mask,const int nrows) {
+
+        int* maskArray = new int[nrows];
+        for(int i=0;i<nrows;i++)
+            maskArray[i]=1;
+
+        itk::ImageRegionIterator<MaskType> maskIterator;
+        if(mask.IsNotNull()) {
+            maskIterator = itk::ImageRegionIterator<MaskType>(mask , mask->GetLargestPossibleRegion());
+            int i=0;
+            while(!maskIterator.IsAtEnd()) {
+                maskArray[i]=static_cast<int>(maskIterator.Get());
+                ++i;
+                ++maskIterator;
+            }
+        }
+
+        return maskArray;
+    }
+    /*!
+     * \brief createClusteringImage
+     */
+    template<typename ImagePointer,typename ImageType,typename PixelType>
+    void createClusteringImage(ImagePointer output,int* clusterid,int* maskArray) {
+        itk::ImageRegionIterator<ImageType> iterator(output , output->GetLargestPossibleRegion());
+        int index = 0;
+        while(!iterator.IsAtEnd()) {
+            PixelType pixel;
+            int cluster = clusterid[index];
+            int maskValue = maskArray[index];
+            if(maskValue==0)
+                pixel.Set(0,0,0);
+            else {
+                int* color = Color::getColor(cluster);
+                pixel.Set(color[0],color[1],color[2]);
+            }
+            iterator.Set(pixel);
+            ++index;
+            ++iterator;
+        }
     }
     /*!
      *
@@ -237,7 +304,7 @@ public:
             int index =0;
             while(!inputIterator.IsAtEnd()) {
                 if(static_cast<int>(maskIterator.Get())!=0) {
-                    // pocopenhagenw(size,dimension) è il numero di elementi dentro la finestra scorrevole
+                    // pow(size,dimension) è il numero di elementi dentro la finestra scorrevole
                     // per ciascun colore creo tre array differenti
                     double redArray[static_cast<int>(pow(windowSize,dimension))];
                     double greenArray[static_cast<int>(pow(windowSize,dimension))];
@@ -435,38 +502,84 @@ public:
         typename RGBImageType::Pointer imagePointer = imageHandler->readImage<typename RGBImageType::Pointer,RGBImageType>(subject->getSubject());
         typename MaskImageType::Pointer maskPointer = imageHandler->readImage<typename MaskImageType::Pointer,MaskImageType>(subject->getMask());
         QList<romeo::model::protocols::features::AbstractFeature*> featureList = getFeatures();
-        const int numberOfRows = imagePointer->GetLargestPossibleRegion().GetNumberOfPixels();
-        const int numberOfColumns = 3*featureList.size();
-        double** result = new double*[numberOfColumns];
-        int index = 0;
-        for(int i=0;i<featureList.size();i++) {
-            typename RGBImageType::Pointer outputFeature = RGBImageType::New();
-            outputFeature->SetRegions(imagePointer->GetLargestPossibleRegion());
-            outputFeature->Allocate();
-            romeo::model::protocols::features::AbstractFeature* currentFeature = featureList[i];
-            double** singleFeature;
-            romeo::model::protocols::features::FirstOrderFeature* firstOrderFeature = dynamic_cast<romeo::model::protocols::features::FirstOrderFeature*>(featureList[i]);
-            if(firstOrderFeature)
-                singleFeature = applyFirstOrderFeature<typename RGBImageType::Pointer,RGBImageType,typename MaskImageType::Pointer,MaskImageType>(imagePointer,outputFeature,maskPointer,firstOrderFeature);
-            else {
-                romeo::model::protocols::features::SecondOrderFeature* secondOrderFeature = dynamic_cast<romeo::model::protocols::features::SecondOrderFeature*>(featureList[i]);
-                if(secondOrderFeature)
-                    singleFeature = applySecondOrderFeature<typename RGBImageType::Pointer,RGBImageType,typename MaskImageType::Pointer,MaskImageType>(imagePointer,outputFeature,maskPointer,distanceToGLCM,secondOrderFeature);
+        int numberOfRows,numberOfColumns;
+        double** result;
+        if(featureList.size()>0) {
+            qDebug() << "Ci sono features da estrarre";
+            // ci sono features da estrarre
+            numberOfRows = imagePointer->GetLargestPossibleRegion().GetNumberOfPixels();
+            numberOfColumns = 3*featureList.size();
+            result = new double*[numberOfColumns];
+            int index = 0;
+            for(int i=0;i<featureList.size();i++) {
+                typename RGBImageType::Pointer outputFeature = RGBImageType::New();
+                outputFeature->SetRegions(imagePointer->GetLargestPossibleRegion());
+                outputFeature->Allocate();
+                romeo::model::protocols::features::AbstractFeature* currentFeature = featureList[i];
+                double** singleFeature;
+                romeo::model::protocols::features::FirstOrderFeature* firstOrderFeature = dynamic_cast<romeo::model::protocols::features::FirstOrderFeature*>(featureList[i]);
+                if(firstOrderFeature) {
+                    qDebug() << "Feature del primo ordine";
+                    singleFeature = applyFirstOrderFeature<typename RGBImageType::Pointer,RGBImageType,typename MaskImageType::Pointer,MaskImageType>(imagePointer,outputFeature,maskPointer,firstOrderFeature);
+                }
+                else {
+                    qDebug() << "Feature del secondo ordine";
+                    romeo::model::protocols::features::SecondOrderFeature* secondOrderFeature = dynamic_cast<romeo::model::protocols::features::SecondOrderFeature*>(featureList[i]);
+                    if(secondOrderFeature)
+                        singleFeature = applySecondOrderFeature<typename RGBImageType::Pointer,RGBImageType,typename MaskImageType::Pointer,MaskImageType>(imagePointer,outputFeature,maskPointer,distanceToGLCM,secondOrderFeature);
+                }
+                // singleFeature è una matrice [ncols][nrows]
+                for(int j=0;j<3;j++) {
+                    result[index]=singleFeature[j];
+                    ++index;
+                }
+                if(saveFeatures) {
+                    qDebug() << "Salva";
+                    QString fileName = QUrl::fromLocalFile(subject->getName() + "_" + currentFeature->getName()).path();
+                    imageHandler->writeImage<typename RGBImageType::Pointer,RGBImageType>(outputFeature,fileName,path,outputFormat);
+                    emit featureExtracted(path + fileName + outputFormat);
+                }
             }
-            // singleFeature è una matrice [ncols][nrows]
-            for(int j=0;j<3;j++) {
-                result[index]=singleFeature[j];
-                ++index;
-            }
-            if(saveFeatures) {
-                QString fileName = QUrl::fromLocalFile(subject->getName() + "_" + currentFeature->getName()).path();
-                imageHandler->writeImage<typename RGBImageType::Pointer,RGBImageType>(outputFeature,fileName,path,outputFormat);
-                QString prova = path + fileName + outputFormat;
-                emit featureExtracted(path + fileName + outputFormat);
-            }
+        }
+        else {
+            // non ci sono feature da estrarre, va preparata la matrice con tre colonne sole
+            qDebug() << "Non ci sono feature da estrarre";
+            numberOfRows = imagePointer->GetLargestPossibleRegion().GetNumberOfPixels();
+            numberOfColumns = 3;
+            result = readImage<typename RGBImageType::Pointer,RGBImageType>(imagePointer);
         }
         double** transponse = transform(result,numberOfRows,numberOfColumns);
         // transponse è una matrice [nrows][ncols]
+        romeo::model::protocols::algorithms::AbstractAlgorithm* algorithmToExecute = getAlgorithm();
+        if(algorithmToExecute) {
+            qDebug() << "Siamo dentro all'algoritmo";
+            // c'è effettivamente un algoritmo da eseguire
+            // creazione maschera
+            int* mask = getMask<typename MaskImageType::Pointer,MaskImageType>(maskPointer,numberOfRows);
+            // creazione clusterid
+            int* clusterid = new int[numberOfRows];
+            qDebug() << "Prima algoritmo";
+            algorithmToExecute->execute(transponse,mask,numberOfRows,numberOfColumns,clusterid,getNClusters(),getAlgorithmParameters());
+            qDebug() << "Finito l'algoritmo";
+            // creazione immagine di output
+            typename RGBImageType::Pointer output = RGBImageType::New();
+            output->SetRegions(imagePointer->GetLargestPossibleRegion());
+            output->Allocate();
+            qDebug() << "Prima crezione immagine";
+            createClusteringImage<typename RGBImageType::Pointer,RGBImageType,RGBPixelType>(output,clusterid,mask);
+            qDebug() << "Dopo creazione immagine";
+            // delete dei dati sullo heap
+            delete[] mask;
+            delete[] clusterid;
+            // scrivi l'immagine
+            QString fileName = QUrl::fromLocalFile(subject->getName() + "_" + algorithmToExecute->getName()).path();
+            imageHandler->writeImage<typename RGBImageType::Pointer,RGBImageType>(output,fileName,path,outputFormat);
+            emit algorithmExecuted(path + fileName + outputFormat);
+        }
+        // delete dei dati
+        for(int i=0;i<numberOfRows;i++)
+            delete[] transponse[i];
+        delete[] transponse;
     }
 
 private:

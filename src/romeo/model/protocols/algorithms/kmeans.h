@@ -33,6 +33,14 @@ public:
      */
     static KMeans* getInstance(QList< AbstractAlgorithm::AlgorithmParameter > par, QString name, QString desc);
     /*!
+     * \brief replicate
+     * \param single
+     * \param nrows
+     * \param ncols
+     * \return
+     */
+    static int** replicate(int* single,int nrows,int ncols);
+    /*!
      * \brief Implementazione del metodo virtuale pure presente in AbstractAlgorithm, eseguendo
      * l'algoritmo K-Means, utilizza l'algoritmo presente nella libreria C Cluster.
      */

@@ -31,6 +31,11 @@ QList<AbstractFeature *> AbstractProtocol::getFeatures() const
     return features;
 }
 
+AbstractAlgorithm* AbstractProtocol::getAlgorithm() const
+{
+    return algorithm;
+}
+
 QStringList AbstractProtocol::getFeaturesName() const
 {
     QStringList featureNames;

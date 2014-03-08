@@ -12,6 +12,8 @@
 
 #include"abstractalgorithm.h"
 #include<QString>
+#include<QLibrary>
+#include<vector>
 namespace romeo {
 namespace model {
 namespace protocols{

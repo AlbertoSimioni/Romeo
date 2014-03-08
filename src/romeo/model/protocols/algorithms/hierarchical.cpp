@@ -22,12 +22,25 @@ Hierarchical::Hierarchical(QList< AbstractAlgorithm::AlgorithmParameter > par, Q
 
 }
 
+int** Hierarchical::replicate(int* single,int nrows,int ncols) {
+    int** result = new int*[nrows];
+    for(int i=0;i<nrows;i++)
+        result[i] = new int[ncols];
+    // replicazione
+    for(int i=0;i<nrows;i++) {
+        for(int j=0;j<ncols;j++)
+            result[i][j]=single[i];
+    }
+    // non cancello la maschera singola, se ne occupa il metodo templateExecute
+    return result;
+}
+
 bool Hierarchical::execute(double **data, int *mask, int nrows, int ncols, int *clusterid,int nclusters, QList<QString> parameters){
 
-    int** mask2;
+    int** mask2 = replicate(mask,nrows,ncols);
 
     char distance = parameters.at(0).at(0).toLatin1();
-    if((distance != 'e') && (distance != 'b') && (distance != 'c')){
+    if((distance != 'e') && (distance != 'b') && (distance != 'c') && (distance != 'a') && (distance != 'u') && (distance != 'x') && (distance != 's') && (distance != 'k')){
         distance = 'e';
     }
 
@@ -41,5 +54,11 @@ bool Hierarchical::execute(double **data, int *mask, int nrows, int ncols, int *
         weight[j] = 1.0;
     }
     hierarchicalAlgorithm(nclusters, nrows, ncols, data, mask2, weight, distance, 0, linkage, clusterid);
+    // delete della maschera
+    for(int i=0;i<nrows;i++)
+        delete[] mask2[i];
+    delete[] mask2;
+    // delete dei pesi
+    delete[] weight;
     return true;
 }
