@@ -102,7 +102,8 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
 
     QList<AbstractAlgorithm::AlgorithmParameter> param;
     AbstractAlgorithm::AlgorithmParameter param1 (QString("Distance"), AbstractAlgorithm::CHAR, QString("e"));
-    AbstractAlgorithm::AlgorithmParameter param2 (QString("Linkage criteria"), AbstractAlgorithm::CHAR, QString("s"));
+    AbstractAlgorithm::AlgorithmParameter param2 (QString("Maximum number of iterations"), AbstractAlgorithm::INT, QString("200"));
+
     param.append(param1);
     param.append(param2);
     AbstractAlgorithm* alg=KMeans::getInstance(param, QString("K-means"), QString("desc"));
@@ -110,7 +111,7 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
 
     QList<AbstractAlgorithm::AlgorithmParameter> paramh;
     AbstractAlgorithm::AlgorithmParameter paramh1 (QString("Distance"), AbstractAlgorithm::CHAR, QString("e"));
-    AbstractAlgorithm::AlgorithmParameter paramh2 (QString("Maximum number of iterations"), AbstractAlgorithm::INT, QString("200"));
+    AbstractAlgorithm::AlgorithmParameter paramh2 (QString("Linkage criteria"), AbstractAlgorithm::CHAR, QString("s"));
     paramh.append(paramh1);
     paramh.append(paramh2);
     AbstractAlgorithm* algh=Hierarchical::getInstance(paramh, QString("Hierarchical"), QString("desc"));
