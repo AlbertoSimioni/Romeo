@@ -35,6 +35,12 @@ public:
 
 private slots:
     void getInstance();
+    void checkProtocolName();
+    void checkAlgorithmName();
+    void checkFeatureName();
+    void checkDatasetName();
+    void checkSubjectName();
+    void addProtocol();
 };
 
 
