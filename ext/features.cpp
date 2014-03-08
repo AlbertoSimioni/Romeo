@@ -2,24 +2,24 @@
 
 	/* FEATURE PRIMO ORDINE */
 
-int feat_p1_mean(int* data,int size,int dimension) {
+double feat_p1_mean(double* data,int size,int dimension) {
     int nvol = static_cast<int>(pow(size,dimension));
     double accum = 0.0;
     for(int i=0;i<nvol;i++)
         accum += data[i];
-    return static_cast<int>(accum/nvol);
+    return accum/nvol;
 }
 
-int feat_p1_std(int* data,int size,int dimension) {
+double feat_p1_std(double* data,int size,int dimension) {
     int nvol = static_cast<int>(pow(size,dimension));
     double accum = 0.0;
     double mean = feat_p1_mean(data,size,dimension);
     for(int i=0;i<nvol;i++)
         accum += pow(data[i]-mean,2);
-    return static_cast<int>(sqrt(accum/nvol));
+    return sqrt(accum/nvol);
 }
 
-int feat_p1_kurt(int* data,int size,int dimension) {
+double feat_p1_kurt(double* data,int size,int dimension) {
 	int nvol = static_cast<int>(pow(size,dimension));
 	double mean = feat_p1_mean(data,size,dimension);
 	double std = feat_p1_std(data,size,dimension);
@@ -27,10 +27,10 @@ int feat_p1_kurt(int* data,int size,int dimension) {
 	for(int i=0;i<nvol;i++)
 		accum1 += pow(data[i]-mean,4);
 	double accum2 = accum1/nvol;
-	return static_cast<int>((accum2/pow(std,4))-3); 
+	return ((accum2/pow(std,4))-3); 
 }
 
-int feat_p1_skew(int* data,int size,int dimension) {
+double feat_p1_skew(double* data,int size,int dimension) {
 	int nvol = static_cast<int>(pow(size,dimension));
 	double mean = feat_p1_mean(data,size,dimension);
 	double std = feat_p1_std(data,size,dimension);
@@ -38,7 +38,7 @@ int feat_p1_skew(int* data,int size,int dimension) {
 	for(int i=0;i<nvol;i++)
 		accum1 += pow(data[i]-mean,3);
 	double accum2 = accum1/nvol;
-	return static_cast<int>(accum2/pow(std,3));
+	return accum2/pow(std,3);
 }
 
 	/*FINE FEATURE PRIMO ORDINE */
@@ -46,7 +46,7 @@ int feat_p1_skew(int* data,int size,int dimension) {
 	
 	/*FEATURE SECONDO ORDINE */
 	
-double feat_p2_contr(int data[][4]) {
+double feat_p2_contr(int data[4][4]) {
     double ct = 0;
     for(int i=0;i<4;i++) {
         for(int j=0;j<4;j++) {
@@ -59,7 +59,7 @@ double feat_p2_contr(int data[][4]) {
 	//*FUNZIONI UTILIZZATE DA feat_p2_corr*//
 
 //PRE: result[] deve essere un array di 4 elementi.
-void meanIndexI(int data[][4],int result[]) {
+void meanIndexI(int data[4][4],int result[4]) {
 	int ct = 0;
 	for(int i=0;i<4;i++) {
 		for(int j=0;j<4;j++) {
@@ -71,7 +71,7 @@ void meanIndexI(int data[][4],int result[]) {
 }
 
 //PRE: result[] deve essere un array di 4 elementi.
-void meanIndexJ(int data[][4],int result[]) {
+void meanIndexJ(int data[4][4],int result[4]) {
 	int ct = 0;
 	for(int j=0;j<4;j++) {
 		for(int i=0;i<4;i++) {
@@ -83,7 +83,7 @@ void meanIndexJ(int data[][4],int result[]) {
 }
 
 //PRE: result[] e Mi[] devono essere array di 4 elementi.
-void stdIndexI(int data[][4],int meanI[],double result[]) {
+void stdIndexI(int data[4][4],int meanI[4],double result[4]) {
 	unsigned long long ct = 0;
 	for(int i=0;i<4;i++) {
 		for(int j=0;j<4;j++) {
@@ -95,7 +95,7 @@ void stdIndexI(int data[][4],int meanI[],double result[]) {
 }
 
 //PRE: result[] e Mi[] devono essere array di 4 elementi.
-void stdIndexJ(int data[][4],int meanJ[],double result[]) {
+void stdIndexJ(int data[4][4],int meanJ[4],double result[4]) {
 	unsigned long long ct = 0;
 	for(int j=0;j<4;j++) {
 		for(int i=0;i<4;i++) {
@@ -108,7 +108,7 @@ void stdIndexJ(int data[][4],int meanJ[],double result[]) {
 
 	/*FINE FUNZIONI UTILIZZATE DA feat_p2_corr*/
 
-double feat_p2_corr(int data[][4]) {
+double feat_p2_corr(int data[4][4]) {
 	int meanI[4];
 	int meanJ[4];
 	double stdI[4];
@@ -133,7 +133,7 @@ double feat_p2_corr(int data[][4]) {
 	return ct2;
 }
 
-double feat_p2_energy(int data[][4]) {
+double feat_p2_energy(int data[4][4]) {
 	double ct = 0;
 	for(int i=0;i<4;i++) {
 		for(int j=0;j<4;j++) {
@@ -143,7 +143,7 @@ double feat_p2_energy(int data[][4]) {
 	return ct;
 }
 
-double feat_p2_entropy(int data[][4]) {
+double feat_p2_entropy(int data[4][4]) {
 	double ct = 0;
 	for(int i=0;i<4;i++) {
 		for(int j=0;j<4;j++) {
@@ -154,7 +154,7 @@ double feat_p2_entropy(int data[][4]) {
 	return (-ct);
 }
 
-double feat_p2_homo(int data[][4]) {
+double feat_p2_homo(int data[4][4]) {
 	double ct = 0;
 	for(int i=0;i<4;i++) {
 		for(int j=0;j<4;j++) {

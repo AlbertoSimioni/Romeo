@@ -312,7 +312,7 @@ public:
         // mask è la maschera
         // distance è la distanza dalla GLCM
 
-        typedef int (*MyPrototype)(int data[4][4]);
+        typedef double (*MyPrototype)(int data[4][4]);
         MyPrototype featureExtractor = (MyPrototype) QLibrary::resolve(feature->getDynamicLibraryPath(),feature->getDynamicFunctionName().toStdString().c_str());
 
         int dimension = ImageType::GetImageDimension();
@@ -440,12 +440,10 @@ public:
         double** result = new double*[numberOfColumns];
         int index = 0;
         for(int i=0;i<featureList.size();i++) {
-            qDebug() << "Feature1";
             typename RGBImageType::Pointer outputFeature = RGBImageType::New();
             outputFeature->SetRegions(imagePointer->GetLargestPossibleRegion());
             outputFeature->Allocate();
             romeo::model::protocols::features::AbstractFeature* currentFeature = featureList[i];
-            qDebug() << "Feature2";
             double** singleFeature;
             romeo::model::protocols::features::FirstOrderFeature* firstOrderFeature = dynamic_cast<romeo::model::protocols::features::FirstOrderFeature*>(featureList[i]);
             if(firstOrderFeature)
@@ -455,20 +453,15 @@ public:
                 if(secondOrderFeature)
                     singleFeature = applySecondOrderFeature<typename RGBImageType::Pointer,RGBImageType,typename MaskImageType::Pointer,MaskImageType>(imagePointer,outputFeature,maskPointer,distanceToGLCM,secondOrderFeature);
             }
-            qDebug() << "Feature3";
             // singleFeature è una matrice [ncols][nrows]
             for(int j=0;j<3;j++) {
                 result[index]=singleFeature[j];
                 ++index;
             }
             if(saveFeatures) {
-                qDebug() << "Feature4";
                 QString fileName = QUrl::fromLocalFile(subject->getName() + "_" + currentFeature->getName()).path();
-                qDebug() << "Feature5";
                 imageHandler->writeImage<typename RGBImageType::Pointer,RGBImageType>(outputFeature,fileName,path,outputFormat);
-                qDebug() << "Feature6";
                 QString prova = path + fileName + outputFormat;
-                qDebug() << qPrintable(prova);
                 emit featureExtracted(path + fileName + outputFormat);
             }
         }

@@ -5,7 +5,6 @@
 // ITK
 #include "itkImageFileReader.h"
 #include "itkImageFileWriter.h"
-#include <QDebug>
 namespace romeo {
 namespace model {
 namespace imageIO{
@@ -45,16 +44,12 @@ public:
      */
     template<typename PointerType,typename ImageType>
     void writeImage(PointerType output,QString fileName,QString path,QString outputFormat) {
-        qDebug() << "Writer";
         typedef itk::ImageFileWriter< ImageType > WriterType;
         typename WriterType::Pointer writer = WriterType::New();
         QString finalPath = path + fileName + outputFormat;
         writer->SetFileName(finalPath.toStdString());
         writer->SetInput(output);
-        qDebug() << "Writer2";
-        qDebug() << qPrintable(finalPath);
         writer->Update();
-        qDebug() << "Writer3";
     }
 
 private:
