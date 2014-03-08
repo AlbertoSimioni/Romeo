@@ -8,7 +8,9 @@ ExecutePanel::ExecutePanel(QWidget *parent) :
     QWidget(parent), currentDataset(0),
     ui(new Ui::ExecutePanel)
 {
+
     ui->setupUi(this);
+    ui->viewFeaturesCheck->setEnabled(false);
     connectUI();
     checkForm();
 }

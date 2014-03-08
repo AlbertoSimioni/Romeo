@@ -215,8 +215,7 @@ QString AbstractDataset::getResultPath(QString protocol, QString resultDate){
 
 void AbstractDataset::executeAnalysis(QString protocol, QList<QString> subjects, QString resultsPath, bool saveFeatures, QString exportFormat)
 {
-    if(saveFeatures)
-    qDebug() << "zsdf";
+
     QList<AbstractSubject*> subjectsToAnalyze;
    for(int i = 0; i < subjects.size();i++){
        AbstractSubject* subject =  getSubject(subjects[i]);
@@ -226,13 +225,17 @@ void AbstractDataset::executeAnalysis(QString protocol, QList<QString> subjects,
    }
 
    AbstractProtocol* protocolToExecute = getProtocol(protocol);
-
+   connect(protocolToExecute,SIGNAL(featureExtracted(QString)),this,SIGNAL(featureExtracted(QString)));
+   connect(protocolToExecute,SIGNAL(algorithmExecuted(QString)),this,SIGNAL(algorithmExecuted(QString)));
     for(int i = 0 ; i < subjectsToAnalyze.size(); i++){
         protocolToExecute->execute(subjectsToAnalyze[i],resultsPath,saveFeatures,exportFormat);
     }
 
-   // connect(protocolToExecute,SIGNAL(prova()),this,SLOT(prova()),Qt::QueuedConnection);
-
+   disconnect(protocolToExecute,SIGNAL(featureExtracted(QString)),this,SIGNAL(featureExtracted(QString)));
+   disconnect(protocolToExecute,SIGNAL(algorithmExecuted(QString)),this,SIGNAL(algorithmExecuted(QString)));
+   addResult(protocolToExecute,new Result(QDateTime::currentDateTime(),resultsPath));
+   emit analysisFinished();
+   emit newResults();
 }
 
 

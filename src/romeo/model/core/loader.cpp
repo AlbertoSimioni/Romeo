@@ -176,7 +176,7 @@ bool Loader::LoadDataset(const QString &datasetFile)
             qDebug()<<qPrintable(resultDate.toString());
             Result* result=new Result(resultDate, results.at(i).toElement().attribute("path"));
             dataset->addResult(ProtocolsList::getInstance()->getProtocol(protocolName), result);
-            dataset->addResult(ProtocolsList::getInstance()->getProtocol(protocolName),new Result(QDateTime::currentDateTime(), QString("C:/")));
+            //dataset->addResult(ProtocolsList::getInstance()->getProtocol(protocolName),new Result(QDateTime::currentDateTime(), QString("C:/")));
         }
     }
     file.close();

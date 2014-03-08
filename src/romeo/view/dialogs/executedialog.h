@@ -11,6 +11,10 @@
 
 #include <QDialog>
 #include <src/romeo/model/datasets/abstractdataset.h>
+#include "vtkImageViewer2.h"
+#include "vtkSmartPointer.h"
+
+
 namespace Ui {
 class ExecuteDialog;
 }
@@ -32,7 +36,7 @@ public:
 
 
 
-    void prepareAnalysis(romeo::model::datasets::AbstractDataset *dataset,bool viewResults,bool viewFeatures,int numberSubjects, int nImages);
+    void prepareAnalysis(romeo::model::datasets::AbstractDataset *dataset,bool viewResults,bool viewFeatures,int numberSubjects,int nAlgorithms, int nFeatures);
 
 
 signals:
@@ -42,6 +46,18 @@ signals:
     void abortAnalysis();
 
 private slots:
+
+    /*!
+     * \brief Slot avviato dopo l'avvenuta estrazione di una feature, si preoccupa di aggiornare la percentuale delle analisi e in caso l'utente abbia
+     * deciso di visualizzare le feature anche di invocare il metodo addResultImage per l'aggiunta dell'immagine ai risultati da visualizzare
+     */
+    void onFeatureExtracted(QString pathToFeature);
+
+    /*!
+     * \brief Slot avviato dopo l'avvenuta esecuzione di un algoritmo, si preoccupa di aggiornare la percentuale delle analisi e in caso l'utente abbia
+     * deciso di visualizzare le feature anche di invocare il metodo addResultImage per l'aggiunta dell'immagine ai risultati da visualizzare
+     */
+    void onAlgorithmExecuted(QString pathToAlgorithm);
 
     /*!
      * \brief Slot che si preoccupa di abilitare il pulsante close e di impostare la linea di testo che indica lo stato delle analisi a "Completed"
@@ -72,7 +88,10 @@ private slots:
      */
     void addResultImage(QString pathToResult);
 
-
+    /*!
+     * \brief Slot avviato quando l'utente preme il pulsante per non visualizzare più le feature, setta a false il campo dati visualizeFeatures
+     */
+    void onNoFeatureClicked();
 
 
 private:
@@ -126,9 +145,13 @@ private:
     int nSubjects;
 
     /*!
-     * \brief Numero di immagini da visualizzare per subject
+     * \brief Numero di immagini da calcolare per subject
      */
     int nImagesPerSubject;
+
+
+
+    vtkSmartPointer<vtkImageViewer2> image_view;
 
 };
 }}}

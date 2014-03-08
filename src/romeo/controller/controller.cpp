@@ -288,9 +288,11 @@ void Controller::startAnalysis(QString protocol, QList<QString> subjects, QStrin
 {
     AbstractDataset* currentDataset = mainWindow->getDatasetPanel()->getCurrentDataset();
     AbstractProtocol* prot = protocolsList->getProtocol(protocol);
-    executeDialog->prepareAnalysis(currentDataset,viewResults,viewFeatures,subjects.size(),prot->getFeatures().size());
-    qDebug() << "PRIMA";
+    int nAlgorithm = 0;
+    if(prot->getAlgorithm()){
+        ++nAlgorithm;
+    }
+    executeDialog->prepareAnalysis(currentDataset,viewResults,viewFeatures,subjects.size(),nAlgorithm,prot->getFeatures().size());
     QtConcurrent::run(currentDataset, &AbstractDataset::executeAnalysis, protocol,subjects,resultsPath,saveFeatures,format);
-    qDebug()<< "DOPO";
     executeDialog->exec();
 }

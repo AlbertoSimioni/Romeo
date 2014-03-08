@@ -521,6 +521,7 @@ public:
                 if(firstOrderFeature) {
                     qDebug() << "Feature del primo ordine";
                     singleFeature = applyFirstOrderFeature<typename RGBImageType::Pointer,RGBImageType,typename MaskImageType::Pointer,MaskImageType>(imagePointer,outputFeature,maskPointer,firstOrderFeature);
+                    qDebug() << "Calcolata feature primo ordine";
                 }
                 else {
                     qDebug() << "Feature del secondo ordine";
@@ -538,6 +539,9 @@ public:
                     QString fileName = QUrl::fromLocalFile(subject->getName() + "_" + currentFeature->getName()).path();
                     imageHandler->writeImage<typename RGBImageType::Pointer,RGBImageType>(outputFeature,fileName,path,outputFormat);
                     emit featureExtracted(path + fileName + outputFormat);
+                }
+                else{
+                    featureExtracted(QString());
                 }
             }
         }

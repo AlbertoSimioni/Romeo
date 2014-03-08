@@ -216,6 +216,7 @@ void ProtocolDialog::changeParametersForm(){
         algorithm= algorithmsList->getAlgorithm(algName);
     }
     if(algorithm){
+    parameters.at(0)->setHidden(false);
     QList<AbstractAlgorithm::AlgorithmParameter> param = algorithm->getParameters();
     while(!(param.isEmpty())){
         ParameterValueForm* parameterForm = new ParameterValueForm(param.takeFirst(),this);
@@ -224,6 +225,9 @@ void ProtocolDialog::changeParametersForm(){
 
         parameters.append(parameterForm);
     }
+    }
+    else{
+        parameters.at(0)->setHidden(true);
     }
     checkParametersValidity();
 }
