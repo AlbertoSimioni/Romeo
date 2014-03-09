@@ -68,6 +68,7 @@ void TestDatasetsList::getDatasetsNames(){
     QCOMPARE(1,1);
 }
 
+//DA COMPLETARE
 void TestDatasetsList::addDatasetFile(){
     DatasetsList list(0);
     list.addDatasetFile(QString("testFile"));
@@ -80,7 +81,7 @@ void TestDatasetsList::getNextDataset(){
     AbstractDataset *abstrPrewDs=new Dataset2D(AbsDSTEst);
     AbstractDataset *abstrDs=list.getNextDataset(abstrPrewDs);
 
-   // delete &abstrPrewDs;
+    delete abstrPrewDs;
 }
 
 void TestDatasetsList::deleteDataset(){
@@ -90,7 +91,7 @@ void TestDatasetsList::deleteDataset(){
     list.deleteDataset(abstrPrewDs);
 
 
-    //    delete &abstrPrewDs;
+        delete abstrPrewDs;
 }
 
 void TestDatasetsList::deleteProtocolAssociations(){
