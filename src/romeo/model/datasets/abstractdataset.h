@@ -35,7 +35,7 @@ class AbstractDataset: public QObject
 {
     Q_OBJECT
 public:
-    AbstractDataset();
+
     /*!
      * \brief Costruisce un nuovo dataset con il nome indicato
      * \param name Nome con cui costruire in nuovo dataset
@@ -142,7 +142,16 @@ public:
      * \brief Metodo che avvia un nuovo thread in cui esegue le analisi sui subjects con nome dato in input applicando il protocollo dato in input
      */
     void executeAnalysis(QString protocol,QList<QString> subjects,QString resultsPath,bool saveFeatures,QString exportFormat);
+    /*!
+     * \brief Metodo che interrompe le analisi andando a cambiare il flag booleano per l'interruzione
+     */
+    void abortAnalysis();
 
+
+    /*!
+     * \brief Ritorna true se le analisi sono da interrompere
+     */
+    bool getStopAnalysis() const;
 signals:
 
     /*!
@@ -182,6 +191,8 @@ signals:
      * \brief Segnale emesso quando il dataset ha finito eseguire le analisi
      */
     void analysisFinished();
+
+
 private:
     /*!
      * \brief Nome del dataset.
@@ -195,7 +206,15 @@ private:
      * \brief Lista dei subject contenuti nel dataset.
      */
     QList<AbstractSubject*> subjects;
+    /*!
+     * \brief flag booleano che indica se le analisi sono da proseguire
+     */
+    bool stopAnalysis;
 
+    /*!
+     * \brief Riferimento al protocollo in esecuzione
+     */
+    protocols::AbstractProtocol* currentProtocol;
 
 
 };

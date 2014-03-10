@@ -20,5 +20,9 @@
         <file>Images/branch-closed.png</file>
         <file>Images/add-1-icon.png</file>
         <file>Images/StopIcon.png</file>
+        <file>Images/AddAlgorithm.png</file>
+        <file>Images/AlgorithmsList.png</file>
+        <file>Images/AddFeature.png</file>
+        <file>Images/FeaturesList.png</file>
     </qresource>
 </RCC>

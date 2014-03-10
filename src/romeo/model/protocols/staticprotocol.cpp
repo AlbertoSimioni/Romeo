@@ -15,6 +15,7 @@ StaticProtocol::StaticProtocol(QString nomeP, QString desc, algorithms::Abstract
 
 void StaticProtocol::execute(romeo::model::datasets::AbstractSubject *subject,QString path,bool saveFeatures,QString outputFormat)
 {
+    setStopAnalysis(false);
     InputFormat dimensions = subject->getType();
     if(dimensions == TYPE2D)
         templateExecute<2>(subject,path,saveFeatures,outputFormat);
@@ -65,6 +66,7 @@ double** StaticProtocol::transform(double** result,const int nrows,const int nco
     // return transformed
     return transf;
 }
+
 
 int* StaticProtocol::normalize(double* array,int length) {
     // normalizza un array di double in una scala da 0 a 255

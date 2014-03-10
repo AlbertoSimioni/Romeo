@@ -161,6 +161,10 @@ public slots:
      */
     void startAnalysis(QString protocol,QList<QString> subjects,QString resultsPath,bool viewResults,bool viewFeatures,bool saveFeatures,QString format);
 
+    /*!
+     * \brief Slot che si preoccupa di abortire la analisi in esecuzione sul dataset corrente
+     */
+    void abortAnalysis();
 private:
 
     /*!

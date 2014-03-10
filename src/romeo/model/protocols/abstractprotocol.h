@@ -119,6 +119,9 @@ public:
      */
     void setAlgorithmParameters(const QList<QString> &value);
 
+    bool getStopAnalysis() const;
+    void setStopAnalysis(bool value);
+
 signals:
     /*!
      * \brief Segnale inviato per notificare l'avventua estrazione di una feature
@@ -157,6 +160,11 @@ private:
      * \brief Numero di cluster con cui verrà eseguito l'algoritmo.
      */
     int nClusters;
+
+    /*!
+     * \brief Flag booleano che indica se le analisi devono proseguire
+     */
+    bool stopAnalysis;
 };
 
 }}}

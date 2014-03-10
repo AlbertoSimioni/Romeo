@@ -511,7 +511,8 @@ public:
             numberOfColumns = 3*featureList.size();
             result = new double*[numberOfColumns];
             int index = 0;
-            for(int i=0;i<featureList.size();i++) {
+            for(int i=0;i<featureList.size() && !getStopAnalysis();i++) {
+
                 typename RGBImageType::Pointer outputFeature = RGBImageType::New();
                 outputFeature->SetRegions(imagePointer->GetLargestPossibleRegion());
                 outputFeature->Allocate();
@@ -541,8 +542,11 @@ public:
                     emit featureExtracted(path + fileName + outputFormat);
                 }
                 else{
-                    featureExtracted(QString());
+                    emit featureExtracted(QString());
                 }
+            }
+            if(getStopAnalysis()){
+               numberOfColumns = index +1;
             }
         }
         else {
@@ -552,39 +556,51 @@ public:
             numberOfColumns = 3;
             result = readImage<typename RGBImageType::Pointer,RGBImageType>(imagePointer);
         }
-        double** transponse = transform(result,numberOfRows,numberOfColumns);
-        // transponse è una matrice [nrows][ncols]
-        romeo::model::protocols::algorithms::AbstractAlgorithm* algorithmToExecute = getAlgorithm();
-        if(algorithmToExecute) {
-            qDebug() << "Siamo dentro all'algoritmo";
-            // c'è effettivamente un algoritmo da eseguire
-            // creazione maschera
-            int* mask = getMask<typename MaskImageType::Pointer,MaskImageType>(maskPointer,numberOfRows);
-            // creazione clusterid
-            int* clusterid = new int[numberOfRows];
-            qDebug() << "Prima algoritmo";
-            algorithmToExecute->execute(transponse,mask,numberOfRows,numberOfColumns,clusterid,getNClusters(),getAlgorithmParameters());
-            qDebug() << "Finito l'algoritmo";
-            // creazione immagine di output
-            typename RGBImageType::Pointer output = RGBImageType::New();
-            output->SetRegions(imagePointer->GetLargestPossibleRegion());
-            output->Allocate();
-            qDebug() << "Prima crezione immagine";
-            createClusteringImage<typename RGBImageType::Pointer,RGBImageType,RGBPixelType>(output,clusterid,mask);
-            qDebug() << "Dopo creazione immagine";
-            // delete dei dati sullo heap
-            delete[] mask;
-            delete[] clusterid;
-            // scrivi l'immagine
-            QString fileName = QUrl::fromLocalFile(subject->getName() + "_" + algorithmToExecute->getName()).path();
-            imageHandler->writeImage<typename RGBImageType::Pointer,RGBImageType>(output,fileName,path,outputFormat);
-            emit algorithmExecuted(path + fileName + outputFormat);
+
+        if(numberOfColumns < 3){
+           delete[] result;
         }
-        // delete dei dati
-        for(int i=0;i<numberOfRows;i++)
-            delete[] transponse[i];
-        delete[] transponse;
+        else{
+            double** transponse;
+
+            transponse = transform(result,numberOfRows,numberOfColumns);
+
+
+            // transponse è una matrice [nrows][ncols]
+            romeo::model::protocols::algorithms::AbstractAlgorithm* algorithmToExecute = getAlgorithm();
+            if(algorithmToExecute && !getStopAnalysis()) {
+                qDebug() << "Siamo dentro all'algoritmo";
+                // c'è effettivamente un algoritmo da eseguire
+                // creazione maschera
+                int* mask = getMask<typename MaskImageType::Pointer,MaskImageType>(maskPointer,numberOfRows);
+                // creazione clusterid
+                int* clusterid = new int[numberOfRows];
+                qDebug() << "Prima algoritmo";
+                algorithmToExecute->execute(transponse,mask,numberOfRows,numberOfColumns,clusterid,getNClusters(),getAlgorithmParameters());
+                qDebug() << "Finito l'algoritmo";
+                // creazione immagine di output
+                typename RGBImageType::Pointer output = RGBImageType::New();
+                output->SetRegions(imagePointer->GetLargestPossibleRegion());
+                output->Allocate();
+                qDebug() << "Prima crezione immagine";
+                createClusteringImage<typename RGBImageType::Pointer,RGBImageType,RGBPixelType>(output,clusterid,mask);
+                qDebug() << "Dopo creazione immagine";
+                // delete dei dati sullo heap
+                delete[] mask;
+                delete[] clusterid;
+                // scrivi l'immagine
+                QString fileName = QUrl::fromLocalFile(subject->getName() + "_" + algorithmToExecute->getName()).path();
+                imageHandler->writeImage<typename RGBImageType::Pointer,RGBImageType>(output,fileName,path,outputFormat);
+                emit algorithmExecuted(path + fileName + outputFormat);
+            }
+            // delete dei dati
+            for(int i=0;i<numberOfRows;i++)
+                delete[] transponse[i];
+            delete[] transponse;
+        }
+
     }
+
 
 private:
     /*!
@@ -595,6 +611,7 @@ private:
      * \brief distanceToGLCM Valore richiesto per il calcolo della matrice GLCM.
      */
     int distanceToGLCM;
+
 
 };
 }}}

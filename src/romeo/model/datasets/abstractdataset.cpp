@@ -5,11 +5,9 @@
 #include <QMessageBox>
 using namespace romeo::model::datasets;
 using namespace romeo::model::protocols;
-AbstractDataset::AbstractDataset()
-{
-}
 
-AbstractDataset::AbstractDataset(QString &n): name(n)
+
+AbstractDataset::AbstractDataset(QString &n): name(n),stopAnalysis(false),currentProtocol(0)
 {
 }
 
@@ -216,6 +214,7 @@ QString AbstractDataset::getResultPath(QString protocol, QString resultDate){
 void AbstractDataset::executeAnalysis(QString protocol, QList<QString> subjects, QString resultsPath, bool saveFeatures, QString exportFormat)
 {
 
+    stopAnalysis = false;
     QList<AbstractSubject*> subjectsToAnalyze;
    for(int i = 0; i < subjects.size();i++){
        AbstractSubject* subject =  getSubject(subjects[i]);
@@ -225,17 +224,28 @@ void AbstractDataset::executeAnalysis(QString protocol, QList<QString> subjects,
    }
 
    AbstractProtocol* protocolToExecute = getProtocol(protocol);
+   currentProtocol = protocolToExecute;
    connect(protocolToExecute,SIGNAL(featureExtracted(QString)),this,SIGNAL(featureExtracted(QString)));
    connect(protocolToExecute,SIGNAL(algorithmExecuted(QString)),this,SIGNAL(algorithmExecuted(QString)));
-    for(int i = 0 ; i < subjectsToAnalyze.size(); i++){
+    for(int i = 0 ; i < subjectsToAnalyze.size() && !stopAnalysis; i++){
         protocolToExecute->execute(subjectsToAnalyze[i],resultsPath,saveFeatures,exportFormat);
     }
 
    disconnect(protocolToExecute,SIGNAL(featureExtracted(QString)),this,SIGNAL(featureExtracted(QString)));
    disconnect(protocolToExecute,SIGNAL(algorithmExecuted(QString)),this,SIGNAL(algorithmExecuted(QString)));
-   addResult(protocolToExecute,new Result(QDateTime::currentDateTime(),resultsPath));
+   if(!stopAnalysis) addResult(protocolToExecute,new Result(QDateTime::currentDateTime(),resultsPath));
+   currentProtocol = 0;
    emit analysisFinished();
    emit newResults();
 }
+bool AbstractDataset::getStopAnalysis() const
+{
+    return stopAnalysis;
+}
 
+
+void AbstractDataset::abortAnalysis(){
+    stopAnalysis = true;
+    currentProtocol->setStopAnalysis(true);
+}
 
