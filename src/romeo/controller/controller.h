@@ -256,8 +256,6 @@ private:
 
 
 
-
-
      romeo::model::protocols::algorithms::AlgorithmsList* algorithmsList;
 
      romeo::model::protocols::features::FeaturesList* featuresList;

@@ -16,6 +16,11 @@
 #include "vtkRenderWindow.h"
 #include "vtkRenderer.h"
 
+#include "vtkSmartVolumeMapper.h"
+#include "vtkPiecewiseFunction.h"
+#include "vtkColorTransferFunction.h"
+#include "vtkVolumeProperty.h"
+
 using namespace romeo::view::dialogs;
 using namespace romeo::model;
 
@@ -57,9 +62,9 @@ void ExecuteDialog::prepareAnalysis(romeo::model::datasets::AbstractDataset *dat
 {
 
     if(currentDataset != 0 ){
-        disconnect(currentDataset,SIGNAL(analysis()),this,SLOT(analysisFinished()));
+        disconnect(currentDataset,SIGNAL(analysisFinished()),this,SLOT(analysisFinished()));
         disconnect(currentDataset,SIGNAL(algorithmExecuted(QString)),this,SLOT(onAlgorithmExecuted(QString)));
-        connect(currentDataset,SIGNAL(featureExtracted(QString)),this,SLOT(onFeatureExtracted(QString)));
+        disconnect(currentDataset,SIGNAL(featureExtracted(QString)),this,SLOT(onFeatureExtracted(QString)));
     }
 
 
@@ -91,7 +96,7 @@ void ExecuteDialog::clearDialog(){
     ui->statusLabel->setText("Total Images: "+ QString::number(nSubjects * nImagesPerSubject));
     ui->currentLabel->setText("Executing");
     ui->nameLabel->setText(QString(""));
-    ui->progressBar->setMaximum(0);
+    ui->progressBar->setMinimum(0);
     ui->progressBar->setMaximum(nSubjects * nImagesPerSubject);
     ui->progressBar->setValue(0);
     ui->nextButton->setEnabled(false);
@@ -176,10 +181,10 @@ void ExecuteDialog::onNoFeatureClicked(){
 
 
 void ExecuteDialog::showImage(QString pathToImage){
-
+    ui->widget->setHidden(false);
     if(currentDataset->getType() == TYPE2D ||(currentDataset->getType() ==  TYPE2DT )){
 
-    ui->widget->setHidden(false);
+
     typedef itk::RGBPixel<unsigned char> myRGBPixelType;//Pixel Type
     typedef itk::Image< myRGBPixelType, 2> myInputImageType;//Image Type
     typedef itk::ImageFileReader< myInputImageType >  myReaderType;//Reader of Image Type
@@ -215,8 +220,6 @@ void ExecuteDialog::showImage(QString pathToImage){
     image->DeepCopy(connector->GetOutput());
 
 
-    //ui->widget->resize(dims[0],dims[1]);
-    //image_view->SetSize(dims[0],dims[1]);
     //set VTK Viewer to QVTKWidget in Qt's UI
     ui->widget->SetRenderWindow(image_view->GetRenderWindow());
     //image_view->SetupInteractor(ui->widget->GetRenderWindow()->GetInteractor());
@@ -228,6 +231,133 @@ void ExecuteDialog::showImage(QString pathToImage){
     image_view->Render();
 
     ui->widget->update();
+
+    }
+    else{
+
+        typedef itk::RGBPixel<unsigned char> myRGBPixelType;//Pixel Type
+        typedef itk::Image< myRGBPixelType, 3> myInputImageType;//Image Type
+        typedef itk::ImageFileReader< myInputImageType >  myReaderType;//Reader of Image Type
+        myReaderType::Pointer reader = myReaderType::New();
+
+
+        reader->SetFileName( pathToImage.toStdString() );
+        //Exceptional handling
+        try {
+            reader->Update();
+        }
+        catch (itk::ExceptionObject & e) {
+        }
+
+        ui->nameLabel->setText(pathToImage.split(QDir::toNativeSeparators("/")).takeLast());
+        myInputImageType::Pointer input = reader->GetOutput();
+
+
+        typedef itk::ImageToVTKImageFilter<myInputImageType> myConnectorType;
+        myConnectorType::Pointer connector= myConnectorType::New();
+        connector->SetInput( input );//Set ITK reader Output to connector you can replace it with filter
+
+        //Exceptional handling
+        try {
+            connector->Update();
+        }
+        catch (itk::ExceptionObject & e) {
+        }
+
+
+        vtkSmartPointer<vtkImageData> imageData =
+            vtkSmartPointer<vtkImageData>::New();
+
+        imageData->DeepCopy(connector->GetOutput());
+
+          vtkSmartPointer<vtkRenderWindow> renWin =
+            vtkSmartPointer<vtkRenderWindow>::New();
+          vtkSmartPointer<vtkRenderer> ren1 =
+            vtkSmartPointer<vtkRenderer>::New();
+          ren1->SetBackground(0.1,0.4,0.2);
+
+          renWin->AddRenderer(ren1);
+
+          renWin->SetSize(301,300); // intentional odd and NPOT  width/height
+
+         /* vtkSmartPointer<vtkRenderWindowInteractor> iren =
+            vtkSmartPointer<vtkRenderWindowInteractor>::New();
+          iren->SetRenderWindow(renWin);*/
+           ui->widget->SetRenderWindow(renWin);
+          renWin->Render(); // make sure we have an OpenGL context.
+
+          vtkSmartPointer<vtkSmartVolumeMapper> volumeMapper =
+            vtkSmartPointer<vtkSmartVolumeMapper>::New();
+         //volumeMapper->SetBlendModeToComposite(); // composite first
+        #if VTK_MAJOR_VERSION <= 5
+          volumeMapper->SetInputConnection(imageData->GetProducerPort());
+        #else
+          volumeMapper->SetInputData(imageData);
+        #endif
+          vtkSmartPointer<vtkVolumeProperty> volumeProperty =
+            vtkSmartPointer<vtkVolumeProperty>::New();
+          volumeProperty->ShadeOff();
+          volumeProperty->SetInterpolationType(VTK_LINEAR_INTERPOLATION);
+
+          vtkSmartPointer<vtkPiecewiseFunction> compositeOpacity =
+            vtkSmartPointer<vtkPiecewiseFunction>::New();
+          compositeOpacity->AddPoint(0.0,0.0);
+          compositeOpacity->AddPoint(80.0,1.0);
+          compositeOpacity->AddPoint(80.1,0.0);
+          compositeOpacity->AddPoint(255.0,0.0);
+          volumeProperty->SetScalarOpacity(compositeOpacity); // composite first.
+
+          vtkSmartPointer<vtkColorTransferFunction> color =
+            vtkSmartPointer<vtkColorTransferFunction>::New();
+          color->AddRGBPoint(0.0  ,0.0,0.0,1.0);
+          color->AddRGBPoint(40.0  ,1.0,0.0,0.0);
+          color->AddRGBPoint(255.0,1.0,1.0,1.0);
+          volumeProperty->SetColor(color);
+
+          vtkSmartPointer<vtkVolume> volume =
+            vtkSmartPointer<vtkVolume>::New();
+          volume->SetMapper(volumeMapper);
+          volume->SetProperty(volumeProperty);
+
+
+         /* myInputImageType::DirectionType d= input->GetDirection();
+              vtkMatrix4x4 *mat=vtkMatrix4x4::New(); //start with identity matrix
+              for (int i=0; i<3; i++)
+                  for (int k=0; k<3; k++)
+                      mat->SetElement(i,k, d(i,k));
+
+              //counteract the built-in translation by origin
+              myInputImageType::PointType origin=input->GetOrigin();
+              volume->SetPosition(-origin[0], -origin[1], -origin[2]);
+
+              //add translation to the user matrix
+              for (int i=0; i<3; i++)
+                  mat->SetElement(i,3, origin[i]);
+              volume->SetUserMatrix(mat);*/
+/*
+              vtkSmartPointer<vtkAxesActor> axes = vtkSmartPointer<vtkAxesActor>::New();
+              axes->SetTotalLength(250,250,250);
+              axes->SetShaftTypeToCylinder();
+              axes->SetCylinderRadius(0.01);
+              ren1->AddActor(axes);
+*/
+
+          ren1->AddViewProp(volume);
+
+          ren1->ResetCamera();
+
+          // Render composite. In default mode. For coverage.
+          renWin->Render();
+
+          // 3D texture mode. For coverage.
+          volumeMapper->SetRequestedRenderModeToRayCastAndTexture();
+          renWin->Render();
+
+          // Software mode, for coverage. It also makes sure we will get the same
+          // regression image on all platforms.
+          volumeMapper->SetRequestedRenderModeToRayCast();
+          renWin->Render();
+          ui->widget->update();
 
     }
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>739</width>
-    <height>512</height>
+    <width>429</width>
+    <height>384</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -167,17 +167,7 @@ font-size: 15px;
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="5,1">
-          <item>
-           <widget class="QProgressBar" name="progressBar">
-            <property name="value">
-             <number>24</number>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-           </widget>
-          </item>
+         <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,7">
           <item>
            <spacer name="horizontalSpacer_3">
             <property name="orientation">
@@ -190,6 +180,16 @@ font-size: 15px;
              </size>
             </property>
            </spacer>
+          </item>
+          <item>
+           <widget class="QProgressBar" name="progressBar">
+            <property name="value">
+             <number>24</number>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>

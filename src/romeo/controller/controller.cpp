@@ -34,10 +34,6 @@ Controller::Controller(QObject *parent): QObject(parent)
     protocolDialog = new ProtocolDialog(algorithmsList,featuresList,mainWindow);
     newDatasetDialog = new NewDatasetDialog(mainWindow);
     newAlgorithmDialog = new NewAlgorithmDialog(mainWindow);
-
-
-
-
     newFeatureDialog = new NewFeatureDialog(mainWindow);
     algorithmsListDialog = new AlgorithmsListDialog(algorithmsList,mainWindow);
     featuresListDialog = new FeaturesListDialog(featuresList,mainWindow);

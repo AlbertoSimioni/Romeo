@@ -65,7 +65,7 @@ SET(romeo_SOURCES
  src/romeo/model/protocols/algorithms/hierarchical.cpp
  src/romeo/model/protocols/algorithms/userdefinedalgorithm.cpp
  src/romeo/model/imageIO/handlerio.cpp
-src/romeo/model/imageIO/handleriostatic.cpp
+ src/romeo/model/imageIO/handleriostatic.cpp
  src/romeo/model/imageIO/handlerio2d.cpp
  src/romeo/model/imageIO/handlerio3d.cpp
  src/romeo/model/datasets/result.cpp
@@ -90,8 +90,8 @@ src/romeo/model/imageIO/handleriostatic.cpp
  src/romeo/view/mainWindow/listwidget.cpp
  src/romeo/view/mainWindow/listview.cpp
  src/romeo/view/dialogs/associateprotocoldialog.cpp
-
 )
+
 SET(romeo_HEADERS
  src/romeo/view/dialogs/addsubjectdialog.h
  src/romeo/view/dialogs/executedialog.h
@@ -175,8 +175,8 @@ SET(romeo_FORMS
  src/romeo/view/dialogs/parametervalueform.ui
  src/romeo/view/dialogs/newalgorithmparameterform.ui
  src/romeo/view/dialogs/associateprotocoldialog.ui
-
 )
+
 SET(romeo_RESOURCES src/immagini.qrc)
 
 
