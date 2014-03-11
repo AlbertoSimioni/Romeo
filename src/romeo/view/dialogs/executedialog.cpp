@@ -228,10 +228,9 @@ void ExecuteDialog::showImage(QString pathToImage){
 
         //set VTK Viewer to QVTKWidget in Qt's UI
         ui->widget->SetRenderWindow(image_view->GetRenderWindow());
-        //image_view->SetupInteractor(ui->widget->GetRenderWindow()->GetInteractor());
-        //Set input image to VTK viewer
+
         image_view->SetInputData( image );
-        //image_view->SetSlice(0);
+
         image_view->Render();
         image_view->GetRenderer()->ResetCamera();
         image_view->Render();

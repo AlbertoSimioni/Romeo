@@ -268,6 +268,7 @@ void ProtocolDialog::checkEmpty(QString name){
 
 
 void ProtocolDialog::finishButtonClicked(){
+    bool error = false;
     if(ui->protocolLineEdit->isEnabled()){
         qDebug() << "ENTRO";
 
@@ -299,6 +300,7 @@ void ProtocolDialog::finishButtonClicked(){
             msgBox.setIcon(QMessageBox::Critical);
             msgBox.setText("Select at least one algorithm or one feature");
             msgBox.exec();
+            error = true;
         }
         else{
 
@@ -312,9 +314,10 @@ void ProtocolDialog::finishButtonClicked(){
 
         }
     }
-
-    resetForms();
-    accept();
+    if(!error){
+        resetForms();
+        accept();
+    }
 
 
 }
