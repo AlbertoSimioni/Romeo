@@ -16,6 +16,7 @@ void TestWriter::getInstance(){
 
 
 void TestWriter::saveDatasetsList(){
+    Controller *controller = Controller::getInstance();
     DatasetsList *list = DatasetsList::getInstance();
 
     list->addDataset(QString("dataset2D"),romeo::model::TYPE2D);
@@ -37,6 +38,7 @@ void TestWriter::saveDatasetsList(){
 }
 
 void TestWriter::saveProtocolsList(){
+    Controller *controller = Controller::getInstance();
     QString algName = "algName";
     QString algDescr = "algDescription";
     QList<algorithms::AbstractAlgorithm::AlgorithmParameter> paramList;
@@ -76,6 +78,7 @@ void TestWriter::saveProtocolsList(){
 }
 
 void TestWriter::saveAlgorithmsList(){
+    Controller *controller = Controller::getInstance();
     AlgorithmsList *list = AlgorithmsList::getInstance();
     QString algName = "name";
     QString algDescr = "description";
@@ -97,6 +100,7 @@ void TestWriter::saveAlgorithmsList(){
 }
 
 void TestWriter::saveFeaturesList(){
+    Controller *controller = Controller::getInstance();
     features::FeaturesList *list = features::FeaturesList::getInstance();
 
     features::FirstOrderFeature *foFeat = new features::FirstOrderFeature(QString("foname"),QString("fodylp"),QString("fodyfn"),QString("fodescription"));
@@ -118,6 +122,7 @@ void TestWriter::saveFeaturesList(){
 }
 
 void TestWriter::saveDataset(){
+    Controller *controller = Controller::getInstance();
     DatasetsList *list = DatasetsList::getInstance();
 
     ModelCore *mc =  ModelCore::getInstance();
@@ -131,6 +136,7 @@ void TestWriter::saveDataset(){
 }
 
 void TestWriter::writeDatasetProtocols(){
+    Controller *controller = Controller::getInstance();
     QString algName = "algName";
     QString algDescr = "algDescription";
     QList<algorithms::AbstractAlgorithm::AlgorithmParameter> paramList;

@@ -4,6 +4,7 @@
 #include <QtTest>
 #define private public
 #include <../src/romeo/model/core/writer.h>
+#include <../src/romeo/controller/controller.h>
 #include <../src/romeo/model/core/modelcore.h>
 #include <../src/romeo/model/datasets/datasetslist.h>
 #include <../src/romeo/model/datasets/dataset2d.h>
@@ -20,7 +21,7 @@
 #include <../src/romeo/model/protocols/features/secondorderfeature.h>
 #include <../src/romeo/model/protocols/features/dynamicfeature.h>
 
-
+using namespace romeo::controller;
 using namespace romeo::model::core;
 using namespace romeo::model::datasets;
 using namespace romeo::model::protocols;

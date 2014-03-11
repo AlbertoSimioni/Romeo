@@ -49,6 +49,7 @@ testmain.cpp
   ../src/romeo/model/core/modelcore.cpp
   ../src/romeo/model/core/writer.cpp
   ../src/romeo/model/core/loader.cpp
+  ../src/romeo/model/protocols/color.cpp
   ../src/romeo/model/protocols/abstractprotocol.cpp
   ../src/romeo/model/protocols/staticprotocol.cpp
   ../src/romeo/model/protocols/dynamicprotocol.cpp
@@ -162,5 +163,19 @@ ADD_EXECUTABLE(romeoTest ${romeoTest_SOURCES}
 
 QT5_USE_MODULES(romeoTest Widgets Xml XmlPatterns Test)
 TARGET_LINK_LIBRARIES( romeoTest ${ITK_LIBRARIES}  ${VTK_LIBRARIES} )
+
+set(featuresTest
+    ../ext/features.cpp
+    ../ext/features.h
+)
+
+add_library (coreTest OBJECT ${featuresTest})
+add_library (featuresTest SHARED $<TARGET_OBJECTS:coreTest>)
+set_target_properties(featuresTest PROPERTIES
+  LIBRARY_OUTPUT_DIRECTORY "features"
+)
+
+file(COPY ../tests/data DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
 add_test(NAME RomeoTest COMMAND romeoTest)
 
