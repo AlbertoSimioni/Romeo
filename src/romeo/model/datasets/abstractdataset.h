@@ -140,6 +140,11 @@ public:
 
     /*!
      * \brief Metodo che avvia un nuovo thread in cui esegue le analisi sui subjects con nome dato in input applicando il protocollo dato in input
+     * \param protocol Nome del protocollo con cui si vuole procedere all'esecuzione.
+     * \param subjects Lista dei subject che devono essere processati.
+     * \param resultsPath Percorso alla cartella dove salvare i risultati.
+     * \param saveFeatures Parametro booleano, quando a true indica che i risultati delle features vanno salvati.
+     * \param exportFormat Tipo di esportazione dei risultati.
      */
     void executeAnalysis(QString protocol,QList<QString> subjects,QString resultsPath,bool saveFeatures,QString exportFormat);
     /*!
@@ -176,7 +181,7 @@ signals:
      */
     void modified(QString datasetName);
     /*!
-     * \brief Segnale emesso quando il protocollo ha terminato di calcolare una feature ed
+     * \brief Segnale emesso quando il protocollo ha terminato di calcolare una feature.
      */
     void featureExtracted(QString pathToResult);
     /*!

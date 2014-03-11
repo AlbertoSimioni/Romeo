@@ -35,7 +35,15 @@ public:
     void closeEvent(QCloseEvent *event);
 
 
-
+    /*!
+     * \brief Metodo che esegue delle operazioni di preparazione all'esecuzione come il ripristino della finestra di dialogo in cui visualizzare le immagini risultato e la raccolta dei dati fondamentali per far partire l'esecuzione di un protocollo. Inoltre si preoccupa di disconnettere segnali precedentemente impostati se presenti.
+     * \param dataset Il dataset che contiene i dati da analizzare.
+     * \param viewResults Valore booleano impostato a true se si vogliono visualizzare i risultati al termine dell'esecuzione.
+     * \param viewFeatures Valore booleano impostato a true se si vogliono visualizzare le feature estratte durante l'esecuzione.
+     * \param numberSubjects Il numero du subject da analizzare.
+     * \param nAlgorithms Numero di algoritmi (può essere uno oppure zero).
+     * \param nFeatures Numero di features da analizzare.
+     */
     void prepareAnalysis(romeo::model::datasets::AbstractDataset *dataset,bool viewResults,bool viewFeatures,int numberSubjects,int nAlgorithms, int nFeatures);
 
 
