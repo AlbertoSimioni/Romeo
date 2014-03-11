@@ -148,10 +148,7 @@ public:
     void abortAnalysis();
 
 
-    /*!
-     * \brief Ritorna true se le analisi sono da interrompere
-     */
-    bool getStopAnalysis() const;
+
 signals:
 
     /*!

@@ -17,6 +17,7 @@
 #include <src/romeo/model/protocols/algorithms/algorithmslist.h>
 #include <src/romeo/model/protocols/features/featureslist.h>
 #include <src/romeo/model/protocols/abstractprotocol.h>
+#include "src/romeo/model/protocols/abstractprotocol.h"
 
 
 namespace Ui {
@@ -46,6 +47,11 @@ public:
      */
     void showErrorName(bool show);
 
+    /*!   !!!!
+     * \brief Meotodo per la visualizzazione di un protocollo già esistente, in caso sia di test permette anche la modifica
+     *
+     */
+    void openExistingProtocol(romeo::model::protocols::AbstractProtocol* protocol);
 public slots:
     /*!
      * \brief Fa avanzare il wizard al prossimo passo, se è invocato mentre il wizard è all'ultimo passo del wizard non fa nulla
@@ -80,6 +86,22 @@ signals:
      */
     void createProtocol(QString protocolName,QString desc,bool test,QList<QString>features,QString algorithm,romeo::model::protocols::ProtocolType type,int windowSize,int distanceGLCM,int nClusters,QList<QString> parametersValue);
 
+    /*!
+     * \brief Segnala la volontà dell'utente di moficare un protocollo
+     * \param oldProtocolName
+     * \param protocolName
+     * \param desc
+     * \param test
+     * \param features
+     * \param algorithm
+     * \param type
+     * \param windowSize
+     * \param distanceGLCM
+     * \param nClusters
+     * \param parametersValue
+     */
+    void modifyProtocol(QString oldProtocolName,QString protocolName,QString desc,bool test,QList<QString>features,QString algorithm,romeo::model::protocols::ProtocolType type,int windowSize,int distanceGLCM,int nClusters,QList<QString> parametersValue);
+
 
 private:
     Ui::ProtocolDialog *ui;
@@ -99,6 +121,10 @@ private:
      */
     romeo::model::protocols::features::FeaturesList* featuresList;
 
+    /*!  !!!!
+     * \brief campo dati contenente il nome di origine del protocollo di test che l'utente sta modificando
+     */
+    QString oldProtocol;
 
     /*!
      * \brief Svuota tutte le form del dialogo che l'utente ha modificato
@@ -111,13 +137,21 @@ private:
      */
     void connectUI();
 
-
+    /*! !!!
+     * \brief Disabilita/abilita la modifica di tutti i widget che permettono il cambiamento dei dati del protocollo
+     */
+    void setAllDisabled(bool disable );
 
 
 
 
 
 private slots:
+    /*! !!!
+     * \brief Slot che controlla se il nome del protocollo è diverso dal nome originale del protocollo che si sta modificando e in caso invia il segnale nameChanged
+     */
+    void onProtocolNameChanged();
+
     /*!
      * \brief Aggiunge l'item dato in input alla lista delle feature del protocollo
      */

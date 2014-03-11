@@ -41,6 +41,12 @@ public:
      * \brief Ritorna il valore inserito dall'utente nella linea di testo
      */
     QString getValue();
+
+    /*!
+     * \brief Imposta la line edit del valore del parametro con la stringa di testo passata in input
+     */
+    void setValue(QString val);
+
     /*!
      * \brief Ritorna il tipo del parametro
      */

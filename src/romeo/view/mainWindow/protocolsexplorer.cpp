@@ -10,6 +10,7 @@ ProtocolsExplorer::ProtocolsExplorer(QWidget *parent) :
     ui->setupUi(this);
     ui->protocolsTable->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->protocolsTable->setDragEnabled(true);
+    connect(ui->protocolsTable,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(onItemDoubleClicked()));
 }
 
 ProtocolsExplorer::~ProtocolsExplorer()
@@ -62,4 +63,10 @@ QString ProtocolsExplorer::getSelectedProtocolName(){
         protocolName = selectedProtocol.at(0)->text().split("  [Test").takeFirst();
     }
     return protocolName;
+}
+
+
+void ProtocolsExplorer::onItemDoubleClicked(){
+    QString name = getSelectedProtocolName();
+    emit openProtocol(name);
 }

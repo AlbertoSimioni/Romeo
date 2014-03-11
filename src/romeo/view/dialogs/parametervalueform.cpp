@@ -51,6 +51,11 @@ QString ParameterValueForm::getValue()
     return ui->valueLineEdit->text();
 }
 
+void ParameterValueForm::setValue(QString val)
+{
+    ui->valueLineEdit->setText(val);
+}
+
 
 AbstractAlgorithm::AlgorithmParameter ParameterValueForm::getParameter()
 {

@@ -546,7 +546,7 @@ public:
                 }
             }
             if(getStopAnalysis()){
-               numberOfColumns = index +1;
+               numberOfColumns = index;
             }
         }
         else {

@@ -41,7 +41,7 @@ void ProtocolDialog::connectUI(){
     connect(ui->next2,SIGNAL(clicked()),this,SLOT(nextStep()));
     connect(ui->back2,SIGNAL(clicked()),this,SLOT(previousStep()));
     connect(ui->back3,SIGNAL(clicked()),this,SLOT(previousStep()));
-    connect(ui->protocolLineEdit,SIGNAL(textChanged(QString)),this,SIGNAL(nameChanged(QString)));
+    connect(ui->protocolLineEdit,SIGNAL(textChanged(QString)),this,SLOT(onProtocolNameChanged()));
     connect(ui->protocolLineEdit,SIGNAL(textChanged(QString)),this,SLOT(checkEmpty(QString)));
     connect(ui->featuresList,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(addFeature(QListWidgetItem*)));
     connect(ui->addButton,SIGNAL(clicked()),this,SLOT(addButtonClicked()));
@@ -66,6 +66,16 @@ ProtocolDialog::~ProtocolDialog()
 
 }
 
+
+void ProtocolDialog::onProtocolNameChanged(){
+    if(oldProtocol.isEmpty() || oldProtocol != ui->protocolLineEdit->text())
+        emit nameChanged(ui->protocolLineEdit->text());
+    else{
+        if(!oldProtocol.isEmpty()){
+            showErrorName(false);
+        }
+    }
+}
 
 void ProtocolDialog::showErrorName(bool show)
 {
@@ -101,6 +111,9 @@ void ProtocolDialog::previousStep()
 void ProtocolDialog::addFeature(QListWidgetItem *item)
 {
     bool stop = false;
+    if((!oldProtocol.isEmpty()) && (!ui->testCheck->isChecked())){
+        stop = true;
+    }
     for(int i =0; i< (ui->protocolFeaturesList->count()) && (!stop);i++){
         if(ui->protocolFeaturesList->item(i)->text() == item->text())
             stop = true;
@@ -144,7 +157,7 @@ void ProtocolDialog::resetForms(){
      ui->textEdit->clear();
      ui->glcmLineEdit->setText("1");
      ui->WindowSizeCombo->setCurrentIndex(0);
-
+     oldProtocol = QString();
 }
 
 
@@ -198,7 +211,7 @@ void ProtocolDialog::fillAlgorithmsCombo(){
     for(int i = 0; i < algorithms.size(); i++){
         ui->AlgorithmCombo->addItem(algorithms[i]->getName());
     }
-     ui->AlgorithmCombo->addItem(QString());
+     ui->AlgorithmCombo->addItem(QString("No algorithm"));
 }
 
 
@@ -212,10 +225,11 @@ void ProtocolDialog::changeParametersForm(){
     QString algName = ui->AlgorithmCombo->currentText();
 
     AbstractAlgorithm* algorithm = 0;
-    if(!algName.isEmpty()){
+    if(algName != "No algorithm"){
         algorithm= algorithmsList->getAlgorithm(algName);
     }
     if(algorithm){
+
     parameters.at(0)->setHidden(false);
     QList<AbstractAlgorithm::AlgorithmParameter> param = algorithm->getParameters();
     while(!(param.isEmpty())){
@@ -249,59 +263,131 @@ void ProtocolDialog::checkEmpty(QString name){
 
 
 void ProtocolDialog::finishButtonClicked(){
-    QString name = ui->protocolLineEdit->text();
-    QString desc = ui->textEdit->document()->toPlainText();
-    QString alg = ui->AlgorithmCombo->currentText();
-    bool test = ui->testCheck->isChecked();
-    int glcmDistance = ui->glcmLineEdit->text().toInt();
-    int windowSize = ui->WindowSizeCombo->currentText().split("x").takeFirst().toInt();
+    if(ui->protocolLineEdit->isEnabled()){
 
-    QString type = ui->dataTypeCombo->currentText();
-    ProtocolType protType;
-    if(type == "Static") protType = STATIC;
-    if(type == "Dynamic") protType = romeo::model::protocols::DYNAMIC;
+        QString name = ui->protocolLineEdit->text();
+        QString desc = ui->textEdit->document()->toPlainText();
+        QString alg = ui->AlgorithmCombo->currentText();
+        bool test = ui->testCheck->isChecked();
+        int glcmDistance = ui->glcmLineEdit->text().toInt();
+        int windowSize = ui->WindowSizeCombo->currentText().split("x").takeFirst().toInt();
 
-    int number = ui->protocolFeaturesList->count();
-    QList<QString> feats;
-    for(int i =0;i<number;i++){
-        feats.append(ui->protocolFeaturesList->item(i)->text());
-    }
-    bool okClusters = false;
-    int nClusters = parameters[0]->getValue().toInt(&okClusters);
-    QList<QString> parametersValue;
-    for(int i = 1; i < parameters.size(); i++){
-        parametersValue.append(parameters[i]->getValue());
-    }
-    if(alg.isNull() && (feats.size() == 0)){
-        QMessageBox msgBox;
-        msgBox.setIcon(QMessageBox::Critical);
-        msgBox.setText("Select at least one algorithm or one feature");
-        msgBox.exec();
+        QString type = ui->dataTypeCombo->currentText();
+        ProtocolType protType;
+        if(type == "Static") protType = STATIC;
+        if(type == "Dynamic") protType = romeo::model::protocols::DYNAMIC;
+
+        int number = ui->protocolFeaturesList->count();
+        QList<QString> feats;
+        for(int i =0;i<number;i++){
+            feats.append(ui->protocolFeaturesList->item(i)->text());
+        }
+        bool okClusters = false;
+        int nClusters = parameters[0]->getValue().toInt(&okClusters);
+        QList<QString> parametersValue;
+        for(int i = 1; i < parameters.size(); i++){
+            parametersValue.append(parameters[i]->getValue());
+        }
+        if(alg == "No algorithm" && (feats.size() == 0)){
+            QMessageBox msgBox;
+            msgBox.setIcon(QMessageBox::Critical);
+            msgBox.setText("Select at least one algorithm or one feature");
+            msgBox.exec();
+        }
+        else{
+            resetForms();
+            if(oldProtocol.isEmpty()){
+                emit modifyProtocol(oldProtocol,name,desc,test,feats,alg,protType,windowSize,glcmDistance,nClusters,parametersValue);
+                oldProtocol = QString();
+                setAllDisabled(false);
+            }
+            else{
+                emit createProtocol(name,desc,test,feats,alg,protType,windowSize,glcmDistance,nClusters,parametersValue);
+            }
+            accept();
+        }
     }
     else{
-        resetForms();
-        emit createProtocol(name,desc,test,feats,alg,protType,windowSize,glcmDistance,nClusters,parametersValue);
         accept();
     }
 
 }
 
 
+
 void ProtocolDialog::checkWindowSizeGLCM(){
     bool ok = true;
-    int glcmDistance = ui->glcmLineEdit->text().toInt(&ok);
-    if(ok){
-        int windowSize = ui->WindowSizeCombo->currentText().split("x").takeFirst().toInt();
-        if(glcmDistance >= windowSize || glcmDistance < 1) ok = false;
+    if(ui->dataTypeCombo->currentText() == "Static"){
+        int glcmDistance = ui->glcmLineEdit->text().toInt(&ok);
+        if(ok){
+            int windowSize = ui->WindowSizeCombo->currentText().split("x").takeFirst().toInt();
+            if(glcmDistance >= windowSize || glcmDistance < 1) ok = false;
+        }
+        QPalette palette = ui->glcmLineEdit->palette();
+        if(!ok){
+            ui->next2->setEnabled(false);
+            palette.setColor(QPalette::Text,QColor(255,0,0));
+        }
+        else{
+            ui->next2->setEnabled(true);
+            palette.setColor(QPalette::Text,QColor(0,0,0));
+        }
+        ui->glcmLineEdit->setPalette(palette);
     }
-    QPalette palette = ui->glcmLineEdit->palette();
-    if(!ok){
-        ui->next2->setEnabled(false);
-        palette.setColor(QPalette::Text,QColor(255,0,0));
+}
+
+
+
+void ProtocolDialog::openExistingProtocol(AbstractProtocol *protocol){
+    ui->next1->setEnabled(true);
+    ui->next2->setEnabled(true);
+    oldProtocol = protocol->getName();
+    ui->protocolLineEdit->setText(protocol->getName());
+
+    switch(protocol->getType()){
+    case STATIC:
+        ui->dataTypeCombo->setCurrentIndex(0);
+        break;
+    case romeo::model::protocols::DYNAMIC:
+        ui->dataTypeCombo->setCurrentIndex(1);
+    }
+    ui->testCheck->setChecked(protocol->getTest());
+
+    ui->textEdit->setText(protocol->getDescription());
+    QStringList featuresName= protocol->getFeaturesName();
+
+    for(int i = 0; i< featuresName.size(); i++){
+        ui->protocolFeaturesList->addItem(featuresName[i]);
+    }
+
+    ui->glcmLineEdit->setText(QString::number(protocol->getDistanceToGlcm()));
+    ui->WindowSizeCombo->setCurrentIndex((((protocol->getWindowSize()-1)/2)-1));
+    if(protocol->getAlgorithm()){
+        ui->AlgorithmCombo->setCurrentText(protocol->getAlgorithmName());
+
+        parameters.at(0)->setValue(QString::number(protocol->getNClusters()));
+
+        QStringList values = protocol->getAlgorithmParameters();
+        for(int i = 0; i< values.size(); i++){
+            parameters.at(i+1)->setValue(values[i]);
+        }
     }
     else{
-        ui->next2->setEnabled(true);
-        palette.setColor(QPalette::Text,QColor(0,0,0));
+        ui->AlgorithmCombo->setCurrentText("No algorithm");
     }
-    ui->glcmLineEdit->setPalette(palette);
+
+
+    if(!protocol->getTest()){
+        setAllDisabled(true);
+    }
+}
+
+void ProtocolDialog::setAllDisabled(bool disable){
+    ui->protocolLineEdit->setDisabled(disable);
+    ui->textEdit->setDisabled(disable);
+    ui->dataTypeCombo->setDisabled(disable);
+    ui->testCheck->setDisabled(disable);
+    ui->glcmLineEdit->setDisabled(disable);
+    ui->WindowSizeCombo->setDisabled(disable);
+    ui->AlgorithmCombo->setDisabled(disable);
 }

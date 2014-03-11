@@ -2,6 +2,7 @@
 #include "ui_datasetpanel.h"
 
 #include <QDebug>
+#include <QFileInfo>
 using namespace romeo::view::mainWindow;
 using namespace romeo::model::datasets;
 DatasetPanel::DatasetPanel(QWidget *parent) :
@@ -54,13 +55,40 @@ ExecutePanel* DatasetPanel::getExecutePanel(){
 void DatasetPanel::onExecuteclicked(QString resultsPath, bool viewResults, bool viewFeatures, bool saveFeatures, QString format){
    QString protocol = ui->protocolsPanel->getSelectedProtocol();
    QList<QString> subjects = ui->subjectsPanel->getCheckedSubjects();
-   if((!protocol.isEmpty()) && (!subjects.isEmpty())){
-       emit this->executeAnalysis(protocol,subjects,resultsPath,viewResults,viewFeatures,saveFeatures,format);
+   bool validSubjects = true;
+   QString message = "Can't find the following files: \n";
+   for(int i = 0; i < subjects.size();i++){
+       QString pathData = currentDataset->getSubject(subjects[i])->getSubject();
+       QString pathMask = currentDataset->getSubject(subjects[i])->getMask();
+       QFileInfo dataFile(pathData);
+       QFileInfo maskFile(pathMask);
+       bool dataValid = dataFile.exists();
+       bool maskValid = true;
+       if(!pathMask.isEmpty())
+            maskValid = maskFile.exists();
+       if(!(maskValid && dataValid)){
+           validSubjects = false;
+           if(!dataValid){message.append( pathData +"\n");}
+           if(!maskValid){message.append( pathMask+ "\n");}
+       }
    }
-   else{
+
+   if(!validSubjects){
+       QMessageBox msgBox(this);
+       msgBox.setIcon(QMessageBox::Critical);
+       msgBox.setText(message);
+       msgBox.exec();
+   }
+    bool checkedOk = true;
+   if(validSubjects && (protocol.isEmpty() || subjects.isEmpty())){
+       checkedOk = false;
        QMessageBox msgBox(this);
        msgBox.setIcon(QMessageBox::Critical);
        msgBox.setText("Check at least one Subject and select one Protocol");
        msgBox.exec();
-   }
+}
+
+    if(validSubjects && checkedOk)
+        emit this->executeAnalysis(protocol,subjects,resultsPath,viewResults,viewFeatures,saveFeatures,format);
+
 }

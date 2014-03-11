@@ -165,6 +165,15 @@ public slots:
      * \brief Slot che si preoccupa di abortire la analisi in esecuzione sul dataset corrente
      */
     void abortAnalysis();
+
+    /*!
+     * \brief Slot che apre sul dialogo per la visualizzazione del protocollo, il protocollo con nome dato in input
+     */
+    void openProtocol(QString protocolName);
+
+
+    void modifyProtocol(QString oldProtocolName,QString protocolName,QString desc,bool test,QList<QString>features,QString algorithm,romeo::model::protocols::ProtocolType type,int windowSize,int distanceGLCM,int nClusters,QList<QString> parametersValue);
+
 private:
 
     /*!

@@ -107,6 +107,8 @@ void Controller::connectViewsSignals(){
     connect(protocolsPanel,SIGNAL(removeProtocolAssociation(QString)),this,SLOT(removeProtocolAssociation(QString)));
     connect(mainWindow->getDatasetPanel(),SIGNAL(executeAnalysis(QString,QList<QString>,QString,bool,bool,bool,QString)),this,SLOT(startAnalysis(QString,QList<QString>,QString,bool,bool,bool,QString)));
     connect(executeDialog,SIGNAL(abortAnalysis()),this,SLOT(abortAnalysis()));
+    connect(protocolsExplorer,SIGNAL(openProtocol(QString)),this,SLOT(openProtocol(QString)));
+    connect(protocolDialog,SIGNAL(modifyProtocol(QString,QString,QString,bool,QList<QString>,QString,romeo::model::protocols::ProtocolType,int,int,int,QList<QString>)),this,SLOT(modifyProtocol(QString,QString,QString,bool,QList<QString>,QString,romeo::model::protocols::ProtocolType,int,int,int,QList<QString>)));
 }
 
 Controller* Controller::getInstance(QObject *parent){
@@ -297,4 +299,18 @@ void Controller::startAnalysis(QString protocol, QList<QString> subjects, QStrin
 
 void Controller::abortAnalysis(){
     mainWindow->getDatasetPanel()->getCurrentDataset()->abortAnalysis();
+}
+
+void Controller::openProtocol(QString protocolName){
+    AbstractProtocol * protocol = protocolsList->getProtocol(protocolName);
+    if(protocol){
+        protocolDialog->openExistingProtocol(protocol);
+    }
+    protocolDialog->exec();
+}
+
+
+void Controller::modifyProtocol(QString oldProtocolName, QString protocolName, QString desc, bool test, QList<QString> features, QString algorithm, ProtocolType type, int windowSize, int distanceGLCM, int nClusters, QList<QString> parametersValue){
+    deleteProtocol(oldProtocolName);
+    addProtocol(protocolName,desc,test,features,algorithm,type,nClusters,windowSize,distanceGLCM,parametersValue);
 }

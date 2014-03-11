@@ -38,9 +38,21 @@ public:
      */
     void setCurrentProtocolsType(const romeo::model::protocols::ProtocolType &value);
 
+signals:
+
+    /*!
+     * \brief Segnale inviato per notificare la volontà dell'utente di visualizzare un protocollo
+     */
+    void openProtocol(QString protocolName);
+
 private slots:
 
     void fillProtocolsExplorer();
+
+    /*! !! slot che recupera il nome del protocollo correntemente selezionato e invia il segnale openProtocol
+     * \brief onItemDoubleClicked
+     */
+    void onItemDoubleClicked();
 
 private:
     Ui::ProtocolsExplorer *ui;

@@ -1,5 +1,8 @@
 #include "executedialog.h"
 #include "ui_executedialog.h"
+
+//QT
+
 #include <QCloseEvent>
 #include <QDebug>
 #include <QDir>
@@ -10,7 +13,8 @@
 #include "itkImage.h"
 #include "itkImageFileReader.h"
 #include "itkImageToVTKImageFilter.h"
-#include "itkMedianImageFilter.h"
+
+//VTK
 
 #include <vtkRenderWindowInteractor.h>
 #include "vtkRenderWindow.h"
@@ -20,6 +24,8 @@
 #include "vtkPiecewiseFunction.h"
 #include "vtkColorTransferFunction.h"
 #include "vtkVolumeProperty.h"
+#include "vtkFixedPointVolumeRayCastMapper.h"
+#include "vtkInteractorObserver.h"
 
 using namespace romeo::view::dialogs;
 using namespace romeo::model;
@@ -216,7 +222,7 @@ void ExecuteDialog::showImage(QString pathToImage){
 
     //deep copy connector's output to an image else connector will go out of scope
     //and vanish it will cause error while changing slice
-    vtkImageData * image = vtkImageData::New();
+    vtkSmartPointer<vtkImageData> image = vtkImageData::New();
     image->DeepCopy(connector->GetOutput());
 
 
@@ -241,7 +247,8 @@ void ExecuteDialog::showImage(QString pathToImage){
         myReaderType::Pointer reader = myReaderType::New();
 
 
-        reader->SetFileName( pathToImage.toStdString() );
+        reader->SetFileName(pathToImage.toStdString() );
+
         //Exceptional handling
         try {
             reader->Update();
@@ -266,98 +273,80 @@ void ExecuteDialog::showImage(QString pathToImage){
 
 
         vtkSmartPointer<vtkImageData> imageData =
-            vtkSmartPointer<vtkImageData>::New();
+                vtkSmartPointer<vtkImageData>::New();
 
         imageData->DeepCopy(connector->GetOutput());
 
-          vtkSmartPointer<vtkRenderWindow> renWin =
-            vtkSmartPointer<vtkRenderWindow>::New();
-          vtkSmartPointer<vtkRenderer> ren1 =
-            vtkSmartPointer<vtkRenderer>::New();
-          ren1->SetBackground(0.1,0.4,0.2);
+        vtkSmartPointer<vtkRenderWindow> renWin =
+                vtkSmartPointer<vtkRenderWindow>::New();
+        vtkSmartPointer<vtkRenderer> ren1 =
+                vtkSmartPointer<vtkRenderer>::New();
+        ren1->SetBackground(0.1,0.4,0.2);
 
-          renWin->AddRenderer(ren1);
+        renWin->AddRenderer(ren1);
 
-          renWin->SetSize(301,300); // intentional odd and NPOT  width/height
-
-         /* vtkSmartPointer<vtkRenderWindowInteractor> iren =
-            vtkSmartPointer<vtkRenderWindowInteractor>::New();
-          iren->SetRenderWindow(renWin);*/
-           ui->widget->SetRenderWindow(renWin);
-          renWin->Render(); // make sure we have an OpenGL context.
-
-          vtkSmartPointer<vtkSmartVolumeMapper> volumeMapper =
-            vtkSmartPointer<vtkSmartVolumeMapper>::New();
-         //volumeMapper->SetBlendModeToComposite(); // composite first
-        #if VTK_MAJOR_VERSION <= 5
-          volumeMapper->SetInputConnection(imageData->GetProducerPort());
-        #else
-          volumeMapper->SetInputData(imageData);
-        #endif
-          vtkSmartPointer<vtkVolumeProperty> volumeProperty =
-            vtkSmartPointer<vtkVolumeProperty>::New();
-          volumeProperty->ShadeOff();
-          volumeProperty->SetInterpolationType(VTK_LINEAR_INTERPOLATION);
-
-          vtkSmartPointer<vtkPiecewiseFunction> compositeOpacity =
-            vtkSmartPointer<vtkPiecewiseFunction>::New();
-          compositeOpacity->AddPoint(0.0,0.0);
-          compositeOpacity->AddPoint(80.0,1.0);
-          compositeOpacity->AddPoint(80.1,0.0);
-          compositeOpacity->AddPoint(255.0,0.0);
-          volumeProperty->SetScalarOpacity(compositeOpacity); // composite first.
-
-          vtkSmartPointer<vtkColorTransferFunction> color =
-            vtkSmartPointer<vtkColorTransferFunction>::New();
-          color->AddRGBPoint(0.0  ,0.0,0.0,1.0);
-          color->AddRGBPoint(40.0  ,1.0,0.0,0.0);
-          color->AddRGBPoint(255.0,1.0,1.0,1.0);
-          volumeProperty->SetColor(color);
-
-          vtkSmartPointer<vtkVolume> volume =
-            vtkSmartPointer<vtkVolume>::New();
-          volume->SetMapper(volumeMapper);
-          volume->SetProperty(volumeProperty);
+        renWin->SetSize(301,300); // intentional odd and NPOT  width/height
 
 
-         /* myInputImageType::DirectionType d= input->GetDirection();
-              vtkMatrix4x4 *mat=vtkMatrix4x4::New(); //start with identity matrix
-              for (int i=0; i<3; i++)
-                  for (int k=0; k<3; k++)
-                      mat->SetElement(i,k, d(i,k));
+        ui->widget->SetRenderWindow(renWin);
+        ui->widget->GetInteractor()->SetDesiredUpdateRate(10);
+        ui->widget->GetInteractor()->GetInteractorStyle()->SetDefaultRenderer(ren1);
+        renWin->Render(); // make sure we have an OpenGL context.
 
-              //counteract the built-in translation by origin
-              myInputImageType::PointType origin=input->GetOrigin();
-              volume->SetPosition(-origin[0], -origin[1], -origin[2]);
+        vtkSmartPointer<vtkFixedPointVolumeRayCastMapper> volumeMapper =
+                vtkSmartPointer<vtkFixedPointVolumeRayCastMapper>::New();
+        volumeMapper->SetBlendModeToComposite(); // composite first
+#if VTK_MAJOR_VERSION <= 5
+        volumeMapper->SetInputConnection(imageData->GetProducerPort());
+#else
+        volumeMapper->SetInputData(imageData);
+#endif
+        vtkSmartPointer<vtkVolumeProperty> volumeProperty =
+                vtkSmartPointer<vtkVolumeProperty>::New();
 
-              //add translation to the user matrix
-              for (int i=0; i<3; i++)
-                  mat->SetElement(i,3, origin[i]);
-              volume->SetUserMatrix(mat);*/
-/*
-              vtkSmartPointer<vtkAxesActor> axes = vtkSmartPointer<vtkAxesActor>::New();
-              axes->SetTotalLength(250,250,250);
-              axes->SetShaftTypeToCylinder();
-              axes->SetCylinderRadius(0.01);
-              ren1->AddActor(axes);
-*/
+        volumeProperty->SetIndependentComponents(true);
+        volumeProperty->SetInterpolationTypeToLinear();
+        volumeProperty->ShadeOff();
+        volumeProperty->SetInterpolationType(VTK_LINEAR_INTERPOLATION);
 
-          ren1->AddViewProp(volume);
 
-          ren1->ResetCamera();
+        vtkSmartPointer<vtkPiecewiseFunction> compositeOpacity =
+                vtkSmartPointer<vtkPiecewiseFunction>::New();
+        compositeOpacity->AddPoint(0.0,0.0);
+        compositeOpacity->AddPoint(80.0,1.0);
+        compositeOpacity->AddPoint(80.1,0.0);
+        compositeOpacity->AddPoint(255.0,0.0);
+        volumeProperty->SetScalarOpacity(compositeOpacity); // composite first.
 
-          // Render composite. In default mode. For coverage.
-          renWin->Render();
+        vtkSmartPointer<vtkColorTransferFunction> color =
+                vtkSmartPointer<vtkColorTransferFunction>::New();
+        color->AddRGBPoint(0.0  ,0.0,0.0,1.0);
+        color->AddRGBPoint(40.0  ,1.0,0.0,0.0);
+        color->AddRGBPoint(255.0,1.0,1.0,1.0);
+        volumeProperty->SetColor(color);
 
-          // 3D texture mode. For coverage.
-          volumeMapper->SetRequestedRenderModeToRayCastAndTexture();
-          renWin->Render();
+        vtkSmartPointer<vtkVolume> volume =
+                vtkSmartPointer<vtkVolume>::New();
+        volume->SetMapper(volumeMapper);
+        volume->SetProperty(volumeProperty);
 
-          // Software mode, for coverage. It also makes sure we will get the same
-          // regression image on all platforms.
-          volumeMapper->SetRequestedRenderModeToRayCast();
-          renWin->Render();
-          ui->widget->update();
+
+        //ren1->AddViewProp(volume);
+        ren1->AddVolume(volume);
+        ren1->ResetCamera();
+
+        // Render composite. In default mode. For coverage.
+        renWin->Render();
+
+        // 3D texture mode. For coverage.
+        //volumeMapper->SetRequestedRenderModeToRayCastAndTexture();
+        renWin->Render();
+
+        // Software mode, for coverage. It also makes sure we will get the same
+        // regression image on all platforms.
+        //volumeMapper->SetRequestedRenderModeToRayCast();
+        renWin->Render();
+        ui->widget->update();
 
     }
 

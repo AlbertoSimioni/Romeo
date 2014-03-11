@@ -238,10 +238,7 @@ void AbstractDataset::executeAnalysis(QString protocol, QList<QString> subjects,
    emit analysisFinished();
    emit newResults();
 }
-bool AbstractDataset::getStopAnalysis() const
-{
-    return stopAnalysis;
-}
+
 
 
 void AbstractDataset::abortAnalysis(){
