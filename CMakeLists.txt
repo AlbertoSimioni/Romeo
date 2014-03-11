@@ -221,11 +221,6 @@ ADD_EXECUTABLE(romeo ${romeo_SOURCES}
     $<TARGET_OBJECTS:core2>
 )
 
-ADD_EXECUTABLE(prova ${prova}
-)
-TARGET_LINK_LIBRARIES( prova ${ITK_LIBRARIES}  ${VTK_LIBRARIES}  )
-
-
 QT5_USE_MODULES(romeo Widgets Xml XmlPatterns Test)
 TARGET_LINK_LIBRARIES( romeo ${ITK_LIBRARIES}  ${VTK_LIBRARIES}  )
 
