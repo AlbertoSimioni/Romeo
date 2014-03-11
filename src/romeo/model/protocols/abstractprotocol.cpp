@@ -10,6 +10,10 @@ AbstractProtocol::AbstractProtocol(QString nomeP, QString desc, AbstractAlgorith
     name(nomeP),description(desc),algorithm(alg), nClusters(clusterNum), algorithmParameters(algParameters), features(feat),test(testProtocol),stopAnalysis(false)
 {
 }
+
+
+AbstractProtocol::~AbstractProtocol(){}
+
 QString AbstractProtocol::getName() const
 {
     return name;

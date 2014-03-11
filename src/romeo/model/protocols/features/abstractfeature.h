@@ -56,6 +56,8 @@ public:
      * \param description Descrizione della feature.
      */
     AbstractFeature(QString featureName,QString dylp,QString dyfn,QString description = QString());
+
+    virtual ~AbstractFeature();
     /*!
      * \brief Restituisce il percorso alla libreria dinamica contente il codice del feature extractor.
      */

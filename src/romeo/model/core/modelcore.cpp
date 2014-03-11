@@ -155,14 +155,7 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
 }
 
 
-//test
-void ModelCore::save(){
-    writer->saveAlgorithmsList();
-    writer->saveFeaturesList();
-    writer->saveProtocolsList();
-    writer->saveDatasetsList();
-}
-//test
+
 
 void ModelCore::createLists()
 {
@@ -185,10 +178,6 @@ QDir ModelCore::getDataHome()
     return dataHome;
 }
 
-void ModelCore::setDataHome(const QDir &value)
-{
-    dataHome = value;
-}
 
 
 ModelCore* ModelCore::getInstance(QObject *parent){

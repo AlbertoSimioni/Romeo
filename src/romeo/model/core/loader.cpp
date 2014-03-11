@@ -349,5 +349,6 @@ bool Loader::parseParameter(QList<AbstractAlgorithm::AlgorithmParameter>& list, 
     }
     AbstractAlgorithm::AlgorithmParameter algParam(name, ptype, defaultValue);
     list.append(algParam);
+    return true;
 }
 

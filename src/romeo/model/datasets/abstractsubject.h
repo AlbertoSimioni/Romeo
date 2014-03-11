@@ -23,7 +23,7 @@ namespace datasets{
 class AbstractSubject
 {
 public:
-    AbstractSubject(){} // TODO da eliminare
+    virtual ~AbstractSubject();
     /*!
      * \brief Costruisce un suovo soggetto con il nome indicato
      ** Utilizza i percorsi indicati per inserire nel subject i file di immagine e subject

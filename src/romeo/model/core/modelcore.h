@@ -59,14 +59,8 @@ public:
      * \brief Ritorna la cartella dove sono contenuti i file xml utilizzati come database.
      */
     static QDir getDataHome();
-    /*!
-     * \brief Modifica il campo dataHome con la cartella value specificata.
-     */
-    void setDataHome(const QDir &value);
-    /*!
-     * \brief Funzione che salva i dati imporanti del programma come la lista degli algoritmi o i dataset in uso.
-     */
-    void save();
+
+
 private:
     /*!
      * \brief Costruttore privato, poiché la classe ModelCore implementa il design pattern singleton

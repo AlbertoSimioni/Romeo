@@ -44,6 +44,9 @@ public:
      * \param testProtocol Valore booleano che indica se il protocollo è di test.
      */
     AbstractProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, int clusterNum, QList<QString> parameters, QList<features::AbstractFeature*>& feat,bool testProtocol);
+
+    virtual ~AbstractProtocol();
+
     /*!
      * \brief Sostituisce la lista delle feature che il protocollo possiede con quella indicata. Si può modificare la lista delle feature solo se il protocollo corrente è un protocollo di test
      * \param feat Lista di features che si vogliono inserire nel protocollo

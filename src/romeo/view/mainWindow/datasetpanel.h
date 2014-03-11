@@ -71,10 +71,7 @@ private:
      * \brief Riferimento al dataset attualmente attivo nella schermata
      */
     romeo::model::datasets::AbstractDataset* currentDataset;
-    /*!
-     * \brief Riferimento al dialogo d'errore mostrato quando l'utente prova ad avviare le analisi senza aver selezionato almeno un protocollo e un subject
-     */
-    QMessageBox* msgBox;
+
 
     Ui::DatasetPanel *ui;
 };

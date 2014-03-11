@@ -4,6 +4,8 @@ AbstractSubject::AbstractSubject(QString &n, QString &fileSubject, QString &file
 
 }
 
+AbstractSubject::~AbstractSubject(){}
+
 QString AbstractSubject::getSubject()
 {
     return subject;

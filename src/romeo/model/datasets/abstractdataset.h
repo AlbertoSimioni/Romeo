@@ -44,7 +44,7 @@ public:
     /*!
       * \brief Distruttore di AbstractDataset, si preoccupa di non lasciare memoria garbage nel sistema e quindi di fare una distruzione profonda dei puntatori che ha come campi dato.
       */
-    ~AbstractDataset();
+    virtual ~AbstractDataset();
     /*!
      * \brief Metodo per la creazione di un nuovo subject che prende in input le informazioni necessarie alla creazione e richiama il metodo virtuale makeSubject() che viene ridefinito dalle sottoclassi e permette di creare i vari tipi di subjects.
      * \param n Nome del subject da creare e aggiungere al dataset

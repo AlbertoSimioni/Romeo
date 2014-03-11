@@ -111,6 +111,8 @@ public:
      */
     virtual bool execute(double** data, int* mask, int nrows, int ncols,int* clusterid,int ncluster, QList<QString> parameters) =0 ;
 
+    virtual ~AbstractAlgorithm();
+
     /*!
      * \brief Metodo che ritorna la descrizione dell'algoritmo.
      * \return

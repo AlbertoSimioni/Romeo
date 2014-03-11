@@ -8,6 +8,8 @@ QString AbstractFeature::getDynamicLibraryPath() const
 
 
 
+AbstractFeature::~AbstractFeature(){}
+
 QString AbstractFeature::getName() const
 {
     return name;
