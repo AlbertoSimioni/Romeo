@@ -63,7 +63,9 @@ public:
     /*!
      * \brief Esegue il protocollo sul soggetto passato come puntatore
      * \param subject Il soggetto su cui viene eseguito il protocolli
-     * \return Ritorna il percorso dove vengono salvati i risultati dell'analisi
+     * \param path Il percorso di salvataggio dei file.
+     * \param saveFeatures Se è true indica che vanno salvate le immagini risultato dell'estrazione di feature.
+     * \param outputFormat Il formato di salvataggio dei dati.
      */
     virtual void execute(datasets::AbstractSubject *subject,QString path,bool saveFeatures,QString outputFormat) = 0;
     /*!
@@ -125,10 +127,12 @@ public:
 signals:
     /*!
      * \brief Segnale inviato per notificare l'avventua estrazione di una feature
+     * \param path Percorso alla posizione nel file system di dove è stato salvato il risultato.
      */
     void featureExtracted(QString path);
     /*!
      * \brief Segnale inviato per notificare l'avvenuta esecuzione di un algoritmo di clustering
+     * \param path Percorso alla posizione nel file system di dove è stato salvato il risultato.
      */
     void algorithmExecuted(QString path);
 private:

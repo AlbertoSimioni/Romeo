@@ -18,9 +18,9 @@ namespace protocols{
 namespace algorithms{
 
 /**
- * \brief La classe AlgorithmsList da completare
+ * \brief La classe contiene la lista degli algoritmi caricati e che si possono utilizzari per operazioni di cluster analysis.
  *
- * Descrizione dettagliata
+ * Fornisce alle classi utilizzatrici metodi per recuperare gli algoritmi, o per inserirli/rimuoverli dal database.
  */
 
 class AlgorithmsList: public QObject
@@ -65,9 +65,12 @@ private:
      */
     explicit AlgorithmsList(QObject *parent = 0);
     /*!
-     * \brief Il vettore contiene la lista degli algoritmi presenti nel programma
+     * \brief Lista degli algoritmi caricati nell'applicazione e utilizzabili.
      */
     QList<AbstractAlgorithm*> algorithms;
+    /*!
+     * \brief Puntatore all'unica istanza di AlgorithmsList
+     */
     static AlgorithmsList* instance;
 };
 }}}}

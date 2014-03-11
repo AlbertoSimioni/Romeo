@@ -24,10 +24,17 @@ namespace features{
 class SecondOrderFeature : public AbstractStaticFeature
 {
 public:
+    /*!
+     * \brief Costruisce una nuova feature del secondo ordine con i parametri indicati.
+     * \param featureName Nome della feature da costruire.
+     * \param dylp Percorso al file contenente la libreria dinamica della feature.
+     * \param dyfn Nome della funzione da utilizzare per eseguire la feature.
+     * \param description Descrizione della feature.
+     */
     SecondOrderFeature(QString n,QString dylp,QString dyfn,QString desc = QString());
 
     /*!
-     * \brief Override del metodo astratto di AbstractFeature
+     * \brief Override del metodo astratto di AbstractFeature che ritorna il tipo dinamico della feature invocata.
      */
     FeatureType getType();
 };

@@ -32,17 +32,20 @@ public:
      *  si preoccupa anche di costruire l'istanza.
      */
     static Hierarchical* getInstance(QList< AbstractAlgorithm::AlgorithmParameter > par, QString name, QString desc);
-    /*!
-     * \brief replicate
-     * \param single
-     * \param nrows
-     * \param ncols
-     * \return
-     */
+
     static int** replicate(int* single,int nrows,int ncols);
     /*!
      * \brief Implementazione del metodo virtuale pure presente in AbstractAlgorithm, eseguendo
      * l'algoritmo Hierarchical, utilizza l'algoritmo presente nella libreria C Cluster.
+     * \param data RawData su cui effettuare l'algoritmo di clustering ha dimensioni nrows x ncols.
+     * \param mask Maschera binaria con dimensione nrows.
+     * \param nrows Numero di righe degli array data e mask.
+     * \param ncols Numero di colonne dell'array data.
+     * \param clusterid Array di dimensione nrows in cui verranno inseriti i risultati delle analisi tramite side-effect.
+     * In particolare per ogni elemento dell'array viene inserito il cluster di appartenenza
+     * \param nClusters Numero di cluster con cui eseguire l'algoritmo.
+     * \param parameters Vettore contenente i parametri definibili dall'utente, che variano per ogni algoritmo.
+     * \return Ritorna true se le analisi sono state eseguite correttamente altrimenti ritorna false
      */
     virtual bool execute(double **data, int *mask, int nrows, int ncols, int *clusterid,int nclusters, QList<QString> parameters);
 private:

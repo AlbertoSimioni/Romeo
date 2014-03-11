@@ -265,18 +265,25 @@ private:
       * \brief Riferimento al Widget che mostra il panello con la lista dei subject associati al dataset corrente
       */
      romeo::view::mainWindow::SubjectsPanel* subjectsPanel;
-
-
-
-
+     /*!
+      * \brief Puntatore all'unica istanza di AlgorithmsList.
+      */
      romeo::model::protocols::algorithms::AlgorithmsList* algorithmsList;
-
+     /*!
+      * \brief Puntatore all'unica istanza di FeaturesList.
+      */
      romeo::model::protocols::features::FeaturesList* featuresList;
-
+     /*!
+      * \brief Puntatore all'unica istanza di ProtocolsList.
+      */
      romeo::model::protocols::ProtocolsList* protocolsList;
-
+     /*!
+      * \brief Puntatore all'unica istanza di DatasetsList.
+      */
      romeo::model::datasets::DatasetsList* datasetsList;
-
+     /*!
+      * \brief Puntatore all'unica istanza di ModelCore.
+      */
      romeo::model::core::ModelCore* modelCore;
 };
 }}

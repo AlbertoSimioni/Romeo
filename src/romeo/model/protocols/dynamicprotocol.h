@@ -36,7 +36,10 @@ public:
 
     /*!
      * \brief Override del metodo execute della classe astratta AbstractProtocol
-     * \param subject Il soggetto su cui eseguire il protocollo
+     * \param subject Il soggetto su cui viene eseguito il protocolli
+     * \param path Il percorso di salvataggio dei file.
+     * \param saveFeatures Se è true indica che vanno salvate le immagini risultato dell'estrazione di feature.
+     * \param outputFormat Il formato di salvataggio dei dati.
      */
     virtual void execute(datasets::AbstractSubject *subject,QString path,bool saveFeatures,QString outputFormat);
     /*!

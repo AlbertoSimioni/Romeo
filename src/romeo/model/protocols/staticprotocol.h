@@ -60,7 +60,10 @@ public:
     StaticProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, int clusterNum, QList<QString> algParameters, QList<features::AbstractFeature*> feat, bool testProtocol, int window=3, int distance=1);
     /*!
      * \brief Override del metodo execute della classe astratta AbstractProtocol
-     * \param Il soggetto utilizzato per eseguire l'analisi, deve contenere un immagine di tipo statico
+     * \param subject Il soggetto su cui viene eseguito il protocolli
+     * \param path Il percorso di salvataggio dei file.
+     * \param saveFeatures Se è true indica che vanno salvate le immagini risultato dell'estrazione di feature.
+     * \param outputFormat Il formato di salvataggio dei dati.
      */
     virtual void execute(datasets::AbstractSubject *subject,QString path,bool saveFeatures,QString outputFormat);
     /*!

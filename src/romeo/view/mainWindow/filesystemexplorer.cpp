@@ -27,7 +27,7 @@ FileSystemExplorer::FileSystemExplorer(QWidget *parent) :
 
     ui->filesView->setModel(fileModel);
     ui->filesView->setRootIndex(fileModel->setRootPath(QDir::homePath()));
-    connect(ui->foldersView,SIGNAL(clicked(QModelIndex)),this,SLOT(treeView_clicked(QModelIndex)));
+    connect(ui->foldersView,SIGNAL(clicked(QModelIndex)),this,SLOT(treeViewClicked(QModelIndex)));
 
 }
 
@@ -37,7 +37,7 @@ FileSystemExplorer::~FileSystemExplorer()
     delete ui;
 }
 
-void FileSystemExplorer::treeView_clicked(QModelIndex index)
+void FileSystemExplorer::treeViewClicked(QModelIndex index)
 {
     QString aPath = dirModel->fileInfo(index).absoluteFilePath();
        fileModel->setFilter(QDir::NoDotAndDotDot | QDir::Files);

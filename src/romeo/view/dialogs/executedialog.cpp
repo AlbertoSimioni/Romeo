@@ -36,19 +36,19 @@ ExecuteDialog::ExecuteDialog(QWidget *parent) :
     currentIndex(0), nImagesPerSubject(0), nSubjects(0),
     ui(new Ui::ExecuteDialog)
 {
-   image_view = vtkSmartPointer<vtkImageViewer2>::New();
+    image_view = vtkSmartPointer<vtkImageViewer2>::New();
 
-   ui->setupUi(this);
-   connectUI();
+    ui->setupUi(this);
+    connectUI();
 }
 
 
 void ExecuteDialog::connectUI(){
-     connect(ui->cancelButton,SIGNAL(clicked()),this,SLOT(onCancelClicked()));
-     connect(ui->closeButton,SIGNAL(clicked()),this,SLOT(accept()));
-     connect(ui->nextButton,SIGNAL(clicked()),this,SLOT(onNextClicked()));
-     connect(ui->previousButton,SIGNAL(clicked()),this,SLOT(onPreviousClicked()));
-     connect(ui->noFeature,SIGNAL(clicked()),this,SLOT(onNoFeatureClicked()));
+    connect(ui->cancelButton,SIGNAL(clicked()),this,SLOT(onCancelClicked()));
+    connect(ui->closeButton,SIGNAL(clicked()),this,SLOT(accept()));
+    connect(ui->nextButton,SIGNAL(clicked()),this,SLOT(onNextClicked()));
+    connect(ui->previousButton,SIGNAL(clicked()),this,SLOT(onPreviousClicked()));
+    connect(ui->noFeature,SIGNAL(clicked()),this,SLOT(onNoFeatureClicked()));
 
 }
 
@@ -58,10 +58,10 @@ ExecuteDialog::~ExecuteDialog()
 }
 
 void ExecuteDialog::closeEvent(QCloseEvent *event) {
-if(!ui->closeButton->isEnabled())
-    event->ignore(); // keep window
-else
-    event->accept();
+    if(!ui->closeButton->isEnabled())
+        event->ignore(); // keep window
+    else
+        event->accept();
 }
 
 void ExecuteDialog::prepareAnalysis(romeo::model::datasets::AbstractDataset *dataset, bool viewResults, bool viewFeatures,int numberSubjects,int nAlgorithm,int nFeatures)
@@ -120,7 +120,7 @@ void ExecuteDialog::addResultImage(QString pathToResult){
     if(currentImagesPath.size() == 1)
         showImage(currentImagesPath[0]);
     else
-       ui->nextButton->setEnabled(true);
+        ui->nextButton->setEnabled(true);
 }
 
 void ExecuteDialog::analysisFinished(){
@@ -191,33 +191,33 @@ void ExecuteDialog::showImage(QString pathToImage){
     if(currentDataset->getType() == TYPE2D ||(currentDataset->getType() ==  TYPE2DT )){
 
 
-    typedef itk::RGBPixel<unsigned char> myRGBPixelType;//Pixel Type
-    typedef itk::Image< myRGBPixelType, 2> myInputImageType;//Image Type
-    typedef itk::ImageFileReader< myInputImageType >  myReaderType;//Reader of Image Type
-    myReaderType::Pointer reader = myReaderType::New();
+        typedef itk::RGBPixel<unsigned char> myRGBPixelType;//Pixel Type
+        typedef itk::Image< myRGBPixelType, 2> myInputImageType;//Image Type
+        typedef itk::ImageFileReader< myInputImageType >  myReaderType;//Reader of Image Type
+        myReaderType::Pointer reader = myReaderType::New();
 
 
-    reader->SetFileName( pathToImage.toStdString() );
-    //Exceptional handling
-    try {
-        reader->Update();
-    }
-    catch (itk::ExceptionObject & e) {
-    }
+        reader->SetFileName( pathToImage.toStdString() );
+        //Exceptional handling
+        try {
+            reader->Update();
+        }
+        catch (itk::ExceptionObject & e) {
+        }
 
-    ui->nameLabel->setText(pathToImage.split(QDir::toNativeSeparators("/")).takeLast());
-    myInputImageType::Pointer input = reader->GetOutput();
+        ui->nameLabel->setText(pathToImage.split(QDir::toNativeSeparators("/")).takeLast());
+        myInputImageType::Pointer input = reader->GetOutput();
 
-    typedef itk::ImageToVTKImageFilter<myInputImageType> myConnectorType;
-    myConnectorType::Pointer connector= myConnectorType::New();
-    connector->SetInput( input );//Set ITK reader Output to connector you can replace it with filter
+        typedef itk::ImageToVTKImageFilter<myInputImageType> myConnectorType;
+        myConnectorType::Pointer connector= myConnectorType::New();
+        connector->SetInput( input );//Set ITK reader Output to connector you can replace it with filter
 
-    //Exceptional handling
-    try {
-        connector->Update();
-    }
-    catch (itk::ExceptionObject & e) {
-    }
+        //Exceptional handling
+        try {
+            connector->Update();
+        }
+        catch (itk::ExceptionObject & e) {
+        }
 
 
     //deep copy connector's output to an image else connector will go out of scope
@@ -226,17 +226,17 @@ void ExecuteDialog::showImage(QString pathToImage){
     image->DeepCopy(connector->GetOutput());
 
 
-    //set VTK Viewer to QVTKWidget in Qt's UI
-    ui->widget->SetRenderWindow(image_view->GetRenderWindow());
-    //image_view->SetupInteractor(ui->widget->GetRenderWindow()->GetInteractor());
-    //Set input image to VTK viewer
-    image_view->SetInputData( image );
-    //image_view->SetSlice(0);
-    image_view->Render();
-    image_view->GetRenderer()->ResetCamera();
-    image_view->Render();
+        //set VTK Viewer to QVTKWidget in Qt's UI
+        ui->widget->SetRenderWindow(image_view->GetRenderWindow());
+        //image_view->SetupInteractor(ui->widget->GetRenderWindow()->GetInteractor());
+        //Set input image to VTK viewer
+        image_view->SetInputData( image );
+        //image_view->SetSlice(0);
+        image_view->Render();
+        image_view->GetRenderer()->ResetCamera();
+        image_view->Render();
 
-    ui->widget->update();
+        ui->widget->update();
 
     }
     else{

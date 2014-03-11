@@ -24,11 +24,18 @@ namespace features{
 class DynamicFeature : public AbstractFeature
 {
 public:
+    /*!
+     * \brief Costruisce una nuova feature con i parametri indicati.
+     * \param featureName Nome della feature da costruire.
+     * \param dylp Percorso al file contenente la libreria dinamica della feature.
+     * \param dyfn Nome della funzione da utilizzare per eseguire la feature.
+     * \param description Descrizione della feature.
+     */
     DynamicFeature(QString n,QString dylp,QString dyfn,QString desc = QString());
     void execute();
 
     /*!
-     * \brief Override del metodo astratto di AbstractFeature
+     * \brief Override del metodo astratto di AbstractFeature che ritorna il tipo dinamico della feature.
      */
     FeatureType getType();
 };

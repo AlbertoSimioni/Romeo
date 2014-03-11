@@ -99,7 +99,7 @@ private:
 
 public:
     /*!
-     * \brief Metodo che esegue l'algoritmo di clustering s
+     * \brief Metodo che esegue l'algoritmo di clustering.
      * \param data RawData su cui effettuare l'algoritmo di clustering ha dimensioni nrows x ncols
      * \param mask Maschera binaria con dimensione nrows
      * \param nrows Numero di righe degli array data e mask

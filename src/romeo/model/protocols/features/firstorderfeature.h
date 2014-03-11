@@ -24,6 +24,13 @@ namespace features{
 class FirstOrderFeature : public AbstractStaticFeature
 {
 public:
+    /*!
+     * \brief Costruisce una nuova feature del primo ordine con i parametri indicati.
+     * \param featureName Nome della feature da costruire.
+     * \param dylp Percorso al file contenente la libreria dinamica della feature.
+     * \param dyfn Nome della funzione da utilizzare per eseguire la feature.
+     * \param description Descrizione della feature.
+     */
     FirstOrderFeature(QString n,QString dylp,QString dyfn,QString desc = QString());
 
     /*!

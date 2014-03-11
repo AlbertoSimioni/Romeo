@@ -130,7 +130,18 @@ void ProtocolsPanel::changeDescription(){
         if(!parent){
          QString protocolName = currentItem->data(0,Qt::DisplayRole).toString().split("  [Test").takeFirst();
             AbstractProtocol * protocol = currentDataset->getProtocol(protocolName);
-            ui->descriptionText->setText(protocol->getDescription());
+            QString textDescription=protocol->getDescription();
+            if(!textDescription.isEmpty())
+                textDescription+="\n\n";
+            textDescription+="Algoritmo: \t" + protocol->getAlgorithmName() +"\n\n";
+            QStringList features=protocol->getFeaturesName();
+
+            for (int i=0; i<features.length(); ++i){
+                if(i==0)
+                    textDescription+="Features: \t";
+                textDescription+=features.at(i) + "\n\t";
+            }
+            ui->descriptionText->setText(textDescription);
          }
     }
     else ui->descriptionText->clear();

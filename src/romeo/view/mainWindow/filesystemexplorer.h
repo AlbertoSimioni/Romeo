@@ -31,7 +31,7 @@ public:
     void setCurrentInputFormat(const romeo::model::InputFormat &value);
 
 public slots:
-    void treeView_clicked(QModelIndex index);
+    void treeViewClicked(QModelIndex index);
 
 
 private:

@@ -14,9 +14,9 @@ namespace model {
 namespace imageIO{
 
 /**
- * \brief La classe HandlerIO da completare
+ * \brief Interfaccia che rappresenta un generico gestore della codifica e decodifica delle immagini. Le classi che implementano l'interfaccia dovranno essere in grado di decodificare un'immagine, di generare il RawData, di decodificare il RawData e di codificare un'immagine.
  *
- * Descrizione dettagliata
+ * Definisce la segnatura dei metodi per le varie operazioni di codifica e decodifica.
  */
 
 class HandlerIO

@@ -10,9 +10,9 @@ namespace model {
 namespace imageIO{
 
 /**
- * \brief La classe HandlerIOStatic da completare
+ * \brief Classe che gestisce la codifica e decodifica delle immagini statiche 2D e 3D. Inoltre è in grado di generare dalle immagini decodificate il RawData e dal RawData di rigenerare l'immagine decodificata. Inoltre la classe realizza il design pattern Singleton, poiché l'entità rappresentata non deve avere più di un'istanza.
  *
- * Descrizione dettagliata
+ * Implementa i metodi dichiarati nell'interfaccia ImageIO che danno la possibilità di effettuare le varie codifiche e decodifiche.
  */
 
 class HandlerIOStatic : public HandlerIO
