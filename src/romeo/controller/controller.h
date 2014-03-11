@@ -55,13 +55,37 @@ public:
     ~Controller();
 
 public slots:
+    /*!
+     * \brief Slot pubblico che visualizza una nuova finestra di dialogo contenente un NewDatasetDialog.
+     */
     void viewNewDatasetDialog();
+    /*!
+     * \brief Slot pubblico che visualizza una nuova finestra di dialogo contenente un NewProtocolDialog.
+     */
     void viewNewProtocolDialog();
+    /*!
+     * \brief Slot pubblico che visualizza una nuova finestra di dialogo contenente un NewAlgorithmDialog.
+     */
     void viewNewAlgorithmDialog();
+    /*!
+     * \brief Slot pubblico che visualizza una nuova finestra di dialogo contenente un NewFeatureDialog.
+     */
     void viewNewFeatureDialog();
+    /*!
+     * \brief Slot pubblico che visualizza una nuova finestra di dialogo contenente un AlgorithmsListDialog.
+     */
     void viewAlgorithmsListDialog();
+    /*!
+     * \brief Slot pubblico che visualizza una nuova finestra di dialogo contenente un FeaturesListDialog.
+     */
     void viewFeaturesListDialog();
+    /*!
+     * \brief Slot pubblico che visualizza una nuova finestra di dialogo contenente un AddSubjectDialog.
+     */
     void viewAddSubjectDialog();
+    /*!
+     * \brief Slot pubblico che visualizza una nuova finestra di dialogo contenente un AssociateProtocolDialog.
+     */
     void viewAssociateProtocolDialog();
 
     /*!
@@ -76,11 +100,13 @@ public slots:
     void checkAlgorithmName(QString algorithmName);
 
     /*!
-     * \brief Controlla se il nome dell'algoritmo passato in input è già impegnato da una feature e in caso si preoccupa di
+     * \brief Controlla se il nome dell'algoritmo passato in input è già impegnato da una feature e in caso si preoccupa
      * di far visualizzare un messaggio di errore sul dialogo di creazione di una feature
      */
     void checkFeatureName(QString featureName);
-
+    /*!
+     * \brief Controlla se il nome dato in input sia già in uso da un dataset all'interno dell'applicazione e fa visualizzare un messaggio di errore in questo caso.
+     */
     void checkDatasetName(QString datasetName);
 
     /*!
@@ -91,23 +117,39 @@ public slots:
 
     /*!
      * \brief Slot connesso con il segnale createProtocol della classe ProtocolDialog, crea un nuovo protocollo con i parametri in input
-     * \param protocolName
-     * \param desc
-     * \param test
-     * \param features
-     * \param algorithm
-     * \param type
-     * \param windowSize
-     * \param distanceGLCM
+     * \param protocolName Nome del protocollo da inserire.
+     * \param desc Descrizione del protocollo.
+     * \param test Parametro booleano che indica se il protocollo è di test.
+     * \param features Lista delle feature che il protocollo deve eseguire.
+     * \param algorithm L'algoritmo di clustering associato al protocollo.
+     * \param type Il tipo di protocollo che si vuole creare.
+     * \param windowSize Dimensione della finestra su cui eseguire il protocollo.
+     * \param distanceGLCM Distanza dalla GLCM impostata per il protocollo.
      */
     void addProtocol(QString protocolName,QString desc,bool test,QList<QString>features,QString algorithm,romeo::model::protocols::ProtocolType type,int windowSize,int distanceGLCM,int nClusters,QList<QString> parametersValue);
     /*!
      * \brief Slot connesso con il segnale createAlgorithm della classe NewAlgorithmDialog, crea un nuovo algoritmo con i parametri in input
+     * \param name Nome dell'algoritmo da aggiungere.
+     * \param desc Descrizione testuale dell'algoritmo.
+     * \param dylp Percorso alla libreria dinamica contenente il codice dell'a feature'algoritmo.
+     * \param dyfn Nome della funzione con cui invocare il metodo contenuto nella libreria dinamica.
+     * \param parameters Lista dei parametri che prende in input l'algoritmo.
      */
     void addAlgorithm(QString name,QString desc, QString dyfn, QString dylp,QList<romeo::model::protocols::algorithms::AbstractAlgorithm::AlgorithmParameter> parameters);
-
+    /*!
+     * \brief Inserisce nell'applicazione una nuova feature che l'utente può utilizzare nei protocolli.
+     * \param name Nome della feature da aggiungere.
+     * \param desc Descrizione testuale della feature.
+     * \param dyfn Percorso alla libreria dinamica contenente il codice della feature.
+     * \param dylp Nome della funzione con cui invocare il metodo di estrazione contenuto nella libreria dinamica.
+     * \param type Tipo di feature.
+     */
     void addFeature(QString name,QString desc,QString dyfn,QString dylp,romeo::model::protocols::features::FeatureType type);
-
+    /*!
+     * \brief Metodo che aggiunge un nuovo dataset all'applicazione disponibile all'utente.
+     * \param name
+     * \param type
+     */
     void addDataset(QString name, romeo::model::InputFormat type);
 
     /*!
@@ -118,9 +160,9 @@ public slots:
 
     /*!
      * \brief Slot che si preoccupa di creare un nuovo subject con i dati in ingresso nel dataset corrente
-     * \param subjectName
-     * \param dataPath
-     * \param maskPath
+     * \param subjectName Nome del subject da aggiungere.
+     * \param dataPath Percorso all'immagine relativa al subject.
+     * \param maskPath Percorso alla maschera del subject.
      */
     void addSubject(QString subjectName, QString dataPath, QString maskPath);
 
@@ -151,13 +193,13 @@ public slots:
 
     /*!
      * \brief Slot che riceve in input i dati per l'esecuzione e invoca l'esecuzione sul dataset corrente
-     * \param protocol
-     * \param subjects
-     * \param resultsPath
-     * \param viewResults
-     * \param viewFeatures
-     * \param saveFeatures
-     * \param format
+     * \param protocol Nome del protocollo da eseguire.
+     * \param subjects Lista contenente i soggetti su cui fare l'analisi.
+     * \param resultsPath Il percorso nel file system su cui salvare i risultati.
+     * \param viewResults Parametro booleano che indica se visualizzare la cartella dei risultati al tremine dell'esecuzione.
+     * \param viewFeatures Flag booleana che indica se visualizzare le feature estratte durante l'esecuzione.
+     * \param saveFeatures Parametro booleano che indica se salvare su disco i risultati delle feature estratte.
+     * \param format Il formato delle immagini da analizzare.
      */
     void startAnalysis(QString protocol,QList<QString> subjects,QString resultsPath,bool viewResults,bool viewFeatures,bool saveFeatures,QString format);
 
@@ -240,7 +282,9 @@ private:
       */
      romeo::view::dialogs::AlgorithmsListDialog* algorithmsListDialog;
 
-
+     /*!
+      * \brief Riferimento al widget che mostra la lista dei protocolli che si possono associare al dataset corrente.
+      */
      romeo::view::dialogs::AssociateProtocolDialog* associateProtocolDialog;
 
      /*!

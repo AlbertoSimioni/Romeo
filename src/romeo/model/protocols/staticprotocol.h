@@ -99,7 +99,7 @@ public:
      */
     static double** transform(double** result,const int nrows,const int ncolumns);
     /*!
-     *
+     * Metodo template che ha il compito di leggere un immagine e caricarla in un array su cui è possibile l'esecuzione degli algoritmi. Per poter gestire sia immagini 2D che 3D viene istanziata con i tipi corretti ImageType e PointerType. Tramite queste primitive di itk è possibile scorrere le immagini in modo indipendente dal formato in cui sono state salvate.
      */
     template<typename PointerType,typename ImageType>
     double** readImage(PointerType input) {
