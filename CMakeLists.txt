@@ -221,10 +221,6 @@ ADD_EXECUTABLE(romeo ${romeo_SOURCES}
     $<TARGET_OBJECTS:core2>
 )
 
-
-set( prova
-build/esempio3d.cxx)
-
 ADD_EXECUTABLE(prova ${prova}
 )
 TARGET_LINK_LIBRARIES( prova ${ITK_LIBRARIES}  ${VTK_LIBRARIES}  )
