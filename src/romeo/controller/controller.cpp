@@ -311,6 +311,8 @@ void Controller::openProtocol(QString protocolName){
 
 
 void Controller::modifyProtocol(QString oldProtocolName, QString protocolName, QString desc, bool test, QList<QString> features, QString algorithm, ProtocolType type, int windowSize, int distanceGLCM, int nClusters, QList<QString> parametersValue){
+
     deleteProtocol(oldProtocolName);
-    addProtocol(protocolName,desc,test,features,algorithm,type,nClusters,windowSize,distanceGLCM,parametersValue);
+
+    addProtocol(protocolName,desc,test,features,algorithm,type,windowSize,distanceGLCM,nClusters,parametersValue);
 }

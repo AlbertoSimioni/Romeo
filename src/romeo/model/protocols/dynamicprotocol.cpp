@@ -24,10 +24,10 @@ ProtocolType DynamicProtocol::getType(){
 
 int DynamicProtocol::getWindowSize() const
 {
-    return 0;
+    return 3;
 }
 
 int DynamicProtocol::getDistanceToGlcm() const
 {
-    return 0;
+    return 1;
 }

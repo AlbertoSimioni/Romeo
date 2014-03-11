@@ -69,11 +69,13 @@ void ProtocolsPanel::setCurrentDataset(romeo::model::datasets::AbstractDataset *
 {
     if(currentDataset != 0){
         disconnect(currentDataset,SIGNAL(protocolsModified()),this,SLOT(fillProtocolsList()));
+        disconnect(currentDataset,SIGNAL(newResults()),this,SLOT(fillProtocolsList()));
     }
     currentDataset = dataset;
 
     if(currentDataset != 0){
         connect(currentDataset,SIGNAL(protocolsModified()),this,SLOT(fillProtocolsList()));
+        connect(currentDataset,SIGNAL(newResults()),this,SLOT(fillProtocolsList()));
     }
     fillProtocolsList();
 }

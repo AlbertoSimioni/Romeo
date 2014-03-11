@@ -233,7 +233,10 @@ void AbstractDataset::executeAnalysis(QString protocol, QList<QString> subjects,
 
    disconnect(protocolToExecute,SIGNAL(featureExtracted(QString)),this,SIGNAL(featureExtracted(QString)));
    disconnect(protocolToExecute,SIGNAL(algorithmExecuted(QString)),this,SIGNAL(algorithmExecuted(QString)));
-   if(!stopAnalysis) addResult(protocolToExecute,new Result(QDateTime::currentDateTime(),resultsPath));
+   if(!stopAnalysis){
+       qDebug () <<"SALVO RISULTATO";
+       addResult(protocolToExecute,new Result(QDateTime::currentDateTime(),resultsPath));
+   }
    currentProtocol = 0;
    emit analysisFinished();
    emit newResults();

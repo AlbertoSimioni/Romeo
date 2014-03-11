@@ -127,6 +127,12 @@ private:
     QString oldProtocol;
 
     /*!
+     * \brief Campo dati che indica se il protocollo di origine è di test
+     */
+    bool oldProtocolTest;
+
+
+    /*!
      * \brief Svuota tutte le form del dialogo che l'utente ha modificato
      */
     void resetForms();

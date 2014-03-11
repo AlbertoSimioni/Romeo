@@ -111,7 +111,7 @@ void ProtocolDialog::previousStep()
 void ProtocolDialog::addFeature(QListWidgetItem *item)
 {
     bool stop = false;
-    if((!oldProtocol.isEmpty()) && (!ui->testCheck->isChecked())){
+    if((!oldProtocol.isEmpty()) && (!oldProtocolTest)){
         stop = true;
     }
     for(int i =0; i< (ui->protocolFeaturesList->count()) && (!stop);i++){
@@ -158,6 +158,11 @@ void ProtocolDialog::resetForms(){
      ui->glcmLineEdit->setText("1");
      ui->WindowSizeCombo->setCurrentIndex(0);
      oldProtocol = QString();
+     oldProtocolTest = false;
+     ui->Wizard->setCurrentIndex(0);
+     ui->next1->setEnabled(true);
+     ui->next2->setEnabled(true);
+     setAllDisabled(false);
 }
 
 
@@ -264,6 +269,7 @@ void ProtocolDialog::checkEmpty(QString name){
 
 void ProtocolDialog::finishButtonClicked(){
     if(ui->protocolLineEdit->isEnabled()){
+        qDebug() << "ENTRO";
 
         QString name = ui->protocolLineEdit->text();
         QString desc = ui->textEdit->document()->toPlainText();
@@ -295,21 +301,21 @@ void ProtocolDialog::finishButtonClicked(){
             msgBox.exec();
         }
         else{
-            resetForms();
-            if(oldProtocol.isEmpty()){
+
+            if(!oldProtocol.isEmpty()){
                 emit modifyProtocol(oldProtocol,name,desc,test,feats,alg,protType,windowSize,glcmDistance,nClusters,parametersValue);
                 oldProtocol = QString();
-                setAllDisabled(false);
             }
             else{
                 emit createProtocol(name,desc,test,feats,alg,protType,windowSize,glcmDistance,nClusters,parametersValue);
             }
-            accept();
+
         }
     }
-    else{
-        accept();
-    }
+
+    resetForms();
+    accept();
+
 
 }
 
@@ -339,9 +345,9 @@ void ProtocolDialog::checkWindowSizeGLCM(){
 
 
 void ProtocolDialog::openExistingProtocol(AbstractProtocol *protocol){
-    ui->next1->setEnabled(true);
-    ui->next2->setEnabled(true);
+
     oldProtocol = protocol->getName();
+    oldProtocolTest = protocol->getTest();
     ui->protocolLineEdit->setText(protocol->getName());
 
     switch(protocol->getType()){
@@ -361,7 +367,7 @@ void ProtocolDialog::openExistingProtocol(AbstractProtocol *protocol){
     }
 
     ui->glcmLineEdit->setText(QString::number(protocol->getDistanceToGlcm()));
-    ui->WindowSizeCombo->setCurrentIndex((((protocol->getWindowSize()-1)/2)-1));
+    ui->WindowSizeCombo->setCurrentIndex(((protocol->getWindowSize()-1)/2)-1);
     if(protocol->getAlgorithm()){
         ui->AlgorithmCombo->setCurrentText(protocol->getAlgorithmName());
 
