@@ -10,7 +10,6 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 #include<QObject>
-#include<src/romeo/view/viewmanager.h>
 #include<src/romeo/model/core/modelcore.h>
 #include<src/romeo/model/protocols/algorithms/algorithmslist.h>
 #include<src/romeo/model/protocols/features/featureslist.h>
