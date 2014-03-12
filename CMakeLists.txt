@@ -66,8 +66,6 @@ SET(romeo_SOURCES
  src/romeo/model/protocols/algorithms/userdefinedalgorithm.cpp
  src/romeo/model/imageIO/handlerio.cpp
  src/romeo/model/imageIO/handleriostatic.cpp
- src/romeo/model/imageIO/handlerio2d.cpp
- src/romeo/model/imageIO/handlerio3d.cpp
  src/romeo/model/datasets/result.cpp
  src/romeo/model/datasets/abstractdataset.cpp
  src/romeo/model/datasets/datasetslist.cpp
@@ -129,8 +127,6 @@ SET(romeo_HEADERS
  src/romeo/model/protocols/algorithms/userdefinedalgorithm.h
  src/romeo/model/imageIO/handlerio.h
  src/romeo/model/imageIO/handleriostatic.cpp
- src/romeo/model/imageIO/handlerio2d.h
- src/romeo/model/imageIO/handlerio3d.h
  src/romeo/model/datasets/result.h
  src/romeo/model/datasets/abstractdataset.h
  src/romeo/model/datasets/datasetslist.h
