@@ -1,0 +1,27 @@
+#ifndef TESTEXECUTEDIALOG_H
+#define TESTEXECUTEDIALOG_H
+
+#define private public
+
+#include <QtTest>
+#include "../src/romeo/view/dialogs/executedialog.h"
+#include "../src/romeo/model/datasets/abstractdataset.h"
+#include "../src/romeo/model/datasets/dataset2d.h"
+#include "../src/romeo/model/datasets/dataset3d.h"
+
+using namespace romeo::view::dialogs;
+using namespace romeo::model;
+
+class TestExecuteDialog : public QObject
+{
+    Q_OBJECT
+
+public:
+    explicit TestExecuteDialog(QObject *parent = 0);
+
+private slots:
+    void showImage();
+
+};
+
+#endif // TESTEXECUTEDIALOG_H

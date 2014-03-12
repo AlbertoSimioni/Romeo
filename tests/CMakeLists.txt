@@ -31,6 +31,7 @@ testmain.cpp
  testdatasetslist.cpp
  testabstractsubject.cpp
  testabstractdataset.cpp
+ testexecutedialog.cpp
  ../src/romeo/view/dialogs/newdatasetdialog.ui
  ../src/romeo/view/dialogs/addsubjectdialog.cpp
  ../src/romeo/view/dialogs/executedialog.cpp
@@ -68,8 +69,6 @@ testmain.cpp
   ../src/romeo/model/protocols/algorithms/userdefinedalgorithm.cpp
   ../src/romeo/model/imageIO/handlerio.cpp
   ../src/romeo/model/imageIO/handleriostatic.cpp
-  ../src/romeo/model/imageIO/handlerio2d.cpp
-  ../src/romeo/model/imageIO/handlerio3d.cpp
   ../src/romeo/model/datasets/result.cpp
   ../src/romeo/model/datasets/abstractdataset.cpp
   ../src/romeo/model/datasets/datasetslist.cpp
@@ -84,7 +83,6 @@ testmain.cpp
   ../src/romeo/model/datasets/subject3dt.cpp
   ../src/romeo/controller/controller.cpp
   ../src/romeo/view/dialogs/newdatasetdialog.cpp
-  ../src/romeo/view/viewmanager.cpp
   ../src/romeo/view/dialogs/featureslistdialog.cpp
   ../src/romeo/view/dialogs/algorithmslistdialog.cpp
   ../src/romeo/model/inputformats.h
@@ -123,6 +121,7 @@ SET(romeoTest_HEADERS
  testdatasetslist.h
  testabstractsubject.h
  testabstractdataset.h
+ testexecutedialog.h
 )
 
 SET(romeoTest_FORMS

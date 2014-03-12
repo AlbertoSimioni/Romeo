@@ -4,7 +4,7 @@
         <name>Standard Deviation</name>
         <description>gran bella descrizione</description>
         <type>FIRSTORDER</type>
-        <file>features/libfeaturesTestTest</file>
+        <file>features/libfeaturesTest</file>
         <functionName>feat_p1_std</functionName>
     </feature>
     <feature>

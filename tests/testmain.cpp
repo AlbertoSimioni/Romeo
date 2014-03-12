@@ -3,12 +3,7 @@
 #include "testparametervalueform.h"
 #include "testnewfeaturedialog.h"
 #include "testnewdatasetdialog.h"
-//#include "testnewalgorithmparameterform.h" da PENSARCI
 #include "testprotocoldialog.h"
-//#include "testfeatureslistdialog.h" da PENSARE
-//#include "testalgorithmslistdialog.h" da PENSARE
-//#include "testaddsubjectdialog.h" da PENSARE
-
 #include "testabstractalgorithm.h"
 #include "testalgorithmslist.h"
 #include "testdynamicprotocol.h"
@@ -30,9 +25,10 @@
 #include "testsubject3d.h"
 #include "testsubject3dt.h"
 #include "testresult.h"
-#include "testdatasetslist.h"//da rivedere
+#include "testdatasetslist.h"
 #include "testabstractsubject.h"
 #include "testabstractdataset.h"
+#include "testexecutedialog.h"
 
 int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
     QApplication a(argc, argv);
@@ -46,20 +42,8 @@ int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
     TestNewDatasetDialog tndd;
     QTest::qExec(&tndd);
 
-    //TestNewAlgorithmParameterForm tnapf;
-    //QTest::qExec(&tnapf);
-
     TestProtocolDialog tpd;
     QTest::qExec(&tpd);
-
-    //TestFeaturesListDialog tfld;
-    //QTest::qExec(&tfld);
-
-    //TestAlgorithmsListDialog tald;
-    //QTest::qExec(&tald);
-
-    //TestAddSubjectDialog tasd;
-    //QTest::qExec(&tasd);
 
     TestAbstractAlgorithm taa;
     QTest::qExec(&taa);
@@ -132,6 +116,9 @@ int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
 
     TestAbstractDataset tads;
     QTest::qExec(&tads);
+
+    TestExecuteDialog ted;
+    QTest::qExec(&ted);
 
     return 0;
 }
