@@ -1,3 +1,12 @@
+/**
+* \file dataset3dt.cpp
+* \author Matteo Pozza
+* \date 2014-02-17
+**
+* \brief Header della classe Dataset3DT del package romeo::model::datasets
+*/
+
+
 #include "dataset3dt.h"
 #include "subject3dt.h"
 using namespace romeo::model::datasets;

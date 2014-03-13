@@ -1,3 +1,11 @@
+/**
+* \file fuzzycmeans.cpp
+* \author Alberto Cavallarin
+* \date 17-02-2014
+**
+* \brief  Header della classe FuzzyCMeans del package romeo::model::protocols::features
+*/
+
 #include "fuzzycmeans.h"
 #include "ext/cluster.h"
 using namespace romeo::model::protocols::algorithms;

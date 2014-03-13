@@ -1,3 +1,11 @@
+/**
+* \file color.h
+* \author Matteo Pozza
+* \date 2014-02-17
+**
+* \brief Header della classe Color del package romeo::model::protocols
+*/
+
 #ifndef COLOR_H
 #define COLOR_H
 

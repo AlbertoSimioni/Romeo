@@ -1,3 +1,11 @@
+/**
+* \file featureslist.cpp
+* \author Alberto Cavallarin
+* \date 17-02-2014
+**
+* \brief  Header della classe DynamicFeature del package romeo::model::protocols::features
+*/
+
 #include "dynamicfeature.h"
 #include "featureslist.h"
 #include "firstorderfeature.h"

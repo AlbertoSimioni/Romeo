@@ -1,9 +1,9 @@
 /**
-* \file dynamicprotocol.h
+* \file protocolslist.h
 * \author Matteo Pozza
 * \date 2014-02-17
 **
-* \brief Header della classe DynamicProtocol del package romeo::model::protocols
+* \brief Header della classe ProtocolsList del package romeo::model::protocols
 */
 
 

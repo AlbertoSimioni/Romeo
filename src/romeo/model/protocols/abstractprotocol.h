@@ -5,6 +5,8 @@
 **
 * \brief Header della classe AbstractProtocol del package romeo::model::protocols
 */
+
+
 #ifndef ABSTRACTPROTOCOL_H
 #define ABSTRACTPROTOCOL_H
 #include<QString>

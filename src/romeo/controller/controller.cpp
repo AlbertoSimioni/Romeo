@@ -1,10 +1,17 @@
+/**
+* \file controller.cpp
+* \author Matteo Pozza
+* \date 2014-02-17
+**
+* \brief Header della classe Controller del package romeo::controller
+*/
+
 #include "controller.h"
 #include <src/romeo/view/mainWindow/mainwindow.h>
-
-
 #include <QDebug>
 #include <src/romeo/model/inputformats.h>
 #include <QtConcurrent/QtConcurrent>
+
 using namespace romeo::controller;
 using namespace romeo::view::mainWindow;
 using namespace romeo::view;
@@ -21,7 +28,6 @@ Controller* Controller::instance=0;
 Controller::Controller(QObject *parent): QObject(parent)
 {
     modelCore = ModelCore::getInstance(this);
-   // modelCore->save();
 
     algorithmsList = modelCore->getAlgorithmsList();
     featuresList = modelCore->getFeaturesList();

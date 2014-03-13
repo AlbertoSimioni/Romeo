@@ -1,3 +1,11 @@
+/**
+* \file handleriostatic.h
+* \author Matteo Pozza
+* \date 2014-02-17
+**
+* \brief Header della classe HandlerIOStatic del package romeo::model::imageIO
+*/
+
 #ifndef HANDLERIOSTATIC_H
 #define HANDLERIOSTATIC_H
 #include <QString>

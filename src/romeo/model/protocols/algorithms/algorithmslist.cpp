@@ -1,3 +1,11 @@
+/**
+* \file algorithmslist.cpp
+* \author Alberto Cavallarin
+* \date 17-02-2014
+**
+* \brief  Header della classe AlgorithmsList del package romeo::model::protocols::features
+*/
+
 #include "algorithmslist.h"
 #include "userdefinedalgorithm.h"
 using namespace romeo::model::protocols::algorithms;

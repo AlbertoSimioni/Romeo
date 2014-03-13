@@ -1,3 +1,11 @@
+/**
+* \file abstractprotocol.cpp
+* \author Matteo Pozza
+* \date 2014-02-17
+**
+* \brief Header della classe AbstractProtocol del package romeo::model::protocols
+*/
+
 #include "abstractprotocol.h"
 
 #include <QStringList>

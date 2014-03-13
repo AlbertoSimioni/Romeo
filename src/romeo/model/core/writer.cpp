@@ -1,3 +1,11 @@
+/**
+* \file writer.cpp
+* \author Matteo Pozza
+* \date 2014-02-17
+**
+* \brief Header della classe Writer del package romeo::model::core
+*/
+
 #include "writer.h"
 #include "modelcore.h"
 #include <QtXml>

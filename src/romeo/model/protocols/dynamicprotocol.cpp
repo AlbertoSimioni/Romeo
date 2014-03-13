@@ -1,3 +1,11 @@
+/**
+* \file dynamicprotocol.cpp
+* \author Matteo Pozza
+* \date 2014-02-17
+**
+* \brief Header della classe DynamicProtocol del package romeo::model::protocols
+*/
+
 #include "dynamicprotocol.h"
 #include <QMessageBox>
 #include <QDebug>

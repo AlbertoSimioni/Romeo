@@ -1,3 +1,12 @@
+/**
+* \file hierarchical.cpp
+* \author Alberto Cavallarin
+* \date 17-02-2014
+**
+* \brief  Header della classe Hierarchical del package romeo::model::protocols::features
+*/
+
+
 #include "hierarchical.h"
 
 #ifndef CLUSTER

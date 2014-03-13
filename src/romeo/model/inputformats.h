@@ -1,3 +1,12 @@
+/**
+* \file handlerio.h
+* \author Matteo Pozza
+* \date 2014-02-17
+**
+* \brief In questo file del package romeo::model vengono inseriti dei tipi enumerazione per la gestione dei formati delle immagini utilizzati.
+*/
+
+
 #ifndef INPUTFORMATS_H
 #define INPUTFORMATS_H
 

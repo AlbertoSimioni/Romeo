@@ -1,3 +1,11 @@
+/**
+* \file result.cpp
+* \author Matteo Pozza
+* \date 2014-02-17
+**
+* \brief Header della classe Result del package romeo::model::datasets
+*/
+
 #include "result.h"
 using namespace romeo::model::datasets;
 

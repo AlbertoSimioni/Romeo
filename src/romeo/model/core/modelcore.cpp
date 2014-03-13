@@ -1,3 +1,11 @@
+/**
+* \file modelcore.cpp
+* \author Matteo Pozza
+* \date 2014-02-17
+**
+* \brief Header della classe ModelCore del package romeo::model::core
+*/
+
 #include "modelcore.h"
 using namespace romeo::model::core;
 using namespace romeo::model::imageIO;
@@ -36,76 +44,12 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
     }
     createLists();
 
-
-
-
-    ////////////PROVA TEST
-    //
-        /*QList<AbstractAlgorithm::AlgorithmParameter> param;
-        AbstractAlgorithm::AlgorithmParameter param1 (QString("param1"), AbstractAlgorithm::BOOL, QString("default"));
-        AbstractAlgorithm::AlgorithmParameter param2 (QString("param2"), AbstractAlgorithm::CHAR, QString("default"));
-        param.append(param1);
-        param.append(param2);
-        AbstractAlgorithm* alg=new UserDefinedAlgorithm(param, QString("Algoritmo1"), QString("desc"), QString("libreria"), QString("nomefunz"));
-        AlgorithmsList::getInstance()->addAlgorithm(alg);
-
-        QList<AbstractAlgorithm::AlgorithmParameter> params;
-        AbstractAlgorithm::AlgorithmParameter param11 (QString("Param1"), AbstractAlgorithm::INT, QString("25"));
-        AbstractAlgorithm::AlgorithmParameter param22 (QString("Param2"), AbstractAlgorithm::CHAR, QString("default"));
-        params.append(param11);
-        params.append(param22);
-        AbstractAlgorithm* alg2=new UserDefinedAlgorithm(params, QString("Algoritmo"), QString("desc2"), QString("libreria"), QString("nomefunz"));
-        AlgorithmsList::getInstance()->addAlgorithm(alg2);
-
-
-        AbstractFeature* feat1 = new FirstOrderFeature("FeatureFO1","PATH","PATH","DESC1");
-        AbstractFeature* feat2 = new FirstOrderFeature("FeatureFO2","PATH","PATH","DESC2");
-        AbstractFeature* feat3 = new DynamicFeature("FeatureD1","PATH","PATH","DESC3");
-        AbstractFeature* feat4 = new SecondOrderFeature("FeatureSO1","PATH","PATH","DESC4");
-        FeaturesList::getInstance()->addFeature(feat1);
-        FeaturesList::getInstance()->addFeature(feat2);
-        FeaturesList::getInstance()->addFeature(feat3);
-        FeaturesList::getInstance()->addFeature(feat4);
-
-
-        QList<AbstractFeature*> features;
-        features.append(feat1);
-        features.append(feat2);
-        features.append(feat4);
-        ProtocolsList::getInstance()->addProtocol("PROVA","descrizione",alg,5,QList<QString>(),features,false, STATIC);
-
-    */
-        ///////////////PROVA TEST
-
-    /*
-    AbstractFeature* feat1 = new FirstOrderFeature("Standard Deviation",QDir::toNativeSeparators("features/libfeatures"),"feat_p1_std","gran bella descrizione");
-    AbstractFeature* feat2 = new FirstOrderFeature("Mean",QDir::toNativeSeparators("features/libfeatures"),"feat_p1_mean","gran bella descrizione");
-    AbstractFeature* feat3 = new FirstOrderFeature("Skewness",QDir::toNativeSeparators("features/libfeatures"),"feat_p1_skew","gran bella descrizione");
-    AbstractFeature* feat4 = new FirstOrderFeature("Kurtosis",QDir::toNativeSeparators("features/libfeatures"),"feat_p1_kurt","gran bella descrizione");
-    AbstractFeature* feat5 = new SecondOrderFeature("Contrast",QDir::toNativeSeparators("features/libfeatures"),"feat_p2_contr","gran bella descrizione");
-    AbstractFeature* feat6 = new SecondOrderFeature("Correlation",QDir::toNativeSeparators("features/libfeatures"),"feat_p2_corr","gran bella descrizione");
-    AbstractFeature* feat7 = new SecondOrderFeature("Energy",QDir::toNativeSeparators("features/libfeatures"),"feat_p2_energy","gran bella descrizione");
-    AbstractFeature* feat8 = new SecondOrderFeature("Entropy",QDir::toNativeSeparators("features/libfeatures"),"feat_p2_entropy","gran bella descrizione");
-    AbstractFeature* feat9 = new SecondOrderFeature("Homogeneity",QDir::toNativeSeparators("features/libfeatures"),"feat_p2_homo","gran bella descrizione");
-
-    FeaturesList::getInstance()->addFeature(feat1);
-    FeaturesList::getInstance()->addFeature(feat2);
-    FeaturesList::getInstance()->addFeature(feat3);
-    FeaturesList::getInstance()->addFeature(feat4);
-    FeaturesList::getInstance()->addFeature(feat5);
-    FeaturesList::getInstance()->addFeature(feat6);
-    FeaturesList::getInstance()->addFeature(feat7);
-    FeaturesList::getInstance()->addFeature(feat8);
-    FeaturesList::getInstance()->addFeature(feat9);
-
-    */
-
     QList<AbstractAlgorithm::AlgorithmParameter> param;
     AbstractAlgorithm::AlgorithmParameter param1 (QString("Distance"), AbstractAlgorithm::CHAR, QString("e"));
     AbstractAlgorithm::AlgorithmParameter param2 (QString("Maximum number of iterations"), AbstractAlgorithm::INT, QString("200"));
     param.append(param1);
     param.append(param2);
-    AbstractAlgorithm* alg=KMeans::getInstance(param, QString("K-means"), QString("desc"));
+    AbstractAlgorithm* alg=KMeans::getInstance(param, QString("K-means"), QString("Partitioning clustering method, exclusive (hard) assignment"));
     AlgorithmsList::getInstance()->addAlgorithm(alg);
 
     QList<AbstractAlgorithm::AlgorithmParameter> paramh;
@@ -113,7 +57,7 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
     AbstractAlgorithm::AlgorithmParameter paramh2 (QString("Linkage criteria"), AbstractAlgorithm::CHAR, QString("s"));
     paramh.append(paramh1);
     paramh.append(paramh2);
-    AbstractAlgorithm* algh=Hierarchical::getInstance(paramh, QString("Hierarchical"), QString("desc"));
+    AbstractAlgorithm* algh=Hierarchical::getInstance(paramh, QString("Hierarchical"), QString("Agglomerative (bottom-up) hierarchical clustering"));
     AlgorithmsList::getInstance()->addAlgorithm(algh);
 
 
@@ -122,10 +66,8 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
     AbstractAlgorithm::AlgorithmParameter paramf2 (QString("Fuzzyness"), AbstractAlgorithm::INT, QString("2"));
     paramf.append(paramf1);
     paramf.append(paramf2);
-    AbstractAlgorithm* algf=FuzzyCMeans::getInstance(paramf, QString("Fuzzy C-Means"), QString("desc"));
+    AbstractAlgorithm* algf=FuzzyCMeans::getInstance(paramf, QString("Fuzzy C-Means"), QString("Partitioning clustering method, overlapping (soft) assignment"));
     AlgorithmsList::getInstance()->addAlgorithm(algf);
-
-
 
 
     loader->loadFeatures(dataHome.absolutePath().append("/features.xml"), getFeaturesList());
@@ -133,18 +75,6 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
     loader->loadProtocols(dataHome.absolutePath().append("/protocols.xml"), getProtocolsList());
     loader->loadDatasetsNames(dataHome.absolutePath().append("/datasets.xml"));
 
-    ///////////prova test
-/*
-    DatasetsList::getInstance()->addDataset("PROVO",TYPE2D);
-
-    AbstractDataset* dataset = DatasetsList::getInstance()->getDataset("PROVO");
-    AbstractProtocol * protocol = ProtocolsList::getInstance()->getProtocol("PROVA");
-    if(dataset){
-        dataset->associateProtocol(protocol);;
-
-    dataset->addResult(protocol,new Result(QDateTime(QDate(1982,10,5),QTime(15,30,30)),"/home/alberto/"));
-    }*/
-    ////////// provatest
     DatasetsList* datasetsList=getDatasetsList();
     connect(getAlgorithmsList(), SIGNAL(algorithmsListModified()), writer, SLOT(saveAlgorithmsList()));
     connect(getFeaturesList(), SIGNAL(featuresListModified()), writer, SLOT(saveFeaturesList()));

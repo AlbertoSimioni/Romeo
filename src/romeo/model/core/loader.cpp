@@ -1,3 +1,11 @@
+/**
+* \file modelcore.cpp
+* \author Matteo Pozza
+* \date 2014-02-17
+**
+* \brief  Header della classe Loader del package romeo::model::core
+*/
+
 #include <QString>
 #include <QFile>
 #include <QIODevice>

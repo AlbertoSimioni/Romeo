@@ -135,7 +135,7 @@ void ProtocolsPanel::changeDescription(){
             QString textDescription=protocol->getDescription();
             if(!textDescription.isEmpty())
                 textDescription+="\n\n";
-            textDescription+="Algoritmo: \t" + protocol->getAlgorithmName() +"\n\n";
+            textDescription+="Algorithm: \t" + protocol->getAlgorithmName() +"\n\n";
             QStringList features=protocol->getFeaturesName();
 
             for (int i=0; i<features.length(); ++i){

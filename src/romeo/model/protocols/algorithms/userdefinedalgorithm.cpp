@@ -1,3 +1,11 @@
+/**
+* \file userdefinedalgorithm.cpp
+* \author Alberto Cavallarin
+* \date 17-02-2014
+**
+* \brief  Header della classe UserDefinedAlgorithm del package romeo::model::protocols::features
+*/
+
 #include "userdefinedalgorithm.h"
 
 using namespace romeo::model::protocols::algorithms;

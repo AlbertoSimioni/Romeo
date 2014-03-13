@@ -3,7 +3,7 @@
 * \author Matteo Pozza
 * \date 2014-02-17
 **
-* \brief Header della classe Subject3DT del package romeo::model::datasets
+* \brief Header della classe Subject3D del package romeo::model::datasets
 */
 
 

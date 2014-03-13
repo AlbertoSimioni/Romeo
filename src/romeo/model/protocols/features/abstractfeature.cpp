@@ -1,3 +1,12 @@
+/**
+* \file abstractfeature.cpp
+* \author Alberto Cavallarin
+* \date 17-02-2014
+**
+* \brief  Header della classe AbstractFeature del package romeo::model::protocols::features
+*/
+
+
 #include "abstractfeature.h"
 using namespace romeo::model::protocols::features;
 

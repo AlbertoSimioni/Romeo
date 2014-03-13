@@ -1,5 +1,5 @@
 /**
-* \file modelcore.h
+* \file abstractfeature.h
 * \author Alberto Cavallarin
 * \date 17-02-2014
 **

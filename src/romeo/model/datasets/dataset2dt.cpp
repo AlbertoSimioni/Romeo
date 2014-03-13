@@ -1,3 +1,11 @@
+/**
+* \file dataset2dt.cpp
+* \author Matteo Pozza
+* \date 2014-02-17
+**
+* \brief Header della classe Dataset2DT del package romeo::model::datasets
+*/
+
 #include "dataset2dt.h"
 #include "subject2dt.h"
 

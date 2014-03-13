@@ -1,3 +1,12 @@
+/**
+* \file kmeans.cpp
+* \author Alberto Cavallarin
+* \date 17-02-2014
+**
+* \brief  Header della classe KMeans del package romeo::model::protocols::features
+*/
+
+
 #include "kmeans.h"
 #ifndef CLUSTER
 #include "ext/cluster.h"

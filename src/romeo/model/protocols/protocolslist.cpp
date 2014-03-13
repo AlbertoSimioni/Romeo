@@ -1,3 +1,11 @@
+/**
+* \file protocolslist.cpp
+* \author Matteo Pozza
+* \date 2014-02-17
+**
+* \brief Header della classe ProtocolsList del package romeo::model::protocols
+*/
+
 #include "protocolslist.h"
 #include "staticprotocol.h"
 #include "dynamicprotocol.h"

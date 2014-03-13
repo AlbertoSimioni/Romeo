@@ -1,10 +1,11 @@
 /**
-* \file modelcore.h
+* \file abstractalgorithm.h
 * \author Alberto Cavallarin
 * \date 17-02-2014
 **
 * \brief  Header della classe AbstractAlgorithm del package romeo::model::protocols::algorithms
 */
+
 #ifndef ABSTRACTALGORITHM_H
 #define ABSTRACTALGORITHM_H
 #include <QString>
