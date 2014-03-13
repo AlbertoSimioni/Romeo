@@ -1,3 +1,12 @@
+/**
+* \file executedialog.cpp
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe ExecuteDialog del package romeo::view::dialogs
+*/
+
+
 #include "executedialog.h"
 #include "ui_executedialog.h"
 

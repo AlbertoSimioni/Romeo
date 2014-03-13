@@ -17,9 +17,9 @@ namespace protocols{
 namespace features{
 
 /**
- * \brief La classe DynamicFeature da completare
+ * \brief Classe che rappresenta un feature extractor applicabile su immagini dinamiche. Ogni istanza della classe rappresenta un diverso feature extractor e dovrà tenere traccia della libreria dinamica contenente la funzione che implementa il feature extractor.
  *
- * Descrizione dettagliata
+ * Questa classe eredita dalla classe AbstractFeature e mette a disposizione i metodi per estrarre una feature da un'immagine dinamica.
  */
 class DynamicFeature : public AbstractFeature
 {

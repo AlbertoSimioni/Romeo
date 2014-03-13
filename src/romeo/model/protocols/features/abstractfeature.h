@@ -20,9 +20,9 @@ namespace features{
 enum FeatureType{FIRSTORDER,SECONDORDER,DYNAMIC};
 
 /**
- * \brief La classe AbstractFeature da completare
+ * \brief Classe astratta che rappresenta un feature extractor utilizzato per ricavare delle particolari caratteristiche sulle immagini da analizzare. La classe è stata progettata con l'intenzione di rappresentare un feature extractor come un oggetto (istanza di una classe) e non solamente come un metodo o una funzione.
  *
- * Descrizione dettagliata
+ * Contiene le informazioni comuni e necessarie a tutti i tipi di feature extractor. Inoltre mette a disposizione i metodi per la modifica e il reperimento di tali informazioni. Dichiara i metodi relativi all'estrazione della feature, tutte le sottoclassi dovranno rispettare la firma definita.
  */
 class AbstractFeature
 {

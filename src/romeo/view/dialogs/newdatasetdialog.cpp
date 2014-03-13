@@ -1,3 +1,12 @@
+/**
+* \file newdatasetdialog.cpp
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe NewDatasetDialog del package romeo::view::dialogs
+*/
+
+
 #include "newdatasetdialog.h"
 #include "ui_newdatasetdialog.h"
 #include <QPushButton>

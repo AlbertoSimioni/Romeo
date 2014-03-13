@@ -19,7 +19,6 @@ AbstractProtocol::AbstractProtocol(QString nomeP, QString desc, AbstractAlgorith
 {
 }
 
-
 AbstractProtocol::~AbstractProtocol(){}
 
 QString AbstractProtocol::getName() const
@@ -91,10 +90,3 @@ void AbstractProtocol::setStopAnalysis(bool value)
 {
     stopAnalysis = value;
 }
-
-
-
-
-
-
-

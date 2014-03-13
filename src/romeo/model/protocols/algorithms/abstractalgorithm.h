@@ -21,9 +21,9 @@ namespace algorithms{
 
 
 /**
- * \brief La classe AbstractAlgorithm da completare
+ * \brief Classe astratta che rappresenta un algoritmo di clustering utilizzato per ricavare delle particolari caratteristiche sulle immagini da analizzare. La classe è stata progettata con l'intenzione di rappresentare un algoritmo come un oggetto (istanza di una classe) e non solamente come un metodo o una funzione.
  *
- * Descrizione dettagliata
+ * Contiene le informazioni comuni e necessarie a tutti gli algoritmi di clustering. Inoltre definisce i metodi per la modifica e il reperimento di tali informazioni. Definisce la firma del metodo per l'esecuzione dell'algoritmo di clustering e tutte le sottoclassi dovranno rispettare la firma definita. In particolare, avendo gli algoritmi un numero variabile di parametri, viene passato come parametro aggiuntivo un Vector per inserire un numero arbitrario di parametri aggiuntivi. Era stata inizialmente valutata l'ipotesi di incapsulare i parametri aggiuntivi in una classe dedicata: questa ipotesi è stata scartata in quanto avrebbe costretto l'utente a servirsi di ulteriori classi oltre a quelle già presenti nella libreria standard C++ per definire un proprio algoritmo di clustering. La scelta del vettore per il passaggio dei parametri aggiuntivi permette quindi una maggiore semplicità per gli aspetti riguardanti l’estensibilità del software: nonostante sia meno sicura rispetto al fornire all’utente la capacità di utilizzare parametri tipizzati, l’utilizzo di un vettore di stringhe renderà il software più facilmente estendibile. Qualunque utente interessato ad estendere il programma sarà rimandato ad una lettura accurata della relativa sezione del manuale utente che accompagnerà il software.
  */
 class AbstractAlgorithm
 {
@@ -76,8 +76,11 @@ public:
         QString defaultParameter;
     };
 
-
-
+    /*!
+     * \brief Costruttore della classe AbstractAlgorithm che ne imposta i campi dati ai valori passati in input.
+     * \param name Nome dell'algoritmo.
+     * \param description Descrizione dell'algoritmo.
+     */
     explicit AbstractAlgorithm(QString name,QList<AlgorithmParameter>, QString description=QString());
 
 

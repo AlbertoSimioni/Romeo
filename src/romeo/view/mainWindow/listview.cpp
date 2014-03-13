@@ -1,9 +1,18 @@
+/**
+* \file listview.h
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe ListView del package romeo::view::mainWindow
+*/
+
 #include "listview.h"
 using namespace romeo::view::mainWindow;
 #include<QMimeData>
 #include<QByteArray>
 #include<QDrag>
 #include<QFileSystemModel>
+
 ListView::ListView(QWidget *parent) :
     QListView(parent)
 {

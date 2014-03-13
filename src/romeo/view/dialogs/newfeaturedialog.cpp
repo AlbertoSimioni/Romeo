@@ -1,12 +1,21 @@
+/**
+* \file newfeaturedialog.cpp
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe NewFeatureDialog del package romeo::view::dialogs
+*/
+
 #include "newfeaturedialog.h"
 #include "ui_newfeaturedialog.h"
-
 #include<QFileDialog>
 #include <QDir>
 #include<QMessageBox>
 #include<QLibrary>
+
 using namespace romeo::view::dialogs;
 using namespace romeo::model::protocols::features;
+
 NewFeatureDialog::NewFeatureDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::NewFeatureDialog)

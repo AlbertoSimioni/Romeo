@@ -1,3 +1,12 @@
+/**
+* \file newalgorithmdialog.cpp
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe NewAlgorithmDialog del package romeo::view::dialogs
+*/
+
+
 #include "newalgorithmdialog.h"
 #include "ui_newalgorithmdialog.h"
 #include <QFileDialog>
@@ -5,9 +14,11 @@
 #include <QLibrary>
 #include <vector>
 #include <QMessageBox>
+
 using namespace romeo::view::dialogs;
 using namespace romeo::model::protocols::algorithms;
 using namespace std;
+
 NewAlgorithmDialog::NewAlgorithmDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::NewAlgorithmDialog)

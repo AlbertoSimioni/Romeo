@@ -15,9 +15,9 @@ namespace model {
 namespace datasets{
 
 /**
- * \brief La classe Subject2DT da completare
+ * \brief Classe che rappresenta un subject con associata un'immagine 2D dinamica su cui sarà possibile effettuare le analisi.
  *
- * Descrizione dettagliata
+ * Contiene le informazioni proprie dei subject2DT, e inoltre definisce i metodi per la modifica di tali informazioni.
  */
 
 class Subject2DT : public AbstractSubject

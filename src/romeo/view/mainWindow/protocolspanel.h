@@ -17,6 +17,12 @@ class ProtocolsPanel;
 namespace romeo {
 namespace view {
 namespace mainWindow{
+
+/*!
+ * \brief Il pannello fornisce all'utente le informazioni relative ai protocolli associati al dataset selezionato. L'utente può aggiungere o rimuovere protocolli e visualizzarne le informazioni.
+ *
+ * Fornisce le informazioni sui protocolli che l'utente ha associato al dataset e su quello che ha selezionato e vuole eseguire.
+ */
 class ProtocolsPanel : public QWidget
 
 {
@@ -52,8 +58,6 @@ signals:
     void openAssociateProtocolDialog();
 
 protected:
-
-    //metodi per il drag & drop da commentare maggiormente
     virtual void dragEnterEvent(QDragEnterEvent * event);
     virtual void dragLeaveEvent(QDragLeaveEvent * event);
     virtual void dragMoveEvent(QDragMoveEvent * event);

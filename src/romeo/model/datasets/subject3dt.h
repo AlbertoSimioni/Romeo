@@ -15,12 +15,10 @@ namespace model {
 namespace datasets{
 
 /**
- * \brief La classe Subject3DT da completare
+ * \brief Classe che rappresenta un subject con associata un'immagine 3D dinamica su cui sarà possibile effettuare le analisi.
  *
- * Descrizione dettagliata
+ * Contiene le informazioni proprie dei subject3DT, e inoltre definisce i metodi per la modifica di tali informazioni.
  */
-
-
 
 class Subject3DT : public AbstractSubject
 {
@@ -32,6 +30,9 @@ public:
      * \param maskPath Percorso al file di maschera.
      */
     Subject3DT(QString &name, QString &imagePath, QString &maskPath);
+    /*!
+     * \brief Ritorna il tipo del subject
+     */
     virtual romeo::model::InputFormat getType();
 };
 }}}

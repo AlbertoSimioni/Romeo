@@ -1,8 +1,17 @@
+/**
+* \file protocolsexplorer.cpp
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe ProtocolsExplorer del package romeo::view::mainWindow
+*/
+
 #include "protocolsexplorer.h"
 #include "ui_protocolsexplorer.h"
-#include <QDebug>
+
 using namespace romeo::view::mainWindow;
 using namespace romeo::model::protocols;
+
 ProtocolsExplorer::ProtocolsExplorer(QWidget *parent) :
     QWidget(parent),currentProtocolsType(STATIC),protocolsList(0),
     ui(new Ui::ProtocolsExplorer)

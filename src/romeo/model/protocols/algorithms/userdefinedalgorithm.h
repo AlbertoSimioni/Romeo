@@ -20,9 +20,9 @@ namespace protocols{
 namespace algorithms{
 
 /**
- * \brief La classe UserDefinedAlgorithm da completare
+ * \brief Classe che rappresenta un algoritmo di clustering definito dall'utente. Ogni istanza della classe rappresenta un diverso algoritmo definito dall'utente. In particolare ogni istanza della classe dovrà tenere traccia della libreria dinamica contenente la funzione che implementa l'algoritmo di clustering.
  *
- * Descrizione dettagliata
+ * La classe implementa i metodi per l'esecuzione degli algoritmi dichiarati nella classe astratta AbstractAlgorithm.
  */
 
 

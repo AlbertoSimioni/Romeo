@@ -14,7 +14,6 @@
 #include "modelcore.h"
 #include <src/romeo/model/protocols/algorithms/algorithmslist.h>
 #include <src/romeo/model/protocols/features/featureslist.h>
-#include<QDebug>
 #include <src/romeo/model/datasets/abstractdataset.h>
 #include <src/romeo/model/protocols/protocolslist.h>
 #include <src/romeo/model/inputformats.h>

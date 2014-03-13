@@ -1,3 +1,11 @@
+/**
+* \file listview.h
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe ListView del package romeo::view::mainWindow
+*/
+
 #ifndef LISTVIEW_H
 #define LISTVIEW_H
 

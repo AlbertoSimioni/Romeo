@@ -14,6 +14,7 @@
 #include "protocolsexplorer.h"
 #include "datasetpanel.h"
 #include "filesystemexplorer.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -21,6 +22,12 @@ class MainWindow;
 namespace romeo{
 namespace view{
 namespace mainWindow {
+
+/*!
+ * \brief Questa classe rappresenta la finestra principale del programma con cui l'utente può interagire per eseguire le operazioni volute. È costituita da vari pannelli che permettono la gestione di tutti i dataset. Mette in comunicazione tra loro i vari pannelli, separandone le responsabilità singole.
+ *
+ * Fornisce le informazioni sui dataset e i protocolli aperti e visualizzati dall'utente. Gestisce le operazioni effettuate sul dataset attualmente aperto.
+ */
 class MainWindow : public QMainWindow
 {
     Q_OBJECT

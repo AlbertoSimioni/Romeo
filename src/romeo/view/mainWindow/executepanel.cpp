@@ -1,3 +1,11 @@
+/**
+* \file executepanel.cpp
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe ExecutePanel del package romeo::view::mainWindow
+*/
+
 #include "executepanel.h"
 #include "ui_executepanel.h"
 #include <QFileDialog>

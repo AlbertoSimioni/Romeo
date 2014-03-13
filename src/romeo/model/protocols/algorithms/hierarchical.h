@@ -18,9 +18,9 @@ namespace protocols{
 namespace algorithms{
 
 /**
- * \brief La classe Hierarchical da completare
+ * \brief Classe che rappresenta l'algoritmo di clustering Hierarchical. Questa classe è stata progettata seguendo il design pattern Object Adapter: la classe estende AbstractAlgorithm e adatta la firma dell'algoritmo Hierarchical contenuta nella classe CCluster. Inoltre la classe realizza il design pattern Singleton, poiché l'entità rappresentata non deve avere più di un'istanza.
  *
- * Descrizione dettagliata
+ * Mette a disposizione i metodi per eseguire l'algoritmo Hierarchical sui dati da analizzare.
  */
 
 

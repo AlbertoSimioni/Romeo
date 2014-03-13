@@ -11,12 +11,19 @@
 #include <QWidget>
 #include<QFileSystemModel>
 #include<src/romeo/model/inputformats.h>
+
 namespace Ui {
 class FileSystemExplorer;
 }
 namespace romeo {
 namespace view {
 namespace mainWindow {
+
+/*!
+ * \brief Widget che mostra il filesystem dell'utente, tale classe permette all'utente di fare drag \& drop dei file presenti nel suo file system per poter creare nuovi subject.
+ *
+ * Mette a disposizione dei metodi che consentono di fare il drag \& drop di file e di cambiare il filtro sull'estensione dei file che l'utente può visualizzare.
+ */
 class FileSystemExplorer : public QWidget
 {
     Q_OBJECT

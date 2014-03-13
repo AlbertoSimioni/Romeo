@@ -17,6 +17,12 @@ class ProtocolsExplorer;
 namespace romeo {
 namespace view {
 namespace mainWindow{
+
+/*!
+ * \brief Mostra all'utente la lista dei protocolli disponibili e permette di selezionarne uno da associare al dataset attualmente in uso.
+ *
+ * Reperisce la lista dei protocolli definiti dall'utente e restituisce le informazioni sul protocollo selezionato e da associare al dataset.
+ */
 class ProtocolsExplorer : public QWidget
 {
     Q_OBJECT
@@ -24,7 +30,9 @@ class ProtocolsExplorer : public QWidget
 public:
     explicit ProtocolsExplorer(QWidget *parent = 0);
     ~ProtocolsExplorer();
-
+    /*!
+     * \brief Ritorna la lista dei protocolli.
+     */
     romeo::model::protocols::ProtocolsList *getProtocolsList() const;
     void setProtocolsList(romeo::model::protocols::ProtocolsList *value);
 

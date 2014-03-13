@@ -1,8 +1,16 @@
+/**
+* \file datasetpanel.cpp
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe DatasetPanel del package romeo::view::mainWindow
+*/
+
 #include "datasetpanel.h"
 #include "ui_datasetpanel.h"
-
-#include <QDebug>
 #include <QFileInfo>
+#include <QMessageBox>
+
 using namespace romeo::view::mainWindow;
 using namespace romeo::model::datasets;
 DatasetPanel::DatasetPanel(QWidget *parent) :

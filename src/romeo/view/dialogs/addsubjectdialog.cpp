@@ -1,3 +1,11 @@
+/**
+* \file addsubjectdialog.cpp
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe AddSubjectDialog del package romeo::view::dialogs
+*/
+
 #include "addsubjectdialog.h"
 #include "ui_addsubjectdialog.h"
 #include <QFileDialog>

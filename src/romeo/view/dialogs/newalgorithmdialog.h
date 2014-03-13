@@ -1,5 +1,5 @@
 /**
-* \file addsubjectdialog.h
+* \file newalgorithmdialog.h
 * \author Alessandro Strenghetto
 * \date 2014-02-17
 **
@@ -21,7 +21,11 @@ namespace romeo{
 namespace view {
 namespace dialogs{
 
-
+/*!
+ * \brief Permette all'utente di inserire un nuovo algoritmo da poter utilizzare per l'analisi. L'utente può definirne le varie caratteristiche e i parametri che l'algoritmo potrà avere.
+ *
+ * Fornisce una finestra di dialogo da visualizzare quando l'utente vuole inserire un nuovo algoritmo e restituisce le informazioni inserite dall'utente come il numero e il tipo dei parametri e la descrizione dell'algoritmo.
+ */
 class NewAlgorithmDialog : public QDialog
 {
     Q_OBJECT

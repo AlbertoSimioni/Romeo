@@ -11,20 +11,17 @@
 #define PROTOCOLSLIST_H
 
 #include <QObject>
-
 #include "abstractprotocol.h"
 
 namespace romeo {
 namespace model {
 namespace protocols{
 
-
 /**
  * \brief La classe ProtocolsList contiene la lista dei protocolli definiti dall'utente e che sono stati caricati nell'applicazione.
  *
  * La classe si occupa della creazione e della distruzione dei protocolli caricati in memoria. La classe fornisce i metodi per inserire un nuovo protocollo, rimuoverne uno esistente o ottenere un riferimento a un protocollo.
  *
- * Descrizione dettagliata
  */
 class ProtocolsList : public QObject
 {

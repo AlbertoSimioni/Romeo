@@ -15,9 +15,9 @@ namespace model {
 namespace datasets{
 
 /**
- * \brief La classe AbstractSubject da completare
+ * \brief Classe che rappresenta un subject su cui sarà possibile effettuare le analisi. La classe memorizza la posizione nel file system del RawData relativo all'immagine da analizzare e all'eventuale mask associata.
  *
- * Descrizione dettagliata
+ * Contiene le informazioni comuni e necessarie a tutti i tipi di subject, inoltre definisce i metodi per la modifica e il reperimento di tali informazioni.
  */
 
 class AbstractSubject

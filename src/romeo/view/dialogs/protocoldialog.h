@@ -28,7 +28,12 @@ namespace romeo{
 namespace view{
 namespace dialogs{
 
-//DA SISTEMARE QUANDO VIENE APERTO PER LA MODIFICA DI UN PROTOCOLLO ESISTENTE e la visualizzazione di uno esistente
+
+/*!
+ * \brief Fornisce all'utente una finestra in cui può creare un nuovo protocollo inserendo la lista di feature da estrarre e l'eventuale algoritmo di clustering tra quelli disponibili con i rispettivi parametri da utilizzare.
+ *
+ * La classe fornisce metodi per reperire le informazioni inserite dall'utente riguardanti il protocollo creato, o se la creazione del protocollo è stata annullata.
+ */
 class ProtocolDialog : public QDialog
 {
     Q_OBJECT

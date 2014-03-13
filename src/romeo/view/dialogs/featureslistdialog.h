@@ -20,15 +20,17 @@ namespace romeo {
 namespace view {
 namespace dialogs {
 
-
+/*!
+ * \brief Consente all'utente di visualizzare la lista di tutte le feature e la relativa descrizione.	Mostra una finestra di dialogo, separata da quella principale, che visualizza la lista delle feature.
+ *
+ * Selezionando una feature verrà mostrata la realtiva descrizione.
+ */
 class FeaturesListDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit FeaturesListDialog(
-            romeo::model::protocols::features::FeaturesList *feats,
-                                QWidget *parent = 0);
+    explicit FeaturesListDialog(romeo::model::protocols::features::FeaturesList *feats, QWidget *parent = 0);
     ~FeaturesListDialog();
 private slots:
 

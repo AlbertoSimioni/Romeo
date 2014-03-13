@@ -1,3 +1,11 @@
+/**
+* \file listwidget.h
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe ListWidget del package romeo::view::mainWindow
+*/
+
 #ifndef LISTWIDGET_H
 #define LISTWIDGET_H
 

@@ -19,7 +19,13 @@ class AddSubjectDialog;
 namespace romeo {
 namespace view {
 namespace dialogs {
-// DA SISTEMARE LA PRESSIONE DELL'OK E IL SEGNALE PER CONTROLLARE LA VALIDITà DEL NOME E IL FILTRO PER L'INPUT
+// TODO DA SISTEMARE LA PRESSIONE DELL'OK E IL SEGNALE PER CONTROLLARE LA VALIDITà DEL NOME E IL FILTRO PER L'INPUT
+
+/*!
+ * \brief Mostra una finestra all'utente da cui può aggiungere un subject selezionando l'immagine corrispondente al suo data e l'eventuale maschera dal file system.
+ *
+ * Fornisce le informazioni sulle scelte dell'utente e notifica all'utente l'eventuale errato inserimento di immagini che non sono valide o corrispondenti al formato selezionato. Notifica inoltre l'eventuale errato inserimento di una maschera in caso essa abbia una dimensione non conforme a quella dell'immagine inserita per il campo data del subject.
+ */
 class AddSubjectDialog : public QDialog
 {
     Q_OBJECT
@@ -47,10 +53,7 @@ public slots:
      */
     virtual void reject();
 
-
-
 signals:
-
     /*!
      * \brief Segnala la modifica del nome del subject da parte dell'utente
      */

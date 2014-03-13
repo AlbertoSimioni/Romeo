@@ -18,9 +18,9 @@ namespace protocols{
 namespace algorithms{
 
 /**
- * \brief La classe FuzzyCMeans da completare
+ * \brief Classe che rappresenta l'algoritmo di clustering Fuzzy C Means. Questa classe è stata progettata seguendo il design pattern Object Adapter: FuzzyCMeans implementa la classe astratta AbstractAlgorithm e adatta la firma dell'algoritmo Fuzzy C Means contenuta nella classe CCluster. Inoltre la classe realizza il design pattern Singleton, poiché l'entità rappresentata non deve avere più di un'istanza.
  *
- * Descrizione dettagliata
+ * Mette a disposizione i metodi per eseguire l'algoritmo Fuzzy C Means sui dati da analizzare.
  */
 
 

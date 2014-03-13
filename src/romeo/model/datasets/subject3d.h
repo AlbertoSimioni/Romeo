@@ -16,9 +16,9 @@ namespace model {
 namespace datasets{
 
 /**
- * \brief La classe Subject3D da completare
+ * \brief Classe che rappresenta un subject con associata un'immagine 3D statica su cui sarà possibile effettuare le analisi.
  *
- * Descrizione dettagliata
+ * Contiene le informazioni proprie dei subject3D, e inoltre definisce i metodi per la modifica di tali informazioni.
  */
 
 class Subject3D : public AbstractSubject

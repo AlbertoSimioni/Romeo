@@ -20,6 +20,11 @@ namespace romeo {
 namespace view {
 namespace dialogs {
 
+/*!
+ * \brief Classe che rappresenta una finestra di dialogo che contiene la lista di tutti i protocolli che l'utente può associare al dataset corrente.
+ *
+ * Notifica tramite l'utilizzo di segnali l'associazione dei protocolli al dataset.
+ */
 class AssociateProtocolDialog : public QDialog
 {
     Q_OBJECT

@@ -18,8 +18,11 @@ namespace romeo{
 namespace view{
 namespace dialogs {
 
-
-//MANCA IL TASTO OK E CONTROLLER CHE NON RICEVE IL SEGNALE
+/*!
+ * \brief Fornisce all'utente una finestra per inserire le informazioni relative alla feature da inserire, come il percorso del file associato, il nome e la lista dei parametri.
+ *
+ * Permette di mostrare una finestra di dialogo quando l'utente richiede di aggiungere una feature al programma e di restituire le informazioni inserite dall'utente.
+ */
 class NewFeatureDialog : public QDialog
 {
     Q_OBJECT
@@ -27,8 +30,6 @@ class NewFeatureDialog : public QDialog
 public:
     explicit NewFeatureDialog(QWidget *parent = 0);
     ~NewFeatureDialog();
-
-
     /*!
      * \brief Se il flag é true viene mostrato un messaggio di errore per avvertire l'utente che il nome della feature inserita è già utilizzata,
      * se il flag é false nasconde il messaggio
@@ -42,8 +43,6 @@ public slots:
      */
     virtual void reject();
 
-
-
 signals:
 
     /*!
@@ -55,7 +54,6 @@ signals:
      * \brief Segnale emesso per avvertire la creazione da parte dell'utente di un nuovo feature extractor, contiene tutti i parametri inseriti dall'utente
      */
     void createFeature(QString name,QString desc, QString dyfn, QString dylp,romeo::model::protocols::features::FeatureType type);
-
 
 private slots:
 
@@ -79,20 +77,15 @@ private slots:
     void okButtonClicked();
 
 private:
-
-
     /*!
      * \brief Effettua le connessioni dei segnali inviati dai vari widget che compongono la classe NewFeatureDialog
      */
     void connectUI();
 
-
     /*!
      * \brief Svuota tutte le form del dialogo che l'utente ha modificato
      */
     void resetForms();
-
-
 
     Ui::NewFeatureDialog *ui;
 };

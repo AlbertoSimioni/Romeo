@@ -18,6 +18,12 @@ class ExecutePanel;
 namespace romeo{
 namespace view {
 namespace mainWindow{
+
+/*!
+ * \brief La classe fornisce all'utente le possibili operazioni per eseguire un protocollo oppure esportare i risultati ottenuti sul filesystem. L'utente in questo caso può decidere il formato e la cartella di esportazione dei dati.
+ *
+ * Segnala alle classi che la utilizzano le scelte dell'utente quando decide di eseguire un protocollo. Ha il compito di reperire le informazioni sull'andamento dell'analisi in corso e dei risultati ottenuti.
+ */
 class ExecutePanel : public QWidget
 {
     Q_OBJECT
@@ -25,8 +31,6 @@ class ExecutePanel : public QWidget
 public:
     explicit ExecutePanel(QWidget *parent = 0);
     ~ExecutePanel();
-
-
     /*!
      * \brief Cambia il riferimento al dataset corrente
      */

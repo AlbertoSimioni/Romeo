@@ -166,7 +166,7 @@ bool Writer::saveFeaturesList()
 {
     QString dataHome=ModelCore::getInstance()->getDataHome().path();
 
-     QFile file(dataHome.append("/features.xml"));
+    QFile file(dataHome.append("/features.xml"));
     if(!file.open(QFile::WriteOnly))
     {
         return false;

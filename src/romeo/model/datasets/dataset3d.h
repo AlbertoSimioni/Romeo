@@ -20,8 +20,6 @@ namespace datasets{
  * Contiene le informazioni proprie dei Dataset3D, e inoltre definisce i metodi per la modifica di tali informazioni
  */
 
-
-
 class Dataset3D : public AbstractDataset
 {
 public:

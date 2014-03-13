@@ -1,9 +1,18 @@
+/**
+* \file datasetexplorer.cpp
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe DatasetExplorer del package romeo::view::mainWindow
+*/
+
 #include "datasetsexplorer.h"
 #include "ui_datasetsexplorer.h"
-#include <QDebug>
+
 using namespace romeo::view::mainWindow;
 using namespace romeo::model::datasets;
 using namespace romeo::model;
+
 DatasetsExplorer::DatasetsExplorer(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::DatasetsExplorer)

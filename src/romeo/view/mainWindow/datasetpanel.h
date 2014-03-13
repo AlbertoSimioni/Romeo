@@ -14,7 +14,7 @@
 #include "protocolspanel.h"
 #include "executepanel.h"
 #include "subjectspanel.h"
-#include <QMessageBox>
+
 namespace Ui {
 class DatasetPanel;
 }
@@ -23,6 +23,10 @@ namespace romeo{
 namespace view{
 namespace mainWindow {
 
+/*!
+ * \brief DatasetPanel rappresenta la classe adibita alla gestione di un dataset. È costituita dai pannelli per la gestione dei subject, dei protocolli e dell'esecuzione dei protocolli sui subject selezionati.
+ * Mette in comunicazione tra loro i vari pannelli da cui è costituito, separandone le responsabilità singole. Segnala alle classi che la utilizzano le azioni effettuate dall'utente per la modifica del dataset o per l'esecuzione degli algoritmi.
+ */
 class DatasetPanel : public QWidget
 {
     Q_OBJECT
@@ -30,8 +34,6 @@ class DatasetPanel : public QWidget
 public:
     explicit DatasetPanel(QWidget *parent = 0);
     ~DatasetPanel();
-
-
     /*!
      * \brief Ritorna il riferimento al panello che mostra la lista dei protocolli associati al dataset corrente
      */
@@ -71,7 +73,6 @@ private:
      * \brief Riferimento al dataset attualmente attivo nella schermata
      */
     romeo::model::datasets::AbstractDataset* currentDataset;
-
 
     Ui::DatasetPanel *ui;
 };

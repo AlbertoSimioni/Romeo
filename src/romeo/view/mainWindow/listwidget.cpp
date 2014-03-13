@@ -1,6 +1,16 @@
+/**
+* \file listwidget.h
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe ListWidget del package romeo::view::mainWindow
+*/
+
+
 #include "listwidget.h"
 #include <QMimeData>
 #include <QDrag>
+
 using namespace romeo::view::mainWindow;
 ListWidget::ListWidget(QWidget *parent) :
     QListWidget(parent)

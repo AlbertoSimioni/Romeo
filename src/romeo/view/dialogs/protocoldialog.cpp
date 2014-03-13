@@ -1,8 +1,18 @@
+/**
+* \file protocoldialog.cpp
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe ProtocolDialog del package romeo::view::dialogs
+*/
+
+
 #include "protocoldialog.h"
 #include "ui_protocoldialog.h"
 #include <QList>
 #include <QDebug>
 #include <QMessageBox>
+
 using namespace romeo::model::protocols::algorithms;
 using namespace romeo::view::dialogs;
 using namespace romeo::model::protocols::features;

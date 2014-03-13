@@ -22,7 +22,7 @@ namespace dialogs{
 /*!
  * \brief La classe NewAlgorithmParameterForm è un widget che rappresenta un nuovo parametro da inserire.
  *
- * L'utente deve poter inserire il nome del parametro, il tipo del parametro e il valore di default di tale parametro
+ * L'utente deve poter inserire il nome del parametro, il tipo del parametro e il valore di default di tale parametro.
  */
 
 
@@ -33,7 +33,6 @@ class NewAlgorithmParameterForm : public QWidget
 public:
     explicit NewAlgorithmParameterForm(QWidget *parent = 0);
     ~NewAlgorithmParameterForm();
-
 
     /*!
      * \brief Ritorna true se il valore del parametro è valido rispetto al suo tipo

@@ -19,7 +19,11 @@ namespace romeo{
 namespace view {
 namespace dialogs{
 
-//MANCA PULSANTE OK
+/*!
+ * \brief Fornisce all'utente una finestra per inserire le informazioni relative al dataset che si sta definend, ovvero il nome del dataset e il tipo dei dati da cui sarà costituito.
+ *
+ * Permette di mostrare una finestra di dialogo quando l'utente richiede di aggiungere un dataset al programma e di restituire le informazioni inserite dall'utente.
+ */
 class NewDatasetDialog : public QDialog
 {
     Q_OBJECT
@@ -40,8 +44,6 @@ public slots:
      * e poi invocare il metodo reject() della classe QDialog per effettuare la chiusare del dialogo
      */
     virtual void reject();
-
-
 
 signals:
 
@@ -74,8 +76,6 @@ private:
      * \brief Effettua le connessioni dei segnali inviati dai vari widget che compongono la classe NewDatasetDialog
      */
     void connectUI();
-
-
     /*!
      * \brief Svuota tutte le form del dialogo che l'utente ha modificato
      */

@@ -23,7 +23,11 @@ namespace romeo {
 namespace view {
 namespace dialogs {
 
-
+/*!
+ * \brief Mostra all'utente le informazioni relative al progresso dell'analisi in corso. Inoltre, permette all'utente di scorrere e visualizzare le immagini estratte dal protocollo eseguito.	La classe deve reperire le informazioni sul progresso dell'analisi in corso e sulle immagini già processate.
+ *
+ * Utilizza delle librerie per visualizzare le immagini sullo schermo e permette all'utente di annullare l'applicazione del protocollo.
+ */
 class ExecuteDialog : public QDialog
 {
     Q_OBJECT
@@ -156,9 +160,6 @@ private:
      * \brief Numero di immagini da calcolare per subject
      */
     int nImagesPerSubject;
-
-
-
     vtkSmartPointer<vtkImageViewer2> image_view;
 
 };

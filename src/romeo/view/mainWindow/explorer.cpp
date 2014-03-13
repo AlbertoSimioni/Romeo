@@ -1,3 +1,11 @@
+/**
+* \file explorer.cpp
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe Explorer del package romeo::view::mainWindow
+*/
+
 #include "explorer.h"
 #include "ui_explorer.h"
 using namespace romeo::view::mainWindow;

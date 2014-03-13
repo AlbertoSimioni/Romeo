@@ -1,6 +1,13 @@
+/**
+* \file associateprotocoldialog.cpp
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe AssociateProtocolDialog del package romeo::view::dialogs
+*/
+
 #include "associateprotocoldialog.h"
 #include "ui_associateprotocoldialog.h"
-#include <QDebug>
 using namespace romeo::view::dialogs;
 using namespace romeo::model::protocols;
 AssociateProtocolDialog::AssociateProtocolDialog(ProtocolsList *pl, QWidget *parent) :

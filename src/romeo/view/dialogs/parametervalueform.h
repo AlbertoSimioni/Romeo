@@ -1,4 +1,4 @@
-    /**
+/**
 * \file parametervalueform.h
 * \author Alessandro Strenghetto
 * \date 2014-02-17
@@ -11,6 +11,7 @@
 
 #include <QWidget>
 #include <src/romeo/model/protocols/abstractprotocol.h>
+
 namespace Ui {
 class ParameterValueForm;
 }

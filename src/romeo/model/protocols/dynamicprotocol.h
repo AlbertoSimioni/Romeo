@@ -54,6 +54,7 @@ public:
      * \brief Ritorna un intero che indica la dimensione della GLCM(Gray Level Concurrency Matrix).
      */
     virtual int getDistanceToGlcm() const;
+
 };
 }}}
 #endif // DYNAMICPROTOCOL_H

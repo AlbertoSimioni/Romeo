@@ -1,3 +1,11 @@
+/**
+* \file featureslistdialog.cpp
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe FeaturesListDialog del package romeo::view::dialogs
+*/
+
 #include "featureslistdialog.h"
 #include "ui_featureslistdialog.h"
 using namespace romeo::view::dialogs;

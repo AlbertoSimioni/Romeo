@@ -12,6 +12,7 @@
 #include <QWidget>
 #include <src/romeo/model/datasets/datasetslist.h>
 #include <QTreeWidgetItem>
+
 namespace Ui {
 class DatasetsExplorer;
 }
@@ -20,6 +21,9 @@ namespace romeo{
 namespace view{
 namespace mainWindow{
 
+/*!
+ * \brief La classe permette all'utente di visualizzare i dataset utilizzabili, che possono essere aperti nella finestra principale.	Ottiene la lista dei dataset disponibili e invia le informazioni relative alle azioni compiute dall'utente sulla lista dei dataset.
+ */
 class DatasetsExplorer : public QWidget
 {
     Q_OBJECT
@@ -27,7 +31,6 @@ class DatasetsExplorer : public QWidget
 public:
     explicit DatasetsExplorer(QWidget *parent = 0);
     ~DatasetsExplorer();
-
     /*!
      * \brief Ritorna il riferimento alla lista dei dataset presente nel modello
      */

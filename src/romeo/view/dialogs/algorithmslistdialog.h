@@ -19,7 +19,11 @@ namespace romeo {
 namespace view {
 namespace dialogs {
 
-
+/*!
+ * \brief Consente all'utente di visualizzare la lista di tutti gli algoritmi di clustering e la relativa descrizione.
+ *
+ * Mostra una finestra di dialogo, separata da quella principale, che visualizza sulla sinistra la lista degli algoritmi di clustering e sulla destra la descrizione dell'algoritmo selezionato.
+ */
 class AlgorithmsListDialog : public QDialog
 {
     Q_OBJECT

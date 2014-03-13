@@ -18,9 +18,9 @@ namespace protocols{
 namespace algorithms{
 
 /**
- * \brief La classe KMeans da completare
+ * \brief Classe che rappresenta l'algoritmo di clustering K-Means. Questa classe è stata progettata seguendo il design pattern Object Adapter: KMeans implementa la classe astratta AbstractAlgorithm e adatta la firma dell'algoritmo K-Means contenuta nella classe CCluster. Inoltre la classe realizza il design pattern Singleton, poiché l'entità rappresentata non deve avere più di un'istanza.
  *
- * Descrizione dettagliata
+ * Mette a disposizione i metodi per eseguire l'algoritmo K-Means sui dati da analizzare.
  */
 
 

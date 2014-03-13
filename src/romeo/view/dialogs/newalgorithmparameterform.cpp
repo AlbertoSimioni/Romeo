@@ -1,3 +1,11 @@
+/**
+* \file newalgorithmparameterform.cpp
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe NewAlgorithmParameterForm del package romeo::view::dialogs
+*/
+
 #include "newalgorithmparameterform.h"
 #include "ui_newalgorithmparameterform.h"
 using namespace romeo::view::dialogs;
@@ -50,8 +58,6 @@ void NewAlgorithmParameterForm::checkValidity(){
     emit valueEntered();
 }
 
-
-
 QString NewAlgorithmParameterForm::getName(){
     return ui->valueLineEdit->text();
 }
@@ -63,8 +69,6 @@ AbstractAlgorithm::ParameterType NewAlgorithmParameterForm::getType(){
     if(type == "Boolean") return AbstractAlgorithm::BOOL;
     if(type == "Char") return AbstractAlgorithm::CHAR;
 }
-
-
 
 QString NewAlgorithmParameterForm::getDefault(){
     return ui->defaultLineEdit->text();

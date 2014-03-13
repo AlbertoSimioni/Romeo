@@ -1,3 +1,11 @@
+/**
+* \file protocolspanel.cpp
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe ProtocolsPanel del package romeo::view::mainWindow
+*/
+
 #include "protocolspanel.h"
 #include "ui_protocolspanel.h"
 #include <QDragEnterEvent>
@@ -7,6 +15,7 @@
 #include <QMimeData>
 #include <QDebug>
 #include <QDesktopServices>
+
 using namespace romeo::view::mainWindow;
 using namespace romeo::model::datasets;
 using namespace romeo::model::protocols;

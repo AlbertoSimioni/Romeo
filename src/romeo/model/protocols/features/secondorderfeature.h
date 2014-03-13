@@ -17,9 +17,9 @@ namespace features{
 
 
 /**
- * \brief La classe SecondOrderFeature da completare
+ * \brief Classe che rappresenta un feature extractor del secondo ordine applicabile su immagini statiche. Ogni istanza della classe rappresenta un diverso feature extractor e dovrà tenere traccia della libreria dinamica contenente la funzione che implementa il feature extractor.
  *
- * Descrizione dettagliata
+ * Questa classe eredita dalla classe AbstractStaticFeature e mette a disposizione i metodi per estrarre una feature del secondo ordine da un'immagine statica. In particolare la classe è in grado di calcolare la \underline{GLCM}.
  */
 class SecondOrderFeature : public AbstractStaticFeature
 {

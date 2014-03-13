@@ -1,3 +1,11 @@
+/**
+* \file subjectspanel.cpp
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe SubjectsPanel del package romeo::view::mainWindow
+*/
+
 #include "subjectspanel.h"
 #include "ui_subjectspanel.h"
 #include <QString>
@@ -10,6 +18,7 @@
 #include <QFileInfo>
 #include <QDebug>
 #include <QFontMetrics>
+
 using namespace romeo::view::mainWindow;
 using namespace romeo::model::datasets;
 
@@ -23,10 +32,8 @@ SubjectsPanel::SubjectsPanel(QWidget *parent) :
     ui->subjectsList->setHeaderLabels(QStringList()<< "Name"<<"Data"<<"Mask");
     ui->subjectsList->setColumnWidth(0,170);
 
-
     connectUI();
-
-    }
+}
 
 SubjectsPanel::~SubjectsPanel(){
         delete ui;

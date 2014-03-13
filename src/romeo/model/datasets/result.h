@@ -17,9 +17,9 @@ namespace model {
 namespace datasets{
 
 /**
- * \brief La classe Result da completare
+ * \brief Classe che rappresenta un risultato ottenuto eseguendo un protocollo su un subject. Ogni istanza della classe contiene un riferimento al percorso sul file system dell'immagine contenente il risultato.
  *
- * Descrizione dettagliata
+ * Mette a disposizione i metodi per ottenere le informazioni sul risultato (es. data di esecuzione e percorso ai risultati all'interno del file system dell'utente).
  */
 
 class Result

@@ -1,7 +1,17 @@
+/**
+* \file filesystemexplorer.cpp
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe FileSystemExplorer del package romeo::view::mainWindow
+*/
+
 #include "filesystemexplorer.h"
 #include "ui_filesystemexplorer.h"
+
 using namespace romeo::view::mainWindow;
 using namespace romeo::model;
+
 FileSystemExplorer::FileSystemExplorer(QWidget *parent) :
     QWidget(parent), currentInputFormat(TYPE2D),
     ui(new Ui::FileSystemExplorer)

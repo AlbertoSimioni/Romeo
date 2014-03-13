@@ -13,7 +13,6 @@ using namespace romeo::model::datasets;
 Result::Result(QDateTime execDate, QString pathToResult):
     executionDate(execDate), resultPath(pathToResult)
 {
-
 }
 
 Result::Result(QString pathToResult): resultPath(pathToResult)

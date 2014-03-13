@@ -1,8 +1,18 @@
+/**
+* \file mainwindow.cpp
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe MainWindow del package romeo::view::mainWindow
+*/
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+
 using namespace romeo::view::mainWindow;
 using namespace romeo::model::protocols;
 using namespace romeo::model::datasets;
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)

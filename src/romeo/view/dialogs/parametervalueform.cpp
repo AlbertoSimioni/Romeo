@@ -1,7 +1,17 @@
+/**
+* \file parametervalueform.cpp
+* \author Alessandro Strenghetto
+* \date 2014-02-17
+**
+* \brief Header della classe ParameterValueForm del package romeo::view::dialogs
+*/
+
 #include "parametervalueform.h"
 #include "ui_parametervalueform.h"
+
 using namespace romeo::view::dialogs;
 using namespace romeo::model::protocols::algorithms;
+
 ParameterValueForm::ParameterValueForm(AbstractAlgorithm::AlgorithmParameter parameter,QWidget *parent) :
     QWidget(parent), validValue(false),
     ui(new Ui::ParameterValueForm)

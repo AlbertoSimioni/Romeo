@@ -42,8 +42,6 @@ namespace protocols{
 class StaticProtocol : public AbstractProtocol
 {
 
-
-
 public:
     /*!
      * \brief Costruisce un nuovo protocollo di tipo statico con l''algoritmo e le features indicate.
@@ -87,19 +85,23 @@ public:
      */
     void setWindowSize(int value);
     /*!
-     *
+     * \brief Approssima il double ricevuto in input all'intero più vicino
      */
     static int roundToInt(double num);
     /*!
-     *
+     * \brief Metodo statico che normalizza i valori di un array di double tra 0 e 255
      */
     static int* normalize(double* array,int length);
     /*!
-     *
+     * \brief Prende la matrice in input result con numero di colonne nrows e ncols e ne ritorna la matrice trasposta
+     * \param result Matrice di cui fare la trasposta
+     * \param nrows Numero di righe della matrice di partenza
+     * \param ncols Numero di colonne della matrice di partenza
      */
     static double** transform(double** result,const int nrows,const int ncolumns);
     /*!
-     * Metodo template che ha il compito di leggere un immagine e caricarla in un array su cui è possibile l'esecuzione degli algoritmi. Per poter gestire sia immagini 2D che 3D viene istanziata con i tipi corretti ImageType e PointerType. Tramite queste primitive di itk è possibile scorrere le immagini in modo indipendente dal formato in cui sono state salvate.
+     * \brief Funzione template che prende in input un immagine caricata in un puntatore e la copia in un array di double. La funzione è template poichè e necessario conoscere il formato dell'immagine di origine per poterla iterare.
+     * \param input Puntatore all'immagine origine
      */
     template<typename PointerType,typename ImageType>
     double** readImage(PointerType input) {
@@ -119,7 +121,10 @@ public:
         return result;
     }
     /*!
-     *
+     * \brief Metodo per creare l'immagine in output a partire dall'array risultato di un esecuzione.
+     * \param outputIterator è l'itertaore dell'immagine in output.
+     * \param result è la matrice di double relativa al risultato.
+     * \param length è il numero di pixel dell'immagine
      */
     template<typename ImageType>
     void createImage(itk::ImageRegionIterator<ImageType> outputIterator,double** result,int length) {
@@ -144,7 +149,9 @@ public:
         delete[] blueValues;
     }
     /*!
-     *
+     * \brief Metodo che prende in input un puntatore a un'immagine maschera decodificata e ritorna un array di valori interi che la rappresentano.
+     * \param mask Puntatore all'immagine maschera decodificata.
+     * \param nrows Numero di righe dell'immagine di partenza.
      */
     template<typename MaskPointer,typename MaskType>
     int* getMask(MaskPointer mask,const int nrows) {
@@ -167,7 +174,10 @@ public:
         return maskArray;
     }
     /*!
-     * \brief createClusteringImage
+     * \brief Metodo che prende l'array rappresentante l'immagine da analizzare e la corrispondente maschera e si preoccupa di oscurare i pixel dell'immagine che sono impostati a zero nella maschera.
+     * \param output Immagine da restituire con i pixel correttamente oscurati.
+     * \param clusterid Array contentente l'immagine di input.
+     * \param maskArray Array contenente la maschera da applicare.
      */
     template<typename ImagePointer,typename ImageType,typename PixelType>
     void createClusteringImage(ImagePointer output,int* clusterid,int* maskArray) {
@@ -189,7 +199,9 @@ public:
         }
     }
     /*!
-     *
+     * \brief Metodo per la creazione di una immagine con pad di pixel a specchio
+     * \param input è l'immagine in input.
+     * \param pad è il numero di pixel di cui si vuole fare il pad (generalmente metà della taglia della finestra scorrevole).
      */
     template<typename ImagePointer,typename ImageType>
     ImagePointer createMirror(ImagePointer input,int pad) {
@@ -207,7 +219,8 @@ public:
         return mirror->GetOutput();
     }
     /*!
-     *
+     * \brief restituisce la regione di interesse relativa all'immagine con pad a specchio
+     * \param input L'immagine in input, non l'immagine specchiata
      */
     template<typename ImagePointer,typename ImageType>
     typename ImageType::RegionType getRegion(ImagePointer input) {
@@ -220,7 +233,10 @@ public:
         return outputRegion;
     }
     /*!
-     *
+     * \brief Metodo che ritorna la matrice GLCM per side effect tramite il parametro di input data
+     * \param image Immagine di input.
+     * \param data Riferimento alla GLCM da modificare.
+     * \param distance Distanza dalla GLCM necessario per il calcolo, di default a uno.
      */
     template<typename ImageType,typename PointerType>
     void getGLCM(PointerType image,int (&data)[4][4],const int distance = 1) {
@@ -264,7 +280,11 @@ public:
         }
     }
     /*!
-     *
+     * \brief Metodo template che applica un'operazione di estrazione di feature a un'immagine data in input e restituisce in output il risultato dell'operazione. La funzione prende come parametro la feature di primo ordine che si vuole estrarre.
+     * \param input L'immagine su cui eseguire l'analisi.
+     * \param output L'immagine risultato dell'operazione di estrazione.
+     * \param mask Maschera dell'immagine.
+     * \param feature Feature da applicare all'immagine.
      */
     template<typename ImagePointer,typename ImageType,typename SimplePointer,typename SimpleType>
     double** applyFirstOrderFeature(ImagePointer input,ImagePointer output,SimplePointer mask,romeo::model::protocols::features::FirstOrderFeature* feature) {
@@ -371,8 +391,14 @@ public:
         // ritorna gli array di double per l'algoritmo di clustering
         return result;
     }
+
     /*!
-     *
+     * \brief Metodo template che applica un'operazione di estrazione di feature a un'immagine data in input e restituisce in output il risultato dell'operazione. La funzione prende come parametro la feature di secondo ordine che si vuole estrarre.
+     * \param input L'immagine di input da analizzare.
+     * \param output L'immagine risultato dell'operazione di estrazione.
+     * \param mask Maschera dell'immagine.
+     * \param distance Parametro per indicare la distanza dalla GLCM con cui calcolare la feature.
+     * \param feature Feature da applicare all'immagine.
      */
     template<typename PointerType,typename ImageType,typename SimplePointerType,typename SimpleType>
     double** applySecondOrderFeature(PointerType input,PointerType output,SimplePointerType mask,int distance,romeo::model::protocols::features::SecondOrderFeature* feature) {
@@ -489,7 +515,11 @@ public:
         return result;
     }
     /*!
-     *
+     * \brief Metodo che esegue il protocollo sul subject passato in input. Il metodo è template perchè va istanziato con un valore intero indicante se l'immagine è 2D o 3D.
+     * \param subject Subject da analizzare
+     * \param path Percorso in cui salvare i risultati dell'operazione.
+     * \param saveFeatures Valore booleano che è true se si vogliono salvare su disco i risultati dell'estrazione di feature, false altrimenti.
+     * \param outputFormat Formato immagine con cui esportare i risultati dell'analisi
      */
     template<int dimensions>
     void templateExecute(romeo::model::datasets::AbstractSubject *subject,QString path,bool saveFeatures,QString outputFormat) {
