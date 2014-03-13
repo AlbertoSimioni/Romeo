@@ -40,6 +40,3 @@ void TestResult::getResultPath(){
 
     delete r;
 }
-
-//QTEST_MAIN(TestResult)
-

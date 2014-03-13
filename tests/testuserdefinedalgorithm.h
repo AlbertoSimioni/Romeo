@@ -2,7 +2,6 @@
 #define TESTUSERDEFINEDALGORITHM_H
 
 #include <QtTest>
-//#define private public
 #include <../src/romeo/model/protocols/algorithms/userdefinedalgorithm.h>
 
 using namespace romeo::model::protocols::algorithms;

@@ -2,13 +2,12 @@
 #define TESTSUBJECT3D_H
 
 #include <QtTest>
-//#define private public
 #include <../src/romeo/model/datasets/subject3d.h>
 
 using namespace romeo::model::datasets;
 
-#ifndef INPUTFORMAT_H
-#define INPUTFORMAT_H
+#ifndef INPUTFORMAT
+#define INPUTFORMAT
 Q_DECLARE_METATYPE(romeo::model::InputFormat);
 #endif
 

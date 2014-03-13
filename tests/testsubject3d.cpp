@@ -19,7 +19,5 @@ void TestSubject3D::getType(){
     romeo::model::datasets::Subject3D *s3d=new Subject3D(a,b,c);
     QFETCH(romeo::model::InputFormat,type);
     QCOMPARE(s3d->getType(),type);
+    delete s3d;
 }
-
-//QTEST_MAIN(TestSubject3D)
-

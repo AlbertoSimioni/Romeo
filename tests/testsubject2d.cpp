@@ -19,7 +19,5 @@ void TestSubject2D::getType(){
     romeo::model::datasets::Subject2D *s2d=new Subject2D(a,b,c);
     QFETCH(romeo::model::InputFormat,type);
     QCOMPARE(s2d->getType(),type);
+    delete s2d;
 }
-
-//QTEST_MAIN(TestSubject2D)
-

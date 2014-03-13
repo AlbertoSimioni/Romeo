@@ -7,12 +7,7 @@ TestProtocolsList::TestProtocolsList(QObject *parent) :
 
 
 void TestProtocolsList::getInstance(){
-    ProtocolsList *protList = new ProtocolsList(0);
-    QCOMPARE(protList->getInstance(0),protList->getInstance(0));
-    ProtocolsList *protList2 = new ProtocolsList(0);
-    QCOMPARE(protList2->getInstance(0),protList2->getInstance(protList));
-    ProtocolsList *protList3 = new ProtocolsList(0);
-    QCOMPARE(protList3->getInstance(protList),protList3->getInstance(0));
+    QCOMPARE(ProtocolsList::getInstance(),ProtocolsList::getInstance());
 }
 
 void TestProtocolsList::addRemoveGetProtocol(){
@@ -111,8 +106,7 @@ void TestProtocolsList::addRemoveGetProtocol(){
     protList->removeProtocol(notExistingProtName);
     QCOMPARE(spy.count(),5);
     QVERIFY(protList->getProtocol(notExistingProtName) == 0);
+
+    delete myAlg;
+    delete protList;
 }
-
-
-
-//QTEST_MAIN(TestProtocolsList)

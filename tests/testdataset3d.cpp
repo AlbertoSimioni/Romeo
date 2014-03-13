@@ -19,7 +19,7 @@ void TestDataset3D::makeSubject_data(){
 }
 
 void TestDataset3D::makeSubject(){
-    QString string ="a";
+    QString string ="dsname";
     Dataset3D *ds3d=new Dataset3D(string);
 
     QFETCH(QString,name);
@@ -30,6 +30,7 @@ void TestDataset3D::makeSubject(){
     QCOMPARE(sub->getName(),name);
     QCOMPARE(sub->getSubject(),fileSubject);
     QCOMPARE(sub->getMask(),mask);
+    delete ds3d;
 }
 
 void TestDataset3D::getType_data(){
@@ -39,13 +40,14 @@ void TestDataset3D::getType_data(){
 }
 
 void TestDataset3D::getType(){
-    QString string ="a";
+    QString string ="dsname";
     Dataset3D *ds3d=new Dataset3D(string);
 
     QFETCH(romeo::model::InputFormat,Type);
 
     QCOMPARE(ds3d->getType(),Type);
-    }
+    delete ds3d;
+}
 
 
 void TestDataset3D::getProtocolsType_data(){
@@ -55,14 +57,11 @@ void TestDataset3D::getProtocolsType_data(){
 }
 
 void TestDataset3D::getProtocolsType(){
-    QString string ="a";
+    QString string ="dsname";
     Dataset3D *ds3d=new Dataset3D(string);
 
     QFETCH(romeo::model::protocols::ProtocolType,Type);
 
     QCOMPARE(ds3d->getProtocolsType(),Type);
-    }
-
-
-//QTEST_MAIN(TestDataset3D)
-
+    delete ds3d;
+}

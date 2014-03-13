@@ -18,28 +18,7 @@ void TestAbstractDataset::createNewSubject(){
     QCOMPARE(spyMod.count(),1);
     delete ds2d;
 }
-/*
-void TestAbstractDataset::associateProtocol(){
-    QString name="NomeDataset";
-    Dataset2D *ds2d=new Dataset2D(name);
-    QString nomeP="NomeDataset";
-    QString desc="desc";
-    romeo::model::protocols::algorithms::AbstractAlgorithm * alg=new romeo::model::protocols::algorithms::FuzzyCMeans();
-    int clusterNum=2;
-    QList<QString> algParameters=0;
-    QList<romeo::model::protocols::features::AbstractFeature*> feat=0 ;
-    bool testProtocol=false;
-    QSignalSpy spyProtMod(ds2d, SIGNAL(protocolsModified()));
-    QSignalSpy spyMod(ds2d, SIGNAL(modified(QString)));
-    AbstractProtocol *protocol=new DynamicProtocol(nomeP,desc,alg,clusterNum,algParameters,feat,testProtocol);
 
-    ds2d->associateProtocol(protocol);
-    //controlla i segnali emessi
-    QCOMPARE(spyProtMod.count(),1);
-    QCOMPARE(spyMod.count(),1);
-    delete ds2d;
-}
-*/
 void TestAbstractDataset::getName(){
     QString name="name";
     Dataset2D *ds2d=new Dataset2D(name);
@@ -69,34 +48,6 @@ void TestAbstractDataset::getProtocolResults(){
     delete ds2d;
 }
 
-/*
-void getTypeString(){
-    void TestDataset2D::getProtocolsType_data(){
-        QTest::addColumn<romeo::model::protocols::ProtocolType>("Type");
-
-        QTest::newRow("dataset1")<<romeo::model::protocols::STATIC;
-    }
-
-    void TestDataset2D::getProtocolsType(){
-        QString string ="a";
-        Dataset2D *ds2d=new Dataset2D(string);
-
-        QFETCH(romeo::model::protocols::ProtocolType,Type);
-
-        QCOMPARE(ds2d->getProtocolsType(),Type);
-        }
-}
-*/
-/*void getSubjectList();
-void removeProtocolAssociation();
-void getAssociatedProtocolsList();
-void addResult();
-void getProtocolResults();
-void getResultPath();
-void getProtocol();
-void getProtocolList();
-void getSubject();
-void deleteSubject();*/
 void TestAbstractDataset::executeAnalysis(){
     Controller* controller = Controller::getInstance();
     features::FeaturesList *fl = features::FeaturesList::getInstance();
@@ -199,7 +150,3 @@ void TestAbstractDataset::executeAnalysis(){
     dataset2d->deleteSubject(secondSubjName);
     dataset2d->removeProtocolAssociation(staticProtName);
 }
-
-
-//QTEST_MAIN(TestAbstractDataset)
-

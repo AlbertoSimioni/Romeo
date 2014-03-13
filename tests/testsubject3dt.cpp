@@ -19,7 +19,5 @@ void TestSubject3DT::getType(){
     romeo::model::datasets::Subject3DT *s3dt=new Subject3DT(a,b,c);
     QFETCH(romeo::model::InputFormat,type);
     QCOMPARE(s3dt->getType(),type);
+    delete s3dt;
 }
-
-//QTEST_MAIN(TestSubject3DT)
-

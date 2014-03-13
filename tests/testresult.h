@@ -2,7 +2,6 @@
 #define TESTRESULT_H
 
 #include <QtTest>
-//#define private public
 #include <../src/romeo/model/datasets/result.h>
 
 using namespace romeo::model::datasets;

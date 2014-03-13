@@ -15,7 +15,7 @@ using namespace romeo::view::dialogs;
 using namespace romeo::model::protocols::features;
 using namespace romeo::model::protocols::algorithms;
 
-class TestProtocolDialog : public QObject // _LINE
+class TestProtocolDialog : public QObject
 {
     Q_OBJECT
 
@@ -33,10 +33,8 @@ private slots:
     void addFeature();
     void addButtonClicked();
     void removeButtonClicked();
-    //void fillFeaturesList();
-    //void fillAlgorithmsCombo();
+    void fillFeaturesList();
     void changeParametersForm();
-    //void checkParametersValidity();
     void checkEmpty();
     void checkWindowsSizeGLCM();
 };

@@ -200,10 +200,5 @@ void TestWriter::writeDatasetProtocols(){
 
     writer->writeDatasetProtocols(dataset3dt,xmlwriter);
 
-    //cosa testo??
-
     file.close();
 }
-
-
-//QTEST_MAIN(TestWriter)

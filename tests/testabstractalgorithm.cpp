@@ -52,7 +52,3 @@ void TestAbstractAlgorithm::getTypeString()
     QCOMPARE(expectedTypeString,param.getTypeString());
 
 }
-
-
-//QTEST_MAIN(TestAbstractAlgorithm)
-

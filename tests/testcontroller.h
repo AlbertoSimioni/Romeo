@@ -39,7 +39,6 @@ private slots:
     void checkAlgorithmName();
     void checkFeatureName();
     void checkDatasetName();
-    void checkSubjectName();
     void addProtocol();
 };
 

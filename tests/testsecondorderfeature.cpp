@@ -18,8 +18,5 @@ void TestSecondOrderFeature::secondOrderFeature(){
     QCOMPARE(dylp,df->getDynamicLibraryPath());
     QCOMPARE(dyfn,df->getDynamicFunctionName());
     QCOMPARE(SECONDORDER,df->getType());
+    delete df;
 }
-
-
-//QTEST_MAIN(TestSecondOrderFeature)
-

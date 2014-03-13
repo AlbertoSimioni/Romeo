@@ -18,8 +18,5 @@ void TestFirstOrderFeature::firstorderFeature(){
     QCOMPARE(dylp,df->getDynamicLibraryPath());
     QCOMPARE(dyfn,df->getDynamicFunctionName());
     QCOMPARE(FIRSTORDER,df->getType());
+    delete df;
 }
-
-
-//QTEST_MAIN(TestFirstOrderFeature)
-

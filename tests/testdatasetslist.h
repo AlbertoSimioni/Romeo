@@ -8,8 +8,8 @@
 
 
 using namespace romeo::model::datasets;
-#ifndef INPUTFORMAT_H
-#define INPUTFORMAT_H
+#ifndef INPUTFORMAT
+#define INPUTFORMAT
 Q_DECLARE_METATYPE(romeo::model::InputFormat)
 #endif
 

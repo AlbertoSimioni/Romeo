@@ -185,17 +185,16 @@ void TestProtocolDialog::removeButtonClicked(){
     delete pd;
 }
 
-/*void TestProtocolDialog::fillFeaturesList(){
+void TestProtocolDialog::fillFeaturesList(){
     AlgorithmsList *al = new AlgorithmsList();
     FeaturesList *fl = new FeaturesList();
     ProtocolDialog *pd = new ProtocolDialog(al,fl,0);
-    //pd->
+    pd->fillFeaturesList();
+    QCOMPARE(pd->ui->protocolFeaturesList->count(),0);
     delete al;
     delete fl;
     delete pd;
-}*/
-
-//void fillAlgorithmsCombo();
+}
 
 void TestProtocolDialog::changeParametersForm(){
     AlgorithmsList *al = new AlgorithmsList();
@@ -211,7 +210,6 @@ void TestProtocolDialog::changeParametersForm(){
     delete pd;
 }
 
-//void checkParametersValidity();
 void TestProtocolDialog::checkEmpty(){
     AlgorithmsList *al = new AlgorithmsList();
     FeaturesList *fl = new FeaturesList();
@@ -236,12 +234,9 @@ void TestProtocolDialog::checkWindowsSizeGLCM(){
 
     pd->checkWindowSizeGLCM();
 
-    //cosa testo???
+    QCOMPARE(pd->ui->next2->isEnabled(),true);
 
     delete al;
     delete fl;
     delete pd;
 }
-
-//QTEST_MAIN(TestProtocolDialog)
-

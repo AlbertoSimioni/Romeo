@@ -85,23 +85,7 @@ void TestStaticProtocol::setAlgorithmParameters(){
 
 void TestStaticProtocol::getFeaturesName(){
     StaticProtocol *sp = createProtocol();
-    /*QList<romeo::model::protocols::features::AbstractFeature*> feat;
-
-    QString name = "myfeat";
-    QString descr = "description";
-    QString dylp = "dylp";
-    QString dyfn = "dyfn";
-    romeo::model::protocols::features::FirstOrderFeature *df = new romeo::model::protocols::features::FirstOrderFeature(name,dylp,dyfn,descr);
-
-    feat.append(df);
-    QStringList list;
-    list.append(QString("myfeat"));
-    sp->setFeatures(feat);
-    QCOMPARE(list,sp->getFeaturesName());*/
 
     QStringList emptyList;
     QCOMPARE(emptyList,sp->getFeaturesName());
 }
-
-
-//QTEST_MAIN(TestStaticProtocol)

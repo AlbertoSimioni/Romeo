@@ -2,7 +2,6 @@
 #define TESTABSTRACTALGORITHM_H
 
 #include <QtTest>
-//#define private public
 #include <../src/romeo/model/protocols/algorithms/abstractalgorithm.h>
 
 using namespace romeo::model::protocols::algorithms;

@@ -18,8 +18,5 @@ void TestDynamicFeature::dynamicFeature(){
     QCOMPARE(dylp,df->getDynamicLibraryPath());
     QCOMPARE(dyfn,df->getDynamicFunctionName());
     QCOMPARE(DYNAMIC,df->getType());
+    delete df;
 }
-
-
-//QTEST_MAIN(TestDynamicFeature)
-

@@ -18,17 +18,16 @@ void TestExecuteDialog::showImage(){
     image.cd("tests");
     image.cd("images");
     exDialogTest1->showImage(image.absolutePath().append("/image.png"));
+    QCOMPARE(exDialogTest1->ui->widget->isHidden(),false);
+    delete exDialogTest1;
 
     ExecuteDialog *exDialogTest2=new ExecuteDialog(0);
     QString datasetName2="DatasetProva";
     romeo::model::datasets::AbstractDataset *dat3d=new romeo::model::datasets::Dataset3D(datasetName2);
     exDialogTest2->prepareAnalysis(dat3d,false,false,2,1,2);
     exDialogTest2->showImage(image.absolutePath().append("/image3d_K-means.nii"));
-  /*  delete exDialogTest2;
+    QCOMPARE(exDialogTest2->ui->widget->isHidden(),false);
     delete dat2d;
     delete dat3d;
-*/
+    delete exDialogTest2;
 }
-
-
-//QTEST_MAIN(TestExecuteDialog)

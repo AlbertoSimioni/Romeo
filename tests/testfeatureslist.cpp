@@ -7,12 +7,7 @@ TestFeaturesList::TestFeaturesList(QObject *parent) :
 
 
 void TestFeaturesList::getInstance(){
-    FeaturesList *featList = new FeaturesList(0);
-    QCOMPARE(featList->getInstance(0),featList->getInstance(0));
-    FeaturesList *featList2 = new FeaturesList(0);
-    QCOMPARE(featList2->getInstance(0),featList2->getInstance(featList));
-    FeaturesList *featList3 = new FeaturesList(0);
-    QCOMPARE(featList3->getInstance(featList),featList3->getInstance(0));
+    QCOMPARE(FeaturesList::getInstance(),FeaturesList::getInstance());
 }
 
 
@@ -31,7 +26,7 @@ void TestFeaturesList::getFeature_data(){
 
 void TestFeaturesList::getFeature()
 {
-    FeaturesList list(0);
+    FeaturesList *list = new FeaturesList();
     QFETCH(QString,featName);
         QFETCH(QString,featDescr);
         QFETCH(QString,featDylp);
@@ -48,12 +43,13 @@ void TestFeaturesList::getFeature()
         if(featType==DYNAMIC)
             feat = new DynamicFeature(featName,featDylp,featDyfn,featDescr);
 
-    list.addFeature(feat);
-    AbstractFeature *expectedFeat = list.getFeaturesList().last();
+    list->addFeature(feat);
+    AbstractFeature *expectedFeat = list->getFeaturesList().last();
 
-    AbstractFeature *extractedFeat = list.getFeature(featName);
+    AbstractFeature *extractedFeat = list->getFeature(featName);
 
     QCOMPARE(expectedFeat,extractedFeat);
+    delete list;
 }
 
 
@@ -73,18 +69,18 @@ void TestFeaturesList::addFeature_data()
 
 void TestFeaturesList::addFeature()
 {
-    FeaturesList list(0);
+    FeaturesList *list = new FeaturesList();
     QFETCH(QString,featName);
-    if(!list.getFeature(featName)){
+    if(!list->getFeature(featName)){
         QFETCH(QString,featDescr);
         QFETCH(QString,featDylp);
         QFETCH(QString,featDyfn);
         QFETCH(FeatureType,featType);
 
-        QSignalSpy spy(&list, SIGNAL(featuresListModified())); //controlla i segnali emessi
+        QSignalSpy spy(list, SIGNAL(featuresListModified())); //controlla i segnali emessi
 
-        list.addFeature(featName,featType,featDescr,featDylp,featDyfn);
-        AbstractFeature *extractedFeat = list.getFeaturesList().last(); //estraggo l'algoritmo appena aggiunto e controllo i suoi attributi
+        list->addFeature(featName,featType,featDescr,featDylp,featDyfn);
+        AbstractFeature *extractedFeat = list->getFeaturesList().last(); //estraggo l'algoritmo appena aggiunto e controllo i suoi attributi
 
         QCOMPARE(featName,extractedFeat->getName());
         QCOMPARE(featDescr,extractedFeat->getDescription());
@@ -93,6 +89,7 @@ void TestFeaturesList::addFeature()
         QCOMPARE(featType,extractedFeat->getType());
         QVERIFY(spy.count()<4);
     }
+    delete list;
 }
 
 void TestFeaturesList::addFeatureByCopy_data(){
@@ -109,9 +106,9 @@ void TestFeaturesList::addFeatureByCopy_data(){
 
 
 void TestFeaturesList::addFeatureByCopy(){
-    FeaturesList list(0);
+    FeaturesList *list = new FeaturesList();
     QFETCH(QString,featName);
-    if(!list.getFeature(featName)){
+    if(!list->getFeature(featName)){
         QFETCH(QString,featDescr);
         QFETCH(QString,featDylp);
         QFETCH(QString,featDyfn);
@@ -128,10 +125,10 @@ void TestFeaturesList::addFeatureByCopy(){
             feat = new DynamicFeature(featName,featDylp,featDyfn,featDescr);
 
 
-        QSignalSpy spy(&list, SIGNAL(featuresListModified())); //controlla i segnali emessi
+        QSignalSpy spy(list, SIGNAL(featuresListModified())); //controlla i segnali emessi
 
-        list.addFeature(feat);
-        AbstractFeature *extractedFeat = list.getFeaturesList().last(); //estraggo l'algoritmo appena aggiunto e controllo i suoi attributi
+        list->addFeature(feat);
+        AbstractFeature *extractedFeat = list->getFeaturesList().last(); //estraggo l'algoritmo appena aggiunto e controllo i suoi attributi
 
         QCOMPARE(featName,extractedFeat->getName());
         QCOMPARE(featDescr,extractedFeat->getDescription());
@@ -140,7 +137,5 @@ void TestFeaturesList::addFeatureByCopy(){
         QCOMPARE(featType,extractedFeat->getType());
         QVERIFY(spy.count()<4);
     }
+    delete list;
 }
-
-
-//QTEST_MAIN(TestFeaturesList)

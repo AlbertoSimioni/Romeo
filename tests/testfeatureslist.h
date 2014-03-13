@@ -11,8 +11,8 @@
 
 using namespace romeo::model::protocols::features;
 
-#ifndef FEATURETYPE_H
-#define FEATURETYPE_H
+#ifndef FEATURETYPE
+#define FEATURETYPE
 Q_DECLARE_METATYPE(FeatureType);
 #endif
 

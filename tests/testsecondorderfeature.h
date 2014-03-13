@@ -2,7 +2,6 @@
 #define TESTSECONDORDERFEATURE_H
 
 #include <QtTest>
-//#define private public
 #include <../src/romeo/model/protocols/features/secondorderfeature.h>
 
 using namespace romeo::model::protocols::features;

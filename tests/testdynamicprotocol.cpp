@@ -47,6 +47,9 @@ void TestDynamicProtocol::dynamicProtocol(){
     QCOMPARE(DYNAMIC,dp->getType());
     QCOMPARE(clusterNum,dp->getNClusters());
     QCOMPARE(algParameters,dp->getAlgorithmParameters());
+
+    delete myAlg;
+    delete dp;
 }
 
 void TestDynamicProtocol::setNClusters(){
@@ -54,6 +57,7 @@ void TestDynamicProtocol::setNClusters(){
     int clusterNum = 5;
     dp->setNClusters(clusterNum);
     QCOMPARE(clusterNum,dp->nClusters);
+    delete dp;
 }
 
 void TestDynamicProtocol::setAlgorithmParameters(){
@@ -63,28 +67,12 @@ void TestDynamicProtocol::setAlgorithmParameters(){
     algParameters.append(QString("param2"));
     dp->setAlgorithmParameters(algParameters);
     QCOMPARE(algParameters,dp->algorithmParameters);
+    delete dp;
 }
 
 void TestDynamicProtocol::getFeaturesName(){
     DynamicProtocol *dp = createProtocol();
-    /*QList<romeo::model::protocols::features::AbstractFeature*> feat;
-
-    QString name = "myfeat";
-    QString descr = "description";
-    QString dylp = "dylp";
-    QString dyfn = "dyfn";
-    romeo::model::protocols::features::FirstOrderFeature *df = new romeo::model::protocols::features::FirstOrderFeature(name,dylp,dyfn,descr);
-
-    feat.append(df);
-    QStringList list;
-    list.append(QString("myfeat"));
-    dp->setFeatures(feat);
-    QCOMPARE(list,dp->getFeaturesName());*/
-
     QStringList emptyList;
     QCOMPARE(emptyList,dp->getFeaturesName());
+    delete dp;
 }
-
-
-//QTEST_MAIN(TestDynamicProtocol)
-

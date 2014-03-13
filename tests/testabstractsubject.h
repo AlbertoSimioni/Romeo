@@ -2,7 +2,6 @@
 #define TESTABSTRACTSUBJECT_H
 
 #include <QtTest>
-//#define private public
 #include <../src/romeo/model/datasets/subject2d.h>
 
 using namespace romeo::model::datasets;

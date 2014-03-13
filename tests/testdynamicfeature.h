@@ -2,7 +2,6 @@
 #define TESTDYNAMICFEATURE_H
 
 #include <QtTest>
-//#define private public
 #include <../src/romeo/model/protocols/features/dynamicfeature.h>
 
 using namespace romeo::model::protocols::features;

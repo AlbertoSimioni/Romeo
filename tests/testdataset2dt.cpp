@@ -19,7 +19,7 @@ void TestDataset2DT::makeSubject_data(){
 }
 
 void TestDataset2DT::makeSubject(){
-    QString string ="a";
+    QString string ="ds2t";
     Dataset2DT *ds2dt=new Dataset2DT(string);
 
     QFETCH(QString,name);
@@ -30,6 +30,7 @@ void TestDataset2DT::makeSubject(){
     QCOMPARE(sub->getName(),name);
     QCOMPARE(sub->getSubject(),fileSubject);
     QCOMPARE(sub->getMask(),mask);
+    delete ds2dt;
 }
 
 void TestDataset2DT::getType_data(){
@@ -39,13 +40,14 @@ void TestDataset2DT::getType_data(){
 }
 
 void TestDataset2DT::getType(){
-    QString string ="a";
-    Dataset2DT *ds2d=new Dataset2DT(string);
+    QString string ="ds2t";
+    Dataset2DT *ds2dt=new Dataset2DT(string);
 
     QFETCH(romeo::model::InputFormat,Type);
 
-    QCOMPARE(ds2d->getType(),Type);
-    }
+    QCOMPARE(ds2dt->getType(),Type);
+    delete ds2dt;
+}
 
 
 void TestDataset2DT::getProtocolsType_data(){
@@ -55,13 +57,11 @@ void TestDataset2DT::getProtocolsType_data(){
 }
 
 void TestDataset2DT::getProtocolsType(){
-    QString string ="a";
+    QString string ="ds2t";
     Dataset2DT *ds2dt=new Dataset2DT(string);
 
     QFETCH(romeo::model::protocols::ProtocolType,Type);
 
     QCOMPARE(ds2dt->getProtocolsType(),Type);
-    }
-
-//QTEST_MAIN(TestDataset2DT)
-
+    delete ds2dt;
+}

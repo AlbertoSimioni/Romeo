@@ -2,7 +2,6 @@
 #define TESTFIRSTORDERFEATURE_H
 
 #include <QtTest>
-//#define private public
 #include <../src/romeo/model/protocols/features/firstorderfeature.h>
 
 using namespace romeo::model::protocols::features;

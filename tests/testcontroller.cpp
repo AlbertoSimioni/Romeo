@@ -108,10 +108,6 @@ void TestController::checkDatasetName(){
 
 }
 
-void TestController::checkSubjectName(){
-
-}
-
 void TestController::addProtocol(){
 
     Controller *controller = Controller::getInstance();
@@ -150,6 +146,3 @@ void TestController::addProtocol(){
     QVERIFY(protList->getProtocol(staticProtName) != false);
 
 }
-
-
-//QTEST_MAIN(TestController)

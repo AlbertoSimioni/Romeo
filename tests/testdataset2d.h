@@ -2,18 +2,17 @@
 #define TESTDATASET2D_H
 
 #include <QtTest>
-//#define private public
 #include <../src/romeo/model/datasets/dataset2d.h>
 
 using namespace romeo::model::datasets;
 
-#ifndef INPUTFORMAT_H
-#define INPUTFORMAT_H
+#ifndef INPUTFORMAT
+#define INPUTFORMAT
 Q_DECLARE_METATYPE(romeo::model::InputFormat);
 #endif
 
-#ifndef PROTOCOLTYPE_H
-#define PROTOCOLTYPE_H
+#ifndef PROTOCOLTYPE
+#define PROTOCOLTYPE
 Q_DECLARE_METATYPE(romeo::model::protocols::ProtocolType);
 #endif
 

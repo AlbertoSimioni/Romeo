@@ -5,7 +5,6 @@
 #define private public
 #include <../src/romeo/model/protocols/staticprotocol.h>
 #include <../src/romeo/model/protocols/algorithms/userdefinedalgorithm.h>
-//#include <../src/romeo/model/protocols/features/firstorderfeature.h>
 
 using namespace romeo::model::protocols;
 
