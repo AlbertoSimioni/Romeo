@@ -51,6 +51,9 @@ public:
     void prepareAnalysis(romeo::model::datasets::AbstractDataset *dataset,bool viewResults,bool viewFeatures,int numberSubjects,int nAlgorithms, int nFeatures);
 
 
+    romeo::model::datasets::AbstractDataset *getCurrentDataset() const;
+    void setCurrentDataset(romeo::model::datasets::AbstractDataset *value);
+
 signals:
     /*!
      * \brief Segnale emesso dal dialogo per avvertire il model di interrompere le analisi.

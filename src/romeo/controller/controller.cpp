@@ -256,9 +256,10 @@ void Controller::deleteCurrentDataset(){
     if(currentDataset != 0){
         AbstractDataset* nextDataset = datasetsList->getNextDataset(currentDataset);
         mainWindow->getDatasetPanel()->setCurrentDataset(nextDataset);
+
         datasetsList->deleteDataset(currentDataset);
-        //changeCurrentDataset(currentDataset->getName());
     }
+    executeDialog->setCurrentDataset(0);
 }
 
 

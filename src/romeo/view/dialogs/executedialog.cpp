@@ -359,3 +359,13 @@ void ExecuteDialog::showImage(QString pathToImage){
     }
 
 }
+romeo::model::datasets::AbstractDataset *ExecuteDialog::getCurrentDataset() const
+{
+    return currentDataset;
+}
+
+void ExecuteDialog::setCurrentDataset(romeo::model::datasets::AbstractDataset *value)
+{
+    currentDataset = value;
+}
+
