@@ -23,7 +23,7 @@ FileSystemExplorer::FileSystemExplorer(QWidget *parent) :
 
 
     ui->foldersView->setModel(dirModel);
-    ui->foldersView->setRootIndex(dirModel->setRootPath(QDir::homePath()));
+    ui->foldersView->setRootIndex(dirModel->setRootPath(QDir::rootPath()));
     ui->foldersView->hideColumn(1);
     ui->foldersView->hideColumn(2);
     ui->foldersView->hideColumn(3);

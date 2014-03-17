@@ -2,14 +2,14 @@
 <features>
     <feature>
         <name>Standard Deviation</name>
-        <description>Measures the dispersion of the data from the average</description>
+        <description>Measures the dispersion of the distribution from the average</description>
         <type>FIRSTORDER</type>
         <file>features/libfeatures</file>
         <functionName>feat_p1_std</functionName>
     </feature>
     <feature>
         <name>Mean</name>
-        <description>Describes the central location of the data</description>
+        <description>Locates the central location of the distribution</description>
         <type>FIRSTORDER</type>
         <file>features/libfeatures</file>
         <functionName>feat_p1_mean</functionName>
@@ -37,7 +37,7 @@
     </feature>
     <feature>
         <name>Correlation</name>
-        <description>Measures the dependence among gray-level co-occurence data</description>
+        <description>Measures the dependence among gray-level co-occurence data.</description>
         <type>SECONDORDER</type>
         <file>features/libfeatures</file>
         <functionName>feat_p2_corr</functionName>
@@ -58,7 +58,7 @@
     </feature>
     <feature>
         <name>Homogeneity</name>
-        <description>Assesses the sameness of gray-level co-occurrence values</description>
+        <description>Measures the sameness of gray-level co-occurrence values</description>
         <type>SECONDORDER</type>
         <file>features/libfeatures</file>
         <functionName>feat_p2_homo</functionName>
