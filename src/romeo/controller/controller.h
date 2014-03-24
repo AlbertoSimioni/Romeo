@@ -30,6 +30,8 @@
 #include<src/romeo/view/mainWindow/protocolspanel.h>
 #include<src/romeo/view/mainWindow/subjectspanel.h>
 #include<src/romeo/view/dialogs/associateprotocoldialog.h>
+#include<src/romeo/view/dialogs/helpdialog.h>
+#include<src/romeo/view/dialogs/aboutdialog.h>
 
 namespace romeo {
 namespace controller{
@@ -86,6 +88,14 @@ public slots:
      * \brief Slot pubblico che visualizza una nuova finestra di dialogo contenente un AssociateProtocolDialog.
      */
     void viewAssociateProtocolDialog();
+    /*!
+     * \brief Mostra il manuale utente in una finestra separata
+     */
+    void viewHelpDialog();
+    /*!
+     * \brief Mostra una finestra con le informazioni riguardanti l'applicazione
+     */
+    void viewAboutDialog();
 
     /*!
      * \brief Controlla se il nome del protocollo passato in input è già impegnato da un protocollo e in caso si preoccupa di
@@ -285,6 +295,16 @@ private:
       * \brief Riferimento al widget che mostra la lista dei protocolli che si possono associare al dataset corrente.
       */
      romeo::view::dialogs::AssociateProtocolDialog* associateProtocolDialog;
+     /*!
+      * \brief Puntatore alla finestra di dialogo
+      */
+     romeo::view::dialogs::HelpDialog* helpDialog;
+     /*!
+      * \brief Puntatore alla finestra con le informazioni sull'applicazione
+      */
+     romeo::view::dialogs::AboutDialog* aboutDialog;
+
+
 
      /*!
       * \brief Riferimento al widget che mostra la lista dei dataset del programma

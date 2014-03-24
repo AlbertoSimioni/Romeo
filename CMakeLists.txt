@@ -35,6 +35,8 @@ SET(romeo_SOURCES
  src/romeo/view/dialogs/newalgorithmdialog.cpp
  src/romeo/view/dialogs/newfeaturedialog.cpp
  src/romeo/view/dialogs/protocoldialog.cpp
+ src/romeo/view/dialogs/helpdialog.cpp
+ src/romeo/view/dialogs/aboutdialog.cpp
  src/romeo/view/mainWindow/datasetpanel.cpp
  src/romeo/view/mainWindow/datasetsexplorer.cpp
  src/romeo/view/mainWindow/executepanel.cpp
@@ -96,6 +98,8 @@ SET(romeo_HEADERS
  src/romeo/view/dialogs/newalgorithmdialog.h
  src/romeo/view/dialogs/newfeaturedialog.h
  src/romeo/view/dialogs/protocoldialog.h
+ src/romeo/view/dialogs/helpdialog.h
+ src/romeo/view/dialogs/aboutdialog.h
  src/romeo/view/mainWindow/datasetpanel.h
  src/romeo/view/mainWindow/datasetsexplorer.h
  src/romeo/view/mainWindow/executepanel.h
@@ -171,6 +175,8 @@ SET(romeo_FORMS
  src/romeo/view/dialogs/parametervalueform.ui
  src/romeo/view/dialogs/newalgorithmparameterform.ui
  src/romeo/view/dialogs/associateprotocoldialog.ui
+ src/romeo/view/dialogs/helpdialog.ui
+ src/romeo/view/dialogs/aboutdialog.ui
 )
 
 SET(romeo_RESOURCES src/immagini.qrc)
@@ -217,7 +223,7 @@ ADD_EXECUTABLE(romeo ${romeo_SOURCES}
     $<TARGET_OBJECTS:core2>
 )
 
-QT5_USE_MODULES(romeo Widgets Xml XmlPatterns Test)
+QT5_USE_MODULES(romeo Widgets Xml XmlPatterns Test WebKitWidgets)
 TARGET_LINK_LIBRARIES( romeo ${ITK_LIBRARIES}  ${VTK_LIBRARIES}  )
 
 set(features

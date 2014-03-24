@@ -89,9 +89,16 @@ signals:
      * \brief Segnale emesso alla pressione da parte dell'utente del tasto per l'eliminazione del protocollo correntemente selezionato
      */
     void deleteProtocol(QString protocolName);
+    /*!
+     * \brief Segnale emesso alla pressione del pulsante di Help presente sulla MainWindow
+     */
+    void openHelpDialog();
+    /*!
+     * \brief Segnale emesso alla pressione del pulsante di About presente sulla MainWindow
+     */
+    void openAboutDialog();
 
 private slots:
-
     /*!
      * \brief Slot che recupera il nome del protocollo correntemente selezionato e in caso emette il segnale deleteProtocol
      */

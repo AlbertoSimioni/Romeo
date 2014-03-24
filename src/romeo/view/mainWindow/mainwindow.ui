@@ -135,15 +135,36 @@ QHeaderView::section:checked
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QToolBar" name="toolBar">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>0</height>
+    </size>
+   </property>
+   <property name="baseSize">
+    <size>
+     <width>0</width>
+     <height>0</height>
+    </size>
+   </property>
    <property name="contextMenuPolicy">
     <enum>Qt::DefaultContextMenu</enum>
    </property>
    <property name="windowTitle">
     <string>toolBar</string>
    </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
    <property name="iconSize">
     <size>
-     <width>25</width>
+     <width>50</width>
      <height>25</height>
     </size>
    </property>
@@ -166,6 +187,9 @@ QHeaderView::section:checked
    <addaction name="actionAdd_Feature"/>
    <addaction name="actionAlgorithms_List"/>
    <addaction name="actionAdd_Algorithm"/>
+   <addaction name="separator"/>
+   <addaction name="actionHelp"/>
+   <addaction name="actionAbout"/>
   </widget>
   <action name="actionNew_Dataset">
    <property name="icon">
@@ -262,6 +286,27 @@ QHeaderView::section:checked
    </property>
    <property name="text">
     <string>Add Algorithm</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="icon">
+    <iconset resource="../../../immagini.qrc">
+     <normaloff>:/Images/Images/Help-icon.png</normaloff>:/Images/Images/Help-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Help</string>
+   </property>
+   <property name="toolTip">
+    <string>View the user manual for information</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="../../../immagini.qrc">
+     <normaloff>:/Images/Images/info.png</normaloff>:/Images/Images/info.png</iconset>
+   </property>
+   <property name="text">
+    <string>About</string>
    </property>
   </action>
  </widget>

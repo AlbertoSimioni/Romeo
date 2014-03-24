@@ -24,5 +24,11 @@
         <file>Images/AlgorithmsList.png</file>
         <file>Images/AddFeature.png</file>
         <file>Images/FeaturesList.png</file>
+        <file>Images/Help-icon.png</file>
+        <file>Images/Logo.png</file>
+        <file>Images/info.png</file>
+    </qresource>
+    <qresource prefix="/doc">
+        <file>doc/help.html</file>
     </qresource>
 </RCC>

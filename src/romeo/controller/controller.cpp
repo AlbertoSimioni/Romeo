@@ -11,6 +11,7 @@
 #include <QDebug>
 #include <src/romeo/model/inputformats.h>
 #include <QtConcurrent/QtConcurrent>
+#include <QtWebKitWidgets/QWebView>
 
 using namespace romeo::controller;
 using namespace romeo::view::mainWindow;
@@ -25,7 +26,7 @@ using namespace romeo::model;
 
 Controller* Controller::instance=0;
 
-Controller::Controller(QObject *parent): QObject(parent)
+Controller::Controller(QObject *parent): QObject(parent), helpDialog(0), aboutDialog(0)
 {
     modelCore = ModelCore::getInstance(this);
 
@@ -91,6 +92,8 @@ void Controller::connectViewsSignals(){
     connect(mainWindow,SIGNAL(openAlgorithmsListDialog()),this,SLOT(viewAlgorithmsListDialog()));
     connect(mainWindow,SIGNAL(openFeaturesListDialog()),this,SLOT(viewFeaturesListDialog()));
     connect(mainWindow,SIGNAL(openNewFeatureDialog()),this,SLOT(viewNewFeatureDialog()));
+    connect(mainWindow, SIGNAL(openHelpDialog()), this,SLOT(viewHelpDialog()));
+    connect(mainWindow,SIGNAL(openAboutDialog()),this,SLOT(viewAboutDialog()));
     connect(protocolDialog,SIGNAL(nameChanged(QString)),this,SLOT(checkProtocolName(QString)));
     connect(newAlgorithmDialog,SIGNAL(nameChanged(QString)),this,SLOT(checkAlgorithmName(QString)));
     connect(newFeatureDialog,SIGNAL(nameChanged(QString)),this,SLOT(checkFeatureName(QString)));
@@ -159,6 +162,22 @@ void Controller::viewAddSubjectDialog(){
 
 void Controller::viewAssociateProtocolDialog(){
     associateProtocolDialog->exec();
+}
+
+void Controller::viewHelpDialog()
+{
+    if(helpDialog == 0){
+        helpDialog=new HelpDialog(mainWindow);
+    }
+    helpDialog->exec();
+}
+
+void Controller::viewAboutDialog()
+{
+    if(aboutDialog == 0){
+        aboutDialog=new AboutDialog(mainWindow);
+    }
+    aboutDialog->exec();
 }
 
 void Controller::checkProtocolName(QString protocolName){

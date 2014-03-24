@@ -38,6 +38,8 @@ void MainWindow::connectActionsToSignal(){
     connect(ui->actionFeatures_List,SIGNAL(triggered()),this,SIGNAL(openFeaturesListDialog()));
     connect(ui->actionRemoveDataset,SIGNAL(triggered()),this,SIGNAL(deleteCurrentDataset()));
     connect(ui->actionProtocolRemove,SIGNAL(triggered()),this,SLOT(onDeleteProtocolClicked()));
+    connect(ui->actionHelp, SIGNAL(triggered()), this, SIGNAL(openHelpDialog()));
+    connect(ui->actionAbout, SIGNAL(triggered()),this,SIGNAL(openAboutDialog()));
 }
 
 
