@@ -3,6 +3,7 @@
 
 SET(romeoTest_SOURCES
 testparametervalueform.cpp
+testnewalgorithmdialog.cpp
 testnewfeaturedialog.cpp
 testnewdatasetdialog.cpp
 testprotocoldialog.cpp
@@ -38,6 +39,8 @@ testmain.cpp
   ../src/romeo/view/dialogs/newalgorithmdialog.cpp
   ../src/romeo/view/dialogs/newfeaturedialog.cpp
   ../src/romeo/view/dialogs/protocoldialog.cpp
+  ../src/romeo/view/dialogs/helpdialog.cpp
+  ../src/romeo/view/dialogs/aboutdialog.cpp
   ../src/romeo/view/mainWindow/datasetpanel.cpp
   ../src/romeo/view/mainWindow/datasetsexplorer.cpp
   ../src/romeo/view/mainWindow/executepanel.cpp
@@ -160,7 +163,7 @@ ADD_EXECUTABLE(romeoTest ${romeoTest_SOURCES}
     $<TARGET_OBJECTS:core2>
 )
 
-QT5_USE_MODULES(romeoTest Widgets Xml XmlPatterns Test)
+QT5_USE_MODULES(romeoTest Widgets Xml XmlPatterns Test WebKitWidgets)
 TARGET_LINK_LIBRARIES( romeoTest ${ITK_LIBRARIES}  ${VTK_LIBRARIES} )
 
 set(featuresTest

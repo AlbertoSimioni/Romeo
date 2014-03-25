@@ -39,7 +39,18 @@ private slots:
     void checkAlgorithmName();
     void checkFeatureName();
     void checkDatasetName();
+    //void viewNewProtocolDialog();
+    void checkSubjectName();
     void addProtocol();
+    void addAlgorithm();
+    void addFeature();
+    void addDataset();
+    void addSubject();
+    void deleteSubject();
+    void deleteProtocol();
+    void deleteCurrentDataset();
+    void associateProtocol();
+    void removeProtocolAssociation();
 };
 
 

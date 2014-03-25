@@ -3,6 +3,7 @@
 #include "ui_newalgorithmdialog.h"
 #include "ui_newfeaturedialog.h"
 #include "ui_newdatasetdialog.h"
+#include "ui_addsubjectdialog.h"
 
 TestController::TestController(QObject *parent) :
     QObject(parent){
@@ -43,6 +44,9 @@ void TestController::checkProtocolName(){
 
     controller->checkProtocolName(staticProtName);
     QCOMPARE(controller->protocolDialog->ui->next1->isEnabled(),false);
+
+    protList->removeProtocol(staticProtName);
+    delete myAlg;
 }
 
 void TestController::checkAlgorithmName(){
@@ -51,7 +55,7 @@ void TestController::checkAlgorithmName(){
     controller->checkAlgorithmName(QString("notExists"));
     QCOMPARE(controller->newAlgorithmDialog->ui->errorLabel->isHidden(),true);
 
-    QString algName = "algName";
+    QString algName = "algName2";
     QString algDescr = "algDescription";
     QList<algorithms::AbstractAlgorithm::AlgorithmParameter> paramList;
     QList<QString> algParameters;
@@ -64,11 +68,10 @@ void TestController::checkAlgorithmName(){
 
     algList->addAlgorithm(myAlg);
 
-
     controller->checkAlgorithmName(algName);
     QCOMPARE(controller->newAlgorithmDialog->ui->okCancel->button(QDialogButtonBox::Ok)->isEnabled(),false);
 
-
+    delete myAlg;
 }
 
 void TestController::checkFeatureName(){
@@ -87,7 +90,7 @@ void TestController::checkFeatureName(){
     controller->checkFeatureName(featName);
     QCOMPARE(controller->newFeatureDialog->ui->okCancel->button(QDialogButtonBox::Ok)->isEnabled(),false);
 
-
+    delete foFeat;
 }
 
 void TestController::checkDatasetName(){
@@ -105,7 +108,36 @@ void TestController::checkDatasetName(){
     controller->checkDatasetName(datasetName);
     QCOMPARE(controller->newDatasetDialog->ui->okCancel->button(QDialogButtonBox::Ok)->isEnabled(),false);
 
+    //list->deleteDataset(list->getDataset(datasetName));
+}
 
+void TestController::checkSubjectName(){
+
+    Controller *controller = Controller::getInstance();
+
+    DatasetsList *list = DatasetsList::getInstance();
+
+    QString datasetName = "mydataset2D";
+    list->addDataset(datasetName,romeo::model::TYPE2D);
+
+    Dataset2D *ds2d= dynamic_cast<Dataset2D*>(list->getDataset(datasetName));
+    QString subjName = "subjName";
+    QString subjFileSubject = "fileSubject";
+    QString subjMask = "subjMask";
+
+    controller->mainWindow->getDatasetPanel()->setCurrentDataset(ds2d);
+
+    controller->mainWindow->getDatasetPanel()->getCurrentDataset()->createNewSubject(subjName,subjFileSubject,subjMask);
+
+    controller->checkSubjectName(subjName);
+
+    QCOMPARE(controller->addSubjectDialog->ui->okCancel->button(QDialogButtonBox::Ok)->isEnabled(),false);
+
+    controller->mainWindow->getDatasetPanel()->getCurrentDataset()->deleteSubject(subjName);
+
+    controller->checkSubjectName(subjName);
+
+    QCOMPARE(controller->addSubjectDialog->ui->okCancel->button(QDialogButtonBox::Ok)->isEnabled(),true);
 }
 
 void TestController::addProtocol(){
@@ -115,7 +147,7 @@ void TestController::addProtocol(){
     controller->checkProtocolName(QString("notExists"));
     QCOMPARE(controller->protocolDialog->ui->errorLabel->isHidden(),true);
 
-    QString algName = "algName";
+    QString algName = "algName3";
     QString algDescr = "algDescription";
     QList<algorithms::AbstractAlgorithm::AlgorithmParameter> paramList;
     QList<QString> algParameters;
@@ -146,3 +178,134 @@ void TestController::addProtocol(){
     QVERIFY(protList->getProtocol(staticProtName) != false);
 
 }
+
+
+void TestController::addAlgorithm(){
+
+    Controller *controller = Controller::getInstance();
+
+    QString algName = "algName4";
+    QString algDescr = "algDescription";
+    QList<algorithms::AbstractAlgorithm::AlgorithmParameter> paramList;
+    QList<QString> algParameters;
+    int clusterNum = 1;
+    QString algDylp = "dylp";
+    QString algDyfn = "dyfn";
+
+    AlgorithmsList *algList = AlgorithmsList::getInstance();
+
+    controller->addAlgorithm(algName,algDescr,algDyfn,algDylp,paramList);
+
+    QCOMPARE(algList->getAlgorithm(algName)->getName(),algName);
+
+}
+
+void TestController::addFeature(){
+
+    Controller *controller = Controller::getInstance();
+
+    features::FeaturesList *list = features::FeaturesList::getInstance();
+
+    QString featName = "featName3";
+
+    controller->addFeature(featName,QString("fodescription"),QString("fodyfn"),QString("fodylp"),features::FIRSTORDER);
+
+    QCOMPARE(list->getFeature(featName)->getName(),featName);
+}
+
+void TestController::addDataset(){
+
+    Controller *controller = Controller::getInstance();
+
+    DatasetsList *list = DatasetsList::getInstance();
+
+    QString datasetName = "myDataset2D";
+    controller->addDataset(datasetName,romeo::model::TYPE2D);
+
+    QCOMPARE(list->getDataset(datasetName)->getName(),datasetName);
+
+    //list->deleteDataset(list->getDataset(datasetName));
+}
+
+void TestController::addSubject(){
+
+    Controller *controller = Controller::getInstance();
+
+    DatasetsList *list = DatasetsList::getInstance();
+
+    QString datasetName = "newDataset";
+    list->addDataset(datasetName,romeo::model::TYPE2D);
+
+    Dataset2D *ds2d = dynamic_cast<Dataset2D*>(list->getDataset(datasetName));
+    QString subjName = "subjName";
+    QString subjFileSubject = "fileSubject";
+    QString subjMask = "subjMask";
+
+    controller->mainWindow->getDatasetPanel()->setCurrentDataset(ds2d);
+
+    controller->addSubject(subjName,subjFileSubject,subjMask);
+
+    QCOMPARE(list->getDataset(datasetName)->getSubject(subjName)->getName(),subjName);
+    //list->deleteDataset(list->getDataset(datasetName));
+}
+
+void TestController::deleteSubject(){
+
+    Controller *controller = Controller::getInstance();
+
+    DatasetsList *list = DatasetsList::getInstance();
+
+    QString datasetName = "newDataset2";
+    list->addDataset(datasetName,romeo::model::TYPE2D);
+
+    Dataset2D *ds2d = dynamic_cast<Dataset2D*>(list->getDataset(datasetName));
+    QString subjName = "subjName2";
+    QString subjFileSubject = "fileSubject";
+    QString subjMask = "subjMask";
+
+    controller->mainWindow->getDatasetPanel()->setCurrentDataset(ds2d);
+
+    controller->mainWindow->getDatasetPanel()->getCurrentDataset()->createNewSubject(subjName,subjFileSubject,subjMask);
+
+    QCOMPARE(list->getDataset(datasetName)->subjects.isEmpty(),false);
+
+    controller->deleteSubject(subjName);
+
+    QCOMPARE(list->getDataset(datasetName)->subjects.isEmpty(),true);
+    //list->deleteDataset(list->getDataset(datasetName));
+
+}
+
+void TestController::deleteProtocol(){
+
+    Controller *controller = Controller::getInstance();
+
+}
+
+void TestController::deleteCurrentDataset(){
+
+    Controller *controller = Controller::getInstance();
+
+}
+
+void TestController::associateProtocol(){
+
+    Controller *controller = Controller::getInstance();
+
+}
+
+void TestController::removeProtocolAssociation(){
+
+    Controller *controller = Controller::getInstance();
+
+}
+
+
+/*void TestController::viewNewProtocolDialog(){
+    Controller *controller = Controller::getInstance();
+
+    controller->viewNewProtocolDialog();
+
+    QCOMPARE(controller->protocolDialog->result(),1);
+}
+*/

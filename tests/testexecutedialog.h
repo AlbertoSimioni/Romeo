@@ -11,6 +11,7 @@
 
 using namespace romeo::view::dialogs;
 using namespace romeo::model;
+using namespace romeo::model::datasets;
 
 class TestExecuteDialog : public QObject
 {
@@ -21,7 +22,14 @@ public:
 
 private slots:
     void showImage();
-
+    void analysisFinished();
+    void onNextClicked();
+    void onPreviousClicked();
+    void onCancelClicked();
+    void addResultImage();
+    void onNoFeatureClicked();
+    void onFeatureExtracted();
+    void onAlgorithmExecuted();
 };
 
 #endif // TESTEXECUTEDIALOG_H

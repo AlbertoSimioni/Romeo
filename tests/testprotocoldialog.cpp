@@ -149,16 +149,6 @@ void TestProtocolDialog::previousStep(){
     delete pd;
 }
 
-void TestProtocolDialog::addFeature(){
-    /*AlgorithmsList *al = new AlgorithmsList();
-    FeaturesList *fl = new FeaturesList();
-    ProtocolDialog *pd = new ProtocolDialog(al,fl,0);
-    pd->
-    delete al;
-    delete fl;
-    delete pd;*/
-}
-
 void TestProtocolDialog::addButtonClicked(){
     AlgorithmsList *al = new AlgorithmsList();
     FeaturesList *fl = new FeaturesList();
@@ -239,4 +229,75 @@ void TestProtocolDialog::checkWindowsSizeGLCM(){
     delete al;
     delete fl;
     delete pd;
+}
+
+void TestProtocolDialog::openExistingProtocol(){
+    AlgorithmsList *al = new AlgorithmsList();
+    FeaturesList *fl = new FeaturesList();
+    ProtocolDialog *pd = new ProtocolDialog(al,fl,0);
+
+    QString algName = "algName";
+    QString algDescr = "algDescription";
+    QList<AbstractAlgorithm::AlgorithmParameter> paramList;
+    QList<QString> algParameters;
+    int clusterNum = 1;
+    QString algDylp = "dylp";
+    QString algDyfn = "dyfn";
+    UserDefinedAlgorithm *myAlg = new UserDefinedAlgorithm(paramList,algName,algDescr,algDylp,algDyfn);
+
+
+    QString staticProtName = "staticProtName";
+    QString staticProtDescr = "staticProtDescription";
+    QList<romeo::model::protocols::features::AbstractFeature*> feat;
+    bool testStaticProtocol = false;
+    int staticProtWindow = 5;
+    int staticProtDistance = 2;
+
+    romeo::model::protocols::StaticProtocol *sp = new romeo::model::protocols::StaticProtocol(staticProtName,staticProtDescr,myAlg,clusterNum,algParameters,feat,testStaticProtocol,staticProtWindow,staticProtDistance);
+
+    pd->openExistingProtocol(sp);
+
+    QCOMPARE(pd->ui->protocolLineEdit->text(),staticProtName);
+
+    QString dynamicProtName = "dynamicProtName";
+    QString dynamicProtDescr = "dynamicProtDescription";
+    QList<romeo::model::protocols::features::AbstractFeature*> feat2;
+    bool testDynamicProtocol = true;
+
+    romeo::model::protocols::DynamicProtocol *dp = new romeo::model::protocols::DynamicProtocol(dynamicProtName,dynamicProtDescr,myAlg,clusterNum,algParameters,feat2,testDynamicProtocol);
+
+    pd->openExistingProtocol(dp);
+
+    QCOMPARE(pd->ui->protocolLineEdit->text(),dynamicProtName);
+
+    delete myAlg;
+    delete sp;
+    delete dp;
+    delete al;
+    delete fl;
+    delete pd;
+}
+
+void TestProtocolDialog::addFeature(){
+    AlgorithmsList *al = new AlgorithmsList();
+    FeaturesList *fl = new FeaturesList();
+    ProtocolDialog *pd = new ProtocolDialog(al,fl,0);
+
+    QListWidgetItem *lwi = new QListWidgetItem();
+
+    pd->addFeature(lwi);
+
+    QCOMPARE(pd->ui->protocolFeaturesList->row(lwi),-1);
+}
+
+void TestProtocolDialog::removeFeature(){
+    AlgorithmsList *al = new AlgorithmsList();
+    FeaturesList *fl = new FeaturesList();
+    ProtocolDialog *pd = new ProtocolDialog(al,fl,0);
+
+    QListWidgetItem *lwi = new QListWidgetItem();
+
+    pd->addFeature(lwi);
+    pd->removeFeature(lwi);
+    QCOMPARE(pd->ui->protocolFeaturesList->row(lwi),-1);
 }
