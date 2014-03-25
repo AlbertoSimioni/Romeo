@@ -16,6 +16,10 @@
   <property name="windowTitle">
    <string>ROMEO</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../../../immagini.qrc">
+    <normaloff>:/Images/Images/Logo.png</normaloff>:/Images/Images/Logo.png</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">
 

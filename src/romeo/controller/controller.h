@@ -55,6 +55,8 @@ public:
 
     ~Controller();
 
+    romeo::view::mainWindow::MainWindow *getMainWindow() const;
+
 public slots:
     /*!
      * \brief Slot pubblico che visualizza una nuova finestra di dialogo contenente un NewDatasetDialog.

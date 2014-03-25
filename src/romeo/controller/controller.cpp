@@ -119,6 +119,11 @@ void Controller::connectViewsSignals(){
     connect(protocolsExplorer,SIGNAL(openProtocol(QString)),this,SLOT(openProtocol(QString)));
     connect(protocolDialog,SIGNAL(modifyProtocol(QString,QString,QString,bool,QList<QString>,QString,romeo::model::protocols::ProtocolType,int,int,int,QList<QString>)),this,SLOT(modifyProtocol(QString,QString,QString,bool,QList<QString>,QString,romeo::model::protocols::ProtocolType,int,int,int,QList<QString>)));
 }
+romeo::view::mainWindow::MainWindow *Controller::getMainWindow() const
+{
+    return mainWindow;
+}
+
 
 Controller* Controller::getInstance(QObject *parent){
     if(instance == 0){
