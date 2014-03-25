@@ -126,7 +126,7 @@ void NewFeatureDialog::okButtonClicked(){
 
     if(typeName == "Dynamic"){
         type = DYNAMIC;
-        typedef double* (*MyPrototype)(int**data, const int numberOfPixel, int begin, int end);
+        typedef double* (*MyPrototype)(int**data, const int nrows, int begin, int end);
         MyPrototype myFunction =
                 (MyPrototype) QLibrary::resolve(dylp, dyfn.toStdString().c_str());
         if (myFunction){

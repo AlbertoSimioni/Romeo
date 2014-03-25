@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>913</width>
-    <height>445</height>
+    <width>1427</width>
+    <height>578</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -25,14 +25,6 @@
 
 QToolBar{background:rgb(215, 225, 255)}
 
-QHeaderView::section {
-    background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-                                      stop:0 #616161, stop: 0.5 #505050,
-                                      stop: 0.6 #434343, stop:1 #656565);
-    color: white;
-    padding-left: 4px;
-    border: 1px solid #6c6c6c;
-}
 
 QHeaderView::section:checked
 {
@@ -151,12 +143,6 @@ QHeaderView::section:checked
      <height>0</height>
     </size>
    </property>
-   <property name="baseSize">
-    <size>
-     <width>0</width>
-     <height>0</height>
-    </size>
-   </property>
    <property name="contextMenuPolicy">
     <enum>Qt::DefaultContextMenu</enum>
    </property>
@@ -168,8 +154,8 @@ QHeaderView::section:checked
    </property>
    <property name="iconSize">
     <size>
-     <width>50</width>
-     <height>25</height>
+     <width>53</width>
+     <height>27</height>
     </size>
    </property>
    <property name="toolButtonStyle">
@@ -311,6 +297,9 @@ QHeaderView::section:checked
    </property>
    <property name="text">
     <string>About</string>
+   </property>
+   <property name="toolTip">
+    <string>Informations about Romeo </string>
    </property>
   </action>
  </widget>

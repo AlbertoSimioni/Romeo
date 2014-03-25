@@ -14,8 +14,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">
- QFrame.SidebarFrame {
+   <string notr="true">QFrame.SidebarFrame {
 border-top-left-radius: 10px;
 border-top-right-radius: 10px;
 border: 1px solid black;
@@ -49,11 +48,13 @@ QListWidget::item:selected:!active,
 QTreeWidget::item:selected:!active {
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                 stop: 0 #ABAFE5, stop: 1 #8588B2);
+color:white;
 }
 QListWidget::item:selected:active,
 QTreeWidget::item:selected:active {
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                 stop: 0 #6a6ea9, stop: 1 #888dd9);
+color: white;
 }
 
 QListWidget::item:hover,

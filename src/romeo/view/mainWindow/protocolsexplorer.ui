@@ -69,26 +69,17 @@
           <property name="alternatingRowColors">
            <bool>false</bool>
           </property>
-          <item>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <attribute name="headerShowSortIndicator" stdset="0">
+           <bool>true</bool>
+          </attribute>
+          <column>
            <property name="text">
-            <string>Protocol 5</string>
+            <string/>
            </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Protocol 2</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Protocol1</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Test Protocol</string>
-           </property>
-          </item>
+          </column>
          </widget>
         </item>
        </layout>
@@ -138,7 +129,7 @@
  <customwidgets>
   <customwidget>
    <class>romeo::view::mainWindow::ListWidget</class>
-   <extends>QListWidget</extends>
+   <extends>QTreeWidget</extends>
    <header>src/romeo/view/mainWindow/listwidget.h</header>
   </customwidget>
  </customwidgets>

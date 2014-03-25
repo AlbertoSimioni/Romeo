@@ -117,7 +117,7 @@ void AddSubjectDialog::changeFilters(){
 
 void AddSubjectDialog::openBrowseMaskDialog(){
     QString fileName = QFileDialog::getOpenFileName(this,
-        tr("Select Data"), QDir::home().path(), currentFilters);
+        tr("Select Mask"), QDir::home().path(), currentFilters);
     if(!fileName.isNull())
         ui->pathMaskLineEdit->setText(fileName);
 }
@@ -125,7 +125,7 @@ void AddSubjectDialog::openBrowseMaskDialog(){
 
 void AddSubjectDialog::openBrowseDataDialog(){
     QString fileName = QFileDialog::getOpenFileName(this,
-        tr("Select Mask"), QDir::home().path(), currentFilters);
+        tr("Select Data"), QDir::home().path(), currentFilters);
     if(!fileName.isNull())
         ui->pathDataLineEdit->setText(fileName);
 }

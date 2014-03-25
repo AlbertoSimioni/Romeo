@@ -19,7 +19,7 @@ ProtocolsExplorer::ProtocolsExplorer(QWidget *parent) :
     ui->setupUi(this);
     ui->protocolsTable->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->protocolsTable->setDragEnabled(true);
-    connect(ui->protocolsTable,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(onItemDoubleClicked()));
+    connect(ui->protocolsTable,SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),this,SLOT(onItemDoubleClicked()));
 }
 
 ProtocolsExplorer::~ProtocolsExplorer()
@@ -50,8 +50,10 @@ void ProtocolsExplorer::fillProtocolsExplorer(){
             if(protocols[i]->getTest()){
                name.append("  [Test]");
             }
-            if(protocols[i]->getType() == currentProtocolsType)
-                ui->protocolsTable->addItem(name);
+            if(protocols[i]->getType() == currentProtocolsType){
+                QTreeWidgetItem *itm =new QTreeWidgetItem(ui->protocolsTable);
+                itm->setText(0,name);
+            }
 
         }
     }
@@ -66,10 +68,10 @@ void ProtocolsExplorer::setCurrentProtocolsType(const romeo::model::protocols::P
 
 
 QString ProtocolsExplorer::getSelectedProtocolName(){
-    QList<QListWidgetItem*> selectedProtocol = ui->protocolsTable->selectedItems();
+    QList<QTreeWidgetItem*> selectedProtocol = ui->protocolsTable->selectedItems();
     QString protocolName = QString();
     if(!selectedProtocol.isEmpty()){
-        protocolName = selectedProtocol.at(0)->text().split("  [Test").takeFirst();
+        protocolName = selectedProtocol.at(0)->data(0,Qt::EditRole).toString().split("  [Test").takeFirst();
     }
     return protocolName;
 }

@@ -40,16 +40,16 @@ void AlgorithmsListDialog::fillAlgorithmsList(){
     QList<AbstractAlgorithm*> algs =algorithms->getAlgorithmsList();
 
     for(int i = 0; i< algs.size();i++){
-        ui->algorithmsTable->addItem(algs[i]->getName());
+        QTreeWidgetItem *itm =new QTreeWidgetItem(ui->algorithmsTable);
+        itm->setText(0,algs[i]->getName());
     }
-
 }
 
 void AlgorithmsListDialog::showDescription(){
 
-    QList<QListWidgetItem*> selected =  ui->algorithmsTable->selectedItems();
+    QList<QTreeWidgetItem*> selected =  ui->algorithmsTable->selectedItems();
     if(!selected.isEmpty()){
-        QString algName =  selected.at(0)->text();
+        QString algName =  selected.at(0)->data(0,Qt::EditRole).toString();
         AbstractAlgorithm* algorithm =algorithms->getAlgorithm(algName);
         ui->descriptionText->setText(algorithm->getDescription());
     }

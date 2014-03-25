@@ -15,6 +15,7 @@
 #include <QCloseEvent>
 #include <QDebug>
 #include <QDir>
+#include <QMessageBox>
 
 //ITK
 
@@ -67,8 +68,28 @@ ExecuteDialog::~ExecuteDialog()
 }
 
 void ExecuteDialog::closeEvent(QCloseEvent *event) {
-    if(!ui->closeButton->isEnabled())
+    if(!ui->closeButton->isEnabled()){
         event->ignore(); // keep window
+        QMessageBox msgBox;
+        msgBox.setText("The analysis are executing.");
+        msgBox.setInformativeText("Clicking on the OK button will close the program");
+        msgBox.setStandardButtons(QMessageBox::Cancel| QMessageBox::Ok);
+        msgBox.setDefaultButton(QMessageBox::Cancel);
+        msgBox.setIcon(QMessageBox::Critical);
+        int ret = msgBox.exec();
+
+        switch (ret) {
+          case QMessageBox::Cancel:
+            event->ignore();
+              break;
+          case QMessageBox::Ok:
+        {
+            emit closeRomeo();
+        }
+              break;
+        }
+
+    }
     else
         event->accept();
 }

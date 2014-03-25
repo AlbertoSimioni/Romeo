@@ -101,9 +101,21 @@
         <property name="indentation">
          <number>0</number>
         </property>
+        <property name="sortingEnabled">
+         <bool>true</bool>
+        </property>
+        <property name="headerHidden">
+         <bool>false</bool>
+        </property>
         <property name="class" stdset="0">
          <string>SidebarInnerFrame</string>
         </property>
+        <attribute name="headerCascadingSectionResizes">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="headerShowSortIndicator" stdset="0">
+         <bool>true</bool>
+        </attribute>
         <column>
          <property name="text">
           <string>Name</string>
@@ -114,14 +126,6 @@
           <string>Type</string>
          </property>
         </column>
-        <item>
-         <property name="text">
-          <string>Dataset 1</string>
-         </property>
-         <property name="text">
-          <string>2D</string>
-         </property>
-        </item>
         <item>
          <property name="text">
           <string>PET Images</string>
@@ -136,6 +140,14 @@
          </property>
          <property name="text">
           <string>2D-t</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Dataset 1</string>
+         </property>
+         <property name="text">
+          <string>2D</string>
          </property>
         </item>
        </widget>

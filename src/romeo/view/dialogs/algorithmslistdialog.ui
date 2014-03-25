@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>472</width>
-    <height>338</height>
+    <width>423</width>
+    <height>378</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -57,7 +57,16 @@ font-size: 15px;
            </widget>
           </item>
           <item>
-           <widget class="QListWidget" name="algorithmsTable"/>
+           <widget class="QTreeWidget" name="algorithmsTable">
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+            <column>
+             <property name="text">
+              <string>Name</string>
+             </property>
+            </column>
+           </widget>
           </item>
           <item>
            <spacer name="verticalSpacer">
@@ -75,14 +84,14 @@ font-size: 15px;
          </layout>
         </item>
         <item>
-         <spacer name="horizontalSpacer_2">
+         <spacer name="verticalSpacer_3">
           <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+           <enum>Qt::Vertical</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>40</width>
-            <height>20</height>
+            <width>20</width>
+            <height>40</height>
            </size>
           </property>
          </spacer>

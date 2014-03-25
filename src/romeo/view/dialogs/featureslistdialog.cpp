@@ -39,16 +39,17 @@ void FeaturesListDialog::fillFeaturesList(){
     QList<AbstractFeature*> feats =features->getFeaturesList();
 
     for(int i = 0; i< feats.size();i++){
-        ui->featureTable->addItem(feats[i]->getName());
+        QTreeWidgetItem *itm =new QTreeWidgetItem(ui->featureTable);
+        itm->setText(0,feats[i]->getName());
     }
 
 }
 
 void FeaturesListDialog::showDescription(){
 
-    QList<QListWidgetItem*> selected =  ui->featureTable->selectedItems();
+    QList<QTreeWidgetItem*> selected =  ui->featureTable->selectedItems();
     if(!selected.isEmpty()){
-        QString featName =  selected.at(0)->text();
+        QString featName =  selected.at(0)->data(0,Qt::EditRole).toString();
         AbstractFeature* feature =features->getFeature(featName);
         FeatureType type = feature->getType();
         QString typeText;

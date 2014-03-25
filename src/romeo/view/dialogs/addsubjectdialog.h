@@ -19,7 +19,6 @@ class AddSubjectDialog;
 namespace romeo {
 namespace view {
 namespace dialogs {
-// TODO DA SISTEMARE LA PRESSIONE DELL'OK E IL SEGNALE PER CONTROLLARE LA VALIDITà DEL NOME E IL FILTRO PER L'INPUT
 
 /*!
  * \brief Mostra una finestra all'utente da cui può aggiungere un subject selezionando l'immagine corrispondente al suo data e l'eventuale maschera dal file system.

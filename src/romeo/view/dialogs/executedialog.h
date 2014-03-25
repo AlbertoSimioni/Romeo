@@ -60,6 +60,8 @@ signals:
      */
     void abortAnalysis();
 
+    void closeRomeo();
+
 private slots:
 
     /*!

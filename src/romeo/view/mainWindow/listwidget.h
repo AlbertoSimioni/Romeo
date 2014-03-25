@@ -9,7 +9,7 @@
 #ifndef LISTWIDGET_H
 #define LISTWIDGET_H
 
-#include <QListWidget>
+#include <QTreeWidget>
 namespace romeo{
 namespace view{
 namespace mainWindow {
@@ -17,7 +17,7 @@ namespace mainWindow {
 /*!
  * \brief Sottoclasse di QListWidget, necessaria per implementare la funzione di drag & drop
  */
-class ListWidget : public QListWidget
+class ListWidget : public QTreeWidget
 {
     Q_OBJECT
 public:
