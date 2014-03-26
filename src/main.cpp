@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 {
     QApplication romeoApp(argc, argv);
 
-    Controller* controller = Controller::getInstance();
+    DatasetsController* controller = DatasetsController::getInstance();
 
     int returnValue =romeoApp.exec();
     delete controller;

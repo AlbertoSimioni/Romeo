@@ -90,6 +90,11 @@ SET(romeo_SOURCES
  src/romeo/view/mainWindow/listwidget.cpp
  src/romeo/view/mainWindow/listview.cpp
  src/romeo/view/dialogs/associateprotocoldialog.cpp
+ src/romeo/controller/analysiscontroller.cpp
+ src/romeo/controller/protocolscontroller.cpp
+ src/romeo/controller/abouthelpcontroller.cpp
+ src/romeo/controller/featurescontroller.cpp
+ src/romeo/controller/algorithmscontroller.cpp
 )
 
 SET(romeo_HEADERS
@@ -152,6 +157,11 @@ SET(romeo_HEADERS
  src/romeo/view/mainWindow/listwidget.h
  src/romeo/view/mainWindow/listview.h
  src/romeo/view/dialogs/associateprotocoldialog.h
+ src/romeo/controller/analysiscontroller.h
+ src/romeo/controller/protocolscontroller.h
+ src/romeo/controller/abouthelpcontroller.h
+ src/romeo/controller/algorithmscontroller.h
+ src/romeo/controller/featurescontroller.h
 )
 
 SET(romeo_FORMS
