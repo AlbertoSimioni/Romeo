@@ -32,8 +32,10 @@ private:
     static int extracolor[3];
 };
 
-#endif // COLOR_H
 
 }
 }
 }
+
+#endif // COLOR_H
+
