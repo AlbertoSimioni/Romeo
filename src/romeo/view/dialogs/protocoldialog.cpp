@@ -34,6 +34,7 @@ ProtocolDialog::ProtocolDialog(
     ui->glcmLineEdit->setText("1");
     AbstractAlgorithm::AlgorithmParameter parameter("Number of clusters",AbstractAlgorithm::INT,"3");
     ParameterValueForm* parameterForm = new ParameterValueForm(parameter,this);
+    parameterForm->setToolTip("Insert the number of cluster to be calculated");
     connect(parameterForm,SIGNAL(valueEntered(bool)),this,SLOT(checkParametersValidity()));
     parameters.append(parameterForm);
     ui->parameterLayout->addWidget(parameterForm);

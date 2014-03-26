@@ -46,6 +46,9 @@ font-size: 15px;
      <layout class="QFormLayout" name="formLayout">
       <item row="0" column="0">
        <widget class="QLabel" name="label">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select a unique name for the feature&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>Feature name:</string>
         </property>
@@ -55,6 +58,9 @@ font-size: 15px;
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
          <widget class="QLineEdit" name="featureLineEdit">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select a unique name for the feature&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -71,16 +77,26 @@ font-size: 15px;
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="label_3">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Insert the name of the C++ function contained in the dynamic library&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>Function name:</string>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="functionLineEdit"/>
+       <widget class="QLineEdit" name="functionLineEdit">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Insert the name of the C++ function contained in the dynamic library&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
       </item>
       <item row="2" column="0">
        <widget class="QLabel" name="label_2">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the type of the feature (based on the images it can process)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>Type</string>
         </property>
@@ -88,6 +104,9 @@ font-size: 15px;
       </item>
       <item row="2" column="1">
        <widget class="QComboBox" name="comboBox">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the type of the feature (based on the images it can process)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <item>
          <property name="text">
           <string>Static First Order</string>
@@ -107,6 +126,9 @@ font-size: 15px;
       </item>
       <item row="3" column="0">
        <widget class="QLabel" name="label_6">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the dynamic link library file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>Path:</string>
         </property>
@@ -116,6 +138,9 @@ font-size: 15px;
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="QLineEdit" name="pathLineEdit">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the dynamic link library file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -146,13 +171,20 @@ font-size: 15px;
       </item>
       <item row="4" column="0">
        <widget class="QLabel" name="label_7">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Insert a description of the feature&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
         <property name="text">
          <string>Description:</string>
         </property>
        </widget>
       </item>
       <item row="4" column="1">
-       <widget class="QPlainTextEdit" name="descriptionText"/>
+       <widget class="QPlainTextEdit" name="descriptionText">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Insert a description of the feature&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
       </item>
       <item row="5" column="1">
        <widget class="QDialogButtonBox" name="okCancel">

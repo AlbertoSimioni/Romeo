@@ -42,7 +42,7 @@ border-radius: 8px;
    <item row="0" column="0">
     <widget class="QStackedWidget" name="Wizard">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="page">
       <layout class="QGridLayout" name="gridLayout_8">
@@ -67,13 +67,20 @@ font-size: 15px;
              <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,5,0,1">
               <item>
                <widget class="QLabel" name="label_16">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Insert a unique name for the protocol&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <property name="text">
                  <string>Name</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="protocolLineEdit"/>
+               <widget class="QLineEdit" name="protocolLineEdit">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Insert a unique name for the protocol&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
               </item>
               <item>
                <widget class="QLabel" name="errorLabel">
@@ -101,6 +108,9 @@ font-size: 15px;
              <layout class="QHBoxLayout" name="horizontalLayout_3">
               <item>
                <widget class="QLabel" name="label_17">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Static for analyzing images and dynamic for videos&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <property name="text">
                  <string>Data Type:</string>
                 </property>
@@ -111,6 +121,9 @@ font-size: 15px;
               </item>
               <item>
                <widget class="QComboBox" name="dataTypeCombo">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Static for analyzing images and dynamic for videos&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <item>
                  <property name="text">
                   <string>Static</string>
@@ -140,6 +153,9 @@ font-size: 15px;
             </item>
             <item>
              <widget class="QCheckBox" name="testCheck">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt; font-weight:400;&quot;&gt;Check to allow future modification of the protocol&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
               <property name="text">
                <string>Test</string>
               </property>
@@ -149,13 +165,20 @@ font-size: 15px;
              <layout class="QFormLayout" name="formLayout">
               <item row="0" column="0">
                <widget class="QLabel" name="label_18">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Insert a description for the protocol&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <property name="text">
                  <string>Description</string>
                 </property>
                </widget>
               </item>
               <item row="0" column="1">
-               <widget class="QTextEdit" name="textEdit"/>
+               <widget class="QTextEdit" name="textEdit">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Insert a description for the protocol&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>
@@ -535,6 +558,9 @@ font-size: 15px;
               </item>
               <item>
                <widget class="QPushButton" name="addButton">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add the selected feature to the protocol&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <property name="text">
                  <string>Add</string>
                 </property>
@@ -542,6 +568,9 @@ font-size: 15px;
               </item>
               <item>
                <widget class="QPushButton" name="removeButton">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Remove the feature on the right from the protocol&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <property name="text">
                  <string>Remove</string>
                 </property>
@@ -590,6 +619,9 @@ font-size: 15px;
                   <layout class="QFormLayout" name="formLayout_2">
                    <item row="0" column="0">
                     <widget class="QLabel" name="label_14">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the size for the window of pixels to be analyzed&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
                      <property name="text">
                       <string>Window Size</string>
                      </property>
@@ -597,6 +629,9 @@ font-size: 15px;
                    </item>
                    <item row="0" column="1">
                     <widget class="QComboBox" name="WindowSizeCombo">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the size for the window of pixels to be analyzed&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
                      <item>
                       <property name="text">
                        <string>3x3</string>
@@ -661,13 +696,20 @@ font-size: 15px;
                    </item>
                    <item row="1" column="0">
                     <widget class="QLabel" name="label_15">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Insert the value for the distance to the GLCM (only for second order features)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
                      <property name="text">
                       <string>Distance to the GLCM</string>
                      </property>
                     </widget>
                    </item>
                    <item row="1" column="1">
-                    <widget class="QLineEdit" name="glcmLineEdit"/>
+                    <widget class="QLineEdit" name="glcmLineEdit">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Insert the value for the distance to the GLCM (only for second order features)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </item>
@@ -901,13 +943,20 @@ font-size: 15px;
              <layout class="QHBoxLayout" name="horizontalLayout_5">
               <item>
                <widget class="QLabel" name="label_12">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Choose the clustering algorithm for the protocol&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
                 <property name="text">
                  <string>Select Algorithm:</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QComboBox" name="AlgorithmCombo"/>
+               <widget class="QComboBox" name="AlgorithmCombo">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Choose the clustering algorithm for the protocol&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
               </item>
               <item>
                <spacer name="horizontalSpacer">
