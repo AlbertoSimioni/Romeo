@@ -1,9 +1,10 @@
-#ifndef TESTCONTROLLER_H
-#define TESTCONTROLLER_H
+#ifndef TESTPROTOCOLSCONTROLLER_H
+#define TESTPROTOCOLSCONTROLLER_H
 
 #include <QtTest>
 #define private public
 #include <../src/romeo/controller/controller.h>
+#include <../src/romeo/controller/protocolscontroller.h>
 #include <../src/romeo/model/core/modelcore.h>
 #include <../src/romeo/model/datasets/datasetslist.h>
 #include <../src/romeo/model/datasets/dataset2d.h>
@@ -26,32 +27,21 @@ using namespace romeo::model::datasets;
 using namespace romeo::model::protocols;
 using namespace romeo::model::protocols::algorithms;
 
-class TestController : public QObject
+class TestProtocolsController : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit TestController(QObject *parent = 0);
+    explicit TestProtocolsController(QObject *parent = 0);
 
 private slots:
     void getInstance();
-      void checkProtocolName();
-      void checkAlgorithmName();
-      void checkFeatureName();
-    void checkDatasetName();
-    //void viewNewProtocolDialog();
-    void checkSubjectName();
+    void checkProtocolName();
     void addProtocol();
-      void addAlgorithm();
-      void addFeature();
-    void addDataset();
-    void addSubject();
-    void deleteSubject();
-      void deleteProtocol();
-    void deleteCurrentDataset();
-      void associateProtocol();
-      void removeProtocolAssociation();
+    void deleteProtocol();
+    void associateProtocol();
+    void removeProtocolAssociation();
 };
 
 
-#endif // TESTCONTROLLER_H
+#endif // TESTPROTOCOLSCONTROLLER_H

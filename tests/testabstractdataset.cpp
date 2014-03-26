@@ -49,7 +49,7 @@ void TestAbstractDataset::getProtocolResults(){
 }
 
 void TestAbstractDataset::executeAnalysis(){
-    Controller* controller = Controller::getInstance();
+    DatasetsController* controller = DatasetsController::getInstance();
     features::FeaturesList *fl = features::FeaturesList::getInstance();
 
     QDir dataHome = QDir::current();

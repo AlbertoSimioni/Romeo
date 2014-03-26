@@ -18,7 +18,7 @@ testsecondorderfeature.cpp
 testfeatureslist.cpp
 testwriter.cpp
 testuserdefinedalgorithm.cpp
-testcontroller.cpp
+testprotocolscontroller.cpp
 testnewalgorithmparameterform.cpp
 testprotocolspanel.cpp
 testcolor.cpp
@@ -89,6 +89,11 @@ testmain.cpp
   ../src/romeo/model/datasets/subject3d.cpp
   ../src/romeo/model/datasets/subject3dt.cpp
   ../src/romeo/controller/controller.cpp
+  ../src/romeo/controller/abouthelpcontroller.cpp
+  ../src/romeo/controller/algorithmscontroller.cpp
+  ../src/romeo/controller/analysiscontroller.cpp
+  ../src/romeo/controller/featurescontroller.cpp
+  ../src/romeo/controller/protocolscontroller.cpp
   ../src/romeo/view/dialogs/newdatasetdialog.cpp
   ../src/romeo/view/dialogs/featureslistdialog.cpp
   ../src/romeo/view/dialogs/algorithmslistdialog.cpp
