@@ -22,6 +22,7 @@ private slots:
     void showErrorName();
     void resetForms();
     void reject();
+    void checkForm();
 };
 
 #endif // TESTNEWFEATUREDIALOG_H

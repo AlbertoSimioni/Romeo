@@ -41,3 +41,16 @@ void TestNewFeatureDialog::reject(){
     QCOMPARE(nfd->ui->featureLineEdit->text().isEmpty(),true);
     delete nfd;
 }
+
+void TestNewFeatureDialog::checkForm(){
+    NewFeatureDialog *nfd = new NewFeatureDialog(0);
+    nfd->checkForm();
+    QCOMPARE(nfd->ui->okCancel->button(QDialogButtonBox::Ok)->isEnabled(),false);
+    nfd->ui->featureLineEdit->setText(QString("sampletext"));
+    nfd->ui->functionLineEdit->setText(QString("samplefunction"));
+    nfd->ui->pathLineEdit->setText(QString("samplepath"));
+    nfd->ui->errorLabel->setHidden(true);
+    nfd->checkForm();
+    QCOMPARE(nfd->ui->okCancel->button(QDialogButtonBox::Ok)->isEnabled(),true);
+    delete nfd;
+}

@@ -20,6 +20,8 @@ testwriter.cpp
 testuserdefinedalgorithm.cpp
 testcontroller.cpp
 testnewalgorithmparameterform.cpp
+testprotocolspanel.cpp
+testcolor.cpp
 testmain.cpp
  testdataset2d.cpp
  testdataset2dt.cpp

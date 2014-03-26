@@ -32,6 +32,7 @@
 #include "testnewalgorithmdialog.h"
 #include "testnewalgorithmparameterform.h"
 #include "testaddsubjectdialog.h"
+#include "testprotocolspanel.h"
 
 int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
     QApplication a(argc, argv);
@@ -131,6 +132,9 @@ int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
 
     TestAddSubjectDialog tasd;
     QTest::qExec(&tasd);
+
+    TestProtocolsPanel tpp;
+    QTest::qExec(&tpp);
 
     return 0;
 }
