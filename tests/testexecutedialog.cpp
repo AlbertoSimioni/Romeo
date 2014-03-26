@@ -188,3 +188,26 @@ void TestExecuteDialog::onAlgorithmExecuted(){
     delete exec;
 }
 
+void TestExecuteDialog::getCurrentDataset(){
+    ExecuteDialog *exec=new ExecuteDialog(0);
+    QString datasetName="DatasetProva";
+    Dataset2D *dat2d=new Dataset2D(datasetName);
+
+    exec->currentDataset = dat2d;
+    QCOMPARE(exec->getCurrentDataset(),dat2d);
+
+    delete dat2d;
+    delete exec;
+}
+
+void TestExecuteDialog::setCurrentDataset(){
+    ExecuteDialog *exec=new ExecuteDialog(0);
+    QString datasetName="DatasetProva";
+    Dataset2D *dat2d=new Dataset2D(datasetName);
+
+    exec->setCurrentDataset(dat2d);
+    QCOMPARE(exec->currentDataset,dat2d);
+
+    delete dat2d;
+    delete exec;
+}

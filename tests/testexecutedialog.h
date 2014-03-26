@@ -30,6 +30,8 @@ private slots:
     void onNoFeatureClicked();
     void onFeatureExtracted();
     void onAlgorithmExecuted();
+    void getCurrentDataset();
+    void setCurrentDataset();
 };
 
 #endif // TESTEXECUTEDIALOG_H

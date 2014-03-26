@@ -30,6 +30,8 @@
 #include "testabstractdataset.h"
 #include "testexecutedialog.h"
 #include "testnewalgorithmdialog.h"
+#include "testnewalgorithmparameterform.h"
+#include "testaddsubjectdialog.h"
 
 int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
     QApplication a(argc, argv);
@@ -123,6 +125,12 @@ int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
 
     TestNewAlgorithmDialog tnad;
     QTest::qExec(&tnad);
+
+    TestNewAlgorithmParameterForm tnapf;
+    QTest::qExec(&tnapf);
+
+    TestAddSubjectDialog tasd;
+    QTest::qExec(&tasd);
 
     return 0;
 }

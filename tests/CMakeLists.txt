@@ -19,6 +19,7 @@ testfeatureslist.cpp
 testwriter.cpp
 testuserdefinedalgorithm.cpp
 testcontroller.cpp
+testnewalgorithmparameterform.cpp
 testmain.cpp
  testdataset2d.cpp
  testdataset2dt.cpp
@@ -33,6 +34,7 @@ testmain.cpp
  testabstractsubject.cpp
  testabstractdataset.cpp
  testexecutedialog.cpp
+ testaddsubjectdialog.cpp
  ../src/romeo/view/dialogs/newdatasetdialog.ui
  ../src/romeo/view/dialogs/addsubjectdialog.cpp
  ../src/romeo/view/dialogs/executedialog.cpp
