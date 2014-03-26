@@ -95,6 +95,9 @@ font-weight: bold;
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
            <widget class="QToolButton" name="newButton">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add a subject to the current dataset&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="text">
              <string>New</string>
             </property>
@@ -110,6 +113,9 @@ font-weight: bold;
           </item>
           <item>
            <widget class="QToolButton" name="deleteButton">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Delete the selected subject from the dataset&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="toolTipDuration">
              <number>3</number>
             </property>

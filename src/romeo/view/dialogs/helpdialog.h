@@ -2,7 +2,7 @@
 #define HELPDIALOG_H
 
 #include <QScrollArea>
-#include <QtWebKitWidgets>
+#include <QtWebKitWidgets/QtWebKitWidgets>
 
 namespace Ui {
 class HelpDialog;

@@ -54,6 +54,9 @@ font-size: 15px;
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select a unique name for the Dataset&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
            <string>Name</string>
           </property>
@@ -63,6 +66,9 @@ font-size: 15px;
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
            <widget class="QLineEdit" name="nameLineEdit">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select a unique name for the Dataset&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -79,6 +85,9 @@ font-size: 15px;
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_2">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the image's type for the dataset&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
            <string>Type</string>
           </property>
@@ -88,6 +97,9 @@ font-size: 15px;
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
            <widget class="QComboBox" name="typeCombo">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the image's type for the dataset&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <item>
              <property name="text">
               <string>2D</string>

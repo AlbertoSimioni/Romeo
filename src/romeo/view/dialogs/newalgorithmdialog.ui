@@ -57,6 +57,9 @@ font-size: 15px;
         </property>
         <item row="0" column="0">
          <widget class="QLabel" name="label">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;Choose a name for the new algorithm&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
            <string>Algorithm name:</string>
           </property>
@@ -66,6 +69,9 @@ font-size: 15px;
          <layout class="QHBoxLayout" name="horizontalLayout_5">
           <item>
            <widget class="QLineEdit" name="algorithmLineEdit">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Choose a name for the new algorithm&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -82,16 +88,26 @@ font-size: 15px;
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_11">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Insert the name of the function written in the dynamic library&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
            <string>Function name</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="functionName"/>
+         <widget class="QLineEdit" name="functionName">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Insert the name of the function written in the dynamic library&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_6">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the path where the dynamic library is stored&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
            <string>Path:</string>
           </property>
@@ -101,6 +117,9 @@ font-size: 15px;
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
            <widget class="QLineEdit" name="pathLineEdit">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the path where the dynamic library is stored&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -131,13 +150,20 @@ font-size: 15px;
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_7">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Insert a description of the algorithm&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="text">
            <string>Description:</string>
           </property>
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QPlainTextEdit" name="descriptionText"/>
+         <widget class="QPlainTextEdit" name="descriptionText">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Insert a description of the algorithm&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -161,7 +187,7 @@ font-size: 15px;
              <x>0</x>
              <y>0</y>
              <width>666</width>
-             <height>156</height>
+             <height>157</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -173,7 +199,7 @@ font-size: 15px;
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,0,1">
+         <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,0,0,1">
           <item>
            <spacer name="horizontalSpacer">
             <property name="orientation">
@@ -189,9 +215,22 @@ font-size: 15px;
           </item>
           <item>
            <widget class="QToolButton" name="addParameterButton">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;Adds a new parameter to the algorithm&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="icon">
              <iconset resource="../../../immagini.qrc">
               <normaloff>:/Images/Images/add-1-icon.png</normaloff>:/Images/Images/add-1-icon.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;Adds a new parameter to the algorithm&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>Add Parameter</string>
             </property>
            </widget>
           </item>
