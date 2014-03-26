@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <DisplayName>feature</DisplayName>
+    <Description>Adds a set of default features to the application.</Description>
+</Package>

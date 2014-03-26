@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>ROMEO</Name>
+    <Version>1.0</Version>
+    <Title>ROMEO - Medical Image Cluster Analysis Tool - Installer Setup</Title>
+    <Publisher>HurryUp!</Publisher>
+    <StartMenuDir>Romeo</StartMenuDir>
+    <TargetDir>@RootDir@Romeo</TargetDir>
+</Installer>
