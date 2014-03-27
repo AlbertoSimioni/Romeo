@@ -63,4 +63,11 @@
         <file>features/libfeatures</file>
         <functionName>feat_p2_homo</functionName>
     </feature>
+    <feature>
+        <name>DynamicMean</name>
+        <description>Measures the mean value in an interval of frames</description>
+        <type>DYNAMIC</type>
+        <file>features/libfeatures</file>
+        <functionName>clust_par_mean</functionName>
+    </feature>
 </features>
