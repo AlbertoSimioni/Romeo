@@ -103,6 +103,8 @@ void ExecuteDialog::prepareAnalysis(romeo::model::datasets::AbstractDataset *dat
         disconnect(currentDataset,SIGNAL(analysisFinished()),this,SLOT(analysisFinished()));
         disconnect(currentDataset,SIGNAL(algorithmExecuted(QString)),this,SLOT(onAlgorithmExecuted(QString)));
         disconnect(currentDataset,SIGNAL(featureExtracted(QString)),this,SLOT(onFeatureExtracted(QString)));
+        disconnect(currentDataset,SIGNAL(analysisProblem(QString)),this,SLOT(onAnalysisProblem(QString)));
+
     }
 
 
@@ -117,6 +119,9 @@ void ExecuteDialog::prepareAnalysis(romeo::model::datasets::AbstractDataset *dat
 
     connect(currentDataset,SIGNAL(algorithmExecuted(QString)),this,SLOT(onAlgorithmExecuted(QString)));
     connect(currentDataset,SIGNAL(featureExtracted(QString)),this,SLOT(onFeatureExtracted(QString)));
+    connect(currentDataset,SIGNAL(analysisProblem(QString)),this,SLOT(onAnalysisProblem(QString)));
+
+
     clearDialog();
 
 }
@@ -386,6 +391,14 @@ romeo::model::datasets::AbstractDataset *ExecuteDialog::getCurrentDataset() cons
 {
     return currentDataset;
 }
+
+void ExecuteDialog::onAnalysisProblem(QString messageError){
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Critical);
+    msgBox.setText(messageError);
+    msgBox.exec();
+}
+
 
 void ExecuteDialog::setCurrentDataset(romeo::model::datasets::AbstractDataset *value)
 {

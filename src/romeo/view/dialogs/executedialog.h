@@ -112,6 +112,12 @@ private slots:
      */
     void onNoFeatureClicked();
 
+    /*!
+     * \brief Slot avviat quando le analisi in esecuzione segnalano un problema, mostra un messaggio di errore
+     * \param messageError Messaggio di errore da mostrare
+     */
+    void onAnalysisProblem(QString messageError);
+
 
 private:
 

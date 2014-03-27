@@ -18,6 +18,7 @@
 #include <QFileInfo>
 #include <QDebug>
 #include <QFontMetrics>
+#include <QMessageBox>
 
 using namespace romeo::view::mainWindow;
 using namespace romeo::model::datasets;
@@ -104,12 +105,14 @@ void SubjectsPanel::setCurrentDataset(AbstractDataset *dataset)
     if(currentDataset != 0){
         disconnect(currentDataset,SIGNAL(addedSubject(QString,QString,QString)),this,SLOT(AddSubject(QString,QString,QString)));
         disconnect(currentDataset,SIGNAL(removedSubject(QString)),this,SLOT(removeSubjectFromList(QString)));
+        disconnect(currentDataset,SIGNAL(invalidSubject(QString)),this,SLOT(onInvalidSubject(QString)));
     }
     currentDataset = dataset;
 
     if(currentDataset != 0){
         connect(currentDataset,SIGNAL(addedSubject(QString,QString,QString)),this,SLOT(AddSubject(QString,QString,QString)));
         connect(currentDataset,SIGNAL(removedSubject(QString)),this,SLOT(removeSubjectFromList(QString)));
+        connect(currentDataset,SIGNAL(invalidSubject(QString)),this,SLOT(onInvalidSubject(QString)));
     }
     fillSubjectsList();
 
@@ -167,3 +170,11 @@ QList<QString> SubjectsPanel::getCheckedSubjects(){
     return subjectsName;
 
 }
+
+void SubjectsPanel::onInvalidSubject(QString messageError){
+    QMessageBox msgBox;
+    msgBox.setIcon(QMessageBox::Critical);
+    msgBox.setText(messageError);
+    msgBox.exec();
+}
+

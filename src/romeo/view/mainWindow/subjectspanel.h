@@ -80,6 +80,12 @@ private slots:
      * \brief Slot avviato alla pressione del tasto delete, si preoccupa di recuperare il nome del subject correntemente selezionato e di emettere il segnale deleteSubject()
      */
     void onDeleteClicked();
+
+    /*!
+     * \brief Slot avviato quando il dataset corrente segnala che è stato inserito un subject non valido, mostra un messaggio di errore
+     * \param messageError messaggio di errore da mostrare
+     */
+    void onInvalidSubject(QString messageError);
 private:
     /*!
      * \brief Effettua le connessioni dei segnali inviati dai vari widget che compongono la classe SubjectsPanel
