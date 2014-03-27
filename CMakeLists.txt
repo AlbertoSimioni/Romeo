@@ -1,6 +1,7 @@
 project(ROMEO)
 cmake_minimum_required(VERSION 2.8)
-ENABLE_TESTING()
+
+enable_testing()
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 
 FIND_PACKAGE ( ITK REQUIRED)
@@ -225,15 +226,24 @@ set(algorithms
 add_library (core2 OBJECT ${algorithms})
 add_library (algorithms STATIC $<TARGET_OBJECTS:core2>)
 
+# Set some Win32 Specific Settings
+IF(WIN32)
+SET(GUI_TYPE WIN32)
+ENDIF(WIN32)
+# Set some Apple MacOS Specific settings
+IF (APPLE)
+SET(GUI_TYPE MACOSX_BUNDLE)
+ENDIF (APPLE)
 
-ADD_EXECUTABLE(romeo ${romeo_SOURCES}
+ADD_EXECUTABLE( romeo ${GUI_TYPE} ${romeo_SOURCES}
     #${romeo_HEADERS_MOC}
     ${romeo_FORMS_HEADERS}
     ${romeo_RESOURCES_RCC}
     $<TARGET_OBJECTS:core2>
 )
 
-QT5_USE_MODULES(romeo Widgets Xml XmlPatterns Test WebKitWidgets)
+
+QT5_USE_MODULES(romeo Widgets Xml XmlPatterns Test)
 TARGET_LINK_LIBRARIES( romeo ${ITK_LIBRARIES}  ${VTK_LIBRARIES}  )
 
 set(features

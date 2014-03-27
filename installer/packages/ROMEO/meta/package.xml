@@ -8,6 +8,4 @@
     <Licenses>
         <License name="GPL - License" file="license.txt" />
     </Licenses>
-    <Default>script</Default>
-    <Script>installscript.qs</Script>
 </Package>

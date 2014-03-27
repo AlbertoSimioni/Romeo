@@ -61,7 +61,7 @@ QHeaderView::section:checked
         <string notr="true"/>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <property name="movable">
         <bool>false</bool>
@@ -183,9 +183,8 @@ QHeaderView::section:checked
   </widget>
   <action name="actionNew_Dataset">
    <property name="icon">
-    <iconset>
-     <normalon>:/Images/Images/DatasetNew.jpg</normalon>
-    </iconset>
+    <iconset resource="../../../immagini.qrc">
+     <normaloff>:/Images/Images/DatasetNew.png</normaloff>:/Images/Images/DatasetNew.png</iconset>
    </property>
    <property name="text">
     <string>New Dataset</string>
@@ -197,7 +196,7 @@ QHeaderView::section:checked
   <action name="actionRemoveDataset">
    <property name="icon">
     <iconset resource="../../../immagini.qrc">
-     <normaloff>:/Images/Images/DatasetRemove.jpg</normaloff>:/Images/Images/DatasetRemove.jpg</iconset>
+     <normaloff>:/Images/Images/DatasetRemove.png</normaloff>:/Images/Images/DatasetRemove.png</iconset>
    </property>
    <property name="text">
     <string>Remove Dataset</string>

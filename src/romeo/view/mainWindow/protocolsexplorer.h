@@ -52,6 +52,8 @@ signals:
      * \brief Segnale inviato per notificare la volontà dell'utente di visualizzare un protocollo
      */
     void openProtocol(QString protocolName);
+    void associateProtocol(QString);
+    void deleteProtocol(QString);
 
 private slots:
 
@@ -61,6 +63,8 @@ private slots:
      * \brief onItemDoubleClicked
      */
     void onItemDoubleClicked();
+    void associateProtocol();
+    void deleteProtocol();
 
 private:
     Ui::ProtocolsExplorer *ui;

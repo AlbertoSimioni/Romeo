@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/Images">
-        <file>Images/DatasetNew.jpg</file>
+        <file>Images/DatasetNew.png</file>
         <file>Images/user_delete.png</file>
         <file>Images/user_add.png</file>
         <file>Images/users_add_from_other_dataset.png</file>
@@ -10,7 +10,7 @@
         <file>Images/start-icon.png</file>
         <file>Images/Folder_Icon.png</file>
         <file>Images/Forward Arrow.png</file>
-        <file>Images/DatasetRemove.jpg</file>
+        <file>Images/DatasetRemove.png</file>
         <file>Images/protocolNew.png</file>
         <file>Images/protocolDelete.png</file>
         <file>Images/vline.png</file>

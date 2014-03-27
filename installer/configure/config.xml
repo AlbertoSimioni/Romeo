@@ -6,4 +6,5 @@
     <Publisher>HurryUp!</Publisher>
     <StartMenuDir>Romeo</StartMenuDir>
     <TargetDir>@RootDir@Romeo</TargetDir>
+    <AllowSpaceInPath>true</AllowSpaceInPath>
 </Installer>

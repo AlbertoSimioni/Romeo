@@ -8,6 +8,7 @@
 
 #include "protocolsexplorer.h"
 #include "ui_protocolsexplorer.h"
+#include <QDebug>
 
 using namespace romeo::view::mainWindow;
 using namespace romeo::model::protocols;
@@ -20,6 +21,9 @@ ProtocolsExplorer::ProtocolsExplorer(QWidget *parent) :
     ui->protocolsTable->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->protocolsTable->setDragEnabled(true);
     connect(ui->protocolsTable,SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),this,SLOT(onItemDoubleClicked()));
+    connect(ui->protocolsTable->associateAction,SIGNAL(triggered()),this,SLOT(associateProtocol()));
+    connect(ui->protocolsTable->deleteProtocol,SIGNAL(triggered()),this,SLOT(deleteProtocol()));
+
 }
 
 ProtocolsExplorer::~ProtocolsExplorer()
@@ -80,4 +84,16 @@ QString ProtocolsExplorer::getSelectedProtocolName(){
 void ProtocolsExplorer::onItemDoubleClicked(){
     QString name = getSelectedProtocolName();
     emit openProtocol(name);
+}
+
+void ProtocolsExplorer::associateProtocol()
+{
+    QString name = getSelectedProtocolName();
+    emit associateProtocol(name);
+}
+
+void ProtocolsExplorer::deleteProtocol()
+{
+    QString name = getSelectedProtocolName();
+    emit deleteProtocol(name);
 }

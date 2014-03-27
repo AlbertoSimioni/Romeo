@@ -10,6 +10,8 @@
 #define LISTWIDGET_H
 
 #include <QTreeWidget>
+#include <QContextMenuEvent>
+
 namespace romeo{
 namespace view{
 namespace mainWindow {
@@ -22,12 +24,14 @@ class ListWidget : public QTreeWidget
     Q_OBJECT
 public:
     explicit ListWidget(QWidget *parent = 0);
+    QAction* associateAction;
+    QAction* deleteProtocol;
 protected:
     void startDrag(Qt::DropActions);
+    void contextMenuEvent(QContextMenuEvent *e);
 signals:
 
 public slots:
-
 };
 }}}
 #endif // LISTWIDGET_H

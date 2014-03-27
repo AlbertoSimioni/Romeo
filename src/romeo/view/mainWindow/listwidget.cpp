@@ -10,12 +10,17 @@
 #include "listwidget.h"
 #include <QMimeData>
 #include <QDrag>
+#include <QMenu>
+#include <QDebug>
+
 
 using namespace romeo::view::mainWindow;
 ListWidget::ListWidget(QWidget *parent) :
     QTreeWidget(parent)
 {
     this->setIndentation(0);
+    associateAction=new QAction("Associate to Dataset", this);
+    deleteProtocol=new QAction("Delete",this);
 }
 
 void ListWidget::startDrag(Qt::DropActions)
@@ -28,4 +33,14 @@ void ListWidget::startDrag(Qt::DropActions)
     QDrag *drag = new QDrag(this);
     drag->setMimeData(mimeData);
     drag->exec(Qt::MoveAction);
+}
+
+void ListWidget::contextMenuEvent(QContextMenuEvent *e){
+    QTreeWidgetItem* item=this->itemAt(e->pos());
+    if(item){
+        QMenu m(this);
+        m.addAction(associateAction);
+        m.addAction(deleteProtocol);
+        m.exec(e->globalPos());
+    }
 }
