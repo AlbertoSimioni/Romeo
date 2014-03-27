@@ -18,7 +18,6 @@ ListView::ListView(QWidget *parent) :
 {
     setSelectionMode(QAbstractItemView::ExtendedSelection);
     setDragEnabled(true);
-
 }
 void ListView::startDrag(Qt::DropActions)
 {
