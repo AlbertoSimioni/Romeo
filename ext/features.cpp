@@ -1,5 +1,16 @@
 #include "features.h"
 
+    /*FUNZIONE DI CONTROLLO */
+
+double check(double input) {
+    if(isnan(input))
+        return 0.0;
+    else
+        return input;
+}
+
+    /*FINE FUNZIONE DI CONTROLLO */
+
 	/* FEATURE PRIMO ORDINE */
 
 double feat_p1_mean(double* data,int size,int dimension) {
@@ -7,7 +18,7 @@ double feat_p1_mean(double* data,int size,int dimension) {
     double accum = 0.0;
     for(int i=0;i<nvol;i++)
         accum += data[i];
-    return accum/nvol;
+    return check(accum/nvol);
 }
 
 double feat_p1_std(double* data,int size,int dimension) {
@@ -16,7 +27,7 @@ double feat_p1_std(double* data,int size,int dimension) {
     double mean = feat_p1_mean(data,size,dimension);
     for(int i=0;i<nvol;i++)
         accum += pow(data[i]-mean,2);
-    return sqrt(accum/nvol);
+    return check(sqrt(accum/nvol));
 }
 
 double feat_p1_kurt(double* data,int size,int dimension) {
@@ -27,7 +38,7 @@ double feat_p1_kurt(double* data,int size,int dimension) {
 	for(int i=0;i<nvol;i++)
 		accum1 += pow(data[i]-mean,4);
 	double accum2 = accum1/nvol;
-	return ((accum2/pow(std,4))-3); 
+    return check((accum2/pow(std,4))-3);
 }
 
 double feat_p1_skew(double* data,int size,int dimension) {
@@ -38,7 +49,7 @@ double feat_p1_skew(double* data,int size,int dimension) {
 	for(int i=0;i<nvol;i++)
 		accum1 += pow(data[i]-mean,3);
 	double accum2 = accum1/nvol;
-	return accum2/pow(std,3);
+    return check(accum2/pow(std,3));
 }
 
 	/*FINE FEATURE PRIMO ORDINE */
@@ -53,7 +64,7 @@ double feat_p2_contr(int data[4][4]) {
             ct += data[i][j]*pow(i-j,2);
         }
     }
-    return ct;
+    return check(ct);
 }
 
 	//*FUNZIONI UTILIZZATE DA feat_p2_corr*//
@@ -130,7 +141,7 @@ double feat_p2_corr(int data[4][4]) {
 			}
 		}
 	}
-	return ct2;
+    return check(ct2);
 }
 
 double feat_p2_energy(int data[4][4]) {
@@ -140,7 +151,7 @@ double feat_p2_energy(int data[4][4]) {
 			ct += pow(data[i][j],2);
 		}
 	}
-	return ct;
+    return check(ct);
 }
 
 double feat_p2_entropy(int data[4][4]) {
@@ -151,7 +162,7 @@ double feat_p2_entropy(int data[4][4]) {
 				ct += data[i][j]*log(data[i][j]); 
 		}
 	}
-	return (-ct);
+    return check(-ct);
 }
 
 double feat_p2_homo(int data[4][4]) {
@@ -161,7 +172,21 @@ double feat_p2_homo(int data[4][4]) {
 			ct += data[i][j]*(1/(1+std::abs(i-j)));
 		}
 	}
-	return ct;
+    return check(ct);
 }
 
 	/*FINE FEATURE SECONDO ORDINE */
+
+    /*INIZIO FEATURE DINAMICHE */
+
+double* clust_par_mean(double** data,const int numberOfPixel,int begin,int end) {
+    // begin incluso, end incluso
+    double* result =new double[numberOfPixel];
+    for(int i=0;i<numberOfPixel;i++) {
+        double sum = 0.0;
+        for(int j=begin;j<=end;j++)
+            sum += data[i][j];
+        result[i] = sum/(end-begin+1);
+    }
+    return result;
+}
