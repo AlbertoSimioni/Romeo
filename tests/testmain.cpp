@@ -37,6 +37,10 @@
 #include "testfeaturescontroller.h"
 #include "testalgorithmscontroller.h"
 #include "testcolor.h"
+#include "testexecutepanel.h"
+#include "testfilesystemexplorer.h"
+#include "testprotocolsexplorer.h"
+#include "testmainwindow.h"
 
 int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
     QApplication a(argc, argv);
@@ -151,6 +155,18 @@ int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
 
     TestColor tc;
     QTest::qExec(&tc);
+
+    TestExecutePanel tep;
+    QTest::qExec(&tep);
+
+    TestFileSystemExplorer tfse;
+    QTest::qExec(&tfse);
+
+    TestProtocolsExplorer tpe;
+    QTest::qExec(&tpe);
+
+    TestMainWindow tmw;
+    QTest::qExec(&tmw);
 
     return 0;
 }

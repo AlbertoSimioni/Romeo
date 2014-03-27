@@ -3,6 +3,7 @@
 
 #include <QtTest>
 #define private public
+#include <../src/romeo/controller/controller.h>
 #include <../src/romeo/controller/protocolscontroller.h>
 #include <../src/romeo/model/protocols/protocolslist.h>
 #include <../src/romeo/model/datasets/dataset2d.h>

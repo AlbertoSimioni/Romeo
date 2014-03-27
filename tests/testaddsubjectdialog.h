@@ -22,6 +22,7 @@ private slots:
     void resetForms();
     void reject();
     void checkForm();
+    void changeFilters();
 };
 
 #endif // TESTADDSUBJECTDIALOG_H

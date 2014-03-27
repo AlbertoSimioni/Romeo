@@ -25,6 +25,10 @@ testalgorithmscontroller.cpp
 testnewalgorithmparameterform.cpp
 testprotocolspanel.cpp
 testcolor.cpp
+testexecutepanel.cpp
+testfilesystemexplorer.cpp
+testprotocolsexplorer.cpp
+testmainwindow.cpp
 testmain.cpp
  testdataset2d.cpp
  testdataset2dt.cpp

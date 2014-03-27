@@ -12,6 +12,7 @@ void TestProtocolsController::getInstance(){
 
 
 void TestProtocolsController::checkProtocolName(){
+    DatasetsController *controller = DatasetsController::getInstance();
     ProtocolsController *protocolscontroller = ProtocolsController::getInstance();
 
     protocolscontroller->checkProtocolName(QString("notExists"));
@@ -47,6 +48,7 @@ void TestProtocolsController::checkProtocolName(){
 
 
 void TestProtocolsController::addProtocol(){
+    DatasetsController *controller = DatasetsController::getInstance();
     ProtocolsController *protocolscontroller = ProtocolsController::getInstance();
 
     protocolscontroller->checkProtocolName(QString("notExists"));
@@ -85,6 +87,7 @@ void TestProtocolsController::addProtocol(){
 }
 
 void TestProtocolsController::deleteProtocol(){
+    DatasetsController *controller = DatasetsController::getInstance();
     ProtocolsController *protocolscontroller = ProtocolsController::getInstance();
 
     QString algName = "algName";
@@ -118,6 +121,7 @@ void TestProtocolsController::deleteProtocol(){
 }
 
 void TestProtocolsController::associateProtocol(){
+    DatasetsController *controller = DatasetsController::getInstance();
 
     ProtocolsController *protocolscontroller = ProtocolsController::getInstance();
 
@@ -157,6 +161,7 @@ void TestProtocolsController::associateProtocol(){
 }
 
 void TestProtocolsController::removeProtocolAssociation(){
+    DatasetsController *controller = DatasetsController::getInstance();
 
     ProtocolsController *protocolscontroller = ProtocolsController::getInstance();
 
@@ -203,6 +208,7 @@ void TestProtocolsController::removeProtocolAssociation(){
 
 
 void TestProtocolsController::modifyProtocol(){
+    DatasetsController *controller = DatasetsController::getInstance();
 
     ProtocolsController *protocolscontroller = ProtocolsController::getInstance();
 
