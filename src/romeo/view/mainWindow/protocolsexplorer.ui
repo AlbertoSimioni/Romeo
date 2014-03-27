@@ -63,6 +63,9 @@
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
          <widget class="romeo::view::mainWindow::ListWidget" name="protocolsTable">
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Drag the protocol to the dataset's protocol to associate it&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
           <property name="dragEnabled">
            <bool>true</bool>
           </property>

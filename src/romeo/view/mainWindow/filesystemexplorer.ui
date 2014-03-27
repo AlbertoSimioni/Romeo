@@ -38,7 +38,11 @@ font-weight: bold;
        <bool>false</bool>
       </attribute>
      </widget>
-     <widget class="romeo::view::mainWindow::ListView" name="filesView"/>
+     <widget class="romeo::view::mainWindow::ListView" name="filesView">
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Drag an image and  mask to add a subject&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
     </widget>
    </item>
   </layout>
