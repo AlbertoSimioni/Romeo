@@ -81,8 +81,8 @@ font-size: 14px;
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>20</width>
-          <height>116</height>
+          <width>0</width>
+          <height>0</height>
          </size>
         </property>
        </spacer>

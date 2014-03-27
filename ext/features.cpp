@@ -3,7 +3,7 @@
     /*FUNZIONE DI CONTROLLO */
 
 double check(double input) {
-    if(isnan(input))
+    if(std::isnan(input))
         return 0.0;
     else
         return input;
