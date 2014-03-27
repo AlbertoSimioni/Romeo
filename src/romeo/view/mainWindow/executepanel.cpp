@@ -9,6 +9,7 @@
 #include "executepanel.h"
 #include "ui_executepanel.h"
 #include <QFileDialog>
+#include <QSettings>
 
 using namespace romeo::view::mainWindow;
 using namespace romeo::model;
@@ -61,11 +62,16 @@ void ExecutePanel::setCurrentDataset(romeo::model::datasets::AbstractDataset *da
 
 
 void ExecutePanel::onBrowseButtonClicked(){
+    QSettings settings;
+    QString resultsPath = settings.value("resultsPath").toString();
+
     QString dir = QFileDialog::getExistingDirectory(this, tr("Results Directory"),
-                                                     "/home",
+                                                     resultsPath,
                                                      QFileDialog::ShowDirsOnly
                                                      | QFileDialog::DontResolveSymlinks);
 
+
+    settings.setValue("resultsPath",dir);
     ui->resultLineEdit->setText(dir);
 }
 

@@ -29,3 +29,9 @@ InputFormat Dataset2DT::getType(){
 ProtocolType Dataset2DT::getProtocolsType(){
     return DYNAMIC;
 }
+
+
+
+QString Dataset2DT::checkSubject(QString &fileSubject, QString &mask){
+
+}

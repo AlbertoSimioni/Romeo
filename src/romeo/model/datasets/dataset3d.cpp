@@ -29,3 +29,9 @@ InputFormat Dataset3D::getType(){
 ProtocolType Dataset3D::getProtocolsType(){
     return STATIC;
 }
+
+
+
+QString Dataset3D::checkSubject(QString &fileSubject, QString &mask){
+
+}

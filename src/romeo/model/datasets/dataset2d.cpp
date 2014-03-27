@@ -27,3 +27,9 @@ InputFormat Dataset2D::getType(){
 ProtocolType Dataset2D::getProtocolsType(){
     return STATIC;
 }
+
+
+
+QString Dataset2D::checkSubject(QString &fileSubject, QString &mask){
+
+}

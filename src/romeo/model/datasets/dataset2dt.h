@@ -44,6 +44,8 @@ public:
      * \brief Ritorna il tipo dei protocolli associati al dataset, che per i Dataset2DT è "DYNAMIC".
      */
     virtual romeo::model::protocols::ProtocolType getProtocolsType();
+
+    virtual QString checkSubject(QString &fileSubject, QString &mask);
 };
 }}}
 #endif // DATASET2DT_H
