@@ -115,7 +115,9 @@ private:
      */
     romeo::model::InputFormat currentInputFormat;
 
-    QString currentFilters;
+    QString currentFiltersData;
+
+    QString currentFiltersMask;
 
     Ui::AddSubjectDialog *ui;
 };

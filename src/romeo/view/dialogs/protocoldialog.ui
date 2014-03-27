@@ -959,6 +959,16 @@ font-size: 15px;
                </widget>
               </item>
               <item>
+               <widget class="QLabel" name="warningAlgorithm">
+                <property name="styleSheet">
+                 <string notr="true">#warningAlgorithm{color:red;}</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item>
                <spacer name="horizontalSpacer">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>

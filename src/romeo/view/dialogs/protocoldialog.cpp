@@ -234,7 +234,7 @@ void ProtocolDialog::fillAlgorithmsCombo(){
 
 
 void ProtocolDialog::changeParametersForm(){
-
+    ui->warningAlgorithm->setHidden(true);
     while(parameters.size() != 1){
         delete parameters.takeLast();
     }
@@ -245,7 +245,7 @@ void ProtocolDialog::changeParametersForm(){
         algorithm= algorithmsList->getAlgorithm(algName);
     }
     if(algorithm){
-
+    if(algName == "Hierarchical"){ui->warningAlgorithm->setHidden(false); ui->warningAlgorithm->setText("Be careful in using with \n images with number of pixels \n greater than 3000 pixels");}
     parameters.at(0)->setHidden(false);
     QList<AbstractAlgorithm::AlgorithmParameter> param = algorithm->getParameters();
     while(!(param.isEmpty())){
@@ -280,6 +280,7 @@ void ProtocolDialog::checkEmpty(QString name){
 
 void ProtocolDialog::finishButtonClicked(){
     bool error = false;
+    bool errorCluster = false;
     if(ui->protocolLineEdit->isEnabled()){
         qDebug() << "ENTRO";
 
@@ -302,6 +303,10 @@ void ProtocolDialog::finishButtonClicked(){
         }
         bool okClusters = false;
         int nClusters = parameters[0]->getValue().toInt(&okClusters);
+        if(nClusters < 2){
+            errorCluster = true;
+        }
+
         QList<QString> parametersValue;
         for(int i = 1; i < parameters.size(); i++){
             parametersValue.append(parameters[i]->getValue());
@@ -313,6 +318,14 @@ void ProtocolDialog::finishButtonClicked(){
             msgBox.exec();
             error = true;
         }
+
+        else if(errorCluster){
+            QMessageBox msgBox;
+            msgBox.setIcon(QMessageBox::Critical);
+            msgBox.setText("Number of clusters must be greater than 1");
+            msgBox.exec();
+        }
+
         else{
 
             if(!oldProtocol.isEmpty()){
@@ -325,7 +338,7 @@ void ProtocolDialog::finishButtonClicked(){
 
         }
     }
-    if(!error){
+    if(!error && !errorCluster){
         resetForms();
         accept();
     }

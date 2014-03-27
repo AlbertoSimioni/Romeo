@@ -51,8 +51,8 @@ void ProtocolsController::connectViewsSignals(){
     connect(associateProtocolDialog,SIGNAL(associateProtocol(QString)),this,SLOT(associateProtocol(QString)));
     connect(protocolsPanel,SIGNAL(associateProtocol(QString)),this,SLOT(associateProtocol(QString)));
     connect(protocolsPanel,SIGNAL(removeProtocolAssociation(QString)),this,SLOT(removeProtocolAssociation(QString)));
-    connect(protocolsExplorer,SIGNAL(associateProtocol(QString)),this,SLOT(associateProtocol(QString)));
-    connect(protocolsExplorer,SIGNAL(deleteProtocol(QString)),this,SLOT(deleteProtocol(QString)));
+    connect(protocolsPanel,SIGNAL(openAssociateProtocolDialog()),this,SLOT(viewAssociateProtocolDialog()));
+
 }
 void ProtocolsController::viewNewProtocolDialog(){
     protocolDialog->exec();

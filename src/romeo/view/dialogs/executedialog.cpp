@@ -83,9 +83,11 @@ void ExecuteDialog::closeEvent(QCloseEvent *event) {
             event->ignore();
               break;
           case QMessageBox::Ok:
-        {
-            emit closeRomeo();
-        }
+            {
+            emit forceAbortAnalysis();
+            event->accept();
+            QCoreApplication::exit(0);
+            }
               break;
         }
 

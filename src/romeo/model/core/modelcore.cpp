@@ -46,7 +46,7 @@ ModelCore::ModelCore(QObject *parent): QObject(parent)
 
     QList<AbstractAlgorithm::AlgorithmParameter> param;
     AbstractAlgorithm::AlgorithmParameter param1 (QString("Distance"), AbstractAlgorithm::CHAR, QString("e"));
-    AbstractAlgorithm::AlgorithmParameter param2 (QString("Maximum number of iterations"), AbstractAlgorithm::INT, QString("200"));
+    AbstractAlgorithm::AlgorithmParameter param2 (QString("Number of iterations"), AbstractAlgorithm::INT, QString("200"));
     param.append(param1);
     param.append(param2);
     AbstractAlgorithm* alg=KMeans::getInstance(param, QString("K-means"), QString("Partitioning clustering method, exclusive (hard) assignment"));

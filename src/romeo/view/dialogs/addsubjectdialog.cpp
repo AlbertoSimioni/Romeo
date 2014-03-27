@@ -102,13 +102,22 @@ void AddSubjectDialog::okButtonClicked(){
 void AddSubjectDialog::changeFilters(){
 
     switch(currentInputFormat){
-    case TYPE2D: currentFilters = "Image 2D (*.jpg *.png *.bmp *.tiff *.tif)";
+    case TYPE2D:
+        currentFiltersData = "Image 2D (*.jpg *.png *.bmp *.tiff *.tif)";
+        currentFiltersMask = "Image 2D (*.jpg *.png *.bmp *.tiff *.tif)";
+
         break;
-    case TYPE2DT: currentFilters = "Video 2D (*.avi)";
+    case TYPE2DT:
+        currentFiltersData = "Video 2D (*.avi)";
+        currentFiltersMask = "Image 2D (*.jpg *.png *.bmp *.tiff *.tif)";
         break;
-    case TYPE3D: currentFilters = "Image 3D (*.hdr *.nii )";
+    case TYPE3D:
+        currentFiltersData = "Image 3D (*.hdr *.nii )";
+        currentFiltersMask = "Image 3D (*.hdr *.nii )";
         break;
-    case TYPE3DT: currentFilters = "Images 3DT (*.hdr *.nii )";
+    case TYPE3DT:
+        currentFiltersData = "Images 3DT (*.hdr *.nii )";
+        currentFiltersMask = "Image 3D (*.hdr *.nii )";
         break;
     }
 }
@@ -117,7 +126,7 @@ void AddSubjectDialog::changeFilters(){
 
 void AddSubjectDialog::openBrowseMaskDialog(){
     QString fileName = QFileDialog::getOpenFileName(this,
-        tr("Select Mask"), QDir::home().path(), currentFilters);
+        tr("Select Mask"), QDir::home().path(), currentFiltersMask);
     if(!fileName.isNull())
         ui->pathMaskLineEdit->setText(fileName);
 }
@@ -125,7 +134,7 @@ void AddSubjectDialog::openBrowseMaskDialog(){
 
 void AddSubjectDialog::openBrowseDataDialog(){
     QString fileName = QFileDialog::getOpenFileName(this,
-        tr("Select Data"), QDir::home().path(), currentFilters);
+        tr("Select Data"), QDir::home().path(), currentFiltersData);
     if(!fileName.isNull())
         ui->pathDataLineEdit->setText(fileName);
 }

@@ -15,6 +15,7 @@
 #include<src/romeo/view/dialogs/executedialog.h>
 #include<src/romeo/model/datasets/abstractdataset.h>
 #include<src/romeo/view/mainWindow/mainwindow.h>
+#include<qthread.h>
 
 namespace romeo {
 namespace controller{
@@ -29,6 +30,7 @@ namespace controller{
 class AnalysisController : public QObject
 {
     Q_OBJECT
+    friend class AnalysisThread;
 public:
     explicit AnalysisController(romeo::view::mainWindow::MainWindow* mainw = 0,QObject *parent = 0);
 
@@ -63,7 +65,30 @@ private slots:
      */
     void abortAnalysis();
 
+    /*!
+     * \brief Slot che termina in modo brusco il thread che sta analizzando le analisi
+     */
+    void forceAbortAnalysis();
+
 private:
+
+    class AnalysisThread : public QThread
+    {
+    public:
+        AnalysisThread(AnalysisController* controller,QObject* parent = 0);
+        void prepareAnalysis(QString prot, QList<QString> subs, QString resPath, bool saveFeats, QString exportFormat);
+        void run() Q_DECL_OVERRIDE;
+
+        AnalysisController* analysisController;
+        QString protocol;
+        QList<QString> subjects;
+        QString resultsPath;
+        bool saveFeatures;
+        QString format;
+    };
+
+
+
 
     /*!
      * \brief Metodo che collega i segnali emessi dul dialogo di esecuzioni agli slot della classe
@@ -84,6 +109,8 @@ private:
 
 
     romeo::view::mainWindow::MainWindow* mainWindow;
+
+    AnalysisThread* analysisThread;
 
 };
 

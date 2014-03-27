@@ -59,8 +59,10 @@ signals:
      * \brief Segnale emesso dal dialogo per avvertire il model di interrompere le analisi.
      */
     void abortAnalysis();
-
-    void closeRomeo();
+    /*!
+     * \brief Segnale emesso per avvertire il controller a forzare l'interruzione del thread che sta eseguendo le analisi
+     */
+    void forceAbortAnalysis();
 
 private slots:
 

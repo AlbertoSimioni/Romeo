@@ -8,7 +8,8 @@ using namespace romeo::controller;
 int main(int argc, char *argv[])
 {
     QApplication romeoApp(argc, argv);
-
+    QCoreApplication::setOrganizationName("Hurry Up!");
+    QCoreApplication::setApplicationName("ROMEO");
     DatasetsController* controller = DatasetsController::getInstance();
 
     int returnValue =romeoApp.exec();
