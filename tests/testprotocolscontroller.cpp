@@ -1,9 +1,5 @@
 #include "testprotocolscontroller.h"
 #include "ui_protocoldialog.h"
-#include "ui_newalgorithmdialog.h"
-#include "ui_newfeaturedialog.h"
-#include "ui_newdatasetdialog.h"
-#include "ui_addsubjectdialog.h"
 
 TestProtocolsController::TestProtocolsController(QObject *parent) :
     QObject(parent){
@@ -85,6 +81,7 @@ void TestProtocolsController::addProtocol(){
     ProtocolsList *protList = ProtocolsList::getInstance();
 
     QVERIFY(protList->getProtocol(staticProtName) != false);
+    delete myAlg;
 }
 
 void TestProtocolsController::deleteProtocol(){
@@ -95,6 +92,36 @@ void TestProtocolsController::associateProtocol(){
 
     ProtocolsController *protocolscontroller = ProtocolsController::getInstance();
 
+    QString algName = "algName";
+    QString algDescr = "algDescription";
+    QList<algorithms::AbstractAlgorithm::AlgorithmParameter> paramList;
+    QList<QString> algParameters;
+    int clusterNum = 1;
+    QString algDylp = "dylp";
+    QString algDyfn = "dyfn";
+    UserDefinedAlgorithm *myAlg = new UserDefinedAlgorithm(paramList,algName,algDescr,algDylp,algDyfn);
+
+    QString staticProtName = "staticProtName";
+    QString staticProtDescr = "staticProtDescription";
+    QList<romeo::model::protocols::features::AbstractFeature*> feat;
+    bool testStaticProtocol = false;
+    int staticProtWindow = 5;
+    int staticProtDistance = 2;
+
+    ProtocolsList *protList = ProtocolsList::getInstance();
+
+    protList->addProtocol(staticProtName,staticProtDescr,myAlg,clusterNum,algParameters,feat,testStaticProtocol,STATIC,staticProtWindow,staticProtDistance);
+
+    QString datName = "myDataset";
+    Dataset2D *ds2d = new Dataset2D(datName);
+    protocolscontroller->mainWindow->getDatasetPanel()->setCurrentDataset(ds2d);
+
+    protocolscontroller->associateProtocol(staticProtName);
+
+    QVERIFY(protocolscontroller->mainWindow->getDatasetPanel()->getCurrentDataset()->getProtocol(staticProtName) != 0);
+
+    delete ds2d;
+    delete myAlg;
 }
 
 void TestProtocolsController::removeProtocolAssociation(){

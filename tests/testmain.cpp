@@ -15,7 +15,6 @@
 #include "testfeatureslist.h"
 #include "testwriter.h"
 #include "testuserdefinedalgorithm.h"
-//#include "testcontroller.h"
 #include "testdataset2d.h"
 #include "testdataset2dt.h"
 #include "testdataset3d.h"
@@ -33,7 +32,11 @@
 #include "testnewalgorithmparameterform.h"
 #include "testaddsubjectdialog.h"
 #include "testprotocolspanel.h"
+#include "testcontroller.h"
 #include "testprotocolscontroller.h"
+#include "testfeaturescontroller.h"
+#include "testalgorithmscontroller.h"
+#include "testcolor.h"
 
 int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
     QApplication a(argc, argv);
@@ -113,9 +116,6 @@ int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
     TestDatasetsList tdsL;
     QTest::qExec(&tdsL);
 
-    //TestController tc;
-    //QTest::qExec(&tc);
-
     TestAbstractSubject taS;
     QTest::qExec(&taS);
 
@@ -137,8 +137,20 @@ int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
     TestProtocolsPanel tpp;
     QTest::qExec(&tpp);
 
+    TestDatasetsController tdc;
+    QTest::qExec(&tdc);
+
     TestProtocolsController tpc;
     QTest::qExec(&tpc);
+
+    TestFeaturesController tfc;
+    QTest::qExec(&tfc);
+
+    TestAlgorithmsController tac;
+    QTest::qExec(&tac);
+
+    TestColor tc;
+    QTest::qExec(&tc);
 
     return 0;
 }

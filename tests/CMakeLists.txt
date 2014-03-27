@@ -18,7 +18,10 @@ testsecondorderfeature.cpp
 testfeatureslist.cpp
 testwriter.cpp
 testuserdefinedalgorithm.cpp
+testcontroller.cpp
 testprotocolscontroller.cpp
+testfeaturescontroller.cpp
+testalgorithmscontroller.cpp
 testnewalgorithmparameterform.cpp
 testprotocolspanel.cpp
 testcolor.cpp
@@ -105,22 +108,30 @@ testmain.cpp
   ../src/romeo/view/dialogs/associateprotocoldialog.cpp
 )
 SET(romeoTest_HEADERS
- testparametervalueform.h
- testnewfeaturedialog.h
- testnewdatasetdialog.h
- testprotocoldialog.h
- testabstractalgorithm.h
- testalgorithmslist.h
- testdynamicprotocol.h
- teststaticprotocol.h
- testprotocolslist.h
- testdynamicfeature.h
- testfirstorderfeature.h
- testsecondorderfeature.h
- testfeatureslist.h
- testwriter.h
- testuserdefinedalgorithm.h
- testcontroller.h
+testparametervalueform.h
+testnewalgorithmdialog.h
+testnewfeaturedialog.h
+testnewdatasetdialog.h
+testprotocoldialog.h
+testabstractalgorithm.h
+testalgorithmslist.h
+testdynamicprotocol.h
+teststaticprotocol.h
+testprotocolslist.h
+testdynamicfeature.h
+testfirstorderfeature.h
+testsecondorderfeature.h
+testfeatureslist.h
+testwriter.h
+testuserdefinedalgorithm.h
+testcontroller.h
+testprotocolscontroller.h
+testfeaturescontroller.h
+testalgorithmscontroller.h
+testnewalgorithmparameterform.h
+testprotocolspanel.h
+testcolor.h
+testmain.h
  testdataset2d.h
  testdataset2dt.h
  testdataset3d.h
@@ -134,6 +145,7 @@ SET(romeoTest_HEADERS
  testabstractsubject.h
  testabstractdataset.h
  testexecutedialog.h
+ testaddsubjectdialog.h
 )
 
 SET(romeoTest_FORMS
