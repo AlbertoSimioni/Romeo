@@ -152,7 +152,14 @@ public:
      */
     void abortAnalysis();
 
+protected:
 
+    /*!
+     * \brief Metodo che controlla la validità del subject che si vuole inserire
+     * \param fileSubject Percorso all'immagine da analizzare
+     * \param mask Percorso alla immagine da usare come maschera
+     */
+    virtual QString checkSubject(QString& fileSubject, QString& mask) = 0;
 
 signals:
 
@@ -193,6 +200,16 @@ signals:
      * \brief Segnale emesso quando il dataset ha finito eseguire le analisi
      */
     void analysisFinished();
+
+    /*!
+     * \brief Segnale emesso nel caso in cui i controlli sulla validità del subject che si vuole inserire falliscano
+     */
+    void invalidSubject(QString messageError);
+
+    /*!
+     * \brief Segnale emesso nel caso in cui i controlli sulla validità del subject che si vuole inserire falliscano
+     */
+    void analysisProblem(QString messageError);
 
 
 private:
