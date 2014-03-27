@@ -29,3 +29,8 @@ InputFormat Dataset3DT::getType(){
 ProtocolType Dataset3DT::getProtocolsType(){
     return DYNAMIC;
 }
+
+
+QString Dataset3DT::checkSubject(QString &fileSubject, QString &mask){
+
+}

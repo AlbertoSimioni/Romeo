@@ -43,6 +43,8 @@ public:
      * \brief Ritorna il tipo dei protocolli associati al dataset, che per i Dataset3D è "STATIC".
      */
     virtual romeo::model::protocols::ProtocolType getProtocolsType();
+
+    virtual QString checkSubject(QString &fileSubject, QString &mask);
 };
 }}}
 #endif // DATASET3D_H

@@ -159,7 +159,7 @@ protected:
      * \param fileSubject Percorso all'immagine da analizzare
      * \param mask Percorso alla immagine da usare come maschera
      */
-    //virtual QString checkSubject(QString& fileSubject, QString& mask) = 0;
+    virtual QString checkSubject(QString& fileSubject, QString& mask) = 0;
 
 signals:
 
