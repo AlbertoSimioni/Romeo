@@ -34,6 +34,7 @@ private slots:
     void deleteProtocol();
     void associateProtocol();
     void removeProtocolAssociation();
+    void modifyProtocol();
 };
 
 
