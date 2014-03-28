@@ -55,7 +55,7 @@ QString Dataset2DT::checkSubject(QString &fileSubject, QString &mask){
         if(!video)
             messageToReturn += "There were problems in reading the image to analyze.\n";*/
     }
-    catch(itk::ExceptionObject & e) {
+    catch(bool e) {
         messageToReturn += "There were problems in reading the image to analyze.\n";
     }
     if(!mask.isEmpty()) {
