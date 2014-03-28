@@ -136,7 +136,10 @@ void ExecuteDialog::clearDialog(){
     currentImagesPath.clear();
     currentIndex = 0;
     ui->subjectsLabel->setText("Total Subjects: " + QString::number(nSubjects));
-    ui->statusLabel->setText("Total Images: "+ QString::number(nSubjects * nImagesPerSubject));
+    if(visualizeFeatures){
+        ui->statusLabel->setText("Total Images: "+ QString::number(nSubjects * nImagesPerSubject));
+    }
+    else  ui->statusLabel->setText("Total Images: "+ QString::number(nSubjects));
     ui->currentLabel->setText("Executing");
     ui->nameLabel->setText(QString(""));
     ui->progressBar->setMinimum(0);
@@ -175,7 +178,7 @@ void ExecuteDialog::onFeatureExtracted(QString pathToFeature){
         addResultImage(pathToFeature);
     }
     ui->progressBar->setValue(ui->progressBar->value()+1);
-    ui->statusLabel->setText("Images: " + QString::number(ui->progressBar->value()) + "/"+ QString::number(nSubjects * nImagesPerSubject));
+    ui->statusLabel->setText("Images: " + QString::number(currentIndex+1)+  "/" + QString::number(currentImagesPath.size()));
 }
 
 void ExecuteDialog::onAlgorithmExecuted(QString pathToAlgorithm){
@@ -183,7 +186,7 @@ void ExecuteDialog::onAlgorithmExecuted(QString pathToAlgorithm){
         addResultImage(pathToAlgorithm);
     }
     ui->progressBar->setValue(ui->progressBar->value()+1);
-    ui->statusLabel->setText("Images: " + QString::number(ui->progressBar->value()) + "/"+ QString::number(nSubjects * nImagesPerSubject));
+    ui->statusLabel->setText("Images: " + QString::number(currentIndex+1)+  "/" + QString::number(currentImagesPath.size()));
 }
 
 
@@ -195,6 +198,7 @@ void ExecuteDialog::onNextClicked(){
     }
 
     showImage(currentImagesPath[currentIndex]);
+    ui->statusLabel->setText("Images: " + QString::number(currentIndex+1)+  "/" + QString::number(currentImagesPath.size()));
 }
 
 
@@ -206,8 +210,7 @@ void ExecuteDialog::onPreviousClicked(){
     }
 
     showImage(currentImagesPath[currentIndex]);
-
-
+    ui->statusLabel->setText("Images: " + QString::number(currentIndex+1)+  "/" + QString::number(currentImagesPath.size()));
 }
 
 void ExecuteDialog::onCancelClicked(){

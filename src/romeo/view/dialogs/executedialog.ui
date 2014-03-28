@@ -58,6 +58,10 @@ font-size: 15px;
           <property name="text">
            <string>Previous</string>
           </property>
+          <property name="icon">
+           <iconset resource="../../../immagini.qrc">
+            <normaloff>:/Images/Images/Backward Arrow.png</normaloff>:/Images/Images/Backward Arrow.png</iconset>
+          </property>
          </widget>
         </item>
         <item>
@@ -101,6 +105,10 @@ font-size: 15px;
          <widget class="QPushButton" name="nextButton">
           <property name="text">
            <string>Next</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../../immagini.qrc">
+            <normaloff>:/Images/Images/Forward Arrow.png</normaloff>:/Images/Images/Forward Arrow.png</iconset>
           </property>
          </widget>
         </item>

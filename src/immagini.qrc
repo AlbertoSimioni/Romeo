@@ -27,6 +27,7 @@
         <file>Images/Help-icon.png</file>
         <file>Images/Logo.png</file>
         <file>Images/info.png</file>
+        <file>Images/Backward Arrow.png</file>
     </qresource>
     <qresource prefix="/doc">
         <file>doc/help.html</file>
