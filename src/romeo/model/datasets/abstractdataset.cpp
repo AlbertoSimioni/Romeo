@@ -246,6 +246,7 @@ void AbstractDataset::executeAnalysis(QString protocol, QList<QString> subjects,
    currentProtocol = 0;
    emit analysisFinished();
    emit newResults();
+   emit modified(this->getName());
 }
 
 

@@ -314,7 +314,8 @@ void ProtocolDialog::finishButtonClicked(){
         if(alg == "No algorithm" && (feats.size() == 0)){
             QMessageBox msgBox;
             msgBox.setIcon(QMessageBox::Critical);
-            msgBox.setText("Select at least one algorithm or one feature");
+            msgBox.setText("ERR 0x1177F11E");
+            msgBox.setInformativeText("Select at least one algorithm or one feature");
             msgBox.exec();
             error = true;
         }
@@ -322,7 +323,8 @@ void ProtocolDialog::finishButtonClicked(){
         else if(errorCluster){
             QMessageBox msgBox;
             msgBox.setIcon(QMessageBox::Critical);
-            msgBox.setText("Number of clusters must be greater than 1");
+            msgBox.setText("ERR 0x1369D22E");
+            msgBox.setInformativeText("Number of clusters must be greater than 1");
             msgBox.exec();
         }
 

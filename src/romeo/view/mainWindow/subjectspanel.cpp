@@ -174,7 +174,8 @@ QList<QString> SubjectsPanel::getCheckedSubjects(){
 void SubjectsPanel::onInvalidSubject(QString messageError){
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Critical);
-    msgBox.setText(messageError);
+    msgBox.setText("ERR 0x24C9E96A");
+    msgBox.setInformativeText(messageError);
     msgBox.exec();
 }
 

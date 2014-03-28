@@ -271,7 +271,6 @@ void ExecuteDialog::showImage(QString pathToImage){
         image_view->Render();
         image_view->GetRenderer()->ResetCamera();
         image_view->Render();
-
         ui->widget->update();
 
     }
@@ -395,7 +394,8 @@ romeo::model::datasets::AbstractDataset *ExecuteDialog::getCurrentDataset() cons
 void ExecuteDialog::onAnalysisProblem(QString messageError){
     QMessageBox msgBox;
     msgBox.setIcon(QMessageBox::Critical);
-    msgBox.setText(messageError);
+    msgBox.setText("ERR 0x7A2B23C");
+    msgBox.setInformativeText(messageError);
     msgBox.exec();
 }
 

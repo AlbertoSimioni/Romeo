@@ -137,7 +137,8 @@ void NewFeatureDialog::okButtonClicked(){
     if(!loaded){
         QMessageBox msgBox;
         msgBox.setIcon(QMessageBox::Critical);
-        msgBox.setText("Can't load the dynamic library!");
+        msgBox.setText("ERR 0x11E2B40C");
+        msgBox.setInformativeText("Can't load the dynamic library!");
         msgBox.exec();
     }
 

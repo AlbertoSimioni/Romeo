@@ -84,7 +84,8 @@ void DatasetPanel::onExecuteclicked(QString resultsPath, bool viewResults, bool 
    if(!validSubjects){
        QMessageBox msgBox(this);
        msgBox.setIcon(QMessageBox::Critical);
-       msgBox.setText(message);
+       msgBox.setText("ERR 0x2BFD4F16");
+       msgBox.setInformativeText(message);
        msgBox.exec();
    }
     bool checkedOk = true;
@@ -92,7 +93,8 @@ void DatasetPanel::onExecuteclicked(QString resultsPath, bool viewResults, bool 
        checkedOk = false;
        QMessageBox msgBox(this);
        msgBox.setIcon(QMessageBox::Critical);
-       msgBox.setText("Check at least one Subject and select one Protocol");
+       msgBox.setText("ERR 0x117540C0");
+       msgBox.setInformativeText("Check at least one Subject and select one Protocol");
        msgBox.exec();
 }
 
