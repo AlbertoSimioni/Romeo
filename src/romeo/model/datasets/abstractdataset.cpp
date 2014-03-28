@@ -38,9 +38,15 @@ AbstractDataset::~AbstractDataset()
 
 void AbstractDataset::createNewSubject(QString &name, QString &fileSubject, QString &mask)
 {
-    subjects.append(this->makeSubject(name, fileSubject, mask));
-    emit addedSubject(name,fileSubject,mask);
-    emit modified(this->getName());
+    // controllo la consistenza dei dati inseriti
+    QString message = this->checkSubject(fileSubject,mask);
+    if(message == "Ok") {
+        subjects.append(this->makeSubject(name, fileSubject, mask));
+        emit addedSubject(name,fileSubject,mask);
+        emit modified(this->getName());
+    }
+    else
+        emit invalidSubject(message);
     return;
 }
 QString AbstractDataset::getName() const
@@ -234,7 +240,19 @@ void AbstractDataset::executeAnalysis(QString protocol, QList<QString> subjects,
    connect(protocolToExecute,SIGNAL(featureExtracted(QString)),this,SIGNAL(featureExtracted(QString)));
    connect(protocolToExecute,SIGNAL(algorithmExecuted(QString)),this,SIGNAL(algorithmExecuted(QString)));
     for(int i = 0 ; i < subjectsToAnalyze.size() && !stopAnalysis; i++){
-        protocolToExecute->execute(subjectsToAnalyze[i],resultsPath,saveFeatures,exportFormat);
+        try {
+            protocolToExecute->execute(subjectsToAnalyze[i],resultsPath,saveFeatures,exportFormat);
+        }
+        // eccezione per itk
+        catch (itk::ExceptionObject & e) {
+            QString errorMessage = "There were errors trying to read the subject named " + subjectsToAnalyze[i]->getName() + " located in " + subjectsToAnalyze[i]->getSubject() + " or its mask located in " + subjectsToAnalyze[i]->getMask();
+            emit analysisProblem(errorMessage);
+        }
+        // eccezione per opencv
+        catch (bool e) {
+            QString errorMessage = "There were errors trying to read the subject named " + subjectsToAnalyze[i]->getName() + " located in " + subjectsToAnalyze[i]->getSubject() + " or its mask located in " + subjectsToAnalyze[i]->getMask();
+            emit analysisProblem(errorMessage);
+        }
     }
 
    disconnect(protocolToExecute,SIGNAL(featureExtracted(QString)),this,SIGNAL(featureExtracted(QString)));

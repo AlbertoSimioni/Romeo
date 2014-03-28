@@ -15,6 +15,8 @@ IF(NOT VTK_DIR)
 ENDIF(NOT VTK_DIR)
 INCLUDE(${VTK_USE_FILE})
 ENDIF(NOT VTK_BINARY_DIR)
+FIND_PACKAGE(OpenCV REQUIRED)
+INCLUDE_DIRECTORIES(${OpenCV_INCLUDE_DIRS})
 
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -69,6 +71,7 @@ SET(romeo_SOURCES
  src/romeo/model/protocols/algorithms/userdefinedalgorithm.cpp
  src/romeo/model/imageIO/handlerio.cpp
  src/romeo/model/imageIO/handleriostatic.cpp
+ src/romeo/model/imageIO/handleriodynamic.cpp
  src/romeo/model/datasets/result.cpp
  src/romeo/model/datasets/abstractdataset.cpp
  src/romeo/model/datasets/datasetslist.cpp
@@ -136,7 +139,8 @@ SET(romeo_HEADERS
  src/romeo/model/protocols/algorithms/hierarchical.h
  src/romeo/model/protocols/algorithms/userdefinedalgorithm.h
  src/romeo/model/imageIO/handlerio.h
- src/romeo/model/imageIO/handleriostatic.cpp
+ src/romeo/model/imageIO/handleriostatic.h
+ src/romeo/model/imageIO/handleriodynamic.h
  src/romeo/model/datasets/result.h
  src/romeo/model/datasets/abstractdataset.h
  src/romeo/model/datasets/datasetslist.h
@@ -244,7 +248,7 @@ ADD_EXECUTABLE( romeo ${GUI_TYPE} ${romeo_SOURCES}
 
 
 QT5_USE_MODULES(romeo Widgets Xml XmlPatterns Test)
-TARGET_LINK_LIBRARIES( romeo ${ITK_LIBRARIES}  ${VTK_LIBRARIES}  )
+TARGET_LINK_LIBRARIES( romeo ${ITK_LIBRARIES} ${VTK_LIBRARIES} ${OpenCV_LIBS} )
 
 set(features
     ext/features.cpp

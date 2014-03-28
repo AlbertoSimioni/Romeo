@@ -284,7 +284,6 @@ void ExecuteDialog::showImage(QString pathToImage){
         typedef itk::ImageFileReader< myInputImageType >  myReaderType;//Reader of Image Type
         myReaderType::Pointer reader = myReaderType::New();
 
-
         reader->SetFileName(pathToImage.toStdString() );
 
         //Exceptional handling
@@ -297,7 +296,6 @@ void ExecuteDialog::showImage(QString pathToImage){
         ui->nameLabel->setText(pathToImage.split(QDir::toNativeSeparators("/")).takeLast());
         myInputImageType::Pointer input = reader->GetOutput();
 
-
         typedef itk::ImageToVTKImageFilter<myInputImageType> myConnectorType;
         myConnectorType::Pointer connector= myConnectorType::New();
         connector->SetInput( input );//Set ITK reader Output to connector you can replace it with filter
@@ -309,68 +307,57 @@ void ExecuteDialog::showImage(QString pathToImage){
         catch (itk::ExceptionObject & e) {
         }
 
-
-        vtkSmartPointer<vtkImageData> imageData =
-                vtkSmartPointer<vtkImageData>::New();
-
+        vtkSmartPointer<vtkImageData> imageData = vtkSmartPointer<vtkImageData>::New();
         imageData->DeepCopy(connector->GetOutput());
 
-        vtkSmartPointer<vtkRenderWindow> renWin =
-                vtkSmartPointer<vtkRenderWindow>::New();
-        vtkSmartPointer<vtkRenderer> ren1 =
-                vtkSmartPointer<vtkRenderer>::New();
-        ren1->SetBackground(0.1,0.4,0.2);
-
+        vtkSmartPointer<vtkRenderWindow> renWin = vtkSmartPointer<vtkRenderWindow>::New();
+        vtkSmartPointer<vtkRenderer> ren1 = vtkSmartPointer<vtkRenderer>::New();
+        ren1->SetBackground(1,0.3,0);
+        // o.1 0.4 0.2
         renWin->AddRenderer(ren1);
-
         renWin->SetSize(301,300); // intentional odd and NPOT  width/height
-
 
         ui->widget->SetRenderWindow(renWin);
         ui->widget->GetInteractor()->SetDesiredUpdateRate(10);
         ui->widget->GetInteractor()->GetInteractorStyle()->SetDefaultRenderer(ren1);
         renWin->Render(); // make sure we have an OpenGL context.
 
-        vtkSmartPointer<vtkFixedPointVolumeRayCastMapper> volumeMapper =
-                vtkSmartPointer<vtkFixedPointVolumeRayCastMapper>::New();
+        vtkSmartPointer<vtkSmartVolumeMapper> volumeMapper = vtkSmartPointer<vtkSmartVolumeMapper>::New();
         volumeMapper->SetBlendModeToComposite(); // composite first
-#if VTK_MAJOR_VERSION <= 5
-        volumeMapper->SetInputConnection(imageData->GetProducerPort());
-#else
         volumeMapper->SetInputData(imageData);
-#endif
-        vtkSmartPointer<vtkVolumeProperty> volumeProperty =
-                vtkSmartPointer<vtkVolumeProperty>::New();
-
-        volumeProperty->SetIndependentComponents(true);
-        volumeProperty->SetInterpolationTypeToLinear();
+        vtkSmartPointer<vtkVolumeProperty> volumeProperty = vtkSmartPointer<vtkVolumeProperty>::New();
         volumeProperty->ShadeOff();
         volumeProperty->SetInterpolationType(VTK_LINEAR_INTERPOLATION);
 
+        /*vtkSmartPointer<vtkFixedPointVolumeRayCastMapper> volumeMapper = vtkSmartPointer<vtkFixedPointVolumeRayCastMapper>::New();
+        volumeMapper->SetBlendModeToComposite(); // composite first
+        volumeMapper->SetInputData(imageData);*/
 
-        vtkSmartPointer<vtkPiecewiseFunction> compositeOpacity =
-                vtkSmartPointer<vtkPiecewiseFunction>::New();
+        /*vtkSmartPointer<vtkVolumeProperty> volumeProperty = vtkSmartPointer<vtkVolumeProperty>::New();
+        volumeProperty->SetIndependentComponents(true);
+        volumeProperty->SetInterpolationTypeToLinear();
+        volumeProperty->ShadeOff();
+        volumeProperty->SetInterpolationType(VTK_LINEAR_INTERPOLATION);*/
+
+        /*vtkSmartPointer<vtkPiecewiseFunction> compositeOpacity = vtkSmartPointer<vtkPiecewiseFunction>::New();
         compositeOpacity->AddPoint(0.0,0.0);
         compositeOpacity->AddPoint(80.0,1.0);
         compositeOpacity->AddPoint(80.1,0.0);
         compositeOpacity->AddPoint(255.0,0.0);
-        volumeProperty->SetScalarOpacity(compositeOpacity); // composite first.
+        volumeProperty->SetScalarOpacity(compositeOpacity); // composite first.*/
 
-        vtkSmartPointer<vtkColorTransferFunction> color =
-                vtkSmartPointer<vtkColorTransferFunction>::New();
+        /*vtkSmartPointer<vtkColorTransferFunction> color = vtkSmartPointer<vtkColorTransferFunction>::New();
         color->AddRGBPoint(0.0  ,0.0,0.0,1.0);
         color->AddRGBPoint(40.0  ,1.0,0.0,0.0);
         color->AddRGBPoint(255.0,1.0,1.0,1.0);
-        volumeProperty->SetColor(color);
+        volumeProperty->SetColor(color);*/
 
-        vtkSmartPointer<vtkVolume> volume =
-                vtkSmartPointer<vtkVolume>::New();
+        vtkSmartPointer<vtkVolume> volume = vtkSmartPointer<vtkVolume>::New();
         volume->SetMapper(volumeMapper);
         volume->SetProperty(volumeProperty);
 
-
-        //ren1->AddViewProp(volume);
-        ren1->AddVolume(volume);
+        ren1->AddViewProp(volume);
+        //ren1->AddVolume(volume);
         ren1->ResetCamera();
 
         // Render composite. In default mode. For coverage.

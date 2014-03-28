@@ -12,9 +12,16 @@
 #include<QString>
 #include<QList>
 #include <QObject>
+// ITK
+#include "itkImage.h"
+#include "itkRGBPixel.h"
+#include "itkNeighborhoodIterator.h"
+#include "itkImageRegionIterator.h"
+
 #include "algorithms/abstractalgorithm.h"
 #include "features/abstractfeature.h"
 #include "../datasets/abstractsubject.h"
+#include <src/romeo/model/protocols/color.h>
 
 namespace romeo {
 namespace model {
@@ -46,9 +53,6 @@ public:
      * \param testProtocol Valore booleano che indica se il protocollo è di test.
      */
     AbstractProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, int clusterNum, QList<QString> parameters, QList<features::AbstractFeature*>& feat,bool testProtocol);
-
-    virtual ~AbstractProtocol();
-
     /*!
      * \brief Sostituisce la lista delle feature che il protocollo possiede con quella indicata. Si può modificare la lista delle feature solo se il protocollo corrente è un protocollo di test
      * \param feat Lista di features che si vogliono inserire nel protocollo
@@ -128,6 +132,140 @@ public:
 
     bool getStopAnalysis() const;
     void setStopAnalysis(bool value);
+    /*!
+     * \brief Approssima il double ricevuto in input all'intero più vicino
+     */
+    static int roundToInt(double num);
+    /*!
+     * \brief Prende la matrice in input result con numero di colonne nrows e ncols e ne ritorna la matrice trasposta
+     * \param result Matrice di cui fare la trasposta
+     * \param nrows Numero di righe della matrice di partenza
+     * \param ncols Numero di colonne della matrice di partenza
+     */
+    static double** transform(double** result,const int nrows,const int ncolumns);
+    /*!
+     * \brief Ritorna il minimo e il massimo per side effect da tre valori
+     * \param first Primo valore da esaminare
+     * \param second Secondo valore da esaminare
+     * \param third Terzo valore da esaminare
+     * \param max Puntatore al massimo tornato per side effect
+     * \param min Puntatore al minimo tornato per side effect
+     */
+    static void findMinMax(double first,double second,double third,double* max,double* min);
+    /*!
+     * \brief Metodo statico che normalizza i valori di tre array di double tra 0 e 255
+     * \param redValues Array contenente i valori dei pixel corrispondenti al rosso
+     * \param greenValues Array contenente i valori dei pixel corrispondenti al verde
+     * \param blueValues Array contenente i valori dei pixel corrispondenti al blu
+     * \param finalRed Array contenente i valori dei pixel corrispondenti al rosso normalizzati
+     * \param finalGreen Array contenente i valori dei pixel corrispondenti al verde normalizzati
+     * \param finalBlue Array contenente i valori dei pixel corrispondenti al blu normalizzati
+     * \param mask Array contenente la maschera dell'immagine analizzata
+     * \param length Numero di celle in ciascun array
+     */
+    static void normalize(double* redValues,double* greenValues,double* blueValues,int* finalRed,int* finalGreen,int* finalBlue,int* mask,int length);
+    /*!
+     * \brief Funzione template che prende in input un immagine caricata in un puntatore e la copia in un array di double. La funzione è template poichè e necessario conoscere il formato dell'immagine di origine per poterla iterare.
+     * \param input Puntatore all'immagine origine
+     */
+    template<typename PointerType,typename ImageType>
+    double** readImage(PointerType input) {
+        // legge l'immagine e torna una matrice [ncols][nrows]
+        double** result = new double*[3];
+        for(int i=0;i<3;i++)
+            result[i] = new double[input->GetLargestPossibleRegion().GetNumberOfPixels()];
+        itk::ImageRegionIterator<ImageType> inputIterator(input , input->GetLargestPossibleRegion());
+        int index=0;
+        while(!inputIterator.IsAtEnd()) {
+            result[0][index] = static_cast<double>(inputIterator.Get()[0]);
+            result[1][index] = static_cast<double>(inputIterator.Get()[1]);
+            result[2][index] = static_cast<double>(inputIterator.Get()[2]);
+            ++index;
+            ++inputIterator;
+        }
+        return result;
+    }
+    /*!
+     * \brief Metodo per creare l'immagine in output a partire dall'array risultato di un esecuzione.
+     * \param outputIterator è l'iteratore dell'immagine in output.
+     * \param mask Array contenente la maschera dell'immagine analizzata
+     * \param result è la matrice di double relativa al risultato.
+     * \param length è il numero di pixel dell'immagine
+     */
+    template<typename ImageType>
+    void createImage(itk::ImageRegionIterator<ImageType> outputIterator,double** result,int* mask,const int length) {
+        // metodo per creare l'immagine in output
+        // outputIterator è l'iteratore dell'immagine in output
+        // mask è la maschera
+        // result è la matrice di double relativa al risultato
+        // length è in numero di pixel dell'immagine
+        int* redValues = new int[length];
+        int* greenValues = new int[length];
+        int* blueValues = new int[length];
+        normalize(result[0],result[1],result[2],redValues,greenValues,blueValues,mask,length);
+        int index = 0;
+        while(!outputIterator.IsAtEnd()) {
+            typename ImageType::PixelType outputPixel;
+            outputPixel.Set(redValues[index],greenValues[index],blueValues[index]);
+            // scrivo il pixel nell'immagine in output
+            outputIterator.Set(outputPixel);
+            ++index;
+            ++outputIterator;
+        }
+        delete[] redValues;
+        delete[] greenValues;
+        delete[] blueValues;
+    }
+    /*!
+     * \brief Metodo che prende in input un puntatore a un'immagine maschera decodificata e ritorna un array di valori interi che la rappresentano.
+     * \param mask Puntatore all'immagine maschera decodificata.
+     * \param nrows Numero di righe dell'immagine di partenza.
+     */
+    template<typename MaskPointer,typename MaskType>
+    int* getMask(MaskPointer mask,const int nrows) {
+
+        int* maskArray = new int[nrows];
+        for(int i=0;i<nrows;i++)
+            maskArray[i]=255;
+
+        itk::ImageRegionIterator<MaskType> maskIterator;
+        if(mask.IsNotNull()) {
+            maskIterator = itk::ImageRegionIterator<MaskType>(mask , mask->GetLargestPossibleRegion());
+            int i=0;
+            while(!maskIterator.IsAtEnd()) {
+                maskArray[i]=static_cast<int>(maskIterator.Get());
+                ++i;
+                ++maskIterator;
+            }
+        }
+
+        return maskArray;
+    }
+    /*!
+     * \brief Metodo che prende l'array rappresentante l'immagine da analizzare e la corrispondente maschera e si preoccupa di oscurare i pixel dell'immagine che sono impostati a zero nella maschera.
+     * \param output Immagine da restituire con i pixel correttamente oscurati.
+     * \param clusterid Array contentente l'immagine di input.
+     * \param maskArray Array contenente la maschera da applicare.
+     */
+    template<typename ImagePointer,typename ImageType,typename PixelType>
+    void createClusteringImage(ImagePointer output,int* clusterid,int* maskArray) {
+        itk::ImageRegionIterator<ImageType> iterator(output , output->GetLargestPossibleRegion());
+        int index = 0;
+        while(!iterator.IsAtEnd()) {
+            PixelType pixel;
+            int cluster = clusterid[index];
+            int maskValue = maskArray[index];
+            if(maskValue==0)
+                pixel.Set(0,0,0);
+            else {
+                int* color = Color::getColor(cluster);
+                pixel.Set(color[0],color[1],color[2]);
+            }
+            iterator.Set(pixel);
+            ++index;
+            ++iterator;
+        }
+    }
 
 signals:
     /*!

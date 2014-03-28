@@ -40,7 +40,9 @@ public:
      */
     virtual romeo::model::InputFormat getType();
     /*!
-     * \brief Ritorna il tipo dei protocolli associati al dataset, che per i Dataset3D è "STATIC".
+     * \brief Controlla la consistenza del subject rispetto alle caratteristiche del dataset
+     * \param fileSubject Percorso all'immagine da analizzare
+     * \param mask Percorso alla maschera dell'immagine da analizzare
      */
     virtual romeo::model::protocols::ProtocolType getProtocolsType();
 

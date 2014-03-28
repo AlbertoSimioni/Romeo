@@ -44,8 +44,11 @@ public:
      * \brief Ritorna il tipo dei protocolli associati al dataset, che per i Dataset2D è "STATIC".
      */
     virtual romeo::model::protocols::ProtocolType getProtocolsType();
-
-
+    /*!
+     * \brief Controlla la consistenza del subject rispetto alle caratteristiche del dataset
+     * \param fileSubject Percorso all'immagine da analizzare
+     * \param mask Percorso alla maschera dell'immagine da analizzare
+     */
     virtual QString checkSubject(QString &fileSubject, QString &mask);
 };
 }}}
