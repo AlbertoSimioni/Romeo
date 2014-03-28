@@ -3,7 +3,7 @@
     /*FUNZIONE DI CONTROLLO */
 
 double check(double input) {
-    if(std::isnan(input))
+    if(isnan(input))
         return 0.0;
     else
         return input;
@@ -190,3 +190,192 @@ double* clust_par_mean(double** data,const int numberOfPixel,int begin,int end) 
     }
     return result;
 }
+
+//Funzione che calcola l'integrale di un vettore yArray rispetto ad un vettore xArray. 
+//xArray = array contenente i valori delle x in cui valuto la mia funzione.
+//yArray = array contenente i valori che la mia funzione assume nelle rispettive x contenute in xArray.
+//n = dimensione degli array X ed Y.
+//Nota: la dimensione di xArray deve essere uguale alla dimensione di yArray.
+
+double trapz (double* xArray, double* yArray, const int n) {
+	double integral = 0.0;
+	double sum = 0.0;
+	for(int i=0; i<n-1; i++) {
+		sum += (xArray[i+1]-xArray[i])*(yArray[i]+yArray[i+1]);
+	}
+	integral = 0.5*sum;
+	return integral;
+}
+
+//numberOfPixel = corrisponde al numero di righe della matrice "data".
+// begin incluso, end incluso.
+double* clust_par_auc(double** data,const int numberOfPixel,int begin,int end) {
+	//n = numero di intervalli/frames.	
+	double* result =new double[numberOfPixel];
+	int n = end-begin+1;
+	double xArray[n];
+	double yArray[n];
+	//Inizializzo xArray.
+	double xArrayElement = begin;
+	for(int i=0; i<n; i++){
+		xArray[i] = xArrayElement;
+		xArrayElement++;	
+	}
+	//Per ogni riga della matrice "data" mi calcolo l'integrale della riga.
+	for(int i=0; i<numberOfPixel; i++) {
+		//Inizializzo l'yArray
+		for(int j=0; j<n; j++) {
+			yArray[j] = data[i][j];
+		}
+		result[i] = trapz(xArray,yArray,n);
+	}
+	return result;
+}
+
+double max(double* yArray, const int n) {
+	double maxValue = yArray[0];
+	for(int i=0; i<n; i++) {
+		if(yArray[i]>maxValue) {
+			maxValue = yArray[i];
+		}
+	}
+	return maxValue;
+}
+
+double* clust_par_max(double** data,const int numberOfPixel,int begin,int end) {
+	double* result =new double[numberOfPixel];
+	int n = end-begin+1;
+	double yArray[n];
+	for(int i=0; i<numberOfPixel; i++) {
+		//Inizializzo l'yArray
+		for(int j=0; j<n; j++) {
+			yArray[j] = data[i][j];
+		}
+		result[i] = max(yArray,n);
+	}
+	return result;
+}
+
+double min(double* yArray, const int n) {
+	double minValue = yArray[0];
+	for(int i=0; i<n; i++) {
+		if(yArray[i]<minValue) {
+			minValue = yArray[i];
+		}
+	}
+	return minValue;
+}
+
+double* clust_par_min(double** data,const int numberOfPixel,int begin,int end) {
+	double* result =new double[numberOfPixel];
+	int n = end-begin+1;
+	double yArray[n];
+	for(int i=0; i<numberOfPixel; i++) {
+		//Inizializzo l'yArray
+		for(int j=0; j<n; j++) {
+			yArray[j] = data[i][j];
+		}
+		result[i] = min(yArray,n);
+	}
+	return result;
+}
+
+//calcola il coefficiente della retta di regressione
+double regrCoeff(double* xArray, double* yArray, const int n) {
+	double coefficient = 0;
+	double xAverage = 0;
+	double yAverage = 0;
+	double variance = 0;
+	double covariance = 0; 
+	double sum = 0;
+	//calcolo la media delle x
+	for(int i=0; i<n; i++) {
+		sum += xArray[i];
+	}
+	xAverage = sum/n;
+	sum = 0;
+	//calcolo la media delle y
+	for(int i=0; i<n; i++) {
+		sum += yArray[i];
+	}
+	yAverage = sum/n;
+	sum = 0;
+	//calcolo la varianza
+	for(int i=0; i<n; i++) {
+		sum += (xArray[i]-xAverage)*(xArray[i]-xAverage);
+	}
+	variance = sum/n;
+	sum = 0;
+	//calcolo la covarianza
+	for(int i=0; i<n; i++) {
+		sum += (xArray[i]-xAverage)*(yArray[i]-yAverage);
+	}
+	covariance = sum/n;
+	coefficient = covariance/variance;
+	return coefficient;
+}
+
+double* clust_par_slope(double** data,const int numberOfPixel,int begin,int end) {
+	double* result =new double[numberOfPixel];
+	int n = end-begin+1;
+	double xArray[n];
+	double yArray[n];
+	//Inizializzo xArray.
+	double xArrayElement = begin;
+	for(int i=0; i<n; i++){
+		xArray[i] = xArrayElement;
+		xArrayElement++;	
+	}
+	//Per ogni riga della matrice "data" mi calcolo il coefficiente della retta di regressione.
+	for(int i=0; i<numberOfPixel; i++) {
+		//Inizializzo l'yArray
+		for(int j=0; j<n; j++) {
+			yArray[j] = data[i][j];
+		}
+		result[i] = regrCoeff(xArray,yArray,n);
+	}
+	return result;
+}
+
+int maxIndex(double* yArray, const int n) {
+	double maxValue = yArray[0];
+	int maxValueIndex = 0;
+	for(int i=0; i<n; i++) {
+		if(yArray[i]>maxValue) {
+			maxValue = yArray[i];
+			maxValueIndex = i;
+		}
+	}
+	return maxValueIndex;
+}
+
+//Ritorna un array di interi che in posizione "i" contiene l'indice del frame (indice della colonna della matrice "data") con valore massimo relativamente alla i-esima riga della matrice "data".
+double* clust_par_tpeak(double** data,const int numberOfPixel,int begin,int end) {
+	double* result = new double[numberOfPixel];
+	int n = end-begin+1;
+	double yArray[n];
+	for(int i=0; i<numberOfPixel; i++) {
+		//Inizializzo l'yArray
+		for(int j=0; j<n; j++) {
+			yArray[j] = data[i][j];
+		}
+		result[i] = static_cast<double>(maxIndex(yArray,n));
+	}
+	return result;
+}
+
+double** clust_par_value(double** data,const int numberOfPixel,int begin,int end) {
+	const int n = end-begin+1;
+	double** result = new double*[n];
+	//Inizializzo l'array risultato
+	for(int k = 0; k<numberOfPixel; k++)
+    	result[k] = new double[n];
+	for(int i=0; i<numberOfPixel; i++) {
+		for(int j=0; j<n; j++) {
+			result[i][j] = data[i][j];
+		}
+	}
+	return result;
+}
+
+	/*FINE FEATURE DINAMICHE */

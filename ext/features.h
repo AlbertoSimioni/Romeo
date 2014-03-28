@@ -29,5 +29,18 @@ extern "C" MY_EXPORT double feat_p2_homo(int data[4][4]);
 
 /*FEATURE DINAMICHE */
 extern "C" MY_EXPORT double* clust_par_mean(double** data,const int numberOfPixel,int begin,int end);
+double trapz (double*, double*, const int);
+extern "C" MY_EXPORT double* clust_par_auc(double**,const int,int,int);
+double max(double*,const int);
+extern "C" MY_EXPORT double* clust_par_max(double**,const int,int,int);
+double min(double*,const int);
+extern "C" MY_EXPORT double* clust_par_min(double**,const int,int,int);
+double regrCoeff(double*, double*, const int);
+extern "C" MY_EXPORT double* clust_par_slope(double**,const int,int,int);
+int maxIndex(double*,const int);
+extern "C" MY_EXPORT double* clust_par_tpeak(double**,const int,int,int);
+//Attenzione, usando questa crasha ROMEO
+extern "C" MY_EXPORT double** clust_par_value(double**,const int,int,int);
+/*FINE FEATURE DINAMICHE*/
 
 #endif
