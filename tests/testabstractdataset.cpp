@@ -6,9 +6,14 @@ TestAbstractDataset::TestAbstractDataset(QObject *parent) :
 }
 
 void TestAbstractDataset::createNewSubject(){
+    QDir dataTest = QDir::current();
+    dataTest.cd("..");
+    dataTest.cd("..");
+    dataTest.cd("tests");
+
     QString name="NomeDataset";
-    QString fileSubject="Subject";
-    QString mask="Mask";
+    QString fileSubject=dataTest.absolutePath().append("/images/image.tif");
+    QString mask=dataTest.absolutePath().append("/images/mask.tif");
     Dataset2D *ds2d=new Dataset2D(name);
     QSignalSpy spyAddSub(ds2d, SIGNAL(addedSubject(QString,QString,QString)));
     QSignalSpy spyMod(ds2d, SIGNAL(modified(QString)));
@@ -101,10 +106,10 @@ void TestAbstractDataset::executeAnalysis(){
 
     QString firstSubjName = "subjectNoMask";
     QString secondSubjName = "subjectWithMask";
-    QString imgPath = dataTest.absolutePath().append("/images/image.png");
+    QString imgPath = dataTest.absolutePath().append("/images/image.tif");
     QString maskPath = "";
     dataset2d->createNewSubject(firstSubjName,imgPath,maskPath);
-    maskPath = dataTest.absolutePath().append("/images/mask.png");
+    maskPath = dataTest.absolutePath().append("/images/mask.tif");
     dataset2d->createNewSubject(secondSubjName,imgPath,maskPath);
     QList<QString> subjectList;
     subjectList.append(firstSubjName);
@@ -117,7 +122,7 @@ void TestAbstractDataset::executeAnalysis(){
         dataTest.cd("dataTest");
     }
 
-    dataset2d->executeAnalysis(staticProtName,subjectList,dataTest.absolutePath(),true,QString(".png"));
+    dataset2d->executeAnalysis(staticProtName,subjectList,dataTest.absolutePath(),true,QString(".tif"));
 
     dataset2d->removeProtocolAssociation(staticProtName);
     myAlg = hierarchical;
@@ -128,7 +133,7 @@ void TestAbstractDataset::executeAnalysis(){
     staticProtDescr = "staticProtDescription2";
     sp = new StaticProtocol(staticProtName,staticProtDescr,myAlg,clusterNum,hParameters,feat,testStaticProtocol);
     dataset2d->associateProtocol(sp);
-    dataset2d->executeAnalysis(staticProtName,subjectList,dataTest.absolutePath(),true,QString(".png"));
+    dataset2d->executeAnalysis(staticProtName,subjectList,dataTest.absolutePath(),true,QString(".tif"));
 
     dataset2d->removeProtocolAssociation(staticProtName);
     myAlg = fuzzyCMeans;
@@ -141,7 +146,7 @@ void TestAbstractDataset::executeAnalysis(){
     feat.append(fl->getFeature("Energy"));
     sp = new StaticProtocol(staticProtName,staticProtDescr,myAlg,clusterNum,fParameters,feat,testStaticProtocol);
     dataset2d->associateProtocol(sp);
-    dataset2d->executeAnalysis(staticProtName,subjectList,dataTest.absolutePath(),true,QString(".png"));
+    dataset2d->executeAnalysis(staticProtName,subjectList,dataTest.absolutePath(),true,QString(".tif"));
 
     QCOMPARE(spyAnalysisFinished.count(),3);
     QCOMPARE(spyNewResults.count(),3);

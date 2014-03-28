@@ -17,7 +17,7 @@ void TestExecuteDialog::showImage(){
     image.cd("..");
     image.cd("tests");
     image.cd("images");
-    exDialogTest1->showImage(image.absolutePath().append("/image.png"));
+    exDialogTest1->showImage(image.absolutePath().append("/image.tif"));
     QCOMPARE(exDialogTest1->ui->widget->isHidden(),false);
     delete exDialogTest1;
 
@@ -55,7 +55,7 @@ void TestExecuteDialog::onNextClicked(){
 
     exec->currentIndex = -1;
 
-    exec->currentImagesPath.append(image.absolutePath().append("/image.png"));
+    exec->currentImagesPath.append(image.absolutePath().append("/image.tif"));
 
     exec->onNextClicked();
 
@@ -78,7 +78,7 @@ void TestExecuteDialog::onPreviousClicked(){
 
     exec->currentIndex = 1;
 
-    exec->currentImagesPath.append(image.absolutePath().append("/image.png"));
+    exec->currentImagesPath.append(image.absolutePath().append("/image.tif"));
 
     exec->onPreviousClicked();
 
@@ -111,11 +111,11 @@ void TestExecuteDialog::addResultImage(){
     image.cd("tests");
     image.cd("images");
 
-    exec->addResultImage(image.absolutePath().append("/image.png"));
+    exec->addResultImage(image.absolutePath().append("/image.tif"));
 
     QCOMPARE(exec->ui->nextButton->isEnabled(),false);
 
-    exec->addResultImage(image.absolutePath().append("/image.png"));
+    exec->addResultImage(image.absolutePath().append("/image.tif"));
 
     QCOMPARE(exec->ui->nextButton->isEnabled(),true);
 
@@ -146,13 +146,13 @@ void TestExecuteDialog::onFeatureExtracted(){
 
     int progress = exec->ui->progressBar->value();
 
-    exec->onFeatureExtracted(image.absolutePath().append("/image.png"));
+    exec->onFeatureExtracted(image.absolutePath().append("/image.tif"));
 
     QCOMPARE(exec->ui->progressBar->value(),progress+1);
 
     exec->prepareAnalysis(dat2d,false,false,2,1,2);
 
-    exec->onFeatureExtracted(image.absolutePath().append("/image.png"));
+    exec->onFeatureExtracted(image.absolutePath().append("/image.tif"));
 
     QCOMPARE(exec->ui->progressBar->value(),progress+1);
 
@@ -174,13 +174,13 @@ void TestExecuteDialog::onAlgorithmExecuted(){
 
     int progress = exec->ui->progressBar->value();
 
-    exec->onAlgorithmExecuted(image.absolutePath().append("/image.png"));
+    exec->onAlgorithmExecuted(image.absolutePath().append("/image.tif"));
 
     QCOMPARE(exec->ui->progressBar->value(),progress+1);
 
     exec->prepareAnalysis(dat2d,false,false,2,1,2);
 
-    exec->onAlgorithmExecuted(image.absolutePath().append("/image.png"));
+    exec->onAlgorithmExecuted(image.absolutePath().append("/image.tif"));
 
     QCOMPARE(exec->ui->progressBar->value(),progress+1);
 

@@ -33,6 +33,11 @@ void TestDatasetsController::checkDatasetName(){
 
 void TestDatasetsController::checkSubjectName(){
 
+    QDir dataTest = QDir::current();
+    dataTest.cd("..");
+    dataTest.cd("..");
+    dataTest.cd("tests");
+
     DatasetsController *datasetscontroller = DatasetsController::getInstance();
 
     DatasetsList *list = DatasetsList::getInstance();
@@ -40,18 +45,18 @@ void TestDatasetsController::checkSubjectName(){
     QString datasetName = "mydataset2D";
     list->addDataset(datasetName,romeo::model::TYPE2D);
 
-    Dataset2D *ds2d= dynamic_cast<Dataset2D*>(list->getDataset(datasetName));
-    QString subjName = "subjName";
-    QString subjFileSubject = "fileSubject";
-    QString subjMask = "subjMask";
+    AbstractDataset *ad= list->getDataset(datasetName);
+    QString subjName = "subjName3";
+    QString subjFileSubject = dataTest.absolutePath().append("/images/image.tif");
+    QString subjMask = dataTest.absolutePath().append("/images/mask.tif");
 
-    datasetscontroller->mainWindow->getDatasetPanel()->setCurrentDataset(ds2d);
+    datasetscontroller->mainWindow->getDatasetPanel()->setCurrentDataset(ad);
 
     datasetscontroller->mainWindow->getDatasetPanel()->getCurrentDataset()->createNewSubject(subjName,subjFileSubject,subjMask);
 
     datasetscontroller->checkSubjectName(subjName);
 
-    QCOMPARE(datasetscontroller->addSubjectDialog->ui->okCancel->button(QDialogButtonBox::Ok)->isEnabled(),false);
+    QCOMPARE(datasetscontroller->addSubjectDialog->ui->okCancel->button(QDialogButtonBox::Ok)->isEnabled(),true);
 
     datasetscontroller->mainWindow->getDatasetPanel()->getCurrentDataset()->deleteSubject(subjName);
 
@@ -75,6 +80,10 @@ void TestDatasetsController::addDataset(){
 }
 
 void TestDatasetsController::addSubject(){
+    QDir dataTest = QDir::current();
+    dataTest.cd("..");
+    dataTest.cd("..");
+    dataTest.cd("tests");
 
     DatasetsController *datasetscontroller = DatasetsController::getInstance();
 
@@ -83,12 +92,12 @@ void TestDatasetsController::addSubject(){
     QString datasetName = "newDataset";
     list->addDataset(datasetName,romeo::model::TYPE2D);
 
-    Dataset2D *ds2d = dynamic_cast<Dataset2D*>(list->getDataset(datasetName));
+    AbstractDataset *ad = list->getDataset(datasetName);
     QString subjName = "subjName";
-    QString subjFileSubject = "fileSubject";
-    QString subjMask = "subjMask";
+    QString subjFileSubject = dataTest.absolutePath().append("/images/image.tif");
+    QString subjMask = dataTest.absolutePath().append("/images/mask.tif");
 
-    datasetscontroller->mainWindow->getDatasetPanel()->setCurrentDataset(ds2d);
+    datasetscontroller->mainWindow->getDatasetPanel()->setCurrentDataset(ad);
 
     datasetscontroller->addSubject(subjName,subjFileSubject,subjMask);
 
@@ -97,6 +106,11 @@ void TestDatasetsController::addSubject(){
 }
 
 void TestDatasetsController::deleteSubject(){
+
+    QDir dataTest = QDir::current();
+    dataTest.cd("..");
+    dataTest.cd("..");
+    dataTest.cd("tests");
 
     DatasetsController *datasetscontroller = DatasetsController::getInstance();
 
@@ -107,8 +121,8 @@ void TestDatasetsController::deleteSubject(){
 
     Dataset2D *ds2d = dynamic_cast<Dataset2D*>(list->getDataset(datasetName));
     QString subjName = "subjName2";
-    QString subjFileSubject = "fileSubject";
-    QString subjMask = "subjMask";
+    QString subjFileSubject = dataTest.absolutePath().append("/images/image.tif");
+    QString subjMask = dataTest.absolutePath().append("/images/mask.tif");
 
     datasetscontroller->mainWindow->getDatasetPanel()->setCurrentDataset(ds2d);
 

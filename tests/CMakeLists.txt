@@ -83,6 +83,7 @@ testmain.cpp
   ../src/romeo/model/protocols/algorithms/userdefinedalgorithm.cpp
   ../src/romeo/model/imageIO/handlerio.cpp
   ../src/romeo/model/imageIO/handleriostatic.cpp
+  ../src/romeo/model/imageIO/handleriodynamic.cpp
   ../src/romeo/model/datasets/result.cpp
   ../src/romeo/model/datasets/abstractdataset.cpp
   ../src/romeo/model/datasets/datasetslist.cpp

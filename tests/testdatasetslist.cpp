@@ -27,12 +27,12 @@ void TestDatasetsList::getDataset()
     QCOMPARE(test1->getType(),romeo::model::TYPE2D);
     //test che verifica che non ci siano dataset col nome sbagliato
     QVERIFY(test2==0);
+    delete list;
 }
 
 
 void TestDatasetsList::addDataset()
 {
-
     QString datasetName = "name";
     romeo::model::InputFormat datasetType = romeo::model::TYPE2D;
     DatasetsList *list = new DatasetsList();
@@ -41,6 +41,7 @@ void TestDatasetsList::addDataset()
     QCOMPARE(datasetName,list->getDataset(datasetName)->getName());
     QCOMPARE(datasetType,list->getDataset(datasetName)->getType());
     QCOMPARE(spy.count(),1);
+    delete list;
 }
 
 void TestDatasetsList::getDatasetsList(){
@@ -56,7 +57,7 @@ void TestDatasetsList::getDatasetsList(){
     QCOMPARE(toTest.at(1)->getName(),QString("secondoDS"));
     QCOMPARE(toTest.at(2)->getName(),QString("terzoDS"));
     QCOMPARE(toTest.at(3)->getName(),QString("quartoDS"));
-
+    delete list;
 }
 
 void TestDatasetsList::getDatasetsNames(){

@@ -13,10 +13,16 @@ void TestSubject2D::getType_data(){
 
 
 void TestSubject2D::getType(){
-    QString a ="a";
-    QString b="b";
-    QString c ="c";
-    romeo::model::datasets::Subject2D *s2d=new Subject2D(a,b,c);
+    QDir dataTest = QDir::current();
+    dataTest.cd("..");
+    dataTest.cd("..");
+    dataTest.cd("tests");
+
+    QString name = "subjName";
+    QString dataPath = dataTest.absolutePath().append("/images/image.tif");
+    QString maskPath = dataTest.absolutePath().append("/images/mask.tif");
+
+    Subject2D *s2d=new Subject2D(name,dataPath,maskPath);
     QFETCH(romeo::model::InputFormat,type);
     QCOMPARE(s2d->getType(),type);
     delete s2d;

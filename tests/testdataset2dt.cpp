@@ -6,14 +6,20 @@ TestDataset2DT::TestDataset2DT(QObject *parent) :
 
 
 void TestDataset2DT::makeSubject_data(){
+    QDir dataTest = QDir::current();
+    dataTest.cd("..");
+    dataTest.cd("..");
+    dataTest.cd("tests");
+    QString dataPath = dataTest.absolutePath().append("/images/image.tif");
+    QString maskPath = dataTest.absolutePath().append("/images/mask.tif");
 
     QTest::addColumn<QString>("name");
     QTest::addColumn<QString>("fileSubject");
     QTest::addColumn<QString>("mask");
 
-    QTest::newRow("dataset1")<<"name1"<<"fileSubject1"<<"mask1";
-    QTest::newRow("dataset2")<<"name2"<<"fileSubject2"<<"mask2";
-    QTest::newRow("dataset3")<<"name3"<<"fileSubject3"<<"mask3";
+    QTest::newRow("dataset1") << "name1" << dataPath << maskPath;
+    QTest::newRow("dataset2") << "name2" << dataPath << maskPath;
+    QTest::newRow("dataset3") << "name3" << dataPath << maskPath;
 
 
 }
