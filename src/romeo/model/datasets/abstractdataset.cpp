@@ -245,12 +245,16 @@ void AbstractDataset::executeAnalysis(QString protocol, QList<QString> subjects,
         }
         // eccezione per itk
         catch (itk::ExceptionObject & e) {
-            QString errorMessage = "There were errors trying to read the subject named " + subjectsToAnalyze[i]->getName() + " located in " + subjectsToAnalyze[i]->getSubject() + " or its mask located in " + subjectsToAnalyze[i]->getMask();
+            QString errorMessage = "There were errors trying to read the subject named " + subjectsToAnalyze[i]->getName() + " located in " + subjectsToAnalyze[i]->getSubject();
+            if(!subjectsToAnalyze[i]->getMask().isEmpty())
+                errorMessage += " or its mask located in " + subjectsToAnalyze[i]->getMask();
             emit analysisProblem(errorMessage);
         }
         // eccezione per opencv
         catch (bool e) {
-            QString errorMessage = "There were errors trying to read the subject named " + subjectsToAnalyze[i]->getName() + " located in " + subjectsToAnalyze[i]->getSubject() + " or its mask located in " + subjectsToAnalyze[i]->getMask();
+            QString errorMessage = "There were errors trying to read the subject named " + subjectsToAnalyze[i]->getName() + " located in " + subjectsToAnalyze[i]->getSubject();
+            if(!subjectsToAnalyze[i]->getMask().isEmpty())
+                errorMessage += " or its mask located in " + subjectsToAnalyze[i]->getMask();
             emit analysisProblem(errorMessage);
         }
     }

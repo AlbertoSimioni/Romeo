@@ -34,25 +34,26 @@ QString Dataset2D::checkSubject(QString &fileSubject, QString &mask){
     QString messageToReturn = "";
     // l'immagine deve essere un'immagine 2D
     // la maschera deve essere una immagine 2D
+    int numberOfPixel = 0;
     typedef itk::RGBPixel<unsigned char> RGBPixelType;
     typedef itk::Image<RGBPixelType,2> ImageType;
     typedef itk::Image<unsigned char,2> MaskType;
     romeo::model::imageIO::HandlerIOStatic* imageHandler = romeo::model::imageIO::HandlerIOStatic::getInstance();
     try {
-        imageHandler->readImage<ImageType::Pointer,ImageType>(fileSubject);
+        ImageType::Pointer imagePointer = imageHandler->readImage<ImageType::Pointer,ImageType>(fileSubject);
+        numberOfPixel = imagePointer->GetLargestPossibleRegion().GetNumberOfPixels();
     }
     catch(itk::ExceptionObject & e) {
-        messageToReturn = "There were problems in reading the image to analyze";
+        messageToReturn += "There were problems in reading the image to analyze.\n";
     }
-    try {
-        imageHandler->readImage<MaskType::Pointer,MaskType>(mask);
-    }
-    catch(itk::ExceptionObject & e) {
-        if(messageToReturn == "") {
-            messageToReturn = "There were problems in reading the mask";
+    if(!mask.isEmpty()) {
+        try {
+            MaskType::Pointer maskPointer = imageHandler->readImage<MaskType::Pointer,MaskType>(mask);
+            if(numberOfPixel!=maskPointer->GetLargestPossibleRegion().GetNumberOfPixels())
+                messageToReturn += "The number of pixel of the image to analyze is different from the number of pixel of its mask.\n";
         }
-        else {
-            messageToReturn += " and its mask"
+        catch(itk::ExceptionObject & e) {
+            messageToReturn += "There were problems in reading the mask.\n";
         }
     }
     if(messageToReturn == "") {
@@ -60,7 +61,7 @@ QString Dataset2D::checkSubject(QString &fileSubject, QString &mask){
         return messageToReturn;
     }
     else {
-        messageToReturn += ". Please check the paths of your subject.";
+        messageToReturn += "Please check the paths of your subject.";
         return messageToReturn;
     }
 }

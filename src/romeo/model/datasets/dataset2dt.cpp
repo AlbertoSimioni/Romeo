@@ -37,23 +37,35 @@ QString Dataset2DT::checkSubject(QString &fileSubject, QString &mask){
     QString messageToReturn = "";
     // l'immagine deve essere un video 2D
     // la maschera deve essere una immagine 2D
-    typedef itk::Image<unsigned char,2> MaskType;
+    int numberOfPixel = 0;
+    typedef itk::RGBPixel<unsigned char> RGBPixelType;
+    typedef itk::Image<RGBPixelType,4> ImageType;
+    typedef itk::Image<unsigned char,3> MaskType;
     romeo::model::imageIO::HandlerIODynamic* imageHandler = romeo::model::imageIO::HandlerIODynamic::getInstance();
     try {
-        imageHandler->read2DVideo(fileSubject);
-    }
-    catch(bool e) {
-        messageToReturn = "There were problems in reading the image to analyze";
-    }
-    try {
-        imageHandler->readImage<MaskType::Pointer,MaskType>(mask);
+        cv::VideoCapture imagePointer = imageHandler->read2DVideo(fileSubject);
+        numberOfPixel = imagePointer.get( CV_CAP_PROP_FRAME_WIDTH ) * imagePointer.get( CV_CAP_PROP_FRAME_HEIGHT );
+        // se è un video avrà almeno 2 frame
+        int numberOfFrames = imagePointer.get(CV_CAP_PROP_FRAME_COUNT);
+        if(numberOfFrames<=1)
+            messageToReturn += "There were problems in reading the image to analyze.\n";
+        /*cv::Mat frame;
+        bool video = imagePointer.read(frame);
+        video = imagePointer.read(frame);
+        if(!video)
+            messageToReturn += "There were problems in reading the image to analyze.\n";*/
     }
     catch(itk::ExceptionObject & e) {
-        if(messageToReturn == "") {
-            messageToReturn = "There were problems in reading the mask";
+        messageToReturn += "There were problems in reading the image to analyze.\n";
+    }
+    if(!mask.isEmpty()) {
+        try {
+            MaskType::Pointer maskPointer = imageHandler->readImage<MaskType::Pointer,MaskType>(mask);
+            if(numberOfPixel!=maskPointer->GetLargestPossibleRegion().GetNumberOfPixels())
+                messageToReturn += "The number of pixel of the frames of the image to analyze is different from the number of pixel of the mask.\n";
         }
-        else {
-            messageToReturn += " and its mask"
+        catch(itk::ExceptionObject & e) {
+            messageToReturn += "There were problems in reading the mask.\n";
         }
     }
     if(messageToReturn == "") {
@@ -61,7 +73,7 @@ QString Dataset2DT::checkSubject(QString &fileSubject, QString &mask){
         return messageToReturn;
     }
     else {
-        messageToReturn += ". Please check the paths of your subject.";
+        messageToReturn += "Please check the paths of your subject.";
         return messageToReturn;
     }
 }

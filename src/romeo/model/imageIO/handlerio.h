@@ -36,7 +36,7 @@ public:
      */
     template<typename PointerType,typename ImageType>
     PointerType readImage(QString path) {
-        typedef itk::ImageFileReader< ImageType >  ReaderType;//Reader of Image Type
+        typedef itk::ImageFileReader< ImageType >  ReaderType; //Reader of Image Type
         typename ReaderType::Pointer reader = ReaderType::New();
         if(!path.isEmpty()) {
             reader->SetFileName(path.toStdString());
