@@ -7,6 +7,7 @@ TestFeaturesController::TestFeaturesController(QObject *parent) :
 
 
 void TestFeaturesController::getInstance(){
+    DatasetsController *controller = DatasetsController::getInstance();
     QCOMPARE(FeaturesController::getInstance(),FeaturesController::getInstance());
 }
 
@@ -26,8 +27,6 @@ void TestFeaturesController::checkFeatureName(){
 
     featurescontroller->checkFeatureName(featName);
     QCOMPARE(featurescontroller->newFeatureDialog->ui->okCancel->button(QDialogButtonBox::Ok)->isEnabled(),false);
-
-    delete foFeat;
 }
 
 

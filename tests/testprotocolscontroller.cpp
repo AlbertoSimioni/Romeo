@@ -7,6 +7,7 @@ TestProtocolsController::TestProtocolsController(QObject *parent) :
 
 
 void TestProtocolsController::getInstance(){
+    DatasetsController *controller = DatasetsController::getInstance();
     QCOMPARE(ProtocolsController::getInstance(),ProtocolsController::getInstance());
 }
 

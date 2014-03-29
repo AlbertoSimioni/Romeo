@@ -7,6 +7,7 @@ TestAlgorithmsController::TestAlgorithmsController(QObject *parent) :
 
 
 void TestAlgorithmsController::getInstance(){
+    DatasetsController * controller = DatasetsController::getInstance();
     QCOMPARE(AlgorithmsController::getInstance(),AlgorithmsController::getInstance());
 }
 

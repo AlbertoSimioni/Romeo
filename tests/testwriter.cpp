@@ -6,12 +6,8 @@ TestWriter::TestWriter(QObject *parent) :
 
 
 void TestWriter::getInstance(){
-    Writer *writer = new Writer(0);
-    QCOMPARE(writer->getInstance(0),writer->getInstance(0));
-    Writer *writer2 = new Writer(0);
-    QCOMPARE(writer2->getInstance(0),writer2->getInstance(writer));
-    Writer *writer3 = new Writer(0);
-    QCOMPARE(writer3->getInstance(writer),writer3->getInstance(0));
+    DatasetsController *controller = DatasetsController::getInstance();
+    QCOMPARE(Writer::getInstance(),Writer::getInstance());
 }
 
 

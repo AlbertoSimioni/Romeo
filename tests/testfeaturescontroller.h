@@ -3,6 +3,7 @@
 
 #include <QtTest>
 #define private public
+#include <../src/romeo/controller/controller.h>
 #include <../src/romeo/controller/featurescontroller.h>
 #include <../src/romeo/model/protocols/features/featureslist.h>
 #include <../src/romeo/model/protocols/features/firstorderfeature.h>

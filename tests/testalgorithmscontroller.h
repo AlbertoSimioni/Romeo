@@ -3,6 +3,7 @@
 
 #include <QtTest>
 #define private public
+#include <../src/romeo/controller/controller.h>
 #include <../src/romeo/controller/algorithmscontroller.h>
 #include <../src/romeo/model/protocols/algorithms/algorithmslist.h>
 #include <../src/romeo/model/protocols/algorithms/userdefinedalgorithm.h>

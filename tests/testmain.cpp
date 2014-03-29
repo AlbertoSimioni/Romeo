@@ -48,133 +48,101 @@ int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
     QApplication a(argc, argv);
 
     TestParameterValueForm tpvf;
-    QTest::qExec(&tpvf);
 
     TestNewFeatureDialog tnfd;
-    QTest::qExec(&tnfd);
 
     TestNewDatasetDialog tndd;
-    QTest::qExec(&tndd);
 
     TestProtocolDialog tpd;
-    QTest::qExec(&tpd);
 
     TestAbstractAlgorithm taa;
-    QTest::qExec(&taa);
 
     TestAlgorithmsList taa2;
-    QTest::qExec(&taa2);
 
     TestStaticProtocol tsp;
-    QTest::qExec(&tsp);
 
     TestProtocolsList tpl;
-    QTest::qExec(&tpl);
 
     TestDynamicFeature tdf;
-    QTest::qExec(&tdf);
 
     TestFirstOrderFeature tdof;
-    QTest::qExec(&tdof);
 
     TestSecondOrderFeature tsof;
-    QTest::qExec(&tsof);
 
     TestFeaturesList tfl;
-    QTest::qExec(&tfl);
 
     TestWriter tw;
-    QTest::qExec(&tw);
 
     TestUserDefinedAlgorithm tuda;
-    QTest::qExec(&tuda);
 
     TestDataset2D tds2d;
-    QTest::qExec(&tds2d);
 
     TestDataset3DT tds3dt;
-    QTest::qExec(&tds3dt);
 
     TestSubject2D ts2d;
-    QTest::qExec(&ts2d);
 
     TestSubject2DT ts2dt;
-    QTest::qExec(&ts2dt);
 
     TestSubject3D ts3d;
-    QTest::qExec(&ts3d);
 
     TestSubject3DT ts3dt;
-    QTest::qExec(&ts3dt);
 
     TestResult tres;
-    QTest::qExec(&tres);
 
     TestDatasetsList tdsL;
-    QTest::qExec(&tdsL);
 
     TestAbstractSubject taS;
-    QTest::qExec(&taS);
-
-    TestAbstractDataset tads;
-    QTest::qExec(&tads);
 
     TestExecuteDialog ted;
-    QTest::qExec(&ted);
 
     TestNewAlgorithmDialog tnad;
-    QTest::qExec(&tnad);
 
     TestNewAlgorithmParameterForm tnapf;
-    QTest::qExec(&tnapf);
 
     TestAddSubjectDialog tasd;
-    QTest::qExec(&tasd);
 
     TestProtocolsPanel tpp;
-    QTest::qExec(&tpp);
 
     TestDatasetsController tdc;
-    QTest::qExec(&tdc);
 
     TestProtocolsController tpc;
-    QTest::qExec(&tpc);
 
     TestFeaturesController tfc;
-    QTest::qExec(&tfc);
 
     TestAlgorithmsController tac;
-    QTest::qExec(&tac);
 
     TestColor tc;
-    QTest::qExec(&tc);
 
     TestExecutePanel tep;
-    QTest::qExec(&tep);
 
     TestFileSystemExplorer tfse;
-    QTest::qExec(&tfse);
 
     TestProtocolsExplorer tpe;
-    QTest::qExec(&tpe);
 
     TestMainWindow tmw;
-    QTest::qExec(&tmw);
 
     TestDataset3D tds3d;
-    QTest::qExec(&tds3d);
 
     TestDynamicProtocol tdp;
-    QTest::qExec(&tdp);
 
     TestFeaturesListDialog tfld;
-    QTest::qExec(&tfld);
 
     TestDataset2DT tds2dt;
-    QTest::qExec(&tds2dt);
 
     TestSubjectsPanel tsp2;
-    QTest::qExec(&tsp2);
 
-    return 0;
+    TestAbstractDataset tads;
+
+
+    return  QTest::qExec(&tpvf) | QTest::qExec(&tnfd) |
+            QTest::qExec(&tndd) | QTest::qExec(&tpd) | QTest::qExec(&taa) | QTest::qExec(&taa2) |
+            QTest::qExec(&tsp) | QTest::qExec(&tpl) | QTest::qExec(&tdf) | QTest::qExec(&tdof) |
+            QTest::qExec(&tsof) | QTest::qExec(&tfl) | QTest::qExec(&tw) | QTest::qExec(&tuda) |
+            QTest::qExec(&tds2d) | QTest::qExec(&tds3dt) | QTest::qExec(&ts2d) | QTest::qExec(&ts2dt) |
+            QTest::qExec(&ts3d)| QTest::qExec(&ts3dt) | QTest::qExec(&tres) | QTest::qExec(&tdsL) |
+            QTest::qExec(&taS) | QTest::qExec(&ted) | QTest::qExec(&tnad) | QTest::qExec(&tnapf) |
+            QTest::qExec(&tasd) | QTest::qExec(&tpp) | QTest::qExec(&tdc) | QTest::qExec(&tpc) |
+            QTest::qExec(&tfc) | QTest::qExec(&tac) | QTest::qExec(&tc) | QTest::qExec(&tep) | QTest::qExec(&tfse) |
+            QTest::qExec(&tpe) | QTest::qExec(&tmw) | QTest::qExec(&tds3d) | QTest::qExec(&tdp) |
+            QTest::qExec(&tfld) | QTest::qExec(&tds2dt) | QTest::qExec(&tsp2) | QTest::qExec(&tads);
 }

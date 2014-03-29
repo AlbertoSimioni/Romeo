@@ -1,94 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <features>
-    <feature>
-        <name>Standard Deviation</name>
-        <description>gran bella descrizione</description>
-        <type>FIRSTORDER</type>
-        <file>features/libfeaturesTest</file>
-        <functionName>feat_p1_std</functionName>
-    </feature>
-    <feature>
-        <name>Mean</name>
-        <description>gran bella descrizione</description>
-        <type>FIRSTORDER</type>
-        <file>features/libfeaturesTest</file>
-        <functionName>feat_p1_mean</functionName>
-    </feature>
-    <feature>
-        <name>Skewness</name>
-        <description>gran bella descrizione</description>
-        <type>FIRSTORDER</type>
-        <file>features/libfeaturesTest</file>
-        <functionName>feat_p1_skew</functionName>
-    </feature>
-    <feature>
+	<feature>
         <name>Kurtosis</name>
-        <description>gran bella descrizione</description>
+        <description>Measures the peakedness of the distribution</description>
         <type>FIRSTORDER</type>
-        <file>features/libfeaturesTest</file>
+        <file>features/libfeatures</file>
         <functionName>feat_p1_kurt</functionName>
     </feature>
     <feature>
+        <name>Mean</name>
+        <description>Locates the central location of the distribution</description>
+        <type>FIRSTORDER</type>
+        <file>features/libfeatures</file>
+        <functionName>feat_p1_mean</functionName>
+    </feature>
+     <feature>
+        <name>Skewness</name>
+        <description>Measures the asymmetry of the distribution</description>
+        <type>FIRSTORDER</type>
+        <file>features/libfeatures</file>
+        <functionName>feat_p1_skew</functionName>
+    </feature>
+    <feature>
+        <name>Standard Deviation</name>
+        <description>Measures the dispersion of the distribution from the average</description>
+        <type>FIRSTORDER</type>
+        <file>features/libfeatures</file>
+        <functionName>feat_p1_std</functionName>
+    </feature>   
+    <feature>
         <name>Contrast</name>
-        <description>gran bella descrizione</description>
+        <description>Measures the amount of gray-level co-occurence differences</description>
         <type>SECONDORDER</type>
-        <file>features/libfeaturesTest</file>
+        <file>features/libfeatures</file>
         <functionName>feat_p2_contr</functionName>
     </feature>
     <feature>
         <name>Correlation</name>
-        <description>gran bella descrizione</description>
+        <description>Measures the dependence among gray-level co-occurence data.</description>
         <type>SECONDORDER</type>
-        <file>features/libfeaturesTest</file>
+        <file>features/libfeatures</file>
         <functionName>feat_p2_corr</functionName>
     </feature>
     <feature>
         <name>Energy</name>
-        <description>gran bella descrizione</description>
+        <description>Measures the order of the gray-level co-occurence data</description>
         <type>SECONDORDER</type>
-        <file>features/libfeaturesTest</file>
+        <file>features/libfeatures</file>
         <functionName>feat_p2_energy</functionName>
     </feature>
     <feature>
         <name>Entropy</name>
-        <description>gran bella descrizione</description>
+        <description>Measures the disorder of the gray-level co-occurence data</description>
         <type>SECONDORDER</type>
-        <file>features/libfeaturesTest</file>
+        <file>features/libfeatures</file>
         <functionName>feat_p2_entropy</functionName>
     </feature>
     <feature>
         <name>Homogeneity</name>
-        <description>gran bella descrizione</description>
+        <description>Measures the sameness of gray-level co-occurrence values</description>
         <type>SECONDORDER</type>
-        <file>features/libfeaturesTest</file>
+        <file>features/libfeatures</file>
         <functionName>feat_p2_homo</functionName>
     </feature>
     <feature>
-        <name>featName</name>
-        <description>fodescription</description>
-        <type>FIRSTORDER</type>
-        <file>fodylp</file>
-        <functionName>fodyfn</functionName>
-    </feature>
-    <feature>
-        <name>foname</name>
-        <description>fodescription</description>
-        <type>FIRSTORDER</type>
-        <file>fodylp</file>
-        <functionName>fodyfn</functionName>
-    </feature>
-    <feature>
-        <name>soname</name>
-        <description>sodescription</description>
-        <type>SECONDORDER</type>
-        <file>sodylp</file>
-        <functionName>sodyfn</functionName>
-    </feature>
-    <feature>
-        <name>dynname</name>
-        <description>dyndescription</description>
+        <name>Area Under the Curve</name>
+        <description>Measures the area under the curve in an interval of frames</description>
         <type>DYNAMIC</type>
-        <file>dyndylp</file>
-        <functionName>dyndyfn</functionName>
+        <file>features/libfeatures</file>
+        <functionName>clust_par_auc</functionName>
+    </feature>
+    <feature>
+        <name>Dynamic Mean</name>
+        <description>Measures the mean value in an interval of frames</description>
+        <type>DYNAMIC</type>
+        <file>features/libfeatures</file>
+        <functionName>clust_par_mean</functionName>
+    </feature>
+    <feature>
+        <name>Maximum</name>
+        <description>Measures the maximum value in an interval of frames</description>
+        <type>DYNAMIC</type>
+        <file>features/libfeatures</file>
+        <functionName>clust_par_max</functionName>
+    </feature>
+     <feature>
+        <name>Minimum</name>
+        <description>Measures the minimum value in an interval of frames</description>
+        <type>DYNAMIC</type>
+        <file>features/libfeatures</file>
+        <functionName>clust_par_min</functionName>
+    </feature>
+    <feature>
+        <name>Slope</name>
+        <description>Measures the slope of the regression line in an interval of frames</description>
+        <type>DYNAMIC</type>
+        <file>features/libfeatures</file>
+        <functionName>clust_par_slope</functionName>
+    </feature>
+    <feature>
+        <name>Time to Peak</name>
+        <description>Identifies the time position of the frame with the maximum value
+in an interval of frames</description>
+        <type>DYNAMIC</type>
+        <file>features/libfeatures</file>
+        <functionName>clust_par_tpeak</functionName>
+    </feature>  
+    <feature>
+        <name>Value</name>
+        <description>Measures the values within an interval of frames</description>
+        <type>DYNAMIC</type>
+        <file>features/libfeatures</file>
+        <functionName>clust_par_value</functionName>
     </feature>
 </features>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
