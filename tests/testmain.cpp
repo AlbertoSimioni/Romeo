@@ -42,6 +42,7 @@
 #include "testprotocolsexplorer.h"
 #include "testmainwindow.h"
 #include "testfeatureslistdialog.h"
+#include "testsubjectspanel.h"
 
 int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
     QApplication a(argc, argv);
@@ -90,10 +91,6 @@ int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
 
     TestDataset2D tds2d;
     QTest::qExec(&tds2d);
-
-    TestDataset2DT tds2dt;
-    QTest::qExec(&tds2dt);
-
 
     TestDataset3DT tds3dt;
     QTest::qExec(&tds3dt);
@@ -172,6 +169,12 @@ int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
 
     TestFeaturesListDialog tfld;
     QTest::qExec(&tfld);
+
+    TestDataset2DT tds2dt;
+    QTest::qExec(&tds2dt);
+
+    TestSubjectsPanel tsp2;
+    QTest::qExec(&tsp2);
 
     return 0;
 }

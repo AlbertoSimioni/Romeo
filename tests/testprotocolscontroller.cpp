@@ -201,8 +201,8 @@ void TestProtocolsController::removeProtocolAssociation(){
 
     protocolscontroller->mainWindow->getDatasetPanel()->setCurrentDataset(prev);
 
-    delete myAlg;
-    delete sp;
+    //delete myAlg;
+    //delete sp;
     //delete ds2d;
 }
 

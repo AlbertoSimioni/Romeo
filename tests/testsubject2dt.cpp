@@ -18,9 +18,9 @@ void TestSubject2DT::getType(){
     dataTest.cd("..");
     dataTest.cd("tests");
 
-    QString name = "subjName";
-    QString dataPath = dataTest.absolutePath().append("/images/image.tif");
-    QString maskPath = dataTest.absolutePath().append("/images/mask.tif");
+    QString name = "videoSubj";
+    QString dataPath = dataTest.absolutePath().append("/images/video.avi");
+    QString maskPath = "";
 
     romeo::model::datasets::Subject2DT *s2dt=new Subject2DT(name,dataPath,maskPath);
     QFETCH(romeo::model::InputFormat,type);
