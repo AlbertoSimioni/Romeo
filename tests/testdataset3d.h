@@ -30,6 +30,7 @@ private slots:
    void getType_data();
    void getProtocolsType();
    void getProtocolsType_data();
+   void checkSubject();
 };
 
 

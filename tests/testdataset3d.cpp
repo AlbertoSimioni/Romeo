@@ -71,3 +71,16 @@ void TestDataset3D::getProtocolsType(){
     QCOMPARE(ds3d->getProtocolsType(),Type);
     delete ds3d;
 }
+
+void TestDataset3D::checkSubject(){
+    QDir dataTest = QDir::current();
+    dataTest.cd("..");
+    dataTest.cd("..");
+    dataTest.cd("tests");
+    QString dataPath = dataTest.absolutePath().append("/images/image3D_K-means.nii");
+    QString maskPath = dataTest.absolutePath().append("/images/image3D_mask.nii");
+
+    QString datasetName = "datasetName";
+    Dataset3D *ds3d = new Dataset3D(datasetName);
+    ds3d->checkSubject(dataPath,maskPath);
+}

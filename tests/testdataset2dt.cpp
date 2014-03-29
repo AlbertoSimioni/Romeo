@@ -71,3 +71,16 @@ void TestDataset2DT::getProtocolsType(){
     QCOMPARE(ds2dt->getProtocolsType(),Type);
     delete ds2dt;
 }
+
+void TestDataset2DT::checkSubject(){
+    /*QDir dataTest = QDir::current();
+    dataTest.cd("..");
+    dataTest.cd("..");
+    dataTest.cd("tests");
+    QString dataPath = dataTest.absolutePath().append("/images/image.tif");
+    QString maskPath = dataTest.absolutePath().append("/images/mask.tif");
+
+    QString datasetName = "datasetName";
+    Dataset2DT *ds2dt = new Dataset2DT(datasetName);
+    ds2dt->checkSubject(dataPath,maskPath);*/
+}

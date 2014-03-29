@@ -29,6 +29,7 @@ testexecutepanel.cpp
 testfilesystemexplorer.cpp
 testprotocolsexplorer.cpp
 testmainwindow.cpp
+testfeatureslistdialog.cpp
 testmain.cpp
  testdataset2d.cpp
  testdataset2dt.cpp

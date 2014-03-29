@@ -41,6 +41,7 @@
 #include "testfilesystemexplorer.h"
 #include "testprotocolsexplorer.h"
 #include "testmainwindow.h"
+#include "testfeatureslistdialog.h"
 
 int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
     QApplication a(argc, argv);
@@ -62,9 +63,6 @@ int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
 
     TestAlgorithmsList taa2;
     QTest::qExec(&taa2);
-
-    TestDynamicProtocol tdp;
-    QTest::qExec(&tdp);
 
     TestStaticProtocol tsp;
     QTest::qExec(&tsp);
@@ -96,8 +94,6 @@ int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
     TestDataset2DT tds2dt;
     QTest::qExec(&tds2dt);
 
-    TestDataset3D tds3d;
-    QTest::qExec(&tds3d);
 
     TestDataset3DT tds3dt;
     QTest::qExec(&tds3dt);
@@ -167,6 +163,15 @@ int main(int argc, char*argv[]){ //main relativo all'esecuzione dei test
 
     TestMainWindow tmw;
     QTest::qExec(&tmw);
+
+    TestDataset3D tds3d;
+    QTest::qExec(&tds3d);
+
+    TestDynamicProtocol tdp;
+    QTest::qExec(&tdp);
+
+    TestFeaturesListDialog tfld;
+    QTest::qExec(&tfld);
 
     return 0;
 }
