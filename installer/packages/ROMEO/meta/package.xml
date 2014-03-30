@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package>
     <DisplayName>ROMEO</DisplayName>
-    <Description>Installe ROMEO, software for the cluster analysis of medical images.</Description>
+    <Description>Install ROMEO, software for the cluster analysis of medical images.</Description>
     <Version>1.0</Version>
     <ReleaseDate>2014-04-07</ReleaseDate>
     <Name>ROMEO</Name>
     <Licenses>
         <License name="GPL - License" file="license.txt" />
     </Licenses>
+        <Script>installscript.qs</Script>
+     <Essential>true</Essential>
+     <StartMenuDir>ROMEO</StartMenuDir>
+    <TargetDir>@HomeDir@/Romeo</TargetDir>
 </Package>
