@@ -74,7 +74,7 @@ void TestSubjectsPanel::fillSubjectsList(){
 
 void TestSubjectsPanel::onDeleteClicked(){
     SubjectsPanel *sp = new SubjectsPanel();
-    QSignalSpy spy(sp,SIGNAL(subjectsAnalysis(QString,bool,bool,bool,QString)));
+    QSignalSpy spy(sp,SIGNAL(deleteSubject(QString)));
 
     sp->onDeleteClicked();
     QCOMPARE(spy.count(),0);

@@ -13,6 +13,7 @@ void TestAlgorithmsController::getInstance(){
 
 
 void TestAlgorithmsController::checkAlgorithmName(){
+    DatasetsController * controller = DatasetsController::getInstance();
     AlgorithmsController *algorithmscontroller = AlgorithmsController::getInstance();
 
     algorithmscontroller->checkAlgorithmName(QString("notExists"));
@@ -33,13 +34,11 @@ void TestAlgorithmsController::checkAlgorithmName(){
 
     algorithmscontroller->checkAlgorithmName(algName);
     QCOMPARE(algorithmscontroller->newAlgorithmDialog->ui->okCancel->button(QDialogButtonBox::Ok)->isEnabled(),false);
-
-    delete myAlg;
 }
 
 
 void TestAlgorithmsController::addAlgorithm(){
-
+    DatasetsController * controller = DatasetsController::getInstance();
     AlgorithmsController *algorithmscontroller = AlgorithmsController::getInstance();
 
     QString algName = "algName4";

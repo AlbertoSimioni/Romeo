@@ -40,6 +40,7 @@ void TestExecuteDialog::analysisFinished(){
     exec->ui->progressBar->setValue((exec->nImagesPerSubject)*(exec->nSubjects));
     exec->analysisFinished();
     QCOMPARE(exec->ui->currentLabel->text(),QString("Completed"));
+    delete exec;
 }
 
 void TestExecuteDialog::onNextClicked(){

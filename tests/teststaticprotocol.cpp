@@ -51,6 +51,9 @@ void TestStaticProtocol::staticProtocol(){
     QCOMPARE(protDistance,sp->getDistanceToGlcm());
     QCOMPARE(clusterNum,sp->getNClusters());
     QCOMPARE(algParameters,sp->getAlgorithmParameters());
+
+    delete myAlg;
+    delete sp;
 }
 
 void TestStaticProtocol::setWindowSize(){
@@ -58,6 +61,8 @@ void TestStaticProtocol::setWindowSize(){
     int protWindow = 5;
     sp->setWindowSize(protWindow);
     QCOMPARE(sp->windowSize,protWindow);
+
+    delete sp;
 }
 
 void TestStaticProtocol::setDistancetoGLCM(){
@@ -65,6 +70,8 @@ void TestStaticProtocol::setDistancetoGLCM(){
     int protDistance = 5;
     sp->setDistanceToGlcm(protDistance);
     QCOMPARE(sp->distanceToGLCM,protDistance);
+
+    delete sp;
 }
 
 void TestStaticProtocol::setNClusters(){
@@ -72,6 +79,8 @@ void TestStaticProtocol::setNClusters(){
     int clusterNum = 5;
     sp->setNClusters(clusterNum);
     QCOMPARE(clusterNum,sp->nClusters);
+
+    delete sp;
 }
 
 void TestStaticProtocol::setAlgorithmParameters(){
@@ -81,6 +90,8 @@ void TestStaticProtocol::setAlgorithmParameters(){
     algParameters.append(QString("param2"));
     sp->setAlgorithmParameters(algParameters);
     QCOMPARE(algParameters,sp->algorithmParameters);
+
+    delete sp;
 }
 
 void TestStaticProtocol::getFeaturesName(){
@@ -88,4 +99,6 @@ void TestStaticProtocol::getFeaturesName(){
 
     QStringList emptyList;
     QCOMPARE(emptyList,sp->getFeaturesName());
+
+    delete sp;
 }

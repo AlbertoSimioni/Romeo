@@ -13,6 +13,7 @@ void TestFeaturesController::getInstance(){
 
 
 void TestFeaturesController::checkFeatureName(){
+    DatasetsController * controller = DatasetsController::getInstance();
     FeaturesController *featurescontroller = FeaturesController::getInstance();
 
     featurescontroller->checkFeatureName(QString("notExists"));
@@ -31,7 +32,7 @@ void TestFeaturesController::checkFeatureName(){
 
 
 void TestFeaturesController::addFeature(){
-
+    DatasetsController * controller = DatasetsController::getInstance();
     FeaturesController *featurescontroller = FeaturesController::getInstance();
 
     features::FeaturesList *list = features::FeaturesList::getInstance();

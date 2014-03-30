@@ -21,7 +21,6 @@ public:
     explicit TestNewAlgorithmParameterForm(QObject *parent = 0);
 
 private slots:
-    void newAlgorithmParameterForm_data();
     void newAlgorithmParameterForm();
     void checkValidity_data();
     void checkValidity();

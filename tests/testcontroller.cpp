@@ -27,8 +27,6 @@ void TestDatasetsController::checkDatasetName(){
 
     datasetscontroller->checkDatasetName(datasetName);
     QCOMPARE(datasetscontroller->newDatasetDialog->ui->okCancel->button(QDialogButtonBox::Ok)->isEnabled(),false);
-
-    //list->deleteDataset(list->getDataset(datasetName));
 }
 
 void TestDatasetsController::checkSubjectName(){
@@ -56,7 +54,7 @@ void TestDatasetsController::checkSubjectName(){
 
     datasetscontroller->checkSubjectName(subjName);
 
-    QCOMPARE(datasetscontroller->addSubjectDialog->ui->okCancel->button(QDialogButtonBox::Ok)->isEnabled(),true);
+    QCOMPARE(datasetscontroller->addSubjectDialog->ui->okCancel->button(QDialogButtonBox::Ok)->isEnabled(),false);
 
     datasetscontroller->mainWindow->getDatasetPanel()->getCurrentDataset()->deleteSubject(subjName);
 
@@ -75,8 +73,6 @@ void TestDatasetsController::addDataset(){
     datasetscontroller->addDataset(datasetName,romeo::model::TYPE2D);
 
     QCOMPARE(list->getDataset(datasetName)->getName(),datasetName);
-
-    //list->deleteDataset(list->getDataset(datasetName));
 }
 
 void TestDatasetsController::addSubject(){
@@ -102,7 +98,6 @@ void TestDatasetsController::addSubject(){
     datasetscontroller->addSubject(subjName,subjFileSubject,subjMask);
 
     QCOMPARE(list->getDataset(datasetName)->getSubject(subjName)->getName(),subjName);
-    //list->deleteDataset(list->getDataset(datasetName));
 }
 
 void TestDatasetsController::deleteSubject(){
@@ -133,8 +128,6 @@ void TestDatasetsController::deleteSubject(){
     datasetscontroller->deleteSubject(subjName);
 
     QCOMPARE(list->getDataset(datasetName)->subjects.isEmpty(),true);
-    //list->deleteDataset(list->getDataset(datasetName));
-
 }
 
 void TestDatasetsController::deleteCurrentDataset(){

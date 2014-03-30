@@ -5,16 +5,6 @@ TestNewAlgorithmParameterForm::TestNewAlgorithmParameterForm(QObject *parent) :
     QObject(parent){
 }
 
-
-void TestNewAlgorithmParameterForm::newAlgorithmParameterForm_data(){
-    /*QTest::addColumn<AbstractAlgorithm::ParameterType>("type");
-
-    QTest::newRow("Char") << AbstractAlgorithm::CHAR;
-    QTest::newRow("Bool") << AbstractAlgorithm::BOOL;
-    QTest::newRow("Double") << AbstractAlgorithm::DOUBLE;
-    QTest::newRow("Int") << AbstractAlgorithm::INT;*/
-}
-
 void TestNewAlgorithmParameterForm::newAlgorithmParameterForm(){
     NewAlgorithmParameterForm *napf = new NewAlgorithmParameterForm();
 
@@ -22,8 +12,6 @@ void TestNewAlgorithmParameterForm::newAlgorithmParameterForm(){
 
     delete napf;
 }
-
-
 
 
 void TestNewAlgorithmParameterForm::checkValidity_data()
