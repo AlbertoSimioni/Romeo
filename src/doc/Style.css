@@ -29,6 +29,7 @@ a{
 
 .italico{
 font-style: italic;
+  color: #2DB5A0;
 }
 
 .grassetto{
@@ -53,3 +54,6 @@ padding: 0 0.2em 0 0.2em;
 margin-left: 1em;
 }
 
+#analyzing{
+padding-right: 20px;
+}

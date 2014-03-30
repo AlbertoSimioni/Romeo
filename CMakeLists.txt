@@ -233,6 +233,16 @@ add_library (algorithms STATIC $<TARGET_OBJECTS:core2>)
 # Set some Win32 Specific Settings
 IF(WIN32)
 SET(GUI_TYPE WIN32)
+
+IF( MINGW )
+# resource compilation for MinGW
+ADD_CUSTOM_COMMAND( OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/romeo.o
+COMMAND windres.exe -i${CMAKE_CURRENT_SOURCE_DIR} -i${CMAKE_CURRENT_SOURCE_DIR}/src/romeo.rc -o ${CMAKE_CURRENT_BINARY_DIR}/romeo.o )
+SET(romeo_SOURCES ${romeo_SOURCES} ${CMAKE_CURRENT_BINARY_DIR}/romeo.o)
+ELSE( MINGW )
+SET(romeo_SOURCES ${romeo_SOURCES} src/romeo.rc)
+ENDIF( MINGW )
+
 ENDIF(WIN32)
 # Set some Apple MacOS Specific settings
 IF (APPLE)
