@@ -21,9 +21,16 @@ public:
     ~HelpDialog();
 
 
+private slots:
+    void changeView(QUrl);
+
 private:
     QWebView* helpView;
     Ui::HelpDialog *ui;
+
+
+
+    QTextBrowser* textBrowser;
 };
 
 }}}

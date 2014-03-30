@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>ROMEO : user manual FAQ</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href=":/doc/doc/Style.css" rel="stylesheet" type="text/css" media="screen"/>
+</head>
+
+<body>
+</div>
+<a href="/doc/doc/help.html"><img style="float:left;" src=":/Images/Images/BackButton.png"></a>
+<img style="float:right;" src=":/Images/Images/LogoSmall.png">
+<h1 align="center">6. FAQ</h1>
+<img style="float:left;" src=":/Images/Images/BottomBorder.png">
+</div>
+
+<div id="menu">
+<p><span class="contents">Contents</span></p>
+<ul type="circle">
+<li><a href="#whatDataset">6.1. What is a "dataset"?</a></li>
+<li><a href="#addSubject">6.2. How can I add a new subject to my dataset?</a></li>
+<li><a href="#whatProtocol">6.3. What is a "protocol"?</a></li>
+<li><a href="#createProtocol">6.4. How can I create a new protocol?</a></li>
+<li><a href="#executeProtocol">6.5. How can I execute a protocol?</a></li>
+<li><a href="#addFeaAlgo">6.6. What do you mean with "Adding a feature extractor or a clustering algorithm"?</a></li>
+<li><a href="#defineFeaAlgo">6.7. How can I define a new feature extractor or a new clustering algorithm?</a></li>
+<li><a href="#addFeature">6.8. How can I add my feature extractor to ROMEO?</a></li>
+<li><a href="#addAlgorithm">6.9. How can I add my clustering algorithm to ROMEO?</a></li>
+<li><a href="#deleteFeaAlgo">6.10. How can I delete a user defined feature extractor or a clustering algorithm from ROMEO?</a></li>
+<li><a href="#findImageVideo">6.11. Why can't I find my image/video from the filesystem browser?</a></li>
+</ul>
+</div>
+<br>
+
+<div id="whatDataset">
+<h2>6.1. What is a "dataset"?</h2>
+<img src=":/Images/Images/BottomBorder.png">
+<p>A dataset is a collection of subjects, that are entities represented by an image or a video and an optional mask, that is an image which delimits the region of the other image that has to be analyzed. The dataset represents an aggregate of homogeneus subjects, that is a collection on which you are interested in doing some analysis.</p>
+</div>
+
+<div id="addSubject">
+<h2>6.2. How can I add a new subject to my dataset?</h2>
+<img src=":/Images/Images/BottomBorder.png">
+<p>Once you have created your dataset and it is appeared in the datasets list, double-click on it to select it. In the central part of the screen the contents of your dataset will be listed. Click the <span class="grassetto">New</span> button below the written <span class="italico">Subjects</span> in the centre of the screen: a window will ask you to select an image or a video from the filesystem for selecting the subject to analyze, and you will also have the possibility to choose a file representing your mask.</p>
+</div>
+
+<div id="whatProtocol">
+<h2>6.3. What is a "protocol"?</h2>
+<img src=":/Images/Images/BottomBorder.png">
+<p>A protocol can be seen as a series of analysis that has to be computed on an arbitrary number of subjects. In particular, a protocol can be divided in two parts:</p>
+<ul type="circle">
+	<li>- The first part in which you can specify which features you want to extract from the subjects: you can select how many features as you want</li>
+	<li>- The last part in which you can specify a clustering algorithm: the algorithm can be executed on the image directly, if there are no features extracted, or on the set of features extracted. You can specify only one clustering algorithm.</li>
+</ul>
+<p>A protocol must have at least one feature to extract or at least one clustering algorithm to apply.</p>
+</div>
+
+<div id="createProtocol">
+<h2>6.4. How can I create a new protocol?</h2>
+<img src=":/Images/Images/BottomBorder.png">
+<p>In the main window of the program, looking at the top of the window, you can find the button <span class="grassetto">New Protocol</span>: clicking it you will be sent to a wizard that will allow you to choose the features to extract and the clustering algorithm to apply. In the wizard you will also have the possibility to handle the values of the clustering algorithm parameters if you want to change them.</p>
+</div>
+
+<div id="executeProtocol">
+<h2>6.5. How can I execute a protocol?</h2>
+<img src=":/Images/Images/BottomBorder.png">
+<p>To execute a protocol follow next steps:</p>
+<ul type="circle">
+	<li>- You have first to associate it to the dataset on which you want to execute it.</li>
+	<li>- After having selected the dataset, in the right part of the window you will find the <span class="italico">Protocols</span> panel: click on the button <span class="grassetto">Associate</span> and you will see the list of the current defined protocols.</li>
+	<li>- Select one of them and press <span class="grassetto">Ok</span> to associate it to the current dataset.</li>
+	<li>- Once you managed to associate the protocol to the current dataset, just select it in the top right panel <span class="italico">Protocols</span> and go below in the <span class="italico">Execute</span> panel: here you must specify the <span class="grassetto">Result Path</span> to say to the program where to save the outputs of the analysis. You can also select the output format of the produced images, the vision of the analysis results directly, the vision of the feature extractions and the possibility to save also the features extracted.</li>
+	<li>- Just click on the <span class="grassetto">Start Analysis</span> button to start executing the protocol.</li>
+</ul>
+</div>
+
+<div id="addFeaAlgo">
+<h2>6.6. What do you mean with "Adding a feature extractor or a clustering algorithm"?</h2>
+<img src=":/Images/Images/BottomBorder.png">
+<p>ROMEO is structured in order to execute user defined algorithms or feature extractors: the idea is to ensure the possibility to test the extraction of a new feature or the execution of a new algorithm without problems, granting the extensibility of the program.</p>
+</div>
+
+<div id="defineFeaAlgo">
+<h2>6.7. How can I define a new feature extractor or a new clustering algorithm?</h2>
+<img src=":/Images/Images/BottomBorder.png">
+<p>In the developer user manual of ROMEO, you can find a detailed description of the procedure for the creation of a new feature extractor or of a new clustering algorithm.</p>
+</div>
+
+<div id="addFeature">
+<h2>6.8. How can I add my feature extractor to ROMEO?</h2>
+<img src=":/Images/Images/BottomBorder.png">
+<p>In the top part of the ROMEO window you can find the button <span class="grassetto">Add Feature</span>: click it and you will find a new window in which you have to specify:</p>
+<ul type="circle">
+	<li><span class="grassetto">Feature name</span>: write the name of your new feature</li>
+	<li><span class="grassetto">Function name</span>: write the name of the function defined in the .h and .cpp files. Be careful to insert only the name of the function (no parameters and to return type)</li>
+	<li><span class="grassetto">Type</span>: select the category at which your feature belongs</li>
+	<li><span class="grassetto">Path</span>: type the path to the .dll or .so file created as shared library from your .h and .cpp files</li>
+	<li><span class="grassetto">Description</span>: type a description of the feature (optional)</li>
+</ul>
+<p>After pressing <span class="grassetto">Ok</span>, you will be able to add your feature to a protocol.</p>
+</div>
+
+<div id="addAlgorithm">
+<h2>6.9. How can I add my clustering algorithm to ROMEO?</h2>
+<img src=":/Images/Images/BottomBorder.png">
+<p>In the top part of the ROMEO window you can find the button <span class="grassetto">Add Algorithm</span>: click it and you will find a new window in which you have to specify:</p>
+<ul type="circle">
+	<li><span class="grassetto">Algorithm name</span>: write the name of your new algorithm</li>
+	<li><span class="grassetto">Function name</span>: write the name of the function defined in the .h and .cpp files. Be careful to insert only the name of the function (no parameters and to return type)</li>
+	<li><span class="grassetto">Path</span>: type the path to the .dll or .so file created as shared library from your .h and .cpp files</li>
+	<li><span class="grassetto">Description</span>: type a description of the algorithm (optional)</li>
+	<li><span class="grassetto">Parameters</span>: here you can define additional parameters that have to be passed to the function representing your algorithm. Normally, the only parameter defined is the number of cluster, but if you need more parameters for your algorithm just press the green plus button to add the desired number of parameters. Make sure to choose the correct type of these parameters.</li>
+</ul>
+<p>After pressing <span class="grassetto">Ok</span>, you will be able to add your algorithm to a protocol.</p>
+</div>
+
+<div id="deleteFeaAlgo">
+<h2>6.10. How can I delete a user defined feature extractor or a clustering algorithm from ROMEO?</h2>
+<img src=":/Images/Images/BottomBorder.png">
+<p>You cannot delete feature extractors/clustering algorithms inserted in ROMEO, so be careful in what you decide to insert.</p>
+</div>
+
+<div id="findImageVideo">
+<h2>6.11. Why can't I find my image/video from the filesystem browser?</h2>
+<img src=":/Images/Images/BottomBorder.png">
+<p>Make sure your image/video corresponds to one of these formats:</p>
+<ul type="circle">
+	<li>- JPEG (.jpg)</li>
+	<li>- PNG (.png)</li>
+	<li>- BMP (.bmp)</li>
+	<li>- TIF (.tif or .tiff)</li>
+	<li>- DICOM (.img or .hdr)</li>
+	<li>- NIFTI (.nii)</li>
+	<li>- AVI (.avi)</li>
+	<li>- MPEG (.mpeg)</li>
+</ul>
+<p>Otherwise your format is not supported by ROMEO.</p>
+</div>
+
+
+</body>
+</html>

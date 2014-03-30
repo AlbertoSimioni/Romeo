@@ -28,8 +28,33 @@
         <file>Images/Logo.png</file>
         <file>Images/info.png</file>
         <file>Images/Backward Arrow.png</file>
+        <file>Images/AddAlgorithmSmall.png</file>
+        <file>Images/AddFeatureSmall.png</file>
+        <file>Images/AlgorithmsListSmall.png</file>
+        <file>Images/BackButton.png</file>
+        <file>Images/DatasetNewSmall.jpg</file>
+        <file>Images/DatasetRemoveSmall.jpg</file>
+        <file>Images/DragDropProtocol.png</file>
+        <file>Images/DragDropSubject.png</file>
+        <file>Images/FeaturesListSmall.png</file>
+        <file>Images/LogoSmall.png</file>
+        <file>Images/PersonalizationWindow.png</file>
+        <file>Images/protocolDeleteSmall.png</file>
+        <file>Images/protocolNewSmall.png</file>
+        <file>Images/sharedLibrary.png</file>
+        <file>Images/SubjectCheckbox.png</file>
+        <file>Images/BottomBorder.png</file>
+        <file>Images/analyzing.png</file>
     </qresource>
     <qresource prefix="/doc">
+        <file>doc/Style.css</file>
+        <file>doc/Introduction.html</file>
+        <file>doc/BasicNotions.html</file>
+        <file>doc/InstructionsForUse.html</file>
+        <file>doc/PossibleErrors.html</file>
+        <file>doc/TipsTricks.html</file>
+        <file>doc/ContactUs.html</file>
+        <file>doc/FAQ.html</file>
         <file>doc/help.html</file>
     </qresource>
 </RCC>

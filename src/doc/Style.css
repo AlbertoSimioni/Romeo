@@ -1,0 +1,58 @@
+body{
+font-family:  'Liberation Sans', 'Arial',sans-serif;
+background-color:#303030;
+color:#FFF;
+margin-top: 5px;
+margin-left: 5px;
+margin-right: 5px;
+margin-bottom: 5px;
+}
+
+a:link{ color:#FFA500; text-decoration: none;}
+
+h2{
+font-size: large;
+font-weight: bold;
+color: #C0C0C0;
+}
+
+h1{
+font-size: x-large;
+font-weight: bold;
+color: #C0C0C0;
+}
+
+a{
+  font-size: large;
+  color: #FFA500;
+}
+
+.italico{
+font-style: italic;
+}
+
+.grassetto{
+font-weight: bold;
+}
+
+.contents{
+font-size: large;
+font-weight: bold;
+color: #C0C0C0;
+}
+
+#menu ul{
+padding-bottom: 0.5em;
+}
+
+img{
+padding: 0 0.2em 0 0.2em;
+}
+
+.subList{
+margin-left: 1em;
+}
+
+#analyzing{
+padding-right: 20px;
+}

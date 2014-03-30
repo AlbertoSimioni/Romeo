@@ -2,6 +2,7 @@
 #include "ui_helpdialog.h"
 #include<QTextBrowser>
 #include<QToolBar>
+#include <QDebug>
 using namespace romeo::view::dialogs;
 HelpDialog::HelpDialog(QWidget *parent) :
     QDialog(parent),
@@ -11,15 +12,14 @@ HelpDialog::HelpDialog(QWidget *parent) :
     QFile file(":/doc/doc/help.html");
     if(!file.open(QIODevice::ReadOnly))
         return;
-    QString content();
-    //helpView->setContent(file.readAll());
+    this->resize(900, 650);
+    textBrowser=new QTextBrowser(this);
+    textBrowser->setHtml(QString(file.readAll()));
+    textBrowser->setOpenLinks(true);
+    connect(textBrowser,SIGNAL(anchorClicked(QUrl)),this,SLOT(changeView(QUrl)));
 
+    ui->scrollArea->setWidget(textBrowser);
 
-    QTextBrowser* br=new QTextBrowser(this);
-    br->setHtml(QString(file.readAll()));
-    br->setOpenLinks(true);
-    this->resize(700, 500);
-    ui->scrollArea->setWidget(br);
     file.close();
 }
 
@@ -29,3 +29,14 @@ HelpDialog::~HelpDialog()
 }
 
 
+void HelpDialog::changeView(QUrl link){
+    QString fileName = link.toString();
+    if(!(fileName.at(0) == '#'))
+        fileName = ":"+fileName;
+
+
+    QFile file(fileName);
+    if(!file.open(QIODevice::ReadOnly))
+        return;
+    textBrowser->setHtml(QString(file.readAll()));
+}
