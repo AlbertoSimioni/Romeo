@@ -288,7 +288,7 @@ double** DynamicProtocol::apply3DDynamicFeature(Image4DType::Pointer video,Image
     double** result;
     if(feature->getName() == "Value") {
         result = new double*[3*(currentFrameEnd-currentFrameInit+1)];
-        for(int i=0;i<3*(currentFrameEnd-currentFrameInit+1);++i)
+        for(int i=0;i<(3*(currentFrameEnd-currentFrameInit+1));++i)
             result[i] = new double[numberOfPixel];
         int currentFrame = 0;
         for(int color = 0;color<3;color++) {
@@ -299,20 +299,18 @@ double** DynamicProtocol::apply3DDynamicFeature(Image4DType::Pointer video,Image
                 int i = 0;
                 while(!it.IsAtEnd()) {
                     if(static_cast<int>(maskIterator.Get())==0) {
-                        int currentFrame = 0;
-                        for(int j=0;j<numberOfFrames;++j,++it) {
+                        for(int j=0,index=currentFrame;j<numberOfFrames;++j,++it) {
                             if(j>=currentFrameInit && j<=currentFrameEnd) {
-                                result[currentFrame][i]=0.0;
-                                ++currentFrame;
+                                result[index][i]=0.0;
+                                ++index;
                             }
                         }
                     }
                     else {
-                        int currentFrame = 0;
-                        for(int j=0;j<numberOfFrames;++j,++it) {
+                        for(int j=0,index=currentFrame;j<numberOfFrames;++j,++it) {
                             if(j>=currentFrameInit && j<=currentFrameEnd) {
-                                result[currentFrame][i]=it.Get()[color];
-                                ++currentFrame;
+                                result[index][i]=it.Get()[color];
+                                ++index;
                             }
                         }
                     }
@@ -324,17 +322,17 @@ double** DynamicProtocol::apply3DDynamicFeature(Image4DType::Pointer video,Image
             else {
                 int i = 0;
                 while(!it.IsAtEnd()) {
-                    int currentFrame = 0;
-                    for(int j=0;j<numberOfFrames;++j,++it) {
+                    for(int j=0,index=currentFrame;j<numberOfFrames;++j,++it) {
                         if(j>=currentFrameInit && j<=currentFrameEnd) {
-                            result[currentFrame][i]=it.Get()[color];
-                            ++currentFrame;
+                            result[index][i]=it.Get()[color];
+                            ++index;
                         }
                     }
                     it.NextLine();
                     ++i;
                 }
             }
+            currentFrame += (currentFrameEnd-currentFrameInit+1);
         }
         // creo solo primo frame
         double** image = new double*[3];
@@ -353,7 +351,7 @@ double** DynamicProtocol::apply3DDynamicFeature(Image4DType::Pointer video,Image
             // allocazione risultato
             double** matrix = new double*[numberOfPixel];
             for(int i=0;i<numberOfPixel;i++)
-                matrix[i] = new double[currentFrameEnd-currentFrameEnd+1];
+                matrix[i] = new double[currentFrameEnd-currentFrameInit+1];
             it.SetDirection( 3 ); // Walk along time dimension
             it.GoToBegin();
             if(mask.IsNotNull()) {
@@ -361,20 +359,18 @@ double** DynamicProtocol::apply3DDynamicFeature(Image4DType::Pointer video,Image
                 int i = 0;
                 while(!it.IsAtEnd()) {
                     if(static_cast<int>(maskIterator.Get())==0) {
-                        int currentFrame = 0;
-                        for(int j=0;j<numberOfFrames;++j,++it) {
+                        for(int j=0,index=0;j<numberOfFrames;++j,++it) {
                             if(j>=currentFrameInit && j<=currentFrameEnd) {
-                                matrix[i][currentFrame]=0.0;
-                                ++currentFrame;
+                                matrix[i][index]=0.0;
+                                ++index;
                             }
                         }
                     }
                     else {
-                        int currentFrame = 0;
-                        for(int j=0;j<numberOfFrames;++j,++it) {
+                        for(int j=0,index=0;j<numberOfFrames;++j,++it) {
                             if(j>=currentFrameInit && j<=currentFrameEnd) {
-                                matrix[i][currentFrame]=it.Get()[color];
-                                ++currentFrame;
+                                matrix[i][index]=it.Get()[color];
+                                ++index;
                             }
                         }
                     }
@@ -386,11 +382,10 @@ double** DynamicProtocol::apply3DDynamicFeature(Image4DType::Pointer video,Image
             else {
                 int i = 0;
                 while(!it.IsAtEnd()) {
-                    int currentFrame = 0;
-                    for(int j=0;j<numberOfFrames;++j,++it) {
+                    for(int j=0,index=0;j<numberOfFrames;++j,++it) {
                         if(j>=currentFrameInit && j<=currentFrameEnd) {
-                            matrix[i][currentFrame]=it.Get()[color];
-                            ++currentFrame;
+                            matrix[i][index]=it.Get()[color];
+                            ++index;
                         }
                     }
                     it.NextLine();
@@ -427,7 +422,16 @@ void DynamicProtocol::video2DExecute(romeo::model::datasets::AbstractSubject *su
     double** result;
     if(featureList.size()>0) {
         // ci sono features da estrarre
-        numberOfColumns = 3*featureList.size();
+        // è necessario controllare se è presente la feature "Value"
+        bool value = false;
+        for(int i=0;i<featureList.size() && !value;++i) {
+            if(featureList[i]->getName()=="Value")
+                value = true;
+        }
+        if(value)
+            numberOfColumns = 3*(featureList.size()-1) + 3*(frameEnd-frameInit+1);
+        else
+            numberOfColumns = 3*featureList.size();
         result = new double*[numberOfColumns];
         int index = 0;
         for(int i=0;i<featureList.size() && !getStopAnalysis();i++) {
@@ -446,9 +450,17 @@ void DynamicProtocol::video2DExecute(romeo::model::datasets::AbstractSubject *su
             romeo::model::protocols::features::DynamicFeature* dynamicFeature = dynamic_cast<romeo::model::protocols::features::DynamicFeature*>(featureList[i]);
             singleFeature = apply2DDynamicFeature(videoCapture,outputFeature,maskPointer,dynamicFeature);
             // singleFeature è una matrice [ncols][nrows]
-            for(int j=0;j<3;j++) {
-                result[index]=singleFeature[j];
-                ++index;
+            if(featureList[i]->getName()=="Value") {
+                for(int j=0;j<(3*(frameEnd-frameInit+1));j++) {
+                    result[index]=singleFeature[j];
+                    ++index;
+                }
+            }
+            else {
+                for(int j=0;j<3;j++) {
+                    result[index]=singleFeature[j];
+                    ++index;
+                }
             }
             if(saveFeatures) {
                 QString fileName = QUrl::fromLocalFile(subject->getName() + "_" + currentFeature->getName()).path();
@@ -531,7 +543,16 @@ void DynamicProtocol::video3DExecute(romeo::model::datasets::AbstractSubject *su
     int numberOfColumns;
     double** result;
     if(featureList.size()>0) {
-        numberOfColumns = 3*featureList.size();
+        // è necessario controllare se è presente la feature "Value"
+        bool value = false;
+        for(int i=0;i<featureList.size() && !value;++i) {
+            if(featureList[i]->getName()=="Value")
+                value = true;
+        }
+        if(value)
+            numberOfColumns = 3*(featureList.size()-1) + 3*(frameEnd-frameInit+1);
+        else
+            numberOfColumns = 3*featureList.size();
         result = new double*[numberOfColumns];
         int index = 0;
         for(int i=0;i<featureList.size() && !getStopAnalysis();i++) {
@@ -551,9 +572,17 @@ void DynamicProtocol::video3DExecute(romeo::model::datasets::AbstractSubject *su
             romeo::model::protocols::features::DynamicFeature* dynamicFeature = dynamic_cast<romeo::model::protocols::features::DynamicFeature*>(featureList[i]);
             singleFeature = apply3DDynamicFeature(video,outputFeature,maskPointer,dynamicFeature);
             // singleFeature è una matrice [ncols][nrows]
-            for(int j=0;j<3;j++) {
-                result[index]=singleFeature[j];
-                ++index;
+            if(featureList[i]->getName()=="Value") {
+                for(int j=0;j<(3*(frameEnd-frameInit+1));j++) {
+                    result[index]=singleFeature[j];
+                    ++index;
+                }
+            }
+            else {
+                for(int j=0;j<3;j++) {
+                    result[index]=singleFeature[j];
+                    ++index;
+                }
             }
             if(saveFeatures) {
                 qDebug() << "Salva";

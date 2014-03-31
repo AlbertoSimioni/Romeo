@@ -181,7 +181,7 @@ double feat_p2_homo(int data[4][4]) {
 
 double* clust_par_mean(double** data,const int numberOfPixel,int begin,int end) {
     // begin incluso, end incluso
-    double* result =new double[numberOfPixel];
+    double* result = new double[numberOfPixel];
     int n = end-begin+1;
     for(int i=0;i<numberOfPixel;i++) {
         double sum = 0.0;
