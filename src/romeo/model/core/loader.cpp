@@ -336,7 +336,7 @@ bool Loader::parseProtocol(romeo::model::protocols::ProtocolsList *protocolsList
     if (frameEnd<-1 || frameEnd == 0)
         frameEnd = -1;
 
-    protocolsList->addProtocol(name, description, alg, clusterNum, algParameters, featureList, test, type, window, glcm, frameInit, frameEnd );
+    protocolsList->addProtocol(name, description, alg, clusterNum, algParameters, featureList, test, type, frameInit, frameEnd, window, glcm);
     return true;
 }
 

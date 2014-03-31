@@ -85,8 +85,6 @@ double** DynamicProtocol::apply2DDynamicFeature(cv::VideoCapture video,Image2DTy
     }
     int numberOfPixel = video.get( CV_CAP_PROP_FRAME_WIDTH ) * video.get( CV_CAP_PROP_FRAME_HEIGHT );
     int numberOfFrames = video.get(CV_CAP_PROP_FRAME_COUNT);
-    qDebug() << "Frame init: " << QString::number(frameInit) << "\n";
-    qDebug() << "Frame end: " << QString::number(frameEnd) << "\n";
     int currentFrameInit, currentFrameEnd;
     // controllo sugli indici indicati
     if(frameInit == -1 && frameEnd == -1) {
@@ -169,6 +167,15 @@ double** DynamicProtocol::apply2DDynamicFeature(cv::VideoCapture video,Image2DTy
                     ++j;
             }
         }
+        // creo solo primo frame
+        double** image = new double*[3];
+        // k deve andare a prendere il frame 0 - (currentFrameEnd-currentFrameInit+1) - etc..
+        for(int k=0,j=0;j<3;k += currentFrameEnd-currentFrameInit+1,j++)
+            image[j] = result[k];
+        // creazione immagine output
+        createImage(outputIterator,image,maskArray,numberOfPixel);
+        // cancella puntatore temporaneo
+        delete[] image;
     }
     else {
         result = new double*[3];
@@ -222,9 +229,9 @@ double** DynamicProtocol::apply2DDynamicFeature(cv::VideoCapture video,Image2DTy
                 delete[] matrix[i];
             delete[] matrix;
         }
+        // creazione immagine output
+        createImage(outputIterator,result,maskArray,numberOfPixel);
     }
-    // creazione immagine output
-    createImage(outputIterator,result,maskArray,numberOfPixel);
     // cancellazione della maschera
     delete[] maskArray;
     // ritorna array di double
@@ -329,6 +336,15 @@ double** DynamicProtocol::apply3DDynamicFeature(Image4DType::Pointer video,Image
                 }
             }
         }
+        // creo solo primo frame
+        double** image = new double*[3];
+        // k deve andare a prendere il frame 0 - (currentFrameEnd-currentFrameInit+1) - etc..
+        for(int k=0,j=0;j<3;k += currentFrameEnd-currentFrameInit+1,j++)
+            image[j] = result[k];
+        // creazione immagine output
+        createImage(outputIterator,image,maskArray,numberOfPixel);
+        // cancella puntatore temporaneo
+        delete[] image;
     }
     else {
         result = new double*[3];
@@ -387,10 +403,9 @@ double** DynamicProtocol::apply3DDynamicFeature(Image4DType::Pointer video,Image
                 delete[] matrix[i];
             delete[] matrix;
         }
+        // creazione immagine output
+        createImage(outputIterator,result,maskArray,numberOfPixel);
     }
-
-    // creazione immagine output
-    createImage(outputIterator,result,maskArray,numberOfPixel);
     // cancellazione della maschera
     delete[] maskArray;
     // ritorna array di double
