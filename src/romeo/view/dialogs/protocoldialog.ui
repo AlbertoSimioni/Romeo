@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>663</width>
-    <height>395</height>
+    <width>818</width>
+    <height>494</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -42,7 +42,7 @@ border-radius: 8px;
    <item row="0" column="0">
     <widget class="QStackedWidget" name="Wizard">
      <property name="currentIndex">
-      <number>2</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page">
       <layout class="QGridLayout" name="gridLayout_8">
@@ -378,7 +378,7 @@ font-size: 15px;
       </layout>
      </widget>
      <widget class="QWidget" name="page_2">
-      <layout class="QGridLayout" name="gridLayout_7">
+      <layout class="QGridLayout" name="gridLayout_10">
        <item row="0" column="0">
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
@@ -500,239 +500,293 @@ font-size: 15px;
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
-         <layout class="QGridLayout" name="gridLayout_6">
-          <item row="0" column="1">
-           <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <layout class="QVBoxLayout" name="verticalLayout_9">
-              <item>
-               <widget class="QLabel" name="label_10">
-                <property name="text">
-                 <string>Features</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QListWidget" name="featuresList">
-                <property name="mouseTracking">
-                 <bool>false</bool>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>asf</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>ASF</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>New GGG</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>DGDG</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-             </layout>
+             <widget class="Line" name="line_2">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+             </widget>
             </item>
             <item>
-             <layout class="QVBoxLayout" name="verticalLayout_7" stretch="1,0,0,3">
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
               <item>
-               <spacer name="verticalSpacer_4">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </spacer>
+               <layout class="QVBoxLayout" name="verticalLayout_9">
+                <item>
+                 <widget class="QLabel" name="label_10">
+                  <property name="text">
+                   <string>Features</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QListWidget" name="featuresList">
+                  <property name="mouseTracking">
+                   <bool>false</bool>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>asf</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>ASF</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>New GGG</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>DGDG</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
               </item>
               <item>
-               <widget class="QPushButton" name="addButton">
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add the selected feature to the protocol&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="text">
-                 <string>Add</string>
-                </property>
-               </widget>
+               <layout class="QVBoxLayout" name="verticalLayout_7" stretch="1,0,0,3">
+                <item>
+                 <spacer name="verticalSpacer_4">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="addButton">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add the selected feature to the protocol&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="text">
+                   <string>Add</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="removeButton">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Remove the feature on the right from the protocol&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="text">
+                   <string>Remove</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_6">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
               </item>
               <item>
-               <widget class="QPushButton" name="removeButton">
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Remove the feature on the right from the protocol&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="text">
-                 <string>Remove</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="verticalSpacer_6">
-                <property name="orientation">
-                 <enum>Qt::Vertical</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>20</width>
-                  <height>40</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QVBoxLayout" name="verticalLayout_11">
-              <item>
-               <widget class="QLabel" name="label_13">
-                <property name="text">
-                 <string>Protocol Features</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QListWidget" name="protocolFeaturesList"/>
-              </item>
-              <item>
-               <widget class="QGroupBox" name="groupBox_6">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="title">
-                 <string>Parameters</string>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_4">
-                 <item>
-                  <layout class="QFormLayout" name="formLayout_2">
+               <layout class="QVBoxLayout" name="verticalLayout_4">
+                <item>
+                 <widget class="QLabel" name="label_13">
+                  <property name="text">
+                   <string>Protocol Features</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QListWidget" name="protocolFeaturesList"/>
+                </item>
+                <item>
+                 <widget class="QGroupBox" name="groupBox_6">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="title">
+                   <string>Parameters</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_3">
                    <item row="0" column="0">
-                    <widget class="QLabel" name="label_14">
-                     <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the size for the window of pixels to be analyzed&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    <widget class="QStackedWidget" name="stackedWidget">
+                     <property name="currentIndex">
+                      <number>1</number>
                      </property>
-                     <property name="text">
-                      <string>Window Size</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QComboBox" name="WindowSizeCombo">
-                     <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the size for the window of pixels to be analyzed&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                     </property>
-                     <item>
-                      <property name="text">
-                       <string>3x3</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>5x5</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>7x7</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>9x9</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>11x11</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>13x13</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>15x15</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>17x17</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>19x19</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>21x21</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>23x23</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>25x25</string>
-                      </property>
-                     </item>
-                    </widget>
-                   </item>
-                   <item row="1" column="0">
-                    <widget class="QLabel" name="label_15">
-                     <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Insert the value for the distance to the GLCM (only for second order features)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                     </property>
-                     <property name="text">
-                      <string>Distance to the GLCM</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QLineEdit" name="glcmLineEdit">
-                     <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Insert the value for the distance to the GLCM (only for second order features)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                     </property>
+                     <widget class="QWidget" name="page_4">
+                      <layout class="QGridLayout" name="gridLayout_6">
+                       <item row="0" column="0">
+                        <layout class="QFormLayout" name="formLayout_2">
+                         <item row="0" column="0">
+                          <widget class="QLabel" name="label_14">
+                           <property name="toolTip">
+                            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the size for the window of pixels to be analyzed&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                           </property>
+                           <property name="text">
+                            <string>Window Size</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="0" column="1">
+                          <widget class="QComboBox" name="WindowSizeCombo">
+                           <property name="toolTip">
+                            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the size for the window of pixels to be analyzed&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                           </property>
+                           <item>
+                            <property name="text">
+                             <string>3x3</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>5x5</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>7x7</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>9x9</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>11x11</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>13x13</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>15x15</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>17x17</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>19x19</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>21x21</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>23x23</string>
+                            </property>
+                           </item>
+                           <item>
+                            <property name="text">
+                             <string>25x25</string>
+                            </property>
+                           </item>
+                          </widget>
+                         </item>
+                         <item row="1" column="0">
+                          <widget class="QLabel" name="label_15">
+                           <property name="toolTip">
+                            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Insert the value for the distance to the GLCM (only for second order features)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                           </property>
+                           <property name="text">
+                            <string>Distance to the GLCM</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="1" column="1">
+                          <widget class="QLineEdit" name="glcmLineEdit">
+                           <property name="toolTip">
+                            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Insert the value for the distance to the GLCM (only for second order features)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item row="2" column="0">
+                          <widget class="QLabel" name="label_19">
+                           <property name="text">
+                            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt; font-weight:400; font-style:italic;&quot;&gt;Useless with first order features&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                      </layout>
+                     </widget>
+                     <widget class="QWidget" name="page_5">
+                      <layout class="QVBoxLayout" name="verticalLayout_5">
+                       <item>
+                        <layout class="QHBoxLayout" name="horizontalLayout_10">
+                         <item>
+                          <widget class="QLabel" name="firstFrame">
+                           <property name="text">
+                            <string>First Frame</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLineEdit" name="firstFrameLineEdit"/>
+                         </item>
+                        </layout>
+                       </item>
+                       <item>
+                        <layout class="QHBoxLayout" name="horizontalLayout_14">
+                         <item>
+                          <widget class="QLabel" name="label_21">
+                           <property name="text">
+                            <string>Last Frame</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLineEdit" name="lastFrameLineEdit"/>
+                         </item>
+                        </layout>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="label_20">
+                         <property name="text">
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt; font-weight:400;&quot;&gt;Leave values empty to analyze the whole video&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
                     </widget>
                    </item>
                   </layout>
-                 </item>
-                 <item>
-                  <widget class="QLabel" name="label_19">
-                   <property name="text">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt; font-weight:400; font-style:italic;&quot;&gt;Useless with first order features&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </item>
            </layout>
-          </item>
-          <item row="0" column="0">
-           <widget class="Line" name="line_2">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-           </widget>
           </item>
          </layout>
         </widget>

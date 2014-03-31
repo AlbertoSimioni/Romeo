@@ -22,10 +22,10 @@ ProtocolDialog::ProtocolDialog(
         model::protocols::algorithms::AlgorithmsList *al,
         model::protocols::features::FeaturesList *fl,
         QWidget *parent) :
-        QDialog(parent),
-        featuresList(fl),
-        algorithmsList(al),
-        ui(new Ui::ProtocolDialog)
+    QDialog(parent),
+    featuresList(fl),
+    algorithmsList(al),
+    ui(new Ui::ProtocolDialog)
 {
     ui->setupUi(this);
     ui->errorLabel->setHidden(true);
@@ -68,6 +68,8 @@ void ProtocolDialog::connectUI(){
     connect(ui->WindowSizeCombo,SIGNAL(currentIndexChanged(int)),this,SLOT(checkWindowSizeGLCM()));
     connect(featuresList,SIGNAL(featuresListModified()),this,SLOT(fillFeaturesList()));
     connect(algorithmsList,SIGNAL(algorithmsListModified()),this,SLOT(fillAlgorithmsCombo()));
+    connect(ui->firstFrameLineEdit,SIGNAL(textEdited(QString)),this,SLOT(checkFrames()));
+    connect(ui->lastFrameLineEdit,SIGNAL(textEdited(QString)),this,SLOT(checkFrames()));
 }
 
 
@@ -103,18 +105,18 @@ void ProtocolDialog::showErrorName(bool show)
 
 void ProtocolDialog::nextStep()
 {
-   int currentIndex = ui->Wizard->currentIndex();
-   if(currentIndex < 2)
-       ui->Wizard->setCurrentIndex(currentIndex+1);
+    int currentIndex = ui->Wizard->currentIndex();
+    if(currentIndex < 2)
+        ui->Wizard->setCurrentIndex(currentIndex+1);
 }
 
 
 
 void ProtocolDialog::previousStep()
 {
-       int currentIndex = ui->Wizard->currentIndex();
-       if(currentIndex > 0)
-           ui->Wizard->setCurrentIndex(currentIndex-1);
+    int currentIndex = ui->Wizard->currentIndex();
+    if(currentIndex > 0)
+        ui->Wizard->setCurrentIndex(currentIndex-1);
 }
 
 
@@ -161,19 +163,21 @@ void ProtocolDialog::removeButtonClicked(){
 
 
 void ProtocolDialog::resetForms(){
-     ui->errorLabel->setHidden(true);
-     ui->protocolLineEdit->clear();
-     ui->Wizard->setCurrentIndex(0);
-     ui->protocolFeaturesList->clear();
-     ui->textEdit->clear();
-     ui->glcmLineEdit->setText("1");
-     ui->WindowSizeCombo->setCurrentIndex(0);
-     oldProtocol = QString();
-     oldProtocolTest = false;
-     ui->Wizard->setCurrentIndex(0);
-     ui->next1->setEnabled(true);
-     ui->next2->setEnabled(true);
-     setAllDisabled(false);
+    ui->errorLabel->setHidden(true);
+    ui->protocolLineEdit->clear();
+    ui->Wizard->setCurrentIndex(0);
+    ui->protocolFeaturesList->clear();
+    ui->textEdit->clear();
+    ui->glcmLineEdit->setText("1");
+    ui->WindowSizeCombo->setCurrentIndex(0);
+    ui->firstFrameLineEdit->setText("");
+    ui->lastFrameLineEdit->setText("");
+    oldProtocol = QString();
+    oldProtocolTest = false;
+    ui->Wizard->setCurrentIndex(0);
+    ui->next1->setEnabled(true);
+    ui->next2->setEnabled(true);
+    setAllDisabled(false);
 }
 
 
@@ -200,6 +204,7 @@ void ProtocolDialog::fillFeaturesList(){
         ui->glcmLineEdit->setEnabled(true);
         ui->glcmLineEdit->setText("1");
         ui->WindowSizeCombo->setEnabled(true);
+        ui->stackedWidget->setCurrentIndex(0);
     }
 
     if(type == "Dynamic"){
@@ -212,6 +217,7 @@ void ProtocolDialog::fillFeaturesList(){
         ui->glcmLineEdit->clear();
         ui->glcmLineEdit->setEnabled(false);
         ui->WindowSizeCombo->setEnabled(false);
+        ui->stackedWidget->setCurrentIndex(1);
 
 
     }
@@ -227,7 +233,7 @@ void ProtocolDialog::fillAlgorithmsCombo(){
     for(int i = 0; i < algorithms.size(); i++){
         ui->AlgorithmCombo->addItem(algorithms[i]->getName());
     }
-     ui->AlgorithmCombo->addItem(QString("No algorithm"));
+    ui->AlgorithmCombo->addItem(QString("No algorithm"));
 }
 
 
@@ -245,16 +251,16 @@ void ProtocolDialog::changeParametersForm(){
         algorithm= algorithmsList->getAlgorithm(algName);
     }
     if(algorithm){
-    if(algName == "Hierarchical"){ui->warningAlgorithm->setHidden(false); ui->warningAlgorithm->setText("Be careful in using with \n images with number of pixels \n greater than 3000 pixels");}
-    parameters.at(0)->setHidden(false);
-    QList<AbstractAlgorithm::AlgorithmParameter> param = algorithm->getParameters();
-    while(!(param.isEmpty())){
-        ParameterValueForm* parameterForm = new ParameterValueForm(param.takeFirst(),this);
-        connect(parameterForm,SIGNAL(valueEntered(bool)),this,SLOT(checkParametersValidity()));
-        ui->parameterLayout->addWidget(parameterForm);
+        if(algName == "Hierarchical"){ui->warningAlgorithm->setHidden(false); ui->warningAlgorithm->setText("Be careful in using with \n images with number of pixels \n greater than 3000 pixels");}
+        parameters.at(0)->setHidden(false);
+        QList<AbstractAlgorithm::AlgorithmParameter> param = algorithm->getParameters();
+        while(!(param.isEmpty())){
+            ParameterValueForm* parameterForm = new ParameterValueForm(param.takeFirst(),this);
+            connect(parameterForm,SIGNAL(valueEntered(bool)),this,SLOT(checkParametersValidity()));
+            ui->parameterLayout->addWidget(parameterForm);
 
-        parameters.append(parameterForm);
-    }
+            parameters.append(parameterForm);
+        }
     }
     else{
         parameters.at(0)->setHidden(true);
@@ -290,7 +296,8 @@ void ProtocolDialog::finishButtonClicked(){
         bool test = ui->testCheck->isChecked();
         int glcmDistance = ui->glcmLineEdit->text().toInt();
         int windowSize = ui->WindowSizeCombo->currentText().split("x").takeFirst().toInt();
-
+        int frameInit = ui->firstFrameLineEdit->text().toInt();
+        int frameEnd = ui->lastFrameLineEdit->text().toInt();
         QString type = ui->dataTypeCombo->currentText();
         ProtocolType protType;
         if(type == "Static") protType = STATIC;
@@ -331,11 +338,11 @@ void ProtocolDialog::finishButtonClicked(){
         else{
 
             if(!oldProtocol.isEmpty()){
-                emit modifyProtocol(oldProtocol,name,desc,test,feats,alg,protType,windowSize,glcmDistance,nClusters,parametersValue);
+                emit modifyProtocol(oldProtocol,name,desc,test,feats,alg,protType,windowSize,glcmDistance,nClusters,frameInit,frameEnd,parametersValue);
                 oldProtocol = QString();
             }
             else{
-                emit createProtocol(name,desc,test,feats,alg,protType,windowSize,glcmDistance,nClusters,parametersValue);
+                emit createProtocol(name,desc,test,feats,alg,protType,windowSize,glcmDistance,nClusters,frameInit,frameEnd,parametersValue);
             }
 
         }
@@ -372,6 +379,36 @@ void ProtocolDialog::checkWindowSizeGLCM(){
 }
 
 
+void ProtocolDialog::checkFrames(){
+    if(ui->dataTypeCombo->currentText() == "Dynamic"){
+
+        bool empty = ui->firstFrameLineEdit->text().isEmpty() && ui->lastFrameLineEdit->text().isEmpty();
+        if(!empty){
+
+            bool ok = true;
+            bool ok2 = true;
+            int firstFrame = ui->firstFrameLineEdit->text().toInt(&ok);
+            int lastFrame = ui->lastFrameLineEdit->text().toInt(&ok2);
+             QPalette palette = ui->firstFrameLineEdit->palette();
+            if(ok && ok2 && firstFrame>0 && lastFrame>0 && (firstFrame <= lastFrame))
+            {
+                ui->next2->setEnabled(true);
+                palette.setColor(QPalette::Text,QColor(0,0,0));
+
+            }
+
+            else{
+                ui->next2->setEnabled(false);
+                palette.setColor(QPalette::Text,QColor(255,0,0));
+            }
+
+            ui->firstFrameLineEdit->setPalette(palette);
+            ui->lastFrameLineEdit->setPalette(palette);
+        }
+    }
+}
+
+
 
 void ProtocolDialog::openExistingProtocol(AbstractProtocol *protocol){
 
@@ -397,6 +434,8 @@ void ProtocolDialog::openExistingProtocol(AbstractProtocol *protocol){
 
     ui->glcmLineEdit->setText(QString::number(protocol->getDistanceToGlcm()));
     ui->WindowSizeCombo->setCurrentIndex(((protocol->getWindowSize()-1)/2)-1);
+    ui->firstFrameLineEdit->setText(QString::number(protocol->getFrameInit()));
+    ui->lastFrameLineEdit->setText(QString::number(protocol->getFrameEnd()));
     if(protocol->getAlgorithm()){
         ui->AlgorithmCombo->setCurrentText(protocol->getAlgorithmName());
 
@@ -423,6 +462,8 @@ void ProtocolDialog::setAllDisabled(bool disable){
     ui->dataTypeCombo->setDisabled(disable);
     ui->testCheck->setDisabled(disable);
     ui->glcmLineEdit->setDisabled(disable);
+    ui->firstFrameLineEdit->setDisabled(disable);
+    ui->lastFrameLineEdit->setDisabled(disable);
     ui->WindowSizeCombo->setDisabled(disable);
     ui->AlgorithmCombo->setDisabled(disable);
 }

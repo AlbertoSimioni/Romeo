@@ -74,6 +74,7 @@ public slots:
      */
     virtual void reject();
 
+
 signals:
     /*!
      * \brief Segnala la modifica del nome del protocollo da parte dell'utente
@@ -89,7 +90,7 @@ signals:
      * \param algorithm Algoritmo associato
      * \param type Tipo del protocollo
      */
-    void createProtocol(QString protocolName,QString desc,bool test,QList<QString>features,QString algorithm,romeo::model::protocols::ProtocolType type,int windowSize,int distanceGLCM,int nClusters,QList<QString> parametersValue);
+    void createProtocol(QString protocolName,QString desc,bool test,QList<QString>features,QString algorithm,romeo::model::protocols::ProtocolType type,int windowSize,int distanceGLCM,int nClusters,int frameInit,int frameEnd,QList<QString> parametersValue);
 
     /*!
      * \brief Segnala la volontà dell'utente di moficare un protocollo
@@ -105,7 +106,7 @@ signals:
      * \param nClusters
      * \param parametersValue
      */
-    void modifyProtocol(QString oldProtocolName,QString protocolName,QString desc,bool test,QList<QString>features,QString algorithm,romeo::model::protocols::ProtocolType type,int windowSize,int distanceGLCM,int nClusters,QList<QString> parametersValue);
+    void modifyProtocol(QString oldProtocolName,QString protocolName,QString desc,bool test,QList<QString>features,QString algorithm,romeo::model::protocols::ProtocolType type,int windowSize,int distanceGLCM,int nClusters,int frameInit,int frameEnd,QList<QString> parametersValue);
 
 
 private:
@@ -218,6 +219,12 @@ private slots:
      * \brief Slot che verifica la validità dei parametri riguardanti la window size e la distance to the glcm
      */
     void checkWindowSizeGLCM();
+
+    /*!
+     * \brief Slot che verifica la validità dei parametri riguardanti il frame iniziale e finale
+     */
+    void checkFrames();
+
 
 };
 }}}
