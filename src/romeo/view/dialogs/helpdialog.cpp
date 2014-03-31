@@ -12,7 +12,7 @@ HelpDialog::HelpDialog(QWidget *parent) :
     QFile file(":/doc/doc/help.html");
     if(!file.open(QIODevice::ReadOnly))
         return;
-    this->resize(900, 650);
+    this->setFixedSize(900, 610);
     textBrowser=new QTextBrowser(this);
     textBrowser->setHtml(QString(file.readAll()));
     textBrowser->setOpenLinks(true);
