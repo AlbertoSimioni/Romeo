@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <features>
-    <feature>
-        <name>Standard Deviation</name>
-        <description>Measures the dispersion of the distribution from the average</description>
+	<feature>
+        <name>Kurtosis</name>
+        <description>Measures the peakedness of the distribution</description>
         <type>FIRSTORDER</type>
         <file>features/libfeatures</file>
-        <functionName>feat_p1_std</functionName>
+        <functionName>feat_p1_kurt</functionName>
     </feature>
     <feature>
         <name>Mean</name>
@@ -14,7 +14,7 @@
         <file>features/libfeatures</file>
         <functionName>feat_p1_mean</functionName>
     </feature>
-    <feature>
+     <feature>
         <name>Skewness</name>
         <description>Measures the asymmetry of the distribution</description>
         <type>FIRSTORDER</type>
@@ -22,11 +22,11 @@
         <functionName>feat_p1_skew</functionName>
     </feature>
     <feature>
-        <name>Kurtosis</name>
-        <description>Measures the peakedness of the distribution</description>
+        <name>Standard Deviation</name>
+        <description>Measures the dispersion of the distribution from the average</description>
         <type>FIRSTORDER</type>
         <file>features/libfeatures</file>
-        <functionName>feat_p1_kurt</functionName>
+        <functionName>feat_p1_std</functionName>
     </feature>
     <feature>
         <name>Contrast</name>
@@ -63,4 +63,73 @@
         <file>features/libfeatures</file>
         <functionName>feat_p2_homo</functionName>
     </feature>
+    <feature>
+        <name>Area Under the Curve</name>
+        <description>Measures the area under the curve in an interval of frames</description>
+        <type>DYNAMIC</type>
+        <file>features/libfeatures</file>
+        <functionName>clust_par_auc</functionName>
+    </feature>
+    <feature>
+        <name>Dynamic Mean</name>
+        <description>Measures the mean value in an interval of frames</description>
+        <type>DYNAMIC</type>
+        <file>features/libfeatures</file>
+        <functionName>clust_par_mean</functionName>
+    </feature>
+    <feature>
+        <name>Maximum</name>
+        <description>Measures the maximum value in an interval of frames</description>
+        <type>DYNAMIC</type>
+        <file>features/libfeatures</file>
+        <functionName>clust_par_max</functionName>
+    </feature>
+     <feature>
+        <name>Minimum</name>
+        <description>Measures the minimum value in an interval of frames</description>
+        <type>DYNAMIC</type>
+        <file>features/libfeatures</file>
+        <functionName>clust_par_min</functionName>
+    </feature>
+    <feature>
+        <name>Slope</name>
+        <description>Measures the slope of the regression line in an interval of frames</description>
+        <type>DYNAMIC</type>
+        <file>features/libfeatures</file>
+        <functionName>clust_par_slope</functionName>
+    </feature>
+    <feature>
+        <name>Time to Peak</name>
+        <description>Identifies the time position of the frame with the maximum value
+in an interval of frames</description>
+        <type>DYNAMIC</type>
+        <file>features/libfeatures</file>
+        <functionName>clust_par_tpeak</functionName>
+    </feature>
 </features>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
