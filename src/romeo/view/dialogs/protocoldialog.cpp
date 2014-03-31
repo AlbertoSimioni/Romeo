@@ -411,6 +411,13 @@ void ProtocolDialog::checkFrames(){
             ui->firstFrameLineEdit->setPalette(palette);
             ui->lastFrameLineEdit->setPalette(palette);
         }
+        else{
+            QPalette palette = ui->firstFrameLineEdit->palette();
+            ui->next2->setEnabled(true);
+            palette.setColor(QPalette::Text,QColor(0,0,0));
+            ui->firstFrameLineEdit->setPalette(palette);
+            ui->lastFrameLineEdit->setPalette(palette);
+        }
     }
 }
 

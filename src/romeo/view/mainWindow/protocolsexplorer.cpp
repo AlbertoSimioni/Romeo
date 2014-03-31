@@ -66,6 +66,10 @@ void ProtocolsExplorer::fillProtocolsExplorer(){
 void ProtocolsExplorer::setCurrentProtocolsType(const romeo::model::protocols::ProtocolType &value)
 {
     currentProtocolsType = value;
+    if(currentProtocolsType == DYNAMIC){
+        ui->protocolsTable->setHeaderLabel("Dynamic Protocols");
+    }
+    else ui->protocolsTable->setHeaderLabel("Static Protocols");
     fillProtocolsExplorer();
 }
 
