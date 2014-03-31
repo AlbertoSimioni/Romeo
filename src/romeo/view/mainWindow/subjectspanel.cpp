@@ -31,7 +31,8 @@ SubjectsPanel::SubjectsPanel(QWidget *parent) :
 
     ui->subjectsList->setColumnCount(3);
     ui->subjectsList->setHeaderLabels(QStringList()<< "Name"<<"Data"<<"Mask");
-    ui->subjectsList->setColumnWidth(0,170);
+    ui->subjectsList->setColumnWidth(0,160);
+    ui->subjectsList->setColumnWidth(1,190);
 
     connectUI();
 }

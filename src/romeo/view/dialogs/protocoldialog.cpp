@@ -447,8 +447,13 @@ void ProtocolDialog::openExistingProtocol(AbstractProtocol *protocol){
 
     ui->glcmLineEdit->setText(QString::number(protocol->getDistanceToGlcm()));
     ui->WindowSizeCombo->setCurrentIndex(((protocol->getWindowSize()-1)/2)-1);
-    ui->firstFrameLineEdit->setText(QString::number(protocol->getFrameInit()));
-    ui->lastFrameLineEdit->setText(QString::number(protocol->getFrameEnd()));
+
+    int firstFrame = protocol->getFrameInit();
+    int lastFrame = protocol->getFrameEnd();
+    if(firstFrame != -1)
+        ui->firstFrameLineEdit->setText(QString::number(firstFrame));
+    if(lastFrame != -1)
+        ui->lastFrameLineEdit->setText(QString::number(lastFrame));
     if(protocol->getAlgorithm()){
         ui->AlgorithmCombo->setCurrentText(protocol->getAlgorithmName());
 
