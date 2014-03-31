@@ -40,7 +40,7 @@ extern "C" MY_EXPORT double* clust_par_slope(double**,const int,int,int);
 int maxIndex(double*,const int);
 extern "C" MY_EXPORT double* clust_par_tpeak(double**,const int,int,int);
 //Attenzione, usando questa crasha ROMEO
-extern "C" MY_EXPORT double** clust_par_value(double**,const int,int,int);
+extern "C" MY_EXPORT double* clust_par_value(double**,const int,int,int);
 /*FINE FEATURE DINAMICHE*/
 
 #endif

@@ -44,8 +44,10 @@ public:
      * \param algParameters Valori associati ai parametri dell'algoritmo.
      * \param feat Lista delle feature che il protocollo esegue.
      * \param testProtocol Valore booleano che indica se il protocollo è di test.
+     * \param frameInit Indice del frame da cui far partire le analisi (incluso).
+     * \param frameEnd Indice del frame in cui terminare le analisi (incluso).
      */
-    DynamicProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, int clusterNum, QList<QString> algParameters, QList<features::AbstractFeature*> feat,bool testProtocol);
+    DynamicProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, int clusterNum, QList<QString> algParameters, QList<features::AbstractFeature*> feat,bool testProtocol,int frameInit,int frameEnd);
     /*!
      * \brief Si preoccupa di convertire un video 2D in una matrice di valori double
      * \param video Video 2D da convertire
@@ -108,7 +110,23 @@ public:
      * \brief Ritorna un intero che indica la dimensione della GLCM(Gray Level Concurrency Matrix).
      */
     virtual int getDistanceToGlcm() const;
-
+    /*!
+     * \brief Ritorna l'indice del frame da cui iniziare le analisi (incluso)
+     */
+    virtual int getFrameInit() const;
+    /*!
+     * \brief Ritorna l'indice del frame in cui terminare le analisi (incluso)
+     */
+    virtual int getFrameEnd() const;
+private:
+    /*!
+     * \brief Numero che indica il frame da cui iniziare le analisi (incluso)
+     */
+    int frameInit;
+    /*!
+     * \brief Numero che indica il frame in cui finire le analisi (incluso)
+     */
+    int frameEnd;
 };
 }}}
 #endif // DYNAMICPROTOCOL_H

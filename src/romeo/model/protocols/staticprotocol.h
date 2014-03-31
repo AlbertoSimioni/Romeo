@@ -81,6 +81,14 @@ public:
      */
     void setWindowSize(int value);
     /*!
+     * \brief Ritorna l'indice del frame da cui iniziare le analisi (incluso)
+     */
+    virtual int getFrameInit() const;
+    /*!
+     * \brief Ritorna l'indice del frame in cui terminare le analisi (incluso)
+     */
+    virtual int getFrameEnd() const;
+    /*!
      * \brief Metodo per la creazione di una immagine con pad di pixel a specchio
      * \param input è l'immagine in input.
      * \param pad è il numero di pixel di cui si vuole fare il pad (generalmente metà della taglia della finestra scorrevole).
@@ -249,7 +257,7 @@ public:
                 ++inputIterator;
                 ++maskIterator;
                 ++index;
-                qDebug() << "Completato al " << (static_cast<double>(index)/length)*100 << "%\n";
+                //qDebug() << "Completato al " << (static_cast<double>(index)/length)*100 << "%\n";
             }
         }
         else {
@@ -277,7 +285,7 @@ public:
                 result[2][index]=blueValue;
                 ++inputIterator;
                 ++index;
-                qDebug() << "Completato al " << (static_cast<double>(index)/length)*100 << "%\n";
+                //qDebug() << "Completato al " << (static_cast<double>(index)/length)*100 << "%\n";
             }
         }
         // creazione immagine output
@@ -382,7 +390,7 @@ public:
                 ++inputIterator;
                 ++maskIterator;
                 ++index;
-                qDebug() << "Completato al " << (static_cast<double>(index)/length)*100 << "%\n";
+                //qDebug() << "Completato al " << (static_cast<double>(index)/length)*100 << "%\n";
             }
         }
         else {
@@ -415,7 +423,7 @@ public:
                 }
                 ++inputIterator;
                 ++index;
-                qDebug() << "Completato al " << (static_cast<double>(index)/length)*100 << "%\n";
+                //qDebug() << "Completato al " << (static_cast<double>(index)/length)*100 << "%\n";
             }
         }
         // creazione immagine output

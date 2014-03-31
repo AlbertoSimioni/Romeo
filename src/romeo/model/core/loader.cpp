@@ -272,6 +272,8 @@ bool Loader::parseProtocol(romeo::model::protocols::ProtocolsList *protocolsList
     protocols::ProtocolType type;
     int window=0;
     int glcm=0;
+    int frameInit = -1;
+    int frameEnd = -1;
 
     QDomElement nextElement=node.firstChildElement("name");
     name=nextElement.text();
@@ -323,7 +325,18 @@ bool Loader::parseProtocol(romeo::model::protocols::ProtocolsList *protocolsList
     glcm=nextElement.text().toInt();
     if ( glcm<0 )
         glcm=1;
-    protocolsList->addProtocol(name, description, alg, clusterNum, algParameters, featureList, test, type, window, glcm );
+
+    nextElement=nextElement.nextSiblingElement("frameInit");
+    frameInit=nextElement.text().toInt();
+    if (frameInit<-1 || frameInit == 0)
+        frameInit = -1;
+
+    nextElement=nextElement.nextSiblingElement("frameEnd");
+    frameEnd=nextElement.text().toInt();
+    if (frameEnd<-1 || frameEnd == 0)
+        frameEnd = -1;
+
+    protocolsList->addProtocol(name, description, alg, clusterNum, algParameters, featureList, test, type, window, glcm, frameInit, frameEnd );
     return true;
 }
 

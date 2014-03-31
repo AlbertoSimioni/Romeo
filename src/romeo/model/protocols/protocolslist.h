@@ -46,10 +46,12 @@ public:
      * \param feat Lista delle feature che il protocollo deve estrarre.
      * \param test Valore booleano che indica se il protocollo che si va a creare è di test oppure no.
      * \param type Indica il tipo del protocollo che si vuole costruire, che può essere STATIC oppure DYNAMIC.
+     * \param frameInit Indice del primo frame da cui iniziare le analisi.
+     * \param frameEnd Indice dell'ultimo frame su cui effettuare le analisi.
      * \param window Il valore della finestra di pixel su cui vengono fatti i calcoli relativi alle feature.
      * \param distanceGLCM Parametro necessario per il calcolo della matrice GLCM.
      */
-    void addProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, int clusterNum, QList<QString> algParameters, QList<features::AbstractFeature *> feat, bool test, ProtocolType type, int window=3, int distanceGLCM=1);
+    void addProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, int clusterNum, QList<QString> algParameters, QList<features::AbstractFeature *> feat, bool test, ProtocolType type, int frameInit, int frameEnd, int window=3, int distanceGLCM=1);
     /*!
      * \brief Ritorna il riferimento al protocollo con nome uguale al parametro name
      * \param name Nome del protocollo da ritornare.

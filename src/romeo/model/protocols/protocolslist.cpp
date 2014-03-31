@@ -51,7 +51,7 @@ AbstractProtocol* ProtocolsList::getProtocol(QString name){
     return prot;
 }
 
-void ProtocolsList::addProtocol(QString nomeP, QString desc, AbstractAlgorithm *alg, int clusterNum, QList<QString> algParameters, QList<features::AbstractFeature *> feat,bool test,ProtocolType type, int window, int distanceGLCM){
+void ProtocolsList::addProtocol(QString nomeP, QString desc, AbstractAlgorithm *alg, int clusterNum, QList<QString> algParameters, QList<features::AbstractFeature *> feat,bool test,ProtocolType type, int frameInit, int  frameEnd, int window, int distanceGLCM){
 
     //controllo che non ci siano altri protocolli nella lista con lo stesso nome
     bool ok=false;
@@ -65,7 +65,7 @@ void ProtocolsList::addProtocol(QString nomeP, QString desc, AbstractAlgorithm *
     switch(type){
     case STATIC : protocolsList.append(new StaticProtocol(nomeP,desc,alg,clusterNum,algParameters,feat,test,window,distanceGLCM));
         break;
-    case DYNAMIC: protocolsList.append(new DynamicProtocol(nomeP,desc,alg,clusterNum,algParameters,feat,test));
+    case DYNAMIC: protocolsList.append(new DynamicProtocol(nomeP,desc,alg,clusterNum,algParameters,feat,test,frameInit,frameEnd));
         break;
     }
     emit ProtocolsList::protocolsListModified();

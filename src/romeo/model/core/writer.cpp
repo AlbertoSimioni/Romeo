@@ -106,6 +106,8 @@ bool Writer::saveProtocolsList()
         Writer::writeProtocolFeatures(protocolsList[i]->getFeaturesName(), writer);
         writer.writeTextElement("window", QString::number(protocolsList[i]->getWindowSize()));
         writer.writeTextElement("glcm", QString::number(protocolsList[i]->getDistanceToGlcm()));
+        writer.writeTextElement("frameInit",QString::number(protocolsList[i]->getFrameInit()));
+        writer.writeTextElement("frameEnd",QString::number(protocolsList[i]->getFrameEnd()));
         writer.writeEndElement(); //end protocol
     }
     writer.writeEndElement(); //end protocols

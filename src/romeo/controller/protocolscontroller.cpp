@@ -45,8 +45,8 @@ void ProtocolsController::connectViewsSignals(){
     connect(mainWindow,SIGNAL(openNewPortocolDialog()),this,SLOT(viewNewProtocolDialog()));
     connect(protocolDialog,SIGNAL(nameChanged(QString)),this,SLOT(checkProtocolName(QString)));
 
-    connect(protocolDialog,SIGNAL(createProtocol(QString,QString,bool,QList<QString>,QString,romeo::model::protocols::ProtocolType,int,int,int,QList<QString>)),this,SLOT(addProtocol(QString,QString,bool,QList<QString>,QString,romeo::model::protocols::ProtocolType,int,int,int,QList<QString>)));
-
+    connect(protocolDialog,SIGNAL(createProtocol(QString,QString,bool,QList<QString>,QString,romeo::model::protocols::ProtocolType,int,int,int,int,int,QList<QString>)),this,SLOT(addProtocol(QString,QString,bool,QList<QString>,QString,romeo::model::protocols::ProtocolType,int,int,int,int,int,QList<QString>)));
+    connect(protocolDialog,SIGNAL(modifyProtocol(QString,QString,QString,bool,QList<QString>,QString,romeo::model::protocols::ProtocolType,int,int,int,int,int,QList<QString>)),this,SLOT(modifyProtocol(QString,QString,QString,bool,QList<QString>,QString,romeo::model::protocols::ProtocolType,int,int,int,int,int,QList<QString>)));
     connect(mainWindow,SIGNAL(deleteProtocol(QString)),this,SLOT(deleteProtocol(QString)));
     connect(associateProtocolDialog,SIGNAL(associateProtocol(QString)),this,SLOT(associateProtocol(QString)));
     connect(protocolsPanel,SIGNAL(associateProtocol(QString)),this,SLOT(associateProtocol(QString)));
@@ -56,11 +56,10 @@ void ProtocolsController::connectViewsSignals(){
     connect(protocolsExplorer,SIGNAL(deleteProtocol(QString)),this,SLOT(deleteProtocol(QString)));
     connect(protocolsExplorer,SIGNAL(openProtocol(QString)),this,SLOT(openProtocol(QString)));
 }
+
 void ProtocolsController::viewNewProtocolDialog(){
     protocolDialog->exec();
 }
-
-
 
 
 void ProtocolsController::viewAssociateProtocolDialog(){
@@ -77,18 +76,14 @@ void ProtocolsController::checkProtocolName(QString protocolName){
     }
 }
 
-
-
-
-
-void ProtocolsController::addProtocol(QString protocolName, QString desc, bool test, QList<QString> features, QString algorithm, ProtocolType type, int windowSize, int distanceGLCM,int nClusters,QList<QString> parametersValue){
+void ProtocolsController::addProtocol(QString protocolName, QString desc, bool test, QList<QString> features, QString algorithm, ProtocolType type, int windowSize, int distanceGLCM,int nClusters, int frameInit, int frameEnd, QList<QString> parametersValue){
     AbstractAlgorithm* associatedAlgorithm = algorithmsList->getAlgorithm(algorithm);
     QList<AbstractFeature*> associatedFeatures;
     for(int i = 0; i<features.size();i++){
         associatedFeatures.append(featuresList->getFeature(features[i]));
     }
 
-    protocolsList->addProtocol(protocolName,desc,associatedAlgorithm,nClusters,parametersValue,associatedFeatures,test,type,windowSize,distanceGLCM);
+    protocolsList->addProtocol(protocolName,desc,associatedAlgorithm,nClusters,parametersValue,associatedFeatures,test,type,frameInit,frameEnd,windowSize,distanceGLCM);
 }
 
 
@@ -124,11 +119,11 @@ void ProtocolsController::openProtocol(QString protocolName){
 }
 
 
-void ProtocolsController::modifyProtocol(QString oldProtocolName, QString protocolName, QString desc, bool test, QList<QString> features, QString algorithm, ProtocolType type, int windowSize, int distanceGLCM, int nClusters, QList<QString> parametersValue){
+void ProtocolsController::modifyProtocol(QString oldProtocolName, QString protocolName, QString desc, bool test, QList<QString> features, QString algorithm, ProtocolType type, int windowSize, int distanceGLCM, int nClusters, int frameInit, int frameEnd, QList<QString> parametersValue){
 
     deleteProtocol(oldProtocolName);
 
-    addProtocol(protocolName,desc,test,features,algorithm,type,windowSize,distanceGLCM,nClusters,parametersValue);
+    addProtocol(protocolName,desc,test,features,algorithm,type,windowSize,distanceGLCM,nClusters,frameInit,frameEnd,parametersValue);
 }
 
 

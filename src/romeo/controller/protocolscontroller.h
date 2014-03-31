@@ -65,8 +65,11 @@ private slots:
      * \param type Il tipo di protocollo che si vuole creare.
      * \param windowSize Dimensione della finestra su cui eseguire il protocollo.
      * \param distanceGLCM Distanza dalla GLCM impostata per il protocollo.
+     * \param nClusters Numero di cluster dell'algoritmo di clustering.
+     * \param frameInit Indice del frame da cui iniziare le analisi (incluso).
+     * \param frameEnd Indice del frame in cui finire le analisi (incluso).
      */
-    void addProtocol(QString protocolName,QString desc,bool test,QList<QString>features,QString algorithm,romeo::model::protocols::ProtocolType type,int windowSize,int distanceGLCM,int nClusters,QList<QString> parametersValue);
+    void addProtocol(QString protocolName,QString desc,bool test,QList<QString>features,QString algorithm,romeo::model::protocols::ProtocolType type,int windowSize,int distanceGLCM,int nClusters,int frameInit, int frameEnd, QList<QString> parametersValue);
 
     /*!
      * \brief Slot che si preoccura di associare al dataset corrente il protocollo con nome dato in input
@@ -91,7 +94,7 @@ private slots:
     void openProtocol(QString protocolName);
 
 
-    void modifyProtocol(QString oldProtocolName,QString protocolName,QString desc,bool test,QList<QString>features,QString algorithm,romeo::model::protocols::ProtocolType type,int windowSize,int distanceGLCM,int nClusters,QList<QString> parametersValue);
+    void modifyProtocol(QString oldProtocolName,QString protocolName,QString desc,bool test,QList<QString>features,QString algorithm,romeo::model::protocols::ProtocolType type,int windowSize,int distanceGLCM,int nClusters, int frameInit, int frameEnd, QList<QString> parametersValue);
 
 
 private:

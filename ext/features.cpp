@@ -364,7 +364,7 @@ double* clust_par_tpeak(double** data,const int numberOfPixel,int begin,int end)
 	return result;
 }
 
-double** clust_par_value(double** data,const int numberOfPixel,int begin,int end) {
+double* clust_par_value(double** data,const int numberOfPixel,int begin,int end) {
 	const int n = end-begin+1;
 	double** result = new double*[n];
 	//Inizializzo l'array risultato
@@ -375,7 +375,7 @@ double** clust_par_value(double** data,const int numberOfPixel,int begin,int end
 			result[i][j] = data[i][j];
 		}
 	}
-	return result;
+    return result[0];
 }
 
 	/*FINE FEATURE DINAMICHE */

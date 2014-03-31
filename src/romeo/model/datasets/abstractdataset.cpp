@@ -257,6 +257,12 @@ void AbstractDataset::executeAnalysis(QString protocol, QList<QString> subjects,
                 errorMessage += " or its mask located in " + subjectsToAnalyze[i]->getMask();
             emit analysisProblem(errorMessage);
         }
+        // eccezione per uscita dai bounds con i frame impostati
+        catch(int a) {
+            QString errorMessage = "Error: subject " + subjectsToAnalyze[i]->getName() + " located in " + subjectsToAnalyze[i]->getSubject() + "\n";
+            errorMessage += "Frame init or frame end out of bounds";
+            emit analysisProblem(errorMessage);
+        }
     }
 
    disconnect(protocolToExecute,SIGNAL(featureExtracted(QString)),this,SIGNAL(featureExtracted(QString)));

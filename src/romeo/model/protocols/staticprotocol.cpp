@@ -50,3 +50,11 @@ void StaticProtocol::setDistanceToGlcm(int value)
 {
     distanceToGLCM = value;
 }
+
+int StaticProtocol::getFrameInit() const {
+    return -1;
+}
+
+int StaticProtocol::getFrameEnd() const {
+    return -1;
+}

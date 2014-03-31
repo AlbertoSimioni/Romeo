@@ -91,6 +91,14 @@ public:
      */
     virtual int getDistanceToGlcm() const = 0;
     /*!
+     * \brief Metodo che ritorna l'indice del frame iniziale (incluso)
+     */
+    virtual int getFrameInit() const = 0;
+    /*!
+     * \brief Metodo che ritorna l'indice del frame finale (incluso)
+     */
+    virtual int getFrameEnd() const = 0;
+    /*!
      * \brief Ritorna il nome del protocollo.
      */
     QString getName() const;
@@ -307,7 +315,6 @@ private:
      * \brief Numero di cluster con cui verrà eseguito l'algoritmo.
      */
     int nClusters;
-
     /*!
      * \brief Flag booleano che indica se le analisi devono proseguire
      */

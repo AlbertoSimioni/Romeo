@@ -296,8 +296,14 @@ void ProtocolDialog::finishButtonClicked(){
         bool test = ui->testCheck->isChecked();
         int glcmDistance = ui->glcmLineEdit->text().toInt();
         int windowSize = ui->WindowSizeCombo->currentText().split("x").takeFirst().toInt();
-        int frameInit = ui->firstFrameLineEdit->text().toInt();
-        int frameEnd = ui->lastFrameLineEdit->text().toInt();
+        bool ok = true;
+        bool ok2 = true;
+        int frameInit = ui->firstFrameLineEdit->text().toInt(&ok);
+        int frameEnd = ui->lastFrameLineEdit->text().toInt(&ok2);
+        if(!ok || !ok2){
+            frameInit = -1;
+            frameEnd = -1;
+        }
         QString type = ui->dataTypeCombo->currentText();
         ProtocolType protType;
         if(type == "Static") protType = STATIC;

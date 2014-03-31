@@ -23,8 +23,8 @@
 
 using namespace romeo::model::protocols;
 
-DynamicProtocol::DynamicProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, int clusterNum, QList<QString> algParameters, QList<features::AbstractFeature*> feat, bool testProtocol):
-    AbstractProtocol(nomeP,desc,alg, clusterNum, algParameters, feat,testProtocol)
+DynamicProtocol::DynamicProtocol(QString nomeP, QString desc, algorithms::AbstractAlgorithm* alg, int clusterNum, QList<QString> algParameters, QList<features::AbstractFeature*> feat, bool testProtocol, int frameInit, int frameEnd):
+    AbstractProtocol(nomeP,desc,alg, clusterNum, algParameters, feat,testProtocol),frameInit(frameInit),frameEnd(frameEnd)
 {
 }
 
@@ -85,6 +85,27 @@ double** DynamicProtocol::apply2DDynamicFeature(cv::VideoCapture video,Image2DTy
     }
     int numberOfPixel = video.get( CV_CAP_PROP_FRAME_WIDTH ) * video.get( CV_CAP_PROP_FRAME_HEIGHT );
     int numberOfFrames = video.get(CV_CAP_PROP_FRAME_COUNT);
+    qDebug() << "Frame init: " << QString::number(frameInit) << "\n";
+    qDebug() << "Frame end: " << QString::number(frameEnd) << "\n";
+    int currentFrameInit, currentFrameEnd;
+    // controllo sugli indici indicati
+    if(frameInit == -1 && frameEnd == -1) {
+        // vanno presi primo frame e ultimo frame
+        currentFrameInit = 0;
+        currentFrameEnd = numberOfFrames - 1;
+    }
+    else {
+        // controllo sull'integrità degli indici
+        // gli indici segnalati sono sempre +1
+        if(frameInit>numberOfFrames || frameEnd>numberOfFrames) {
+            // lancia un'eccezione, out of bounds
+            throw 0;
+        }
+        else {
+            currentFrameInit = frameInit - 1;
+            currentFrameEnd = frameEnd - 1;
+        }
+    }
 
     // iteratore per l'immagine in output
     itk::ImageRegionIterator<Image2DType> outputIterator(output , output->GetLargestPossibleRegion());
@@ -103,48 +124,104 @@ double** DynamicProtocol::apply2DDynamicFeature(cv::VideoCapture video,Image2DTy
             maskArray[i] = 255;
     }
     // alloco il risultato
-    double** result = new double*[3];
-    // eseguo ciclo
-    for(int color = 0;color<3;color++) {
-        // allocazione risultato
-        double** matrix = new double*[numberOfPixel];
-        for(int i=0;i<numberOfPixel;i++)
-            matrix[i] = new double[numberOfFrames];
-        video.set(CV_CAP_PROP_POS_AVI_RATIO , 0);
-        cv::Mat frame;
-        int j=0;
-        while( video.read(frame) ) {
-            Image2DType::Pointer itkFrame = itk::OpenCVImageBridge::CVMatToITKImage< Image2DType >( frame );
-            itk::ImageRegionIterator<Image2DType> imageIterator(itkFrame , itkFrame->GetLargestPossibleRegion());
-            if(mask.IsNotNull()) {
-                maskIterator.GoToBegin();
-                int i = 0;
-                while(!imageIterator.IsAtEnd()) {
-                    if(static_cast<int>(maskIterator.Get()) == 0)
-                        matrix[i][j]=0.0;
-                    else
-                        matrix[i][j]=imageIterator.Get()[color];
-                    ++imageIterator;
-                    ++maskIterator;
-                    ++i;
+    double** result;
+    if(feature->getName() == "Value") {
+        result = new double*[3*(currentFrameEnd-currentFrameInit+1)];
+        for(int i=0;i<3*(currentFrameEnd-currentFrameInit+1);++i)
+            result[i] = new double[numberOfPixel];
+        int currentFrame = 0;
+        for(int color = 0;color<3;color++) {
+            video.set(CV_CAP_PROP_POS_AVI_RATIO , 0);
+            cv::Mat frame;
+            int j=0;
+            while( video.read(frame) ) {
+                // j è l'indice del frame corrente
+                // currentFrame è l'indice dei frame analizzati
+                if(j>=currentFrameInit && j<=currentFrameEnd) {
+                    Image2DType::Pointer itkFrame = itk::OpenCVImageBridge::CVMatToITKImage< Image2DType >( frame );
+                    itk::ImageRegionIterator<Image2DType> imageIterator(itkFrame , itkFrame->GetLargestPossibleRegion());
+                    if(mask.IsNotNull()) {
+                        maskIterator.GoToBegin();
+                        int i = 0;
+                        while(!imageIterator.IsAtEnd()) {
+                            if(static_cast<int>(maskIterator.Get()) == 0)
+                                result[currentFrame][i]=0.0;
+                            else
+                                result[currentFrame][i]=imageIterator.Get()[color];
+                            ++imageIterator;
+                            ++maskIterator;
+                            ++i;
+                        }
+                        ++j;
+                    }
+                    else {
+                        int i = 0;
+                        while(!imageIterator.IsAtEnd()) {
+                            result[currentFrame][i]=imageIterator.Get()[color];
+                            ++imageIterator;
+                            ++i;
+                        }
+                        ++j;
+                    }
+                    ++currentFrame;
                 }
-                ++j;
-            }
-            else {
-                int i = 0;
-                while(!imageIterator.IsAtEnd()) {
-                    matrix[i][j]=imageIterator.Get()[color];
-                    ++imageIterator;
-                    ++i;
-                }
-                ++j;
+                else
+                    ++j;
             }
         }
-        result[color] = featureExtractor(matrix,numberOfPixel,0,numberOfFrames-1);
-        // delete di matrix
-        for(int i=0;i<numberOfPixel;i++)
-            delete[] matrix[i];
-        delete[] matrix;
+    }
+    else {
+        result = new double*[3];
+        // eseguo ciclo
+        for(int color = 0;color<3;color++) {
+            // allocazione risultato
+            double** matrix = new double*[numberOfPixel];
+            for(int i=0;i<numberOfPixel;i++)
+                matrix[i] = new double[currentFrameEnd-currentFrameInit+1];
+            video.set(CV_CAP_PROP_POS_AVI_RATIO , 0);
+            cv::Mat frame;
+            int j=0;
+            int currentFrame = 0;
+            while( video.read(frame) ) {
+                // j è l'indice del frame corrente
+                // currentFrame è l'indice dei frame analizzati
+                if(j>=currentFrameInit && j<=currentFrameEnd) {
+                    Image2DType::Pointer itkFrame = itk::OpenCVImageBridge::CVMatToITKImage< Image2DType >( frame );
+                    itk::ImageRegionIterator<Image2DType> imageIterator(itkFrame , itkFrame->GetLargestPossibleRegion());
+                    if(mask.IsNotNull()) {
+                        maskIterator.GoToBegin();
+                        int i = 0;
+                        while(!imageIterator.IsAtEnd()) {
+                            if(static_cast<int>(maskIterator.Get()) == 0)
+                                matrix[i][currentFrame]=0.0;
+                            else
+                                matrix[i][currentFrame]=imageIterator.Get()[color];
+                            ++imageIterator;
+                            ++maskIterator;
+                            ++i;
+                        }
+                        ++j;
+                    }
+                    else {
+                        int i = 0;
+                        while(!imageIterator.IsAtEnd()) {
+                            matrix[i][currentFrame]=imageIterator.Get()[color];
+                            ++imageIterator;
+                            ++i;
+                        }
+                        ++j;
+                    }
+                    ++currentFrame;
+                }
+                else
+                    ++j;
+            }
+            result[color] = featureExtractor(matrix,numberOfPixel,currentFrameInit,currentFrameEnd);
+            // delete di matrix
+            for(int i=0;i<numberOfPixel;i++)
+                delete[] matrix[i];
+            delete[] matrix;
+        }
     }
     // creazione immagine output
     createImage(outputIterator,result,maskArray,numberOfPixel);
@@ -162,6 +239,25 @@ double** DynamicProtocol::apply3DDynamicFeature(Image4DType::Pointer video,Image
     }
     int numberOfPixel = video->GetLargestPossibleRegion().GetSize()[0]*video->GetLargestPossibleRegion().GetSize()[1]*video->GetLargestPossibleRegion().GetSize()[2];
     int numberOfFrames = video->GetLargestPossibleRegion().GetSize()[3];
+    int currentFrameInit, currentFrameEnd;
+    // controllo sugli indici indicati
+    if(frameInit == -1 && frameEnd == -1) {
+        // vanno presi primo frame e ultimo frame
+        currentFrameInit = 0;
+        currentFrameEnd = numberOfFrames - 1;
+    }
+    else {
+        // controllo sull'integrità degli indici
+        // gli indici segnalati sono sempre +1
+        if(frameInit>numberOfFrames || frameEnd>numberOfFrames) {
+            // lancia un'eccezione, out of bounds
+            throw 0;
+        }
+        else {
+            currentFrameInit = frameInit - 1;
+            currentFrameEnd = frameEnd - 1;
+        }
+    }
 
     // iteratore per l'immagine in output
     itk::ImageRegionIterator<Image3DType> outputIterator(output , output->GetLargestPossibleRegion());
@@ -182,47 +278,117 @@ double** DynamicProtocol::apply3DDynamicFeature(Image4DType::Pointer video,Image
 
     itk::ImageLinearConstIteratorWithIndex<Image4DType> it( video, video->GetLargestPossibleRegion() );
     // alloco il risultato
-    double** result = new double*[3];
-    // eseguo ciclo
-    for(int color = 0;color<3;color++) {
-        // allocazione risultato
-        double** matrix = new double*[numberOfPixel];
-        for(int i=0;i<numberOfPixel;i++)
-            matrix[i] = new double[numberOfFrames];
-        it.SetDirection( 3 ); // Walk along time dimension
-        it.GoToBegin();
-        if(mask.IsNotNull()) {
-            maskIterator.GoToBegin();
-            int i = 0;
-            while(!it.IsAtEnd()) {
-                if(static_cast<int>(maskIterator.Get())==0) {
-                    for(int j=0;j<numberOfFrames;++j,++it)
-                        matrix[i][j]=0.0;
+    double** result;
+    if(feature->getName() == "Value") {
+        result = new double*[3*(currentFrameEnd-currentFrameInit+1)];
+        for(int i=0;i<3*(currentFrameEnd-currentFrameInit+1);++i)
+            result[i] = new double[numberOfPixel];
+        int currentFrame = 0;
+        for(int color = 0;color<3;color++) {
+            it.SetDirection( 3 ); // Walk along time dimension
+            it.GoToBegin();
+            if(mask.IsNotNull()) {
+                maskIterator.GoToBegin();
+                int i = 0;
+                while(!it.IsAtEnd()) {
+                    if(static_cast<int>(maskIterator.Get())==0) {
+                        int currentFrame = 0;
+                        for(int j=0;j<numberOfFrames;++j,++it) {
+                            if(j>=currentFrameInit && j<=currentFrameEnd) {
+                                result[currentFrame][i]=0.0;
+                                ++currentFrame;
+                            }
+                        }
+                    }
+                    else {
+                        int currentFrame = 0;
+                        for(int j=0;j<numberOfFrames;++j,++it) {
+                            if(j>=currentFrameInit && j<=currentFrameEnd) {
+                                result[currentFrame][i]=it.Get()[color];
+                                ++currentFrame;
+                            }
+                        }
+                    }
+                    it.NextLine();
+                    ++maskIterator;
+                    ++i;
                 }
-                else {
-                    for(int j=0;j<numberOfFrames;++j,++it)
-                        matrix[i][j]=it.Get()[color];
+            }
+            else {
+                int i = 0;
+                while(!it.IsAtEnd()) {
+                    int currentFrame = 0;
+                    for(int j=0;j<numberOfFrames;++j,++it) {
+                        if(j>=currentFrameInit && j<=currentFrameEnd) {
+                            result[currentFrame][i]=it.Get()[color];
+                            ++currentFrame;
+                        }
+                    }
+                    it.NextLine();
+                    ++i;
                 }
-                it.NextLine();
-                ++maskIterator;
-                ++i;
             }
         }
-        else {
-            int i = 0;
-            while(!it.IsAtEnd()) {
-                for(int j=0;j<numberOfFrames;++j,++it)
-                    matrix[i][j]=it.Get()[color];
-                it.NextLine();
-                ++i;
-            }
-        }
-        result[color] = featureExtractor(matrix,numberOfPixel,0,numberOfFrames-1);
-        // delete di matrix
-        for(int i=0;i<numberOfPixel;i++)
-            delete[] matrix[i];
-        delete[] matrix;
     }
+    else {
+        result = new double*[3];
+        // eseguo ciclo
+        for(int color = 0;color<3;color++) {
+            // allocazione risultato
+            double** matrix = new double*[numberOfPixel];
+            for(int i=0;i<numberOfPixel;i++)
+                matrix[i] = new double[currentFrameEnd-currentFrameEnd+1];
+            it.SetDirection( 3 ); // Walk along time dimension
+            it.GoToBegin();
+            if(mask.IsNotNull()) {
+                maskIterator.GoToBegin();
+                int i = 0;
+                while(!it.IsAtEnd()) {
+                    if(static_cast<int>(maskIterator.Get())==0) {
+                        int currentFrame = 0;
+                        for(int j=0;j<numberOfFrames;++j,++it) {
+                            if(j>=currentFrameInit && j<=currentFrameEnd) {
+                                matrix[i][currentFrame]=0.0;
+                                ++currentFrame;
+                            }
+                        }
+                    }
+                    else {
+                        int currentFrame = 0;
+                        for(int j=0;j<numberOfFrames;++j,++it) {
+                            if(j>=currentFrameInit && j<=currentFrameEnd) {
+                                matrix[i][currentFrame]=it.Get()[color];
+                                ++currentFrame;
+                            }
+                        }
+                    }
+                    it.NextLine();
+                    ++maskIterator;
+                    ++i;
+                }
+            }
+            else {
+                int i = 0;
+                while(!it.IsAtEnd()) {
+                    int currentFrame = 0;
+                    for(int j=0;j<numberOfFrames;++j,++it) {
+                        if(j>=currentFrameInit && j<=currentFrameEnd) {
+                            matrix[i][currentFrame]=it.Get()[color];
+                            ++currentFrame;
+                        }
+                    }
+                    it.NextLine();
+                    ++i;
+                }
+            }
+            result[color] = featureExtractor(matrix,numberOfPixel,currentFrameInit,currentFrameEnd);
+            // delete di matrix
+            for(int i=0;i<numberOfPixel;i++)
+                delete[] matrix[i];
+            delete[] matrix;
+        }
+    }
+
     // creazione immagine output
     createImage(outputIterator,result,maskArray,numberOfPixel);
     // cancellazione della maschera
@@ -468,4 +634,12 @@ int DynamicProtocol::getWindowSize() const
 int DynamicProtocol::getDistanceToGlcm() const
 {
     return 1;
+}
+
+int DynamicProtocol::getFrameInit() const {
+    return frameInit;
+}
+
+int DynamicProtocol::getFrameEnd() const {
+    return frameEnd;
 }

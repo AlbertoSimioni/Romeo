@@ -105,6 +105,13 @@ in an interval of frames</description>
         <type>DYNAMIC</type>
         <file>features/libfeatures</file>
         <functionName>clust_par_tpeak</functionName>
+    </feature>
+    <feature>
+        <name>Value</name>
+        <description>Measures the values within an interval of frames</description>
+        <type>DYNAMIC</type>
+        <file>features/libfeatures</file>
+        <functionName>clust_par_value</functionName>
     </feature>  
 </features>
 
