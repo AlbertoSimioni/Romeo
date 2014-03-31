@@ -139,7 +139,9 @@ void ExecuteDialog::clearDialog(){
     if(visualizeFeatures){
         ui->statusLabel->setText("Total Images: "+ QString::number(nSubjects * nImagesPerSubject));
     }
-    else  ui->statusLabel->setText("Total Images: "+ QString::number(nSubjects));
+
+    else if(visualizeResults) ui->statusLabel->setText("Total Images: "+ QString::number(nSubjects));
+    else ui->statusLabel->setText("Total Images: 0");
     ui->currentLabel->setText("Executing");
     ui->nameLabel->setText(QString(""));
     ui->progressBar->setMinimum(0);
