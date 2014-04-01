@@ -38,7 +38,7 @@ QString Dataset2DT::checkSubject(QString &fileSubject, QString &mask){
     // l'immagine deve essere un video 2D
     // la maschera deve essere una immagine 2D
     int numberOfPixel = 0;
-    typedef itk::Image<unsigned char,3> MaskType;
+    typedef itk::Image<unsigned char,2> MaskType;
     romeo::model::imageIO::HandlerIODynamic* imageHandler = romeo::model::imageIO::HandlerIODynamic::getInstance();
     try {
         cv::VideoCapture imagePointer = imageHandler->read2DVideo(fileSubject);
