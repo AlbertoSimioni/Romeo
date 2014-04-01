@@ -274,6 +274,18 @@ public:
             ++iterator;
         }
     }
+    /*!
+     * \brief Metodo per ottenere la quantità di ram del computer
+     */
+    int getTotalMemory() const;
+    /*!
+     * \brief Metodo per ottenere la classe del computer in base alla ram
+     */
+    QString getMemoryCategory() const;
+    /*!
+     * \brief Metodo per capire se l'analisi che si cerca di effettuare è ok
+     */
+    bool checkRequestedMemory(int requestedMemory) const;
 
 signals:
     /*!
@@ -319,6 +331,14 @@ private:
      * \brief Flag booleano che indica se le analisi devono proseguire
      */
     bool stopAnalysis;
+    /*!
+     * \brief Limite al numero di pixel allocabili per 2 gb di memoria
+     */
+    static const int limit2GB = 64631952;
+    /*!
+     * \brief Limite al numero di pixel allocabili per 4 gb di memoria
+     */
+    static const int limit4GB = 129263904;
 };
 
 }}}

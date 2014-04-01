@@ -422,16 +422,44 @@ void DynamicProtocol::video2DExecute(romeo::model::datasets::AbstractSubject *su
     double** result;
     if(featureList.size()>0) {
         // ci sono features da estrarre
+        int currentFrameInit, currentFrameEnd;
+        // controllo sugli indici indicati
+        if(frameInit == -1 && frameEnd == -1) {
+            // vanno presi primo frame e ultimo frame
+            currentFrameInit = 0;
+            currentFrameEnd = numberOfFrames - 1;
+        }
+        else {
+            // controllo sull'integrità degli indici
+            // gli indici segnalati sono sempre +1
+            if(frameInit>numberOfFrames || frameEnd>numberOfFrames) {
+                // lancia un'eccezione, out of bounds
+                throw 0;
+            }
+            else {
+                currentFrameInit = frameInit - 1;
+                currentFrameEnd = frameEnd - 1;
+            }
+        }
+
         // è necessario controllare se è presente la feature "Value"
+        int estimatedColumns;
         bool value = false;
         for(int i=0;i<featureList.size() && !value;++i) {
             if(featureList[i]->getName()=="Value")
                 value = true;
         }
-        if(value)
-            numberOfColumns = 3*(featureList.size()-1) + 3*(frameEnd-frameInit+1);
-        else
+        if(value) {
+            numberOfColumns = 3*(featureList.size()-1) + 3*(currentFrameEnd-currentFrameInit+1);
+            estimatedColumns = numberOfColumns;
+        }
+        else {
             numberOfColumns = 3*featureList.size();
+            estimatedColumns = numberOfColumns + (currentFrameEnd-currentFrameInit-1);
+        }
+        int requestedMemory = numberOfRows*estimatedColumns;
+        // se la memoria richiesta è eccessiva lancia una eccezione
+        checkRequestedMemory(requestedMemory);
         result = new double*[numberOfColumns];
         int index = 0;
         for(int i=0;i<featureList.size() && !getStopAnalysis();i++) {
@@ -451,7 +479,7 @@ void DynamicProtocol::video2DExecute(romeo::model::datasets::AbstractSubject *su
             singleFeature = apply2DDynamicFeature(videoCapture,outputFeature,maskPointer,dynamicFeature);
             // singleFeature è una matrice [ncols][nrows]
             if(featureList[i]->getName()=="Value") {
-                for(int j=0;j<(3*(frameEnd-frameInit+1));j++) {
+                for(int j=0;j<(3*(currentFrameEnd-currentFrameInit+1));j++) {
                     result[index]=singleFeature[j];
                     ++index;
                 }
@@ -478,6 +506,9 @@ void DynamicProtocol::video2DExecute(romeo::model::datasets::AbstractSubject *su
     else {
         // non ci sono feature da estrarre, va preparata la matrice con tre colonne sole
         numberOfColumns = 3*numberOfFrames;
+        int requestedMemory = numberOfRows*numberOfColumns;
+        // se la memoria richiesta è eccessiva lancia una eccezione
+        checkRequestedMemory(requestedMemory);
         result = read2DVideo(videoCapture);
     }
 
@@ -543,6 +574,25 @@ void DynamicProtocol::video3DExecute(romeo::model::datasets::AbstractSubject *su
     int numberOfColumns;
     double** result;
     if(featureList.size()>0) {
+        int currentFrameInit, currentFrameEnd;
+        // controllo sugli indici indicati
+        if(frameInit == -1 && frameEnd == -1) {
+            // vanno presi primo frame e ultimo frame
+            currentFrameInit = 0;
+            currentFrameEnd = numberOfFrames - 1;
+        }
+        else {
+            // controllo sull'integrità degli indici
+            // gli indici segnalati sono sempre +1
+            if(frameInit>numberOfFrames || frameEnd>numberOfFrames) {
+                // lancia un'eccezione, out of bounds
+                throw 0;
+            }
+            else {
+                currentFrameInit = frameInit - 1;
+                currentFrameEnd = frameEnd - 1;
+            }
+        }
         // è necessario controllare se è presente la feature "Value"
         bool value = false;
         for(int i=0;i<featureList.size() && !value;++i) {
@@ -550,7 +600,7 @@ void DynamicProtocol::video3DExecute(romeo::model::datasets::AbstractSubject *su
                 value = true;
         }
         if(value)
-            numberOfColumns = 3*(featureList.size()-1) + 3*(frameEnd-frameInit+1);
+            numberOfColumns = 3*(featureList.size()-1) + 3*(currentFrameEnd-currentFrameInit+1);
         else
             numberOfColumns = 3*featureList.size();
         result = new double*[numberOfColumns];
@@ -573,7 +623,7 @@ void DynamicProtocol::video3DExecute(romeo::model::datasets::AbstractSubject *su
             singleFeature = apply3DDynamicFeature(video,outputFeature,maskPointer,dynamicFeature);
             // singleFeature è una matrice [ncols][nrows]
             if(featureList[i]->getName()=="Value") {
-                for(int j=0;j<(3*(frameEnd-frameInit+1));j++) {
+                for(int j=0;j<(3*(currentFrameEnd-currentFrameInit+1));j++) {
                     result[index]=singleFeature[j];
                     ++index;
                 }

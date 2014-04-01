@@ -461,6 +461,9 @@ public:
             // ci sono features da estrarre
             numberOfRows = imagePointer->GetLargestPossibleRegion().GetNumberOfPixels();
             numberOfColumns = 3*featureList.size();
+            int requestedMemory = numberOfRows*numberOfColumns;
+            // se la memoria richiesta è eccessiva lancia una eccezione
+            checkRequestedMemory(requestedMemory);
             result = new double*[numberOfColumns];
             int index = 0;
             for(int i=0;i<featureList.size() && !getStopAnalysis();i++) {
@@ -506,6 +509,9 @@ public:
             qDebug() << "Non ci sono feature da estrarre";
             numberOfRows = imagePointer->GetLargestPossibleRegion().GetNumberOfPixels();
             numberOfColumns = 3;
+            int requestedMemory = numberOfRows*numberOfColumns;
+            // se la memoria richiesta è eccessiva lancia una eccezione
+            checkRequestedMemory(requestedMemory);
             result = readImage<typename RGBImageType::Pointer,RGBImageType>(imagePointer);
         }
 

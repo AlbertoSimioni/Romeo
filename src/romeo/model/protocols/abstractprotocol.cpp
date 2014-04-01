@@ -6,9 +6,34 @@
 * \brief Header della classe AbstractProtocol del package romeo::model::protocols
 */
 
+#ifdef WIN32
+#define WINDOWS
+#elif WIN64
+#define WINDOWS
+#elif _WIN32
+#define WINDOWS
+#elif _WIN64
+#define WINDOWS
+#endif
+
+#ifdef APPLE
+#define MAC
+#elif macintosh
+#define MAC
+#elif Macintosh
+#define MAC
+#elif __APPLE__&&__MACH__
+#define MAC
+#endif
+
+#ifdef __gnu_linux__
+#define LINUX
+#endif
+
 #include "abstractprotocol.h"
 
 #include <QStringList>
+#include <QProcess>
 using namespace romeo::model::protocols;
 using namespace romeo::model::protocols::algorithms;
 using namespace romeo::model::protocols::features;
@@ -215,4 +240,66 @@ void AbstractProtocol::normalize(double* redValues,double* greenValues,double* b
 int AbstractProtocol::roundToInt(double num) {
     // metodo per arrotondare ad intero un double
     return static_cast<int>(num + 0.5);
+}
+
+int AbstractProtocol::getTotalMemory() const {
+    int memoryValue = -1;
+    QString system_info;
+    #ifdef WINDOWS
+    MEMORYSTATUSEX memory_status;
+    ZeroMemory(&memory_status, sizeof(MEMORYSTATUSEX));
+    memory_status.dwLength = sizeof(MEMORYSTATUSEX);
+    if (GlobalMemoryStatusEx(&memory_status)) {
+      system_info.append(QString("%1").arg(memory_status.ullTotalPhys / (1024 * 1024)));
+    } else {
+      system_info.append("-1");
+    }
+    #endif
+    #ifdef LINUX
+    QProcess p;
+    p.start("awk", QStringList() << "/MemTotal/ { print $2 }" << "/proc/meminfo");
+    p.waitForFinished();
+    QString memory = p.readAllStandardOutput();
+    system_info.append(QString("%1").arg(memory.toLong() / 1024));
+    p.close();
+    #endif
+    #ifdef MAC
+    QProcess p;
+    p.start("sysctl", QStringList() << "kern.version" << "hw.physmem");
+    p.waitForFinished();
+    QString system_info = p.readAllStandardOutput();
+    p.close();
+    #endif
+    memoryValue = system_info.toInt();
+    return memoryValue;
+}
+
+QString AbstractProtocol::getMemoryCategory() const {
+    int memory = getTotalMemory();
+    if(memory<=2048)
+        return "2GB";
+    else {
+        if(memory<=4096)
+            return "4GB";
+        else {
+            return "UNBOUNDED";
+        }
+    }
+}
+
+bool AbstractProtocol::checkRequestedMemory(int requestedMemory) const {
+    QString category = getMemoryCategory();
+    if(category=="2GB") {
+        if(requestedMemory>limit2GB) {
+            QString errorMessage = "You are trying to analyze too much data for your architecture.";
+            throw errorMessage;
+        }
+    }
+    else if(category=="4GB") {
+        if(requestedMemory>limit4GB) {
+            QString errorMessage = "You are trying to analyze too much data for your architecture.";
+            throw errorMessage;
+        }
+    }
+    return true;
 }
