@@ -32,8 +32,6 @@
         <file>Images/AddFeatureSmall.png</file>
         <file>Images/AlgorithmsListSmall.png</file>
         <file>Images/BackButton.png</file>
-        <file>Images/DatasetNewSmall.jpg</file>
-        <file>Images/DatasetRemoveSmall.jpg</file>
         <file>Images/DragDropProtocol.png</file>
         <file>Images/DragDropSubject.png</file>
         <file>Images/FeaturesListSmall.png</file>
@@ -45,6 +43,8 @@
         <file>Images/SubjectCheckbox.png</file>
         <file>Images/BottomBorder.png</file>
         <file>Images/analyzing.png</file>
+        <file>Images/DatasetNewSmall.png</file>
+        <file>Images/DatasetRemoveSmall.png</file>
     </qresource>
     <qresource prefix="/doc">
         <file>doc/Style.css</file>
