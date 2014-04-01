@@ -84,39 +84,3 @@ void TestDynamicProtocol::read2DVideo(){
     delete video;
     delete dp;
 }
-
-void TestDynamicProtocol::read3DVideo(){
-    /*QDir dataTest = QDir::current();
-    dataTest.cd("..");
-    dataTest.cd("..");
-    dataTest.cd("tests");
-    typedef itk::Image<itk::RGBPixel<unsigned char>,4> Image4DType;
-
-    QString name="NomeDataset";
-    QString fileSubject=dataTest.absolutePath().append("/images/image.tif");
-    QString mask=dataTest.absolutePath().append("/images/mask.tif");
-
-    DynamicProtocol *dp = createProtocol();
-    romeo::model::imageIO::HandlerIODynamic* videoHandler = romeo::model::imageIO::HandlerIODynamic::getInstance();
-    Image4DType::Pointer video = videoHandler->readImage<Image4DType::Pointer,Image4DType>(fileSubject);
-    QVERIFY(dp->read3DVideo(video) != 0);
-    delete video;
-    delete dp;*/
-}
-
-/*void TestDynamicProtocol::apply2DDynamicFeature(){
-    DynamicProtocol *dp = createProtocol();
-    cv::VideoCapture *video = new cv::VideoCapture();
-    QVERIFY(dp->read2DVideo(*video) != 0);
-    delete video;
-    delete dp;
-}
-
-void TestDynamicProtocol::apply3DDynamicFeature(){
-    DynamicProtocol *dp = createProtocol();
-    cv::VideoCapture *video = new cv::VideoCapture();
-    QVERIFY(dp->read2DVideo(*video) != 0);
-    delete video;
-    delete dp;
-}
-*/

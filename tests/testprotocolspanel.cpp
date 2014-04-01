@@ -88,15 +88,6 @@ void TestProtocolsPanel::addProtocol(){
 
 
 void TestProtocolsPanel::onDeleteClicked(){
-     /*ProtocolsPanel *napf = new ProtocolsPanel();
-
-     QSignalSpy spy(napf,SIGNAL(deletePressed(NewAlgorithmParameterForm*)));
-
-     napf->onDeleteClicked();
-
-     QCOMPARE(spy.count(),1);
-
-     delete napf;*/
 
     ProtocolsPanel *pp = new ProtocolsPanel();
     QTreeWidgetItem *twi = new QTreeWidgetItem(0);

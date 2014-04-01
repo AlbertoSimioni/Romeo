@@ -42,22 +42,6 @@ void TestNewAlgorithmDialog::reject(){
     delete nad;
 }
 
-void TestNewAlgorithmDialog::okButtonClicked(){
-    /*qRegisterMetaType<romeo::model::InputFormat>("romeo::model::InputFormat");
-    NewAlgorithmDialog *nad = new NewAlgorithmDialog(0);
-    QSignalSpy spy(nad, SIGNAL(createAlgorithm(QString,QString,QString,QString,QList<romeo::model::protocols::algorithms::AbstractAlgorithm::AlgorithmParameter>)));
-
-    nad->okButtonClicked();
-    QCOMPARE(spy.count(),1);
-
-    QList<QVariant> arguments = spy.takeFirst(); // take the first signal
-
-    QString qs;
-    QVariant qv(qs);
-
-    QVERIFY2(arguments.at(0).type() == qv.type(), "Il segnale emesso da OKButtonClicked() non ha un QString come primo parametro");
-    delete nad;
-*/}
 
 void TestNewAlgorithmDialog::checkForm(){
     NewAlgorithmDialog *nad = new NewAlgorithmDialog(0);

@@ -55,7 +55,6 @@ void TestParameterValueForm::CheckValidity_data()
     QTest::newRow("InvalidChar") << "h" << AbstractAlgorithm::INT << false;
 
     QTest::newRow("InvalidBool") << "true" << AbstractAlgorithm::CHAR << false;
-    //QTest::newRow("ValidBool") << "true" << AbstractAlgorithm::BOOL << true;
     QTest::newRow("InvalidBool") << "true" << AbstractAlgorithm::DOUBLE << false;
     QTest::newRow("InvalidBool") << "true" << AbstractAlgorithm::INT << false;
 
@@ -66,7 +65,6 @@ void TestParameterValueForm::CheckValidity_data()
 
     QTest::newRow("InvalidInt") << "25" << AbstractAlgorithm::CHAR << false;
     QTest::newRow("InvalidInt") << "25" << AbstractAlgorithm::BOOL << false;
-    //QTest::newRow("InvalidInt") << "25" << AbstractAlgorithm::DOUBLE << false;
     QTest::newRow("ValidInt") << "25" << AbstractAlgorithm::INT << true;
 }
 

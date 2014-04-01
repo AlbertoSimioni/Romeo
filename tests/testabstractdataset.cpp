@@ -162,9 +162,6 @@ void TestAbstractDataset::executeAnalysis(){
     dataset2d->executeAnalysis(staticProtName,subjectList,dataTest.absolutePath(),true,QString(".tif"));
     delete prev;
 
-    //QCOMPARE(spyAnalysisFinished.count(),3);
-    //QCOMPARE(spyNewResults.count(),3);
-
     dataset2d->deleteSubject(firstSubjName);
     dataset2d->deleteSubject(secondSubjName);
     dataset2d->removeProtocolAssociation(staticProtName);

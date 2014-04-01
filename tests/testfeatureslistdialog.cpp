@@ -24,13 +24,7 @@ void TestFeaturesListDialog::showDescription(){
     QTreeWidgetItem *itm =new QTreeWidgetItem(fld->ui->featureTable);
     itm->setText(0,fl->getFeaturesList()[0]->getName());
 
-    //fld->ui->featureTable->addTopLevelItem(itm);
-
-    //fld->ui->featureTable->selectAll();
-
     fld->showDescription();
-
-    //QCOMPARE(fld->ui->descriptionText->toPlainText(), QString("Type: First Order \n"));
 
     delete fl;
 }

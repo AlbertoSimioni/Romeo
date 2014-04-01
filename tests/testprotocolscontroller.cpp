@@ -158,7 +158,6 @@ void TestProtocolsController::associateProtocol(){
     protocolscontroller->mainWindow->getDatasetPanel()->setCurrentDataset(prev);
 
     delete myAlg;
-    //delete ds2d;
 }
 
 void TestProtocolsController::removeProtocolAssociation(){
@@ -201,10 +200,6 @@ void TestProtocolsController::removeProtocolAssociation(){
     QCOMPARE(protocolscontroller->mainWindow->getDatasetPanel()->getCurrentDataset()->getAssociatedProtocolsList().indexOf(sp),-1);
 
     protocolscontroller->mainWindow->getDatasetPanel()->setCurrentDataset(prev);
-
-    //delete myAlg;
-    //delete sp;
-    //delete ds2d;
 }
 
 
@@ -254,15 +249,4 @@ void TestProtocolsController::modifyProtocol(){
 
     delete myAlg;
     delete sp;
-    //delete ds2d;
 }
-
-
-/*void TestProtocolsController::viewNewProtocolDialog(){
-    ProtocolsController *protocolscontroller = ProtocolsController::getInstance();
-
-    protocolscontroller->viewNewProtocolDialog();
-
-    QCOMPARE(protocolscontroller->protocolDialog->result(),1);
-}
-*/

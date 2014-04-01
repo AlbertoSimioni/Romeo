@@ -22,7 +22,6 @@ private slots:
     void showErrorName();
     void resetForms();
     void reject();
-    void okButtonClicked();
     void checkForm();
     void addButtonClicked();
 };

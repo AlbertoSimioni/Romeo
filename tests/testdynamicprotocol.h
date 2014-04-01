@@ -29,9 +29,6 @@ private slots:
     void setAlgorithmParameters();
     void getFeaturesName();
     void read2DVideo();
-    void read3DVideo();
-    /*void apply2DDynamicFeature();
-    void apply3DDynamicFeature();*/
 };
 
 
