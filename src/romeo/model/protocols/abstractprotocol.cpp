@@ -265,12 +265,13 @@ int AbstractProtocol::getTotalMemory() const {
     #endif
     #ifdef MAC
     QProcess p;
-    p.start("sysctl", QStringList() << "kern.version" << "hw.physmem");
+    p.start("sysctl", QStringList() << "hw.physmem");
     p.waitForFinished();
-    QString system_info = p.readAllStandardOutput();
+    system_info = p.readAllStandardOutput();
     p.close();
+    system_info = system_info.split(": ").at(1).split("\n").at(0);
     #endif
-    memoryValue = system_info.toInt();
+    memoryValue = system_info.toLong()/(1024*1024);
     return memoryValue;
 }
 
