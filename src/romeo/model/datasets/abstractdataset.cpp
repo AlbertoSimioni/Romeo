@@ -260,7 +260,7 @@ void AbstractDataset::executeAnalysis(QString protocol, QList<QString> subjects,
         // eccezione per uscita dai bounds con i frame impostati
         catch(int a) {
             QString errorMessage = "Error: subject " + subjectsToAnalyze[i]->getName() + " located in " + subjectsToAnalyze[i]->getSubject() + "\n";
-            errorMessage += "Frame init or frame end out of bounds";
+            errorMessage += "Frame init or frame end out of bounds: the total number of frames is " + QString::number(a);
             emit analysisProblem(errorMessage);
         }
         // eccezione per la richiesta di memoria eccessiva oppure per la libreria non trovata
@@ -274,7 +274,6 @@ void AbstractDataset::executeAnalysis(QString protocol, QList<QString> subjects,
    disconnect(protocolToExecute,SIGNAL(featureExtracted(QString)),this,SIGNAL(featureExtracted(QString)));
    disconnect(protocolToExecute,SIGNAL(algorithmExecuted(QString)),this,SIGNAL(algorithmExecuted(QString)));
    if(!stopAnalysis){
-       qDebug () <<"SALVO RISULTATO";
        addResult(protocolToExecute,new Result(QDateTime::currentDateTime(),resultsPath));
    }
    currentProtocol = 0;
@@ -289,4 +288,3 @@ void AbstractDataset::abortAnalysis(){
     stopAnalysis = true;
     currentProtocol->setStopAnalysis(true);
 }
-

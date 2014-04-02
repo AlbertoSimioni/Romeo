@@ -98,7 +98,7 @@ double** DynamicProtocol::apply2DDynamicFeature(cv::VideoCapture video,Image2DTy
         // gli indici segnalati sono sempre +1
         if(frameInit>numberOfFrames || frameEnd>numberOfFrames) {
             // lancia un'eccezione, out of bounds
-            throw 0;
+            throw numberOfFrames;
         }
         else {
             currentFrameInit = frameInit - 1;
@@ -261,7 +261,7 @@ double** DynamicProtocol::apply3DDynamicFeature(Image4DType::Pointer video,Image
         // gli indici segnalati sono sempre +1
         if(frameInit>numberOfFrames || frameEnd>numberOfFrames) {
             // lancia un'eccezione, out of bounds
-            throw 0;
+            throw numberOfFrames;
         }
         else {
             currentFrameInit = frameInit - 1;
@@ -437,7 +437,7 @@ void DynamicProtocol::video2DExecute(romeo::model::datasets::AbstractSubject *su
             // gli indici segnalati sono sempre +1
             if(frameInit>numberOfFrames || frameEnd>numberOfFrames) {
                 // lancia un'eccezione, out of bounds
-                throw 0;
+                throw numberOfFrames;
             }
             else {
                 currentFrameInit = frameInit - 1;
@@ -584,7 +584,7 @@ void DynamicProtocol::video3DExecute(romeo::model::datasets::AbstractSubject *su
             // gli indici segnalati sono sempre +1
             if(frameInit>numberOfFrames || frameEnd>numberOfFrames) {
                 // lancia un'eccezione, out of bounds
-                throw 0;
+                throw numberOfFrames;
             }
             else {
                 currentFrameInit = frameInit - 1;

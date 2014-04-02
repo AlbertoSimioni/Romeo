@@ -288,8 +288,6 @@ void ProtocolDialog::finishButtonClicked(){
     bool error = false;
     bool errorCluster = false;
     if(ui->protocolLineEdit->isEnabled()){
-        qDebug() << "ENTRO";
-
         QString name = ui->protocolLineEdit->text();
         QString desc = ui->textEdit->document()->toPlainText();
         QString alg = ui->AlgorithmCombo->currentText();
