@@ -45,6 +45,8 @@
         <file>Images/analyzing.png</file>
         <file>Images/DatasetNewSmall.png</file>
         <file>Images/DatasetRemoveSmall.png</file>
+        <file>Images/youtube-home-romeo.png</file>
+        <file>Images/youtube-video.png</file>
     </qresource>
     <qresource prefix="/doc">
         <file>doc/Style.css</file>
