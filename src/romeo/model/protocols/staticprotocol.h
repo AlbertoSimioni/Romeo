@@ -13,7 +13,6 @@
 #include <QLibrary>
 #include <QList>
 #include <QDir>
-#include <QDebug>
 #include <QUrl>
 // ITK
 #include "itkMirrorPadImageFilter.h"
@@ -187,7 +186,9 @@ public:
         typedef double (*MyPrototype)(double* data,int size,int dimension);
         MyPrototype featureExtractor = (MyPrototype) QLibrary::resolve(feature->getDynamicLibraryPath(),feature->getDynamicFunctionName().toStdString().c_str());
         if(!featureExtractor){
-            qDebug () << "NOT FIND LIB";
+            // non viene trovata le libreria
+            QString message = "Cannot find library " + feature->getDynamicFunctionName() + " located in " + feature->getDynamicLibraryPath();
+            throw message;
         }
         int dimension = ImageType::GetImageDimension();
         // imposta raggio della finestra scorrevole: raggio = 1 -> finestra = 3
@@ -257,7 +258,6 @@ public:
                 ++inputIterator;
                 ++maskIterator;
                 ++index;
-                //qDebug() << "Completato al " << (static_cast<double>(index)/length)*100 << "%\n";
             }
         }
         else {
@@ -285,7 +285,6 @@ public:
                 result[2][index]=blueValue;
                 ++inputIterator;
                 ++index;
-                //qDebug() << "Completato al " << (static_cast<double>(index)/length)*100 << "%\n";
             }
         }
         // creazione immagine output
@@ -390,7 +389,6 @@ public:
                 ++inputIterator;
                 ++maskIterator;
                 ++index;
-                //qDebug() << "Completato al " << (static_cast<double>(index)/length)*100 << "%\n";
             }
         }
         else {
@@ -423,7 +421,6 @@ public:
                 }
                 ++inputIterator;
                 ++index;
-                //qDebug() << "Completato al " << (static_cast<double>(index)/length)*100 << "%\n";
             }
         }
         // creazione immagine output
@@ -457,7 +454,6 @@ public:
         int numberOfRows,numberOfColumns;
         double** result;
         if(featureList.size()>0) {
-            qDebug() << "Ci sono features da estrarre";
             // ci sono features da estrarre
             numberOfRows = imagePointer->GetLargestPossibleRegion().GetNumberOfPixels();
             numberOfColumns = 3*featureList.size();
@@ -475,12 +471,9 @@ public:
                 double** singleFeature;
                 romeo::model::protocols::features::FirstOrderFeature* firstOrderFeature = dynamic_cast<romeo::model::protocols::features::FirstOrderFeature*>(featureList[i]);
                 if(firstOrderFeature) {
-                    qDebug() << "Feature del primo ordine";
                     singleFeature = applyFirstOrderFeature<typename RGBImageType::Pointer,RGBImageType,typename MaskImageType::Pointer,MaskImageType>(imagePointer,outputFeature,maskPointer,firstOrderFeature);
-                    qDebug() << "Calcolata feature primo ordine";
                 }
                 else {
-                    qDebug() << "Feature del secondo ordine";
                     romeo::model::protocols::features::SecondOrderFeature* secondOrderFeature = dynamic_cast<romeo::model::protocols::features::SecondOrderFeature*>(featureList[i]);
                     if(secondOrderFeature)
                         singleFeature = applySecondOrderFeature<typename RGBImageType::Pointer,RGBImageType,typename MaskImageType::Pointer,MaskImageType>(imagePointer,outputFeature,maskPointer,distanceToGLCM,secondOrderFeature);
@@ -491,7 +484,6 @@ public:
                     ++index;
                 }
                 if(saveFeatures) {
-                    qDebug() << "Salva";
                     QString fileName = QUrl::fromLocalFile(subject->getName() + "_" + currentFeature->getName()).path();
                     imageHandler->writeImage<typename RGBImageType::Pointer,RGBImageType>(outputFeature,fileName,path,outputFormat);
                     emit featureExtracted(path + fileName + outputFormat);
@@ -506,7 +498,6 @@ public:
         }
         else {
             // non ci sono feature da estrarre, va preparata la matrice con tre colonne sole
-            qDebug() << "Non ci sono feature da estrarre";
             numberOfRows = imagePointer->GetLargestPossibleRegion().GetNumberOfPixels();
             numberOfColumns = 3;
             int requestedMemory = numberOfRows*numberOfColumns;
@@ -523,26 +514,20 @@ public:
 
             transponse = transform(result,numberOfRows,numberOfColumns);
 
-
             // transponse è una matrice [nrows][ncols]
             romeo::model::protocols::algorithms::AbstractAlgorithm* algorithmToExecute = getAlgorithm();
             if(algorithmToExecute && !getStopAnalysis()) {
-                qDebug() << "Siamo dentro all'algoritmo";
                 // c'è effettivamente un algoritmo da eseguire
                 // creazione maschera
                 int* mask = getMask<typename MaskImageType::Pointer,MaskImageType>(maskPointer,numberOfRows);
                 // creazione clusterid
                 int* clusterid = new int[numberOfRows];
-                qDebug() << "Prima algoritmo";
                 algorithmToExecute->execute(transponse,mask,numberOfRows,numberOfColumns,clusterid,getNClusters(),getAlgorithmParameters());
-                qDebug() << "Finito l'algoritmo";
                 // creazione immagine di output
                 typename RGBImageType::Pointer output = RGBImageType::New();
                 output->SetRegions(imagePointer->GetLargestPossibleRegion());
                 output->Allocate();
-                qDebug() << "Prima crezione immagine";
                 createClusteringImage<typename RGBImageType::Pointer,RGBImageType,RGBPixelType>(output,clusterid,mask);
-                qDebug() << "Dopo creazione immagine";
                 // delete dei dati sullo heap
                 delete[] mask;
                 delete[] clusterid;

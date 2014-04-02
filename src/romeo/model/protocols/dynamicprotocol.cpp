@@ -12,7 +12,6 @@
 #include <QLibrary>
 #include <QList>
 #include <QDir>
-#include <QDebug>
 #include <QUrl>
 // ITK
 #include "itkImage.h"
@@ -81,7 +80,9 @@ double** DynamicProtocol::apply2DDynamicFeature(cv::VideoCapture video,Image2DTy
     typedef double* (*MyPrototype)(double** data,const int numberOfPixel,int begin,int end);
     MyPrototype featureExtractor = (MyPrototype) QLibrary::resolve(feature->getDynamicLibraryPath(),feature->getDynamicFunctionName().toStdString().c_str());
     if(!featureExtractor){
-        qDebug () << "NOT FIND LIB";
+        // non viene trovata le libreria
+        QString message = "Cannot find library " + feature->getDynamicFunctionName() + " located in " + feature->getDynamicLibraryPath();
+        throw message;
     }
     int numberOfPixel = video.get( CV_CAP_PROP_FRAME_WIDTH ) * video.get( CV_CAP_PROP_FRAME_HEIGHT );
     int numberOfFrames = video.get(CV_CAP_PROP_FRAME_COUNT);
@@ -242,7 +243,9 @@ double** DynamicProtocol::apply3DDynamicFeature(Image4DType::Pointer video,Image
     typedef double* (*MyPrototype)(double** data,const int numberOfPixel,int begin,int end);
     MyPrototype featureExtractor = (MyPrototype) QLibrary::resolve(feature->getDynamicLibraryPath(),feature->getDynamicFunctionName().toStdString().c_str());
     if(!featureExtractor){
-        qDebug () << "NOT FIND LIB";
+        // non viene trovata le libreria
+        QString message = "Cannot find library " + feature->getDynamicFunctionName() + " located in " + feature->getDynamicLibraryPath();
+        throw message;
     }
     int numberOfPixel = video->GetLargestPossibleRegion().GetSize()[0]*video->GetLargestPossibleRegion().GetSize()[1]*video->GetLargestPossibleRegion().GetSize()[2];
     int numberOfFrames = video->GetLargestPossibleRegion().GetSize()[3];
@@ -523,15 +526,12 @@ void DynamicProtocol::video2DExecute(romeo::model::datasets::AbstractSubject *su
         // transponse è una matrice [nrows][ncols]
         romeo::model::protocols::algorithms::AbstractAlgorithm* algorithmToExecute = getAlgorithm();
         if(algorithmToExecute && !getStopAnalysis()) {
-            qDebug() << "Siamo dentro all'algoritmo";
             // c'è effettivamente un algoritmo da eseguire
             // creazione maschera
             int* mask = getMask<Mask2DType::Pointer,Mask2DType>(maskPointer,numberOfRows);
             // creazione clusterid
             int* clusterid = new int[numberOfRows];
-            qDebug() << "Prima algoritmo";
             algorithmToExecute->execute(transponse,mask,numberOfRows,numberOfColumns,clusterid,getNClusters(),getAlgorithmParameters());
-            qDebug() << "Finito l'algoritmo";
             // creazione immagine di output
             Image2DType::IndexType startIndex;
             startIndex.Fill(0);
@@ -542,9 +542,7 @@ void DynamicProtocol::video2DExecute(romeo::model::datasets::AbstractSubject *su
             Image2DType::Pointer output = Image2DType::New();
             output->SetRegions(region);
             output->Allocate();
-            qDebug() << "Prima crezione immagine";
             createClusteringImage<Image2DType::Pointer,Image2DType,RGBPixelType>(output,clusterid,mask);
-            qDebug() << "Dopo creazione immagine";
             // delete dei dati sullo heap
             delete[] mask;
             delete[] clusterid;
@@ -594,15 +592,23 @@ void DynamicProtocol::video3DExecute(romeo::model::datasets::AbstractSubject *su
             }
         }
         // è necessario controllare se è presente la feature "Value"
+        int estimatedColumns;
         bool value = false;
         for(int i=0;i<featureList.size() && !value;++i) {
             if(featureList[i]->getName()=="Value")
                 value = true;
         }
-        if(value)
+        if(value) {
             numberOfColumns = 3*(featureList.size()-1) + 3*(currentFrameEnd-currentFrameInit+1);
-        else
+            estimatedColumns = numberOfColumns;
+        }
+        else {
             numberOfColumns = 3*featureList.size();
+            estimatedColumns = numberOfColumns + (currentFrameEnd-currentFrameInit-1);
+        }
+        int requestedMemory = numberOfRows*estimatedColumns;
+        // se la memoria richiesta è eccessiva lancia una eccezione
+        checkRequestedMemory(requestedMemory);
         result = new double*[numberOfColumns];
         int index = 0;
         for(int i=0;i<featureList.size() && !getStopAnalysis();i++) {
@@ -635,7 +641,6 @@ void DynamicProtocol::video3DExecute(romeo::model::datasets::AbstractSubject *su
                 }
             }
             if(saveFeatures) {
-                qDebug() << "Salva";
                 QString fileName = QUrl::fromLocalFile(subject->getName() + "_" + currentFeature->getName()).path();
                 videoHandler->writeImage<Image3DType::Pointer,Image3DType>(outputFeature,fileName,path,outputFormat);
                 emit featureExtracted(path + fileName + outputFormat);
@@ -650,8 +655,10 @@ void DynamicProtocol::video3DExecute(romeo::model::datasets::AbstractSubject *su
     }
     else {
         // non ci sono feature da estrarre, va preparata la matrice con tre colonne sole
-        qDebug() << "Non ci sono feature da estrarre";
         numberOfColumns = 3*numberOfFrames;
+        int requestedMemory = numberOfRows*numberOfColumns;
+        // se la memoria richiesta è eccessiva lancia una eccezione
+        checkRequestedMemory(requestedMemory);
         result = read3DVideo(video);
     }
 
@@ -667,15 +674,12 @@ void DynamicProtocol::video3DExecute(romeo::model::datasets::AbstractSubject *su
         // transponse è una matrice [nrows][ncols]
         romeo::model::protocols::algorithms::AbstractAlgorithm* algorithmToExecute = getAlgorithm();
         if(algorithmToExecute && !getStopAnalysis()) {
-            qDebug() << "Siamo dentro all'algoritmo";
             // c'è effettivamente un algoritmo da eseguire
             // creazione maschera
             int* mask = getMask<Mask3DType::Pointer,Mask3DType>(maskPointer,numberOfRows);
             // creazione clusterid
             int* clusterid = new int[numberOfRows];
-            qDebug() << "Prima algoritmo";
             algorithmToExecute->execute(transponse,mask,numberOfRows,numberOfColumns,clusterid,getNClusters(),getAlgorithmParameters());
-            qDebug() << "Finito l'algoritmo";
             // creazione immagine di output
             Image3DType::Pointer output = Image3DType::New();
             Image3DType::IndexType startIndex;
@@ -687,9 +691,7 @@ void DynamicProtocol::video3DExecute(romeo::model::datasets::AbstractSubject *su
             Image3DType::RegionType region(startIndex,regionSize);
             output->SetRegions(region);
             output->Allocate();
-            qDebug() << "Prima crezione immagine";
             createClusteringImage<Image3DType::Pointer,Image3DType,RGBPixelType>(output,clusterid,mask);
-            qDebug() << "Dopo creazione immagine";
             // delete dei dati sullo heap
             delete[] mask;
             delete[] clusterid;

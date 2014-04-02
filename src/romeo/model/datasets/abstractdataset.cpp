@@ -263,7 +263,7 @@ void AbstractDataset::executeAnalysis(QString protocol, QList<QString> subjects,
             errorMessage += "Frame init or frame end out of bounds";
             emit analysisProblem(errorMessage);
         }
-        // eccezione per la richiesta di memoria eccessiva
+        // eccezione per la richiesta di memoria eccessiva oppure per la libreria non trovata
         catch(QString message) {
             QString errorMessage = "Error: subject " + subjectsToAnalyze[i]->getName() + " located in " + subjectsToAnalyze[i]->getSubject() + "\n";
             errorMessage += message;
