@@ -58,5 +58,6 @@
         <file>doc/ContactUs.html</file>
         <file>doc/FAQ.html</file>
         <file>doc/help.html</file>
+        <file>doc/LinksVideoManual.html</file>
     </qresource>
 </RCC>
