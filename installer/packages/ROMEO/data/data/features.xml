@@ -27,7 +27,7 @@
         <type>FIRSTORDER</type>
         <file>features/libfeatures</file>
         <functionName>feat_p1_std</functionName>
-    </feature>
+    </feature>   
     <feature>
         <name>Contrast</name>
         <description>Measures the amount of gray-level co-occurence differences</description>
@@ -106,6 +106,13 @@ in an interval of frames</description>
         <file>features/libfeatures</file>
         <functionName>clust_par_tpeak</functionName>
     </feature>
+    <feature>
+        <name>Value</name>
+        <description>Measures the values within an interval of frames</description>
+        <type>DYNAMIC</type>
+        <file>features/libfeatures</file>
+        <functionName>clust_par_value</functionName>
+    </feature>  
 </features>
 
 

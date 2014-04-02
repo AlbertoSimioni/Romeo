@@ -14,8 +14,10 @@ HelpDialog::HelpDialog(QWidget *parent) :
         return;
     this->setFixedSize(900, 610);
     textBrowser=new QTextBrowser(this);
-    textBrowser->setHtml(QString(file.readAll()));
+    textBrowser->setOpenExternalLinks(true);
     textBrowser->setOpenLinks(true);
+    textBrowser->setHtml(QString(file.readAll()));
+
     connect(textBrowser,SIGNAL(anchorClicked(QUrl)),this,SLOT(changeView(QUrl)));
 
     ui->scrollArea->setWidget(textBrowser);
