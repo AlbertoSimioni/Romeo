@@ -19,7 +19,6 @@ ExecutePanel::ExecutePanel(QWidget *parent) :
 {
 
     ui->setupUi(this);
-    ui->viewFeaturesCheck->setEnabled(false);
     connectUI();
     QSettings settings;
     ui->resultLineEdit->setText(settings.value("res").toString());

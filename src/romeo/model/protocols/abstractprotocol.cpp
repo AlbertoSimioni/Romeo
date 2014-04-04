@@ -31,7 +31,7 @@
 #endif
 
 #include "abstractprotocol.h"
-
+#include<QDebug>
 #include <QStringList>
 #include <QProcess>
 using namespace romeo::model::protocols;
@@ -254,6 +254,7 @@ int AbstractProtocol::getTotalMemory() const {
     } else {
       system_info.append("-1");
     }
+    memoryValue = system_info.toInt();
     #endif
     #ifdef LINUX
     QProcess p;
@@ -262,6 +263,7 @@ int AbstractProtocol::getTotalMemory() const {
     QString memory = p.readAllStandardOutput();
     system_info.append(QString("%1").arg(memory.toLong() / 1024));
     p.close();
+    memoryValue = system_info.toInt();
     #endif
     #ifdef MAC
     QProcess p;
@@ -270,8 +272,9 @@ int AbstractProtocol::getTotalMemory() const {
     system_info = p.readAllStandardOutput();
     p.close();
     system_info = system_info.split(": ").at(1).split("\n").at(0);
-    #endif
     memoryValue = system_info.toLong()/(1024*1024);
+    #endif
+    qDebug() << QString::number(memoryValue);
     return memoryValue;
 }
 

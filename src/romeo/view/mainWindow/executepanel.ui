@@ -95,6 +95,9 @@ font-size: 14px;
         <property name="text">
          <string>Save Features</string>
         </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item row="5" column="0">
@@ -104,6 +107,9 @@ font-size: 14px;
         </property>
         <property name="text">
          <string>View Features</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -192,6 +198,9 @@ font-size: 14px;
         </property>
         <property name="text">
          <string>View Results</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
