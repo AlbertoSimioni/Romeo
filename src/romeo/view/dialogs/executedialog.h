@@ -134,7 +134,7 @@ private:
     /*!
      * \brief Mostra nel widget principale del dialogo l'immagine il cui percorso è dato in input
      */
-    void showImage(QString pathToImage);
+    void showImage(QString pathToImage, bool isAlg);
 
     Ui::ExecuteDialog *ui;
 
@@ -142,6 +142,8 @@ private:
      * \brief Percorsi alle immagini su disco corrispondenti ai risultati delle analisi in corso.
      */
     QList<QString> currentImagesPath;
+
+    QList<bool> imagesFromAlgorithm;
 
     /*!
      * \brief dataset su cui si stanno effettuando o sono già state effettuate le analisi.

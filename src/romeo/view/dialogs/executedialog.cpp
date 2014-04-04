@@ -160,7 +160,7 @@ void ExecuteDialog::addResultImage(QString pathToResult){
     currentImagesPath.append(pathToResult);
 
     if(currentImagesPath.size() == 1)
-        showImage(currentImagesPath[0]);
+        showImage(currentImagesPath[0],imagesFromAlgorithm[0]);
     else
         ui->nextButton->setEnabled(true);
 }
@@ -177,6 +177,7 @@ void ExecuteDialog::analysisFinished(){
 
 void ExecuteDialog::onFeatureExtracted(QString pathToFeature){
     if(visualizeFeatures){
+        imagesFromAlgorithm.append(false);
         addResultImage(pathToFeature);
     }
     ui->progressBar->setValue(ui->progressBar->value()+1);
@@ -185,6 +186,7 @@ void ExecuteDialog::onFeatureExtracted(QString pathToFeature){
 
 void ExecuteDialog::onAlgorithmExecuted(QString pathToAlgorithm){
     if(visualizeResults){
+        imagesFromAlgorithm.append(true);
         addResultImage(pathToAlgorithm);
     }
     ui->progressBar->setValue(ui->progressBar->value()+1);
@@ -199,7 +201,7 @@ void ExecuteDialog::onNextClicked(){
         ui->nextButton->setEnabled(false);
     }
 
-    showImage(currentImagesPath[currentIndex]);
+    showImage(currentImagesPath[currentIndex],imagesFromAlgorithm[currentIndex]);
     ui->statusLabel->setText("Images: " + QString::number(currentIndex+1)+  "/" + QString::number(currentImagesPath.size()));
 }
 
@@ -211,7 +213,7 @@ void ExecuteDialog::onPreviousClicked(){
         ui->previousButton->setEnabled(false);
     }
 
-    showImage(currentImagesPath[currentIndex]);
+    showImage(currentImagesPath[currentIndex], imagesFromAlgorithm[currentIndex]);
     ui->statusLabel->setText("Images: " + QString::number(currentIndex+1)+  "/" + QString::number(currentImagesPath.size()));
 }
 
@@ -228,7 +230,7 @@ void ExecuteDialog::onNoFeatureClicked(){
 }
 
 
-void ExecuteDialog::showImage(QString pathToImage){
+void ExecuteDialog::showImage(QString pathToImage, bool isAlg){
     ui->widget->setHidden(false);
     if(currentDataset->getType() == TYPE2D ||(currentDataset->getType() ==  TYPE2DT )){
 
