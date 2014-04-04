@@ -18,6 +18,7 @@ class Color
 public:
     Color();
     static int* getColor(int);
+    static double getSingleValueColor(int);
 private:
     static int red[3];
     static int blue[3];
@@ -30,6 +31,7 @@ private:
     static int aquagreen[3];
     static int pink[3];
     static int extracolor[3];
+    static double getSingleValue(int,int,int);
 };
 
 

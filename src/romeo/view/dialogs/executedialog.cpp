@@ -9,6 +9,7 @@
 
 #include "executedialog.h"
 #include "ui_executedialog.h"
+#include <src/romeo/model/protocols/color.h>
 
 //QT
 
@@ -32,11 +33,11 @@
 
 #include "vtkSmartVolumeMapper.h"
 #include "vtkPiecewiseFunction.h"
-#include "vtkColorTransferFunction.h"
 #include "vtkVolumeProperty.h"
 #include "vtkFixedPointVolumeRayCastMapper.h"
 #include "vtkInteractorObserver.h"
 
+using namespace romeo::model::protocols;
 using namespace romeo::view::dialogs;
 using namespace romeo::model;
 
@@ -229,6 +230,207 @@ void ExecuteDialog::onNoFeatureClicked(){
     ui->noFeature->setEnabled(false);
 }
 
+void ExecuteDialog::addAllClusterColors(vtkSmartPointer<vtkColorTransferFunction>& color) {
+    for(int i=0;i<10;i++) {
+        int* currentColor = Color::getColor(i);
+        double currentColorValue = Color::getSingleValueColor(i);
+        color->AddRGBPoint(currentColorValue,currentColor[0]/255,currentColor[1]/255,currentColor[2]/255);
+    }
+}
+
+void ExecuteDialog::showImage3DFeature(QString pathToImage) {
+    typedef itk::Image< double, 3> myInputImageType;//Image Type
+    typedef itk::ImageFileReader< myInputImageType >  myReaderType;//Reader of Image Type
+    myReaderType::Pointer reader = myReaderType::New();
+
+    reader->SetFileName(pathToImage.toStdString() );
+
+    //Exceptional handling
+    try {
+        reader->Update();
+    }
+    catch (itk::ExceptionObject & e) {
+    }
+
+    ui->nameLabel->setText(pathToImage.split(QDir::toNativeSeparators("/")).takeLast());
+    myInputImageType::Pointer input = reader->GetOutput();
+
+    typedef itk::ImageToVTKImageFilter<myInputImageType> myConnectorType;
+    myConnectorType::Pointer connector= myConnectorType::New();
+    connector->SetInput( input );//Set ITK reader Output to connector you can replace it with filter
+
+    //Exceptional handling
+    try {
+        connector->Update();
+    }
+    catch (itk::ExceptionObject & e) {
+    }
+
+    vtkSmartPointer<vtkImageData> imageData = vtkSmartPointer<vtkImageData>::New();
+    imageData->DeepCopy(connector->GetOutput());
+
+    vtkSmartPointer<vtkRenderWindow> renWin = vtkSmartPointer<vtkRenderWindow>::New();
+    vtkSmartPointer<vtkRenderer> ren1 = vtkSmartPointer<vtkRenderer>::New();
+    ren1->SetBackground(1,1,1);
+    // background arancione
+    //ren1->SetBackground(1,0.3,0);
+    // o.1 0.4 0.2
+    renWin->AddRenderer(ren1);
+    renWin->SetSize(301,300); // intentional odd and NPOT  width/height
+
+    ui->widget->SetRenderWindow(renWin);
+    ui->widget->GetInteractor()->SetDesiredUpdateRate(10);
+    ui->widget->GetInteractor()->GetInteractorStyle()->SetDefaultRenderer(ren1);
+    renWin->Render(); // make sure we have an OpenGL context.
+
+    vtkSmartPointer<vtkSmartVolumeMapper> volumeMapper = vtkSmartPointer<vtkSmartVolumeMapper>::New();
+    volumeMapper->SetBlendModeToComposite(); // composite first
+    volumeMapper->SetInputData(imageData);
+    /*vtkSmartPointer<vtkVolumeProperty> volumeProperty = vtkSmartPointer<vtkVolumeProperty>::New();
+    volumeProperty->ShadeOff();
+    volumeProperty->SetInterpolationType(VTK_LINEAR_INTERPOLATION);*/
+
+    /*vtkSmartPointer<vtkFixedPointVolumeRayCastMapper> volumeMapper = vtkSmartPointer<vtkFixedPointVolumeRayCastMapper>::New();
+    volumeMapper->SetBlendModeToComposite(); // composite first
+    volumeMapper->SetInputData(imageData);*/
+
+    vtkSmartPointer<vtkVolumeProperty> volumeProperty = vtkSmartPointer<vtkVolumeProperty>::New();
+    volumeProperty->SetIndependentComponents(true);
+    volumeProperty->SetInterpolationTypeToLinear();
+    volumeProperty->ShadeOff();
+    volumeProperty->SetInterpolationType(VTK_LINEAR_INTERPOLATION);
+
+    vtkSmartPointer<vtkPiecewiseFunction> compositeOpacity = vtkSmartPointer<vtkPiecewiseFunction>::New();
+    compositeOpacity->AddPoint(0.0,0.0);
+    compositeOpacity->AddPoint(80.0,1.0);
+    compositeOpacity->AddPoint(80.1,0.0);
+    compositeOpacity->AddPoint(255.0,0.0);
+    volumeProperty->SetScalarOpacity(compositeOpacity); // composite first.
+
+    vtkSmartPointer<vtkColorTransferFunction> color = vtkSmartPointer<vtkColorTransferFunction>::New();
+    color->AddRGBPoint(0.0  ,0.0,0.0,1.0);
+    color->AddRGBPoint(40.0  ,1.0,0.0,0.0);
+    color->AddRGBPoint(255.0,1.0,1.0,1.0);
+    volumeProperty->SetColor(color);
+
+    vtkSmartPointer<vtkVolume> volume = vtkSmartPointer<vtkVolume>::New();
+    volume->SetMapper(volumeMapper);
+    volume->SetProperty(volumeProperty);
+
+    ren1->AddViewProp(volume);
+    //ren1->AddVolume(volume);
+    ren1->ResetCamera();
+
+    // Render composite. In default mode. For coverage.
+    renWin->Render();
+
+    // 3D texture mode. For coverage.
+    //volumeMapper->SetRequestedRenderModeToRayCastAndTexture();
+    renWin->Render();
+
+    // Software mode, for coverage. It also makes sure we will get the same
+    // regression image on all platforms.
+    //volumeMapper->SetRequestedRenderModeToRayCast();
+    renWin->Render();
+    ui->widget->update();
+}
+
+void ExecuteDialog::showImage3DCluster(QString pathToImage) {
+
+    typedef itk::RGBPixel<unsigned char> myRGBPixelType;//Pixel Type
+    typedef itk::Image< myRGBPixelType, 3> myInputImageType;//Image Type
+    typedef itk::ImageFileReader< myInputImageType >  myReaderType;//Reader of Image Type
+    myReaderType::Pointer reader = myReaderType::New();
+
+    reader->SetFileName(pathToImage.toStdString() );
+
+    //Exceptional handling
+    try {
+        reader->Update();
+    }
+    catch (itk::ExceptionObject & e) {
+    }
+
+    ui->nameLabel->setText(pathToImage.split(QDir::toNativeSeparators("/")).takeLast());
+    myInputImageType::Pointer input = reader->GetOutput();
+
+    typedef itk::ImageToVTKImageFilter<myInputImageType> myConnectorType;
+    myConnectorType::Pointer connector= myConnectorType::New();
+    connector->SetInput( input );//Set ITK reader Output to connector you can replace it with filter
+
+    //Exceptional handling
+    try {
+        connector->Update();
+    }
+    catch (itk::ExceptionObject & e) {
+    }
+
+    vtkSmartPointer<vtkImageData> imageData = vtkSmartPointer<vtkImageData>::New();
+    imageData->DeepCopy(connector->GetOutput());
+
+    vtkSmartPointer<vtkRenderWindow> renWin = vtkSmartPointer<vtkRenderWindow>::New();
+    vtkSmartPointer<vtkRenderer> ren1 = vtkSmartPointer<vtkRenderer>::New();
+    ren1->SetBackground(1,1,1);
+    // background arancione
+    //ren1->SetBackground(1,0.3,0);
+    // o.1 0.4 0.2
+    renWin->AddRenderer(ren1);
+    renWin->SetSize(301,300); // intentional odd and NPOT  width/height
+
+    ui->widget->SetRenderWindow(renWin);
+    ui->widget->GetInteractor()->SetDesiredUpdateRate(10);
+    ui->widget->GetInteractor()->GetInteractorStyle()->SetDefaultRenderer(ren1);
+    renWin->Render(); // make sure we have an OpenGL context.
+
+    vtkSmartPointer<vtkSmartVolumeMapper> volumeMapper = vtkSmartPointer<vtkSmartVolumeMapper>::New();
+    volumeMapper->SetBlendModeToComposite(); // composite first
+    volumeMapper->SetInputData(imageData);
+    /*vtkSmartPointer<vtkVolumeProperty> volumeProperty = vtkSmartPointer<vtkVolumeProperty>::New();
+    volumeProperty->ShadeOff();
+    volumeProperty->SetInterpolationType(VTK_LINEAR_INTERPOLATION);*/
+
+    /*vtkSmartPointer<vtkFixedPointVolumeRayCastMapper> volumeMapper = vtkSmartPointer<vtkFixedPointVolumeRayCastMapper>::New();
+    volumeMapper->SetBlendModeToComposite(); // composite first
+    volumeMapper->SetInputData(imageData);*/
+
+    vtkSmartPointer<vtkVolumeProperty> volumeProperty = vtkSmartPointer<vtkVolumeProperty>::New();
+    volumeProperty->SetIndependentComponents(true);
+    volumeProperty->SetInterpolationTypeToLinear();
+    volumeProperty->ShadeOff();
+    volumeProperty->SetInterpolationType(VTK_LINEAR_INTERPOLATION);
+
+    vtkSmartPointer<vtkPiecewiseFunction> compositeOpacity = vtkSmartPointer<vtkPiecewiseFunction>::New();
+    compositeOpacity->AddPoint(0.0,0.0);
+    compositeOpacity->AddPoint(80.0,1.0);
+    compositeOpacity->AddPoint(80.1,0.0);
+    compositeOpacity->AddPoint(255.0,0.0);
+    volumeProperty->SetScalarOpacity(compositeOpacity); // composite first.
+
+    vtkSmartPointer<vtkColorTransferFunction> color = vtkSmartPointer<vtkColorTransferFunction>::New();
+    addAllClusterColors(color);
+    volumeProperty->SetColor(color);
+
+    vtkSmartPointer<vtkVolume> volume = vtkSmartPointer<vtkVolume>::New();
+    volume->SetMapper(volumeMapper);
+    volume->SetProperty(volumeProperty);
+
+    ren1->AddViewProp(volume);
+    //ren1->AddVolume(volume);
+    ren1->ResetCamera();
+
+    // Render composite. In default mode. For coverage.
+    renWin->Render();
+
+    // 3D texture mode. For coverage.
+    //volumeMapper->SetRequestedRenderModeToRayCastAndTexture();
+    renWin->Render();
+
+    // Software mode, for coverage. It also makes sure we will get the same
+    // regression image on all platforms.
+    //volumeMapper->SetRequestedRenderModeToRayCast();
+    renWin->Render();
+    ui->widget->update();
+}
 
 void ExecuteDialog::showImage(QString pathToImage, bool isAlg){
     ui->widget->setHidden(false);
@@ -264,10 +466,10 @@ void ExecuteDialog::showImage(QString pathToImage, bool isAlg){
         }
 
 
-    //deep copy connector's output to an image else connector will go out of scope
-    //and vanish it will cause error while changing slice
-    vtkSmartPointer<vtkImageData> image = vtkImageData::New();
-    image->DeepCopy(connector->GetOutput());
+        //deep copy connector's output to an image else connector will go out of scope
+        //and vanish it will cause error while changing slice
+        vtkSmartPointer<vtkImageData> image = vtkImageData::New();
+        image->DeepCopy(connector->GetOutput());
 
 
         //set VTK Viewer to QVTKWidget in Qt's UI
@@ -283,9 +485,11 @@ void ExecuteDialog::showImage(QString pathToImage, bool isAlg){
 
     }
     else{
-
-        typedef itk::RGBPixel<unsigned char> myRGBPixelType;//Pixel Type
-        typedef itk::Image< myRGBPixelType, 3> myInputImageType;//Image Type
+        /*if(!isAlg)
+            showImage3DFeature(pathToImage);
+        else
+            showImage3DCluster(pathToImage);*/
+        typedef itk::Image< double, 3> myInputImageType;//Image Type
         typedef itk::ImageFileReader< myInputImageType >  myReaderType;//Reader of Image Type
         myReaderType::Pointer reader = myReaderType::New();
 
@@ -300,6 +504,13 @@ void ExecuteDialog::showImage(QString pathToImage, bool isAlg){
 
         ui->nameLabel->setText(pathToImage.split(QDir::toNativeSeparators("/")).takeLast());
         myInputImageType::Pointer input = reader->GetOutput();
+
+        itk::ImageRegionIterator<myInputImageType> iterator(input,input->GetLargestPossibleRegion());
+        while(!iterator.IsAtEnd()) {
+            if(iterator.Get() != 0.0)
+                qDebug() << QString::number(iterator.Get());
+            ++iterator;
+        }
 
         typedef itk::ImageToVTKImageFilter<myInputImageType> myConnectorType;
         myConnectorType::Pointer connector= myConnectorType::New();
@@ -317,7 +528,9 @@ void ExecuteDialog::showImage(QString pathToImage, bool isAlg){
 
         vtkSmartPointer<vtkRenderWindow> renWin = vtkSmartPointer<vtkRenderWindow>::New();
         vtkSmartPointer<vtkRenderer> ren1 = vtkSmartPointer<vtkRenderer>::New();
-        ren1->SetBackground(1,0.3,0);
+        ren1->SetBackground(1,1,1);
+        // background arancione
+        //ren1->SetBackground(1,0.3,0);
         // o.1 0.4 0.2
         renWin->AddRenderer(ren1);
         renWin->SetSize(301,300); // intentional odd and NPOT  width/height
@@ -352,8 +565,12 @@ void ExecuteDialog::showImage(QString pathToImage, bool isAlg){
         volumeProperty->SetScalarOpacity(compositeOpacity); // composite first.
 
         vtkSmartPointer<vtkColorTransferFunction> color = vtkSmartPointer<vtkColorTransferFunction>::New();
-        color->AddRGBPoint(0.0  ,0.0,0.0,1.0);
-        color->AddRGBPoint(40.0  ,1.0,0.0,0.0);
+        if(isAlg)
+            addAllClusterColors(color);
+        else {
+            color->AddRGBPoint(0.0  ,0.0,0.0,1.0);
+            color->AddRGBPoint(40.0  ,1.0,0.0,0.0);
+        }
         color->AddRGBPoint(255.0,1.0,1.0,1.0);
         volumeProperty->SetColor(color);
 
@@ -377,7 +594,6 @@ void ExecuteDialog::showImage(QString pathToImage, bool isAlg){
         //volumeMapper->SetRequestedRenderModeToRayCast();
         renWin->Render();
         ui->widget->update();
-
     }
 
 }

@@ -242,6 +242,49 @@ int AbstractProtocol::roundToInt(double num) {
     return static_cast<int>(num + 0.5);
 }
 
+void AbstractProtocol::createImage2D(itk::ImageRegionIterator<Image2DType> outputIterator, double** result, int *mask, const int length) {
+    // metodo per creare l'immagine in output
+    // outputIterator è l'iteratore dell'immagine in output
+    // mask è la maschera
+    // result è la matrice di double relativa al risultato
+    // length è in numero di pixel dell'immagine
+    int dimensions = Image2DType::GetImageDimension();
+    int* redValues = new int[length];
+    int* greenValues = new int[length];
+    int* blueValues = new int[length];
+    normalize(result[0],result[1],result[2],redValues,greenValues,blueValues,mask,length);
+    int index = 0;
+    while(!outputIterator.IsAtEnd()) {
+        Image2DType::PixelType outputPixel;
+        outputPixel.Set(redValues[index],greenValues[index],blueValues[index]);
+        // scrivo il pixel nell'immagine in output
+        outputIterator.Set(outputPixel);
+        ++index;
+        ++outputIterator;
+    }
+    delete[] redValues;
+    delete[] greenValues;
+    delete[] blueValues;
+}
+
+void AbstractProtocol::createImage3D(itk::ImageRegionIterator<Image3DType> outputIterator, double* result, int* mask, const int length) {
+    // metodo per creare l'immagine in output
+    // outputIterator è l'iteratore dell'immagine in output
+    // mask è la maschera
+    // result è la matrice di double relativa al risultato
+    // length è in numero di pixel dell'immagine
+    // siamo nel caso 3D, non normalizziamo
+    int index = 0;
+    while(!outputIterator.IsAtEnd()) {
+        if(mask[index]!=0)
+            outputIterator.Set(result[index]);
+        else
+            outputIterator.Set(0.0);
+        ++index;
+        ++outputIterator;
+    }
+}
+
 int AbstractProtocol::getTotalMemory() const {
     int memoryValue = -1;
     QString system_info;
@@ -274,7 +317,6 @@ int AbstractProtocol::getTotalMemory() const {
     system_info = system_info.split(": ").at(1).split("\n").at(0);
     memoryValue = system_info.toLong()/(1024*1024);
     #endif
-    qDebug() << QString::number(memoryValue);
     return memoryValue;
 }
 

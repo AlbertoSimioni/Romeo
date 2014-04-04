@@ -58,16 +58,13 @@ double** DynamicProtocol::read3DVideo(Image4DType::Pointer video) {
     // alloco il risultato
     double** result = new double*[numberOfPixel];
     for(int i=0;i<numberOfPixel;i++)
-        result[i] = new double[3*numberOfFrames];
+        result[i] = new double[numberOfFrames];
     itk::ImageLinearConstIteratorWithIndex<Image4DType> it( video, video->GetLargestPossibleRegion() );
     it.SetDirection( 3 ); // Walk along time dimension
     int i=0;
     while(!it.IsAtEnd()) {
-        for(int j=0; j<3*numberOfFrames;) {
-            for(int color=0;color<3;color++) {
-                result[i][j] = it.Get()[color];
-                ++j;
-            }
+        for(int j=0; j<numberOfFrames;j++) {
+            result[i][j] = static_cast<double>(it.Get());
             ++it;
         }
         it.NextLine();
@@ -174,7 +171,7 @@ double** DynamicProtocol::apply2DDynamicFeature(cv::VideoCapture video,Image2DTy
         for(int k=0,j=0;j<3;k += currentFrameEnd-currentFrameInit+1,j++)
             image[j] = result[k];
         // creazione immagine output
-        createImage(outputIterator,image,maskArray,numberOfPixel);
+        createImage2D(outputIterator,image,maskArray,numberOfPixel);
         // cancella puntatore temporaneo
         delete[] image;
     }
@@ -231,7 +228,7 @@ double** DynamicProtocol::apply2DDynamicFeature(cv::VideoCapture video,Image2DTy
             delete[] matrix;
         }
         // creazione immagine output
-        createImage(outputIterator,result,maskArray,numberOfPixel);
+        createImage2D(outputIterator,result,maskArray,numberOfPixel);
     }
     // cancellazione della maschera
     delete[] maskArray;
@@ -287,127 +284,120 @@ double** DynamicProtocol::apply3DDynamicFeature(Image4DType::Pointer video,Image
     }
 
     itk::ImageLinearConstIteratorWithIndex<Image4DType> it( video, video->GetLargestPossibleRegion() );
-    // alloco il risultato
-    double** result;
+
     if(feature->getName() == "Value") {
-        result = new double*[3*(currentFrameEnd-currentFrameInit+1)];
-        for(int i=0;i<(3*(currentFrameEnd-currentFrameInit+1));++i)
+        // alloco il risultato
+        double** result;
+        result = new double*[currentFrameEnd-currentFrameInit+1];
+        for(int i=0;i<(currentFrameEnd-currentFrameInit+1);++i)
             result[i] = new double[numberOfPixel];
-        int currentFrame = 0;
-        for(int color = 0;color<3;color++) {
-            it.SetDirection( 3 ); // Walk along time dimension
-            it.GoToBegin();
-            if(mask.IsNotNull()) {
-                maskIterator.GoToBegin();
-                int i = 0;
-                while(!it.IsAtEnd()) {
-                    if(static_cast<int>(maskIterator.Get())==0) {
-                        for(int j=0,index=currentFrame;j<numberOfFrames;++j,++it) {
-                            if(j>=currentFrameInit && j<=currentFrameEnd) {
-                                result[index][i]=0.0;
-                                ++index;
-                            }
-                        }
-                    }
-                    else {
-                        for(int j=0,index=currentFrame;j<numberOfFrames;++j,++it) {
-                            if(j>=currentFrameInit && j<=currentFrameEnd) {
-                                result[index][i]=it.Get()[color];
-                                ++index;
-                            }
-                        }
-                    }
-                    it.NextLine();
-                    ++maskIterator;
-                    ++i;
-                }
-            }
-            else {
-                int i = 0;
-                while(!it.IsAtEnd()) {
-                    for(int j=0,index=currentFrame;j<numberOfFrames;++j,++it) {
-                        if(j>=currentFrameInit && j<=currentFrameEnd) {
-                            result[index][i]=it.Get()[color];
-                            ++index;
-                        }
-                    }
-                    it.NextLine();
-                    ++i;
-                }
-            }
-            currentFrame += (currentFrameEnd-currentFrameInit+1);
-        }
-        // creo solo primo frame
-        double** image = new double*[3];
-        // k deve andare a prendere il frame 0 - (currentFrameEnd-currentFrameInit+1) - etc..
-        for(int k=0,j=0;j<3;k += currentFrameEnd-currentFrameInit+1,j++)
-            image[j] = result[k];
-        // creazione immagine output
-        createImage(outputIterator,image,maskArray,numberOfPixel);
-        // cancella puntatore temporaneo
-        delete[] image;
-    }
-    else {
-        result = new double*[3];
-        // eseguo ciclo
-        for(int color = 0;color<3;color++) {
-            // allocazione risultato
-            double** matrix = new double*[numberOfPixel];
-            for(int i=0;i<numberOfPixel;i++)
-                matrix[i] = new double[currentFrameEnd-currentFrameInit+1];
-            it.SetDirection( 3 ); // Walk along time dimension
-            it.GoToBegin();
-            if(mask.IsNotNull()) {
-                maskIterator.GoToBegin();
-                int i = 0;
-                while(!it.IsAtEnd()) {
-                    if(static_cast<int>(maskIterator.Get())==0) {
-                        for(int j=0,index=0;j<numberOfFrames;++j,++it) {
-                            if(j>=currentFrameInit && j<=currentFrameEnd) {
-                                matrix[i][index]=0.0;
-                                ++index;
-                            }
-                        }
-                    }
-                    else {
-                        for(int j=0,index=0;j<numberOfFrames;++j,++it) {
-                            if(j>=currentFrameInit && j<=currentFrameEnd) {
-                                matrix[i][index]=it.Get()[color];
-                                ++index;
-                            }
-                        }
-                    }
-                    it.NextLine();
-                    ++maskIterator;
-                    ++i;
-                }
-            }
-            else {
-                int i = 0;
-                while(!it.IsAtEnd()) {
+        it.SetDirection( 3 ); // Walk along time dimension
+        it.GoToBegin();
+        if(mask.IsNotNull()) {
+            maskIterator.GoToBegin();
+            int i = 0;
+            while(!it.IsAtEnd()) {
+                if(static_cast<int>(maskIterator.Get())==0) {
                     for(int j=0,index=0;j<numberOfFrames;++j,++it) {
                         if(j>=currentFrameInit && j<=currentFrameEnd) {
-                            matrix[i][index]=it.Get()[color];
+                            result[index][i]=0.0;
                             ++index;
                         }
                     }
-                    it.NextLine();
-                    ++i;
                 }
+                else {
+                    for(int j=0,index=0;j<numberOfFrames;++j,++it) {
+                        if(j>=currentFrameInit && j<=currentFrameEnd) {
+                            result[index][i]=static_cast<double>(it.Get());
+                            ++index;
+                        }
+                    }
+                }
+                it.NextLine();
+                ++maskIterator;
+                ++i;
             }
-            result[color] = featureExtractor(matrix,numberOfPixel,currentFrameInit,currentFrameEnd);
-            // delete di matrix
-            for(int i=0;i<numberOfPixel;i++)
-                delete[] matrix[i];
-            delete[] matrix;
         }
+        else {
+            int i = 0;
+            while(!it.IsAtEnd()) {
+                for(int j=0,index=0;j<numberOfFrames;++j,++it) {
+                    if(j>=currentFrameInit && j<=currentFrameEnd) {
+                        result[index][i]=static_cast<double>(it.Get());
+                        ++index;
+                    }
+                }
+                it.NextLine();
+                ++i;
+            }
+        }
+        // creo solo primo frame
         // creazione immagine output
-        createImage(outputIterator,result,maskArray,numberOfPixel);
+        createImage3D(outputIterator,result[0],maskArray,numberOfPixel);
+        // cancellazione della maschera
+        delete[] maskArray;
+        // ritorna array di double
+        return result;
     }
-    // cancellazione della maschera
-    delete[] maskArray;
-    // ritorna array di double
-    return result;
+    else {
+        // alloco il risultato
+        double** result = new double*;
+        // allocazione risultato
+        double** matrix = new double*[numberOfPixel];
+        for(int i=0;i<numberOfPixel;i++)
+            matrix[i] = new double[currentFrameEnd-currentFrameInit+1];
+        it.SetDirection( 3 ); // Walk along time dimension
+        it.GoToBegin();
+        if(mask.IsNotNull()) {
+            maskIterator.GoToBegin();
+            int i = 0;
+            while(!it.IsAtEnd()) {
+                if(static_cast<int>(maskIterator.Get())==0) {
+                    for(int j=0,index=0;j<numberOfFrames;++j,++it) {
+                        if(j>=currentFrameInit && j<=currentFrameEnd) {
+                            matrix[i][index]=0.0;
+                            ++index;
+                        }
+                    }
+                }
+                else {
+                    for(int j=0,index=0;j<numberOfFrames;++j,++it) {
+                        if(j>=currentFrameInit && j<=currentFrameEnd) {
+                            matrix[i][index]=static_cast<double>(it.Get());
+                            ++index;
+                        }
+                    }
+                }
+                it.NextLine();
+                ++maskIterator;
+                ++i;
+            }
+        }
+        else {
+            int i = 0;
+            while(!it.IsAtEnd()) {
+                for(int j=0,index=0;j<numberOfFrames;++j,++it) {
+                    if(j>=currentFrameInit && j<=currentFrameEnd) {
+                        matrix[i][index]=static_cast<double>(it.Get());
+                        ++index;
+                    }
+                }
+                it.NextLine();
+                ++i;
+            }
+        }
+        result[0] = featureExtractor(matrix,numberOfPixel,currentFrameInit,currentFrameEnd);
+        // delete di matrix
+        for(int i=0;i<numberOfPixel;i++)
+            delete[] matrix[i];
+        delete[] matrix;
+        // creazione immagine output
+        createImage3D(outputIterator,result[0],maskArray,numberOfPixel);
+        // cancellazione della maschera
+        delete[] maskArray;
+        // ritorna array di double
+        return result;
+    }
 }
 
 void DynamicProtocol::video2DExecute(romeo::model::datasets::AbstractSubject *subject,QString path,bool saveFeatures,QString outputFormat) {
@@ -542,7 +532,7 @@ void DynamicProtocol::video2DExecute(romeo::model::datasets::AbstractSubject *su
             Image2DType::Pointer output = Image2DType::New();
             output->SetRegions(region);
             output->Allocate();
-            createClusteringImage<Image2DType::Pointer,Image2DType,RGBPixelType>(output,clusterid,mask);
+            createClusteringImage<Image2DType::Pointer,Image2DType>(output,clusterid,mask);
             // delete dei dati sullo heap
             delete[] mask;
             delete[] clusterid;
@@ -599,11 +589,11 @@ void DynamicProtocol::video3DExecute(romeo::model::datasets::AbstractSubject *su
                 value = true;
         }
         if(value) {
-            numberOfColumns = 3*(featureList.size()-1) + 3*(currentFrameEnd-currentFrameInit+1);
+            numberOfColumns = (featureList.size()-1) + (currentFrameEnd-currentFrameInit+1);
             estimatedColumns = numberOfColumns;
         }
         else {
-            numberOfColumns = 3*featureList.size();
+            numberOfColumns = featureList.size();
             estimatedColumns = numberOfColumns + (currentFrameEnd-currentFrameInit-1);
         }
         int requestedMemory = numberOfRows*estimatedColumns;
@@ -629,16 +619,14 @@ void DynamicProtocol::video3DExecute(romeo::model::datasets::AbstractSubject *su
             singleFeature = apply3DDynamicFeature(video,outputFeature,maskPointer,dynamicFeature);
             // singleFeature è una matrice [ncols][nrows]
             if(featureList[i]->getName()=="Value") {
-                for(int j=0;j<(3*(currentFrameEnd-currentFrameInit+1));j++) {
+                for(int j=0;j<(currentFrameEnd-currentFrameInit+1);j++) {
                     result[index]=singleFeature[j];
                     ++index;
                 }
             }
             else {
-                for(int j=0;j<3;j++) {
-                    result[index]=singleFeature[j];
-                    ++index;
-                }
+                result[index]=singleFeature[0];
+                ++index;
             }
             if(saveFeatures) {
                 QString fileName = QUrl::fromLocalFile(subject->getName() + "_" + currentFeature->getName()).path();
@@ -654,22 +642,20 @@ void DynamicProtocol::video3DExecute(romeo::model::datasets::AbstractSubject *su
         }
     }
     else {
-        // non ci sono feature da estrarre, va preparata la matrice con tre colonne sole
-        numberOfColumns = 3*numberOfFrames;
+        numberOfColumns = numberOfFrames;
         int requestedMemory = numberOfRows*numberOfColumns;
         // se la memoria richiesta è eccessiva lancia una eccezione
         checkRequestedMemory(requestedMemory);
         result = read3DVideo(video);
     }
 
-    if(numberOfColumns < 3){
+    if(numberOfColumns < 1){
        delete[] result;
     }
     else{
         double** transponse;
 
         transponse = transform(result,numberOfRows,numberOfColumns);
-
 
         // transponse è una matrice [nrows][ncols]
         romeo::model::protocols::algorithms::AbstractAlgorithm* algorithmToExecute = getAlgorithm();
@@ -681,23 +667,23 @@ void DynamicProtocol::video3DExecute(romeo::model::datasets::AbstractSubject *su
             int* clusterid = new int[numberOfRows];
             algorithmToExecute->execute(transponse,mask,numberOfRows,numberOfColumns,clusterid,getNClusters(),getAlgorithmParameters());
             // creazione immagine di output
-            Image3DType::Pointer output = Image3DType::New();
-            Image3DType::IndexType startIndex;
+            ClusteringImage3DType::Pointer output = ClusteringImage3DType::New();
+            ClusteringImage3DType::IndexType startIndex;
             startIndex.Fill(0);
-            Image3DType::SizeType regionSize;
+            ClusteringImage3DType::SizeType regionSize;
             regionSize[0] = video->GetLargestPossibleRegion().GetSize()[0];
             regionSize[1] = video->GetLargestPossibleRegion().GetSize()[1];
             regionSize[2] = video->GetLargestPossibleRegion().GetSize()[2];
-            Image3DType::RegionType region(startIndex,regionSize);
+            ClusteringImage3DType::RegionType region(startIndex,regionSize);
             output->SetRegions(region);
             output->Allocate();
-            createClusteringImage<Image3DType::Pointer,Image3DType,RGBPixelType>(output,clusterid,mask);
+            createClusteringImage<ClusteringImage3DType::Pointer,ClusteringImage3DType>(output,clusterid,mask);
             // delete dei dati sullo heap
             delete[] mask;
             delete[] clusterid;
             // scrivi l'immagine
             QString fileName = QUrl::fromLocalFile(subject->getName() + "_" + algorithmToExecute->getName()).path();
-            videoHandler->writeImage<Image3DType::Pointer,Image3DType>(output,fileName,path,outputFormat);
+            videoHandler->writeImage<ClusteringImage3DType::Pointer,ClusteringImage3DType>(output,fileName,path,outputFormat);
             emit algorithmExecuted(path + fileName + outputFormat);
         }
         // delete dei dati

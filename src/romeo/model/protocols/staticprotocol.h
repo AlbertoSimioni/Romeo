@@ -37,6 +37,14 @@ namespace protocols{
 class StaticProtocol : public AbstractProtocol
 {
 
+    /*typedef unsigned char MaskPixelType;
+    typedef itk::RGBPixel<unsigned char> Image2DPixelType;
+    typedef double Image3DPixelType;
+    typedef itk::Image< MaskPixelType, 2 > Mask2DType;
+    typedef itk::Image< MaskPixelType, 3 > Mask3DType;
+    typedef itk::Image< Image2DPixelType, 2 > Image2DType;
+    typedef itk::Image< Image3DPixelType, 3 > Image3DType;*/
+
 public:
     /*!
      * \brief Costruisce un nuovo protocollo di tipo statico con l''algoritmo e le features indicate.
@@ -138,6 +146,27 @@ public:
         glcmGenerator->SetNumberOfBinsPerAxis(4);
         glcmGenerator->SetInput(image);
         const int dimension = ImageType::GetImageDimension();
+        if(dimension == 3) {
+            // trovo minimo e massimo da impostare per il calcolo della glcm
+            double min,max;
+            bool firstTime = true;
+            typename itk::ImageRegionIterator<ImageType> iterator(image,image->GetLargestPossibleRegion());
+            while(!iterator.IsAtEnd()) {
+                if(firstTime) {
+                    min = static_cast<double>(iterator.Get());
+                    max = static_cast<double>(iterator.Get());
+                    firstTime = false;
+                }
+                else {
+                    if(min > static_cast<double>(iterator.Get()))
+                        min = static_cast<double>(iterator.Get());
+                    if(max < static_cast<double>(iterator.Get()))
+                        max = static_cast<double>(iterator.Get());
+                }
+                ++iterator;
+            }
+            glcmGenerator->SetPixelValueMinMax(min,max);
+        }
         // CLGM orizzontale
         typename ImageType::OffsetType horizontalOffset;
         horizontalOffset[0]=distance;
@@ -169,380 +198,61 @@ public:
         }
     }
     /*!
-     * \brief Metodo template che applica un'operazione di estrazione di feature a un'immagine data in input e restituisce in output il risultato dell'operazione. La funzione prende come parametro la feature di primo ordine che si vuole estrarre.
+     *
+     */
+    double** read2DImage(Image2DType::Pointer input);
+    /*!
+     *
+     */
+    double** read3DImage(Image3DType::Pointer input);
+    /*!
+     * \brief Metodo che applica un'operazione di estrazione di feature di primo ordine a un'immagine 2D data in input e restituisce in output il risultato dell'operazione. La funzione prende come parametro la feature di primo ordine che si vuole estrarre.
      * \param input L'immagine su cui eseguire l'analisi.
      * \param output L'immagine risultato dell'operazione di estrazione.
      * \param mask Maschera dell'immagine.
      * \param feature Feature da applicare all'immagine.
      */
-    template<typename ImagePointer,typename ImageType,typename SimplePointer,typename SimpleType>
-    double** applyFirstOrderFeature(ImagePointer input,ImagePointer output,SimplePointer mask,romeo::model::protocols::features::FirstOrderFeature* feature) {
-
-        // input è l'immagine in ingresso
-        // output è l'immagine in uscita
-        // mask è la maschera
-        // feature è la feature da eseguire
-
-        typedef double (*MyPrototype)(double* data,int size,int dimension);
-        MyPrototype featureExtractor = (MyPrototype) QLibrary::resolve(feature->getDynamicLibraryPath(),feature->getDynamicFunctionName().toStdString().c_str());
-        if(!featureExtractor){
-            // non viene trovata le libreria
-            QString message = "Cannot find library " + feature->getDynamicFunctionName() + " located in " + feature->getDynamicLibraryPath();
-            throw message;
-        }
-        int dimension = ImageType::GetImageDimension();
-        // imposta raggio della finestra scorrevole: raggio = 1 -> finestra = 3
-        typename ImageType::SizeType radius;
-        radius.Fill(windowSize/2);
-        ImagePointer mirror = createMirror<ImagePointer,ImageType>(input,windowSize/2);
-        typename ImageType::RegionType outputRegion = getRegion<ImagePointer,ImageType>(input);
-
-        // iteratore per l'immagine in input
-        itk::NeighborhoodIterator<ImageType> inputIterator(radius, mirror , outputRegion);
-        inputIterator.NeedToUseBoundaryConditionOff();
-        // iteratore per l'immagine in output
-        itk::ImageRegionIterator<ImageType> outputIterator(output , output->GetLargestPossibleRegion());
-
-        // numero di pixel
-        const int length = input->GetLargestPossibleRegion().GetNumberOfPixels();
-
-        // iteratore per la maschera
-        itk::ImageRegionIterator<SimpleType> maskIterator;
-        // maschera in un array: servirà per createImage
-        int* maskArray;
-        if(mask.IsNotNull()) {
-            maskIterator = itk::ImageRegionIterator<SimpleType>(mask , mask->GetLargestPossibleRegion());
-            maskArray = getMask<typename SimpleType::Pointer,SimpleType>(mask,length);
-        }
-        else {
-            maskArray = new int[length];
-            for(int i=0;i<length;i++)
-                maskArray[i] = 255;
-        }
-
-        // allocazione degli array di double da restituire per l'eventuale algoritmo di clustering
-        double** result = new double*[3];
-        for(int i=0;i<3;i++)
-            result[i] = new double[length];
-
-        if(mask.IsNotNull()) {
-            // considero la presenza della mask
-            int index =0;
-            while(!inputIterator.IsAtEnd()) {
-                if(static_cast<int>(maskIterator.Get())!=0) {
-                    // pow(size,dimension) è il numero di elementi dentro la finestra scorrevole
-                    // per ciascun colore creo tre array differenti
-                    double redArray[static_cast<int>(pow(windowSize,dimension))];
-                    double greenArray[static_cast<int>(pow(windowSize,dimension))];
-                    double blueArray[static_cast<int>(pow(windowSize,dimension))];
-                    // riempimento degli array
-                    for(int i=0;i<static_cast<int>(pow(windowSize,dimension));i++) {
-                        redArray[i]=inputIterator.GetPixel(i)[0];
-                        greenArray[i]=inputIterator.GetPixel(i)[1];
-                        blueArray[i]=inputIterator.GetPixel(i)[2];
-                    }
-                    // applicazione feature
-                    double redValue = featureExtractor(redArray,windowSize,dimension);
-                    double greenValue = featureExtractor(greenArray,windowSize,dimension);
-                    double blueValue = featureExtractor(blueArray,windowSize,dimension);
-                    // imposto i valori degli array di double
-                    result[0][index]=redValue;
-                    result[1][index]=greenValue;
-                    result[2][index]=blueValue;
-                }
-                else {
-                    result[0][index]=0.0;
-                    result[1][index]=0.0;
-                    result[2][index]=0.0;
-                }
-                ++inputIterator;
-                ++maskIterator;
-                ++index;
-            }
-        }
-        else {
-            // ignoro la mask
-            int index =0;
-            while(!inputIterator.IsAtEnd()) {
-                // pow(size,dimension) è il numero di elementi dentro la finestra scorrevole
-                // per ciascun colore creo tre array differenti
-                double redArray[static_cast<int>(pow(windowSize,dimension))];
-                double greenArray[static_cast<int>(pow(windowSize,dimension))];
-                double blueArray[static_cast<int>(pow(windowSize,dimension))];
-                // riempimento degli array
-                for(int i=0;i<static_cast<int>(pow(windowSize,dimension));i++) {
-                    redArray[i]=inputIterator.GetPixel(i)[0];
-                    greenArray[i]=inputIterator.GetPixel(i)[1];
-                    blueArray[i]=inputIterator.GetPixel(i)[2];
-                }
-                // applicazione feature
-                double redValue = featureExtractor(redArray,windowSize,dimension);
-                double greenValue = featureExtractor(greenArray,windowSize,dimension);
-                double blueValue = featureExtractor(blueArray,windowSize,dimension);
-                // imposto i valori degli array di double
-                result[0][index]=redValue;
-                result[1][index]=greenValue;
-                result[2][index]=blueValue;
-                ++inputIterator;
-                ++index;
-            }
-        }
-        // creazione immagine output
-        createImage(outputIterator,result,maskArray,length);
-        // cancellazione della maschera
-        delete[] maskArray;
-        // ritorna gli array di double per l'algoritmo di clustering
-        return result;
-    }
-
+    double** applyFirstOrderFeature2D(Image2DType::Pointer input,Image2DType::Pointer output,Mask2DType::Pointer mask,romeo::model::protocols::features::FirstOrderFeature* feature);
     /*!
-     * \brief Metodo template che applica un'operazione di estrazione di feature a un'immagine data in input e restituisce in output il risultato dell'operazione. La funzione prende come parametro la feature di secondo ordine che si vuole estrarre.
-     * \param input L'immagine di input da analizzare.
+     * \brief Metodo template che applica un'operazione di estrazione di feature di primo ordine a un'immagine 3D data in input e restituisce in output il risultato dell'operazione. La funzione prende come parametro la feature di primo ordine che si vuole estrarre.
+     * \param input L'immagine su cui eseguire l'analisi.
      * \param output L'immagine risultato dell'operazione di estrazione.
      * \param mask Maschera dell'immagine.
-     * \param distance Parametro per indicare la distanza dalla GLCM con cui calcolare la feature.
      * \param feature Feature da applicare all'immagine.
      */
-    template<typename PointerType,typename ImageType,typename SimplePointerType,typename SimpleType>
-    double** applySecondOrderFeature(PointerType input,PointerType output,SimplePointerType mask,int distance,romeo::model::protocols::features::SecondOrderFeature* feature) {
-
-        // input è l'immagine in ingresso
-        // output è l'immagine in uscita
-        // mask è la maschera
-        // distance è la distanza dalla GLCM
-
-        typedef double (*MyPrototype)(int data[4][4]);
-        MyPrototype featureExtractor = (MyPrototype) QLibrary::resolve(feature->getDynamicLibraryPath(),feature->getDynamicFunctionName().toStdString().c_str());
-
-        int dimension = ImageType::GetImageDimension();
-        // imposta raggio della finestra scorrevole: raggio = 1 -> finestra = 3
-        typename ImageType::SizeType radius;
-        radius.Fill(windowSize/2);
-
-        PointerType mirror = createMirror<PointerType,ImageType>(input,windowSize/2);
-        typename ImageType::RegionType outputRegion = getRegion<PointerType,ImageType>(input);
-
-        // iteratore per l'immagine in input
-        itk::NeighborhoodIterator<ImageType> inputIterator(radius, mirror , outputRegion);
-        inputIterator.NeedToUseBoundaryConditionOff();
-        // iteratore per l'immagine in output
-        itk::ImageRegionIterator<ImageType> outputIterator(output , output->GetLargestPossibleRegion());
-
-        // numero di pixel
-        const int length = input->GetLargestPossibleRegion().GetNumberOfPixels();
-
-        // iteratore per la maschera
-        itk::ImageRegionIterator<SimpleType> maskIterator;
-        // maschera in un array: servirà per createImage
-        int* maskArray;
-        if(mask.IsNotNull()) {
-            maskIterator = itk::ImageRegionIterator<SimpleType>(mask , mask->GetLargestPossibleRegion());
-            maskArray = getMask<typename SimpleType::Pointer,SimpleType>(mask,length);
-        }
-        else {
-            maskArray = new int[length];
-            for(int i=0;i<length;i++)
-                maskArray[i] = 255;
-        }
-
-
-        // allocazione dell'array di double da restituire per l'eventuale algoritmo di clustering
-        double** result = new double*[3];
-        for(int i=0;i<3;i++)
-            result[i] = new double[length];
-
-        if(mask.IsNotNull()) {
-            // considero la presenza della mask
-            int index =0;
-            while(!inputIterator.IsAtEnd()) {
-                if(static_cast<int>(maskIterator.Get())!=0) {
-                    for(int color=0;color<3;color++) {
-                        // definisco una regione
-                        typename SimpleType::IndexType regionIndex;
-                        regionIndex.Fill(0);
-                        typename SimpleType::SizeType regionSize;
-                        regionSize.Fill(windowSize);
-                        typename SimpleType::RegionType region(regionIndex,regionSize);
-                        // istanzio una nuova immagine
-                        SimplePointerType neighbor = SimpleType::New();
-                        neighbor->SetRegions(region);
-                        neighbor->Allocate();
-                        // la riempio con i valori dell'iteratore
-                        itk::ImageRegionIterator<SimpleType> pieceIterator(neighbor , neighbor->GetLargestPossibleRegion());
-                        for(int i=0;i<static_cast<int>(pow(windowSize,dimension));i++) {
-                            pieceIterator.Set(inputIterator.GetPixel(i)[color]);
-                            ++pieceIterator;
-                        }
-                        // procuro la GLCM
-                        int data[4][4];
-                        getGLCM<SimpleType,SimplePointerType>(neighbor,data,distance);
-                        // diamo l'array in pasto alla feature di secondo ordine
-                        double value = featureExtractor(data);
-                        result[color][index] = value;
-                    }
-                }
-                else {
-                    result[0][index] = 0.0;
-                    result[1][index] = 0.0;
-                    result[2][index] = 0.0;
-                }
-                ++inputIterator;
-                ++maskIterator;
-                ++index;
-            }
-        }
-        else {
-            // ignoro la mask
-            int index =0;
-            while(!inputIterator.IsAtEnd()) {
-                for(int color=0;color<3;color++) {
-                    // definisco una regione
-                    typename SimpleType::IndexType regionIndex;
-                    regionIndex.Fill(0);
-                    typename SimpleType::SizeType regionSize;
-                    regionSize.Fill(windowSize);
-                    typename SimpleType::RegionType region(regionIndex,regionSize);
-                    // istanzio una nuova immagine
-                    SimplePointerType neighbor = SimpleType::New();
-                    neighbor->SetRegions(region);
-                    neighbor->Allocate();
-                    // la riempio con i valori dell'iteratore
-                    itk::ImageRegionIterator<SimpleType> pieceIterator(neighbor , neighbor->GetLargestPossibleRegion());
-                    for(int i=0;i<static_cast<int>(pow(windowSize,dimension));i++) {
-                        pieceIterator.Set(inputIterator.GetPixel(i)[color]);
-                        ++pieceIterator;
-                    }
-                    // procuro la GLCM
-                    int data[4][4];
-                    getGLCM<SimpleType,SimplePointerType>(neighbor,data,distance);
-                    // diamo l'array in pasto alla feature di secondo ordine
-                    double value = featureExtractor(data);
-                    result[color][index] = value;
-                }
-                ++inputIterator;
-                ++index;
-            }
-        }
-        // creazione immagine output
-        createImage(outputIterator,result,maskArray,length);
-        // cancellazione della maschera
-        delete[] maskArray;
-        // ritorna gli array di double per l'algoritmo di clustering
-        return result;
-    }
+    double* applyFirstOrderFeature3D(Image3DType::Pointer input,Image3DType::Pointer output,Mask3DType::Pointer mask,romeo::model::protocols::features::FirstOrderFeature* feature);
     /*!
-     * \brief Metodo che esegue il protocollo sul subject passato in input. Il metodo è template perchè va istanziato con un valore intero indicante se l'immagine è 2D o 3D.
+     * \brief Metodo template che applica un'operazione di estrazione di feature di secondo ordine a un'immagine 2D data in input e restituisce in output il risultato dell'operazione. La funzione prende come parametro la feature di secondo ordine che si vuole estrarre.
+     * \param input L'immagine su cui eseguire l'analisi.
+     * \param output L'immagine risultato dell'operazione di estrazione.
+     * \param mask Maschera dell'immagine.
+     * \param feature Feature da applicare all'immagine.
+     */
+    double** applySecondOrderFeature2D(Image2DType::Pointer input,Image2DType::Pointer output,Mask2DType::Pointer mask,int distance, romeo::model::protocols::features::SecondOrderFeature* feature);
+    /*!
+     * \brief Metodo template che applica un'operazione di estrazione di feature di secondo ordine a un'immagine 3D data in input e restituisce in output il risultato dell'operazione. La funzione prende come parametro la feature di secondo ordine che si vuole estrarre.
+     * \param input L'immagine su cui eseguire l'analisi.
+     * \param output L'immagine risultato dell'operazione di estrazione.
+     * \param mask Maschera dell'immagine.
+     * \param feature Feature da applicare all'immagine.
+     */
+    double* applySecondOrderFeature3D(Image3DType::Pointer input,Image3DType::Pointer output,Mask3DType::Pointer mask, int distance, romeo::model::protocols::features::SecondOrderFeature* feature);
+    /*!
+     * \brief Metodo per l'analisi di una immagine 2D
      * \param subject Subject da analizzare
      * \param path Percorso in cui salvare i risultati dell'operazione.
      * \param saveFeatures Valore booleano che è true se si vogliono salvare su disco i risultati dell'estrazione di feature, false altrimenti.
      * \param outputFormat Formato immagine con cui esportare i risultati dell'analisi
      */
-    template<int dimensions>
-    void templateExecute(romeo::model::datasets::AbstractSubject *subject,QString path,bool saveFeatures,QString outputFormat) {
-        // il path viene aggiustato rispetto ai corretti separatori in base al sistema operativo
-        path = QDir::toNativeSeparators(path + "/");
-        if(outputFormat== "INPUT")
-            outputFormat = QString(".") + subject->getSubject().split(".").takeLast();
-        typedef unsigned char MaskPixelType;
-        typedef itk::Image< MaskPixelType, dimensions > MaskImageType;
-        typedef itk::RGBPixel<unsigned char> RGBPixelType;//Pixel Type
-        typedef itk::Image< RGBPixelType, dimensions > RGBImageType;//Image Type
-        romeo::model::imageIO::HandlerIOStatic* imageHandler = romeo::model::imageIO::HandlerIOStatic::getInstance();
-        typename RGBImageType::Pointer imagePointer = imageHandler->readImage<typename RGBImageType::Pointer,RGBImageType>(subject->getSubject());
-        typename MaskImageType::Pointer maskPointer = imageHandler->readImage<typename MaskImageType::Pointer,MaskImageType>(subject->getMask());
-        QList<romeo::model::protocols::features::AbstractFeature*> featureList = getFeatures();
-        int numberOfRows,numberOfColumns;
-        double** result;
-        if(featureList.size()>0) {
-            // ci sono features da estrarre
-            numberOfRows = imagePointer->GetLargestPossibleRegion().GetNumberOfPixels();
-            numberOfColumns = 3*featureList.size();
-            int requestedMemory = numberOfRows*numberOfColumns;
-            // se la memoria richiesta è eccessiva lancia una eccezione
-            checkRequestedMemory(requestedMemory);
-            result = new double*[numberOfColumns];
-            int index = 0;
-            for(int i=0;i<featureList.size() && !getStopAnalysis();i++) {
-
-                typename RGBImageType::Pointer outputFeature = RGBImageType::New();
-                outputFeature->SetRegions(imagePointer->GetLargestPossibleRegion());
-                outputFeature->Allocate();
-                romeo::model::protocols::features::AbstractFeature* currentFeature = featureList[i];
-                double** singleFeature;
-                romeo::model::protocols::features::FirstOrderFeature* firstOrderFeature = dynamic_cast<romeo::model::protocols::features::FirstOrderFeature*>(featureList[i]);
-                if(firstOrderFeature) {
-                    singleFeature = applyFirstOrderFeature<typename RGBImageType::Pointer,RGBImageType,typename MaskImageType::Pointer,MaskImageType>(imagePointer,outputFeature,maskPointer,firstOrderFeature);
-                }
-                else {
-                    romeo::model::protocols::features::SecondOrderFeature* secondOrderFeature = dynamic_cast<romeo::model::protocols::features::SecondOrderFeature*>(featureList[i]);
-                    if(secondOrderFeature)
-                        singleFeature = applySecondOrderFeature<typename RGBImageType::Pointer,RGBImageType,typename MaskImageType::Pointer,MaskImageType>(imagePointer,outputFeature,maskPointer,distanceToGLCM,secondOrderFeature);
-                }
-                // singleFeature è una matrice [ncols][nrows]
-                for(int j=0;j<3;j++) {
-                    result[index]=singleFeature[j];
-                    ++index;
-                }
-                if(saveFeatures) {
-                    QString fileName = QUrl::fromLocalFile(subject->getName() + "_" + currentFeature->getName()).path();
-                    imageHandler->writeImage<typename RGBImageType::Pointer,RGBImageType>(outputFeature,fileName,path,outputFormat);
-                    emit featureExtracted(path + fileName + outputFormat);
-                }
-                else{
-                    emit featureExtracted(QString());
-                }
-            }
-            if(getStopAnalysis()){
-               numberOfColumns = index;
-            }
-        }
-        else {
-            // non ci sono feature da estrarre, va preparata la matrice con tre colonne sole
-            numberOfRows = imagePointer->GetLargestPossibleRegion().GetNumberOfPixels();
-            numberOfColumns = 3;
-            int requestedMemory = numberOfRows*numberOfColumns;
-            // se la memoria richiesta è eccessiva lancia una eccezione
-            checkRequestedMemory(requestedMemory);
-            result = readImage<typename RGBImageType::Pointer,RGBImageType>(imagePointer);
-        }
-
-        if(numberOfColumns < 3){
-           delete[] result;
-        }
-        else{
-            double** transponse;
-
-            transponse = transform(result,numberOfRows,numberOfColumns);
-
-            // transponse è una matrice [nrows][ncols]
-            romeo::model::protocols::algorithms::AbstractAlgorithm* algorithmToExecute = getAlgorithm();
-            if(algorithmToExecute && !getStopAnalysis()) {
-                // c'è effettivamente un algoritmo da eseguire
-                // creazione maschera
-                int* mask = getMask<typename MaskImageType::Pointer,MaskImageType>(maskPointer,numberOfRows);
-                // creazione clusterid
-                int* clusterid = new int[numberOfRows];
-                algorithmToExecute->execute(transponse,mask,numberOfRows,numberOfColumns,clusterid,getNClusters(),getAlgorithmParameters());
-                // creazione immagine di output
-                typename RGBImageType::Pointer output = RGBImageType::New();
-                output->SetRegions(imagePointer->GetLargestPossibleRegion());
-                output->Allocate();
-                createClusteringImage<typename RGBImageType::Pointer,RGBImageType,RGBPixelType>(output,clusterid,mask);
-                // delete dei dati sullo heap
-                delete[] mask;
-                delete[] clusterid;
-                // scrivi l'immagine
-                QString fileName = QUrl::fromLocalFile(subject->getName() + "_" + algorithmToExecute->getName()).path();
-                imageHandler->writeImage<typename RGBImageType::Pointer,RGBImageType>(output,fileName,path,outputFormat);
-                emit algorithmExecuted(path + fileName + outputFormat);
-            }
-            // delete dei dati
-            for(int i=0;i<numberOfRows;i++)
-                delete[] transponse[i];
-            delete[] transponse;
-        }
-
-    }
+    void image2DExecute(romeo::model::datasets::AbstractSubject *subject,QString path,bool saveFeatures,QString outputFormat);
+    /*!
+     * \brief Metodo per l'analisi di una immagine 3D
+     * \param subject Subject da analizzare
+     * \param path Percorso in cui salvare i risultati dell'operazione.
+     * \param saveFeatures Valore booleano che è true se si vogliono salvare su disco i risultati dell'estrazione di feature, false altrimenti.
+     * \param outputFormat Formato immagine con cui esportare i risultati dell'analisi
+     */
+    void image3DExecute(romeo::model::datasets::AbstractSubject *subject,QString path,bool saveFeatures,QString outputFormat);
 
 
 private:

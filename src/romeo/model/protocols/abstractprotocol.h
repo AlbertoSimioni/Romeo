@@ -41,6 +41,18 @@ enum ProtocolType{STATIC,DYNAMIC};
 class AbstractProtocol : public QObject
 {
     Q_OBJECT
+
+protected:
+    typedef unsigned char MaskPixelType;
+    typedef itk::RGBPixel<unsigned char> Image2DPixelType;
+    typedef double Image3DPixelType;
+    typedef itk::Image< MaskPixelType, 2 > Mask2DType;
+    typedef itk::Image< MaskPixelType, 3 > Mask3DType;
+    typedef itk::Image< Image2DPixelType, 2 > Image2DType;
+    typedef itk::Image< Image3DPixelType, 3 > Image3DType;
+    typedef itk::Image< Image2DPixelType, 3 > ClusteringImage3DType;
+    typedef itk::Image< Image3DPixelType, 4 > Image4DType;
+
 public:
     /*!
      * \brief Costruisce un nuovo protocollo con l''algoritmo e le features indicate
@@ -173,26 +185,13 @@ public:
      */
     static void normalize(double* redValues,double* greenValues,double* blueValues,int* finalRed,int* finalGreen,int* finalBlue,int* mask,int length);
     /*!
-     * \brief Funzione template che prende in input un immagine caricata in un puntatore e la copia in un array di double. La funzione è template poichè e necessario conoscere il formato dell'immagine di origine per poterla iterare.
-     * \param input Puntatore all'immagine origine
+     * \brief Metodo per creare l'immagine in output a partire dall'array risultato di un esecuzione.
+     * \param outputIterator è l'iteratore dell'immagine in output.
+     * \param mask Array contenente la maschera dell'immagine analizzata
+     * \param result è la matrice di double relativa al risultato.
+     * \param length è il numero di pixel dell'immagine
      */
-    template<typename PointerType,typename ImageType>
-    double** readImage(PointerType input) {
-        // legge l'immagine e torna una matrice [ncols][nrows]
-        double** result = new double*[3];
-        for(int i=0;i<3;i++)
-            result[i] = new double[input->GetLargestPossibleRegion().GetNumberOfPixels()];
-        itk::ImageRegionIterator<ImageType> inputIterator(input , input->GetLargestPossibleRegion());
-        int index=0;
-        while(!inputIterator.IsAtEnd()) {
-            result[0][index] = static_cast<double>(inputIterator.Get()[0]);
-            result[1][index] = static_cast<double>(inputIterator.Get()[1]);
-            result[2][index] = static_cast<double>(inputIterator.Get()[2]);
-            ++index;
-            ++inputIterator;
-        }
-        return result;
-    }
+    void createImage2D(itk::ImageRegionIterator<Image2DType> outputIterator,double** result,int* mask,const int length);
     /*!
      * \brief Metodo per creare l'immagine in output a partire dall'array risultato di un esecuzione.
      * \param outputIterator è l'iteratore dell'immagine in output.
@@ -200,30 +199,7 @@ public:
      * \param result è la matrice di double relativa al risultato.
      * \param length è il numero di pixel dell'immagine
      */
-    template<typename ImageType>
-    void createImage(itk::ImageRegionIterator<ImageType> outputIterator,double** result,int* mask,const int length) {
-        // metodo per creare l'immagine in output
-        // outputIterator è l'iteratore dell'immagine in output
-        // mask è la maschera
-        // result è la matrice di double relativa al risultato
-        // length è in numero di pixel dell'immagine
-        int* redValues = new int[length];
-        int* greenValues = new int[length];
-        int* blueValues = new int[length];
-        normalize(result[0],result[1],result[2],redValues,greenValues,blueValues,mask,length);
-        int index = 0;
-        while(!outputIterator.IsAtEnd()) {
-            typename ImageType::PixelType outputPixel;
-            outputPixel.Set(redValues[index],greenValues[index],blueValues[index]);
-            // scrivo il pixel nell'immagine in output
-            outputIterator.Set(outputPixel);
-            ++index;
-            ++outputIterator;
-        }
-        delete[] redValues;
-        delete[] greenValues;
-        delete[] blueValues;
-    }
+    void createImage3D(itk::ImageRegionIterator<Image3DType> outputIterator,double* result,int* mask,const int length);
     /*!
      * \brief Metodo che prende in input un puntatore a un'immagine maschera decodificata e ritorna un array di valori interi che la rappresentano.
      * \param mask Puntatore all'immagine maschera decodificata.
@@ -255,12 +231,12 @@ public:
      * \param clusterid Array contentente l'immagine di input.
      * \param maskArray Array contenente la maschera da applicare.
      */
-    template<typename ImagePointer,typename ImageType,typename PixelType>
+    template<typename ImagePointer,typename ImageType>
     void createClusteringImage(ImagePointer output,int* clusterid,int* maskArray) {
         itk::ImageRegionIterator<ImageType> iterator(output , output->GetLargestPossibleRegion());
         int index = 0;
         while(!iterator.IsAtEnd()) {
-            PixelType pixel;
+            itk::RGBPixel<unsigned char> pixel;
             int cluster = clusterid[index];
             int maskValue = maskArray[index];
             if(maskValue==0)

@@ -13,7 +13,7 @@
 #include <src/romeo/model/datasets/abstractdataset.h>
 #include "vtkImageViewer2.h"
 #include "vtkSmartPointer.h"
-
+#include "vtkColorTransferFunction.h"
 
 namespace Ui {
 class ExecuteDialog;
@@ -176,6 +176,21 @@ private:
      */
     int nImagesPerSubject;
     vtkSmartPointer<vtkImageViewer2> image_view;
+
+    /*!
+     *
+     */
+    void showImage3DFeature(QString pathToImage);
+
+    /*!
+     *
+     */
+    void showImage3DCluster(QString pathToImage);
+
+    /*!
+     *
+     */
+    void addAllClusterColors(vtkSmartPointer<vtkColorTransferFunction>& color);
 
 };
 }}}

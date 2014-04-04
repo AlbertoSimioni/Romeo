@@ -27,13 +27,13 @@ namespace protocols{
  */
 class DynamicProtocol : public AbstractProtocol
 {
-    typedef unsigned char MaskPixelType;
+    /*typedef unsigned char MaskPixelType;
     typedef itk::Image< MaskPixelType, 2 > Mask2DType;
     typedef itk::Image< MaskPixelType, 3 > Mask3DType;
     typedef itk::RGBPixel<unsigned char> RGBPixelType;
     typedef itk::Image< RGBPixelType, 2 > Image2DType;
     typedef itk::Image< RGBPixelType, 3 > Image3DType;
-    typedef itk::Image< RGBPixelType, 4 > Image4DType;
+    typedef itk::Image< RGBPixelType, 4 > Image4DType;*/
 public:
     /*!
      * \brief Costruisce un nuovo protocollo che opera su immagini dinamiche.

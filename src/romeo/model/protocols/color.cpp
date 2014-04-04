@@ -72,3 +72,44 @@ int* Color::getColor(int index) {
         return extracolor;
     }
 }
+
+double Color::getSingleValueColor(int index) {
+    switch(index) {
+    case 0:
+        return getSingleValue(red[0],red[1],red[2]);
+        break;
+    case 1:
+        return getSingleValue(blue[0],blue[1],blue[2]);
+        break;
+    case 2:
+        return getSingleValue(green[0],green[1],green[2]);
+        break;
+    case 3:
+        return getSingleValue(yellow[0],yellow[1],yellow[2]);
+        break;
+    case 4:
+        return getSingleValue(magenta[0],magenta[1],magenta[2]);
+        break;
+    case 5:
+        return getSingleValue(lightblue[0],lightblue[1],lightblue[2]);
+        break;
+    case 6:
+        return getSingleValue(gray[0],gray[1],gray[2]);
+        break;
+    case 7:
+        return getSingleValue(orange[0],orange[1],orange[2]);
+        break;
+    case 8:
+        return getSingleValue(aquagreen[0],aquagreen[1],aquagreen[2]);
+        break;
+    case 9:
+        return getSingleValue(pink[0],pink[1],pink[2]);
+        break;
+    default:
+        return getSingleValue(0,0,0);
+    }
+}
+
+double Color::getSingleValue(int red,int green,int blue) {
+    return (0.2126 * red + 0.7152 * green + 0.0722 * blue);
+}
