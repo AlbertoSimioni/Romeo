@@ -111,5 +111,5 @@ double Color::getSingleValueColor(int index) {
 }
 
 double Color::getSingleValue(int red,int green,int blue) {
-    return (0.2126 * red + 0.7152 * green + 0.0722 * blue);
+    return (0.2125 * red + 0.7154 * green + 0.0721 * blue);
 }

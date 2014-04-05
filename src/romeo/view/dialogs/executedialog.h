@@ -14,6 +14,7 @@
 #include "vtkImageViewer2.h"
 #include "vtkSmartPointer.h"
 #include "vtkColorTransferFunction.h"
+#include "vtkDiscretizableColorTransferFunction.h"
 
 namespace Ui {
 class ExecuteDialog;
@@ -180,17 +181,7 @@ private:
     /*!
      *
      */
-    void showImage3DFeature(QString pathToImage);
-
-    /*!
-     *
-     */
-    void showImage3DCluster(QString pathToImage);
-
-    /*!
-     *
-     */
-    void addAllClusterColors(vtkSmartPointer<vtkColorTransferFunction>& color);
+    void addAllClusterColors(vtkSmartPointer<vtkDiscretizableColorTransferFunction>& color);
 
 };
 }}}
