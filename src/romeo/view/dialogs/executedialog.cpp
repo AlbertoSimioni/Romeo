@@ -93,8 +93,10 @@ void ExecuteDialog::closeEvent(QCloseEvent *event) {
         }
 
     }
-    else
+    else{
         event->accept();
+        image_view->GetRenderer()->Clear();
+    }
 }
 
 void ExecuteDialog::prepareAnalysis(romeo::model::datasets::AbstractDataset *dataset, bool viewResults, bool viewFeatures,int numberSubjects,int nAlgorithm,int nFeatures)
@@ -180,9 +182,10 @@ void ExecuteDialog::onFeatureExtracted(QString pathToFeature){
     if(visualizeFeatures){
         imagesFromAlgorithm.append(false);
         addResultImage(pathToFeature);
+        ui->statusLabel->setText("Images: " + QString::number(currentIndex+1)+  "/" + QString::number(currentImagesPath.size()));
     }
     ui->progressBar->setValue(ui->progressBar->value()+1);
-    ui->statusLabel->setText("Images: " + QString::number(currentIndex+1)+  "/" + QString::number(currentImagesPath.size()));
+
 }
 
 void ExecuteDialog::onAlgorithmExecuted(QString pathToAlgorithm){
