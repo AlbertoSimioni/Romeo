@@ -137,6 +137,7 @@ void ExecuteDialog::clearDialog(){
         ui->noFeature->setEnabled(false);
     }
     currentImagesPath.clear();
+    imagesFromAlgorithm.clear();
     currentIndex = 0;
     ui->subjectsLabel->setText("Total Subjects: " + QString::number(nSubjects));
     if(visualizeFeatures){
@@ -192,9 +193,10 @@ void ExecuteDialog::onAlgorithmExecuted(QString pathToAlgorithm){
     if(visualizeResults){
         imagesFromAlgorithm.append(true);
         addResultImage(pathToAlgorithm);
+        ui->statusLabel->setText("Images: " + QString::number(currentIndex+1)+  "/" + QString::number(currentImagesPath.size()));
     }
     ui->progressBar->setValue(ui->progressBar->value()+1);
-    ui->statusLabel->setText("Images: " + QString::number(currentIndex+1)+  "/" + QString::number(currentImagesPath.size()));
+
 }
 
 
