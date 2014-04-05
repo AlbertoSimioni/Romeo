@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>553</width>
-    <height>412</height>
+    <width>432</width>
+    <height>282</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -47,42 +47,34 @@ font-size: 14px;
       <property name="verticalSpacing">
        <number>9</number>
       </property>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_2">
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the directory in which to store the results&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
         <property name="text">
-         <string>Results Path</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-style:italic; color:#4d4d4d;&quot;&gt;Execute&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="0" colspan="2">
-       <widget class="QLabel" name="label_3">
+      <item row="3" column="2" colspan="3">
+       <widget class="QComboBox" name="formatCombo">
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Select the output format of the results, INPUT to keep the input image format&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
-        <property name="text">
-         <string>Export Format</string>
-        </property>
+        <item>
+         <property name="text">
+          <string>INPUT</string>
+         </property>
+        </item>
        </widget>
       </item>
-      <item row="2" column="1" colspan="5">
-       <widget class="QLineEdit" name="resultLineEdit">
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the directory in which to store the results&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="3">
-       <spacer name="verticalSpacer">
+      <item row="3" column="5">
+       <spacer name="horizontalSpacer_3">
         <property name="orientation">
-         <enum>Qt::Vertical</enum>
+         <enum>Qt::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>0</width>
-          <height>0</height>
+          <width>403</width>
+          <height>19</height>
          </size>
         </property>
        </spacer>
@@ -94,19 +86,6 @@ font-size: 14px;
         </property>
         <property name="text">
          <string>Save Features</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0">
-       <widget class="QCheckBox" name="viewFeaturesCheck">
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Check to view the features extracted during execution&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="text">
-         <string>View Features</string>
         </property>
         <property name="checked">
          <bool>true</bool>
@@ -134,22 +113,56 @@ font-size: 14px;
         </property>
        </widget>
       </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-style:italic; color:#4d4d4d;&quot;&gt;Execute&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <item row="2" column="1" colspan="5">
+       <widget class="QLineEdit" name="resultLineEdit">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the directory in which to store the results&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="0" colspan="3">
-       <widget class="QPushButton" name="start">
-        <property name="text">
-         <string>Start Analysis</string>
+      <item row="3" column="0" colspan="2">
+       <widget class="QLabel" name="label_3">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Select the output format of the results, INPUT to keep the input image format&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
-        <property name="icon">
-         <iconset>
-          <normalon>:/Images/Images/start-icon.png</normalon>
-         </iconset>
+        <property name="text">
+         <string>Export Format</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="3">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the directory in which to store the results&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>Results Path</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QCheckBox" name="viewFeaturesCheck">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Check to view the features extracted during execution&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>View Features</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
         </property>
        </widget>
       </item>
@@ -166,30 +179,17 @@ font-size: 14px;
         </property>
        </spacer>
       </item>
-      <item row="3" column="2" colspan="3">
-       <widget class="QComboBox" name="formatCombo">
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Select the output format of the results, INPUT to keep the input image format&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <item row="1" column="0" colspan="3">
+       <widget class="QPushButton" name="start">
+        <property name="text">
+         <string>Start Analysis</string>
         </property>
-        <item>
-         <property name="text">
-          <string>INPUT</string>
-         </property>
-        </item>
+        <property name="icon">
+         <iconset>
+          <normalon>:/Images/Images/start-icon.png</normalon>
+         </iconset>
+        </property>
        </widget>
-      </item>
-      <item row="3" column="5">
-       <spacer name="horizontalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>403</width>
-          <height>19</height>
-         </size>
-        </property>
-       </spacer>
       </item>
       <item row="4" column="0" colspan="3">
        <widget class="QCheckBox" name="viewResultsCheck">
@@ -201,6 +201,13 @@ font-size: 14px;
         </property>
         <property name="checked">
          <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="5">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; color:#ff0000;&quot;&gt;Be careful: rendering 3D is&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt; color:#ff0000;&quot;&gt;heavy while clustering&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>

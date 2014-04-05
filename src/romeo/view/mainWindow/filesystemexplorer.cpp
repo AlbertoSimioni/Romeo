@@ -51,8 +51,8 @@ FileSystemExplorer::FileSystemExplorer(QWidget *parent) :
 
 
     ui->filesView->setModel(fileModel);
-    ui->filesView->setRootIndex(fileModel->setRootPath(dirModel->rootPath()));
-    ui->filesView->setCurrentIndex(fileModel->index(currentPath));
+    QString aPath = dirModel->fileInfo(ui->foldersView->currentIndex()).absoluteFilePath();
+    ui->filesView->setRootIndex(fileModel->setRootPath(aPath));
     connect(ui->foldersView,SIGNAL(clicked(QModelIndex)),this,SLOT(treeViewClicked(QModelIndex)));
 
 }

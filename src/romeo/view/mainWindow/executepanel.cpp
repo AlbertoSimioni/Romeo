@@ -22,6 +22,7 @@ ExecutePanel::ExecutePanel(QWidget *parent) :
     connectUI();
     QSettings settings;
     ui->resultLineEdit->setText(settings.value("res").toString());
+    ui->label_4->setHidden(true);
     checkForm();
 }
 
@@ -39,13 +40,24 @@ void ExecutePanel::connectUI(){
     connect(ui->start,SIGNAL(clicked()),this,SLOT(onStartClicked()));
     connect(ui->viewResultsCheck,SIGNAL(clicked(bool)),this,SLOT(onViewResultsCliked(bool)));
     connect(ui->saveFeaturesCheck,SIGNAL(clicked(bool)),this,SLOT(onViewResultsCliked(bool)));
+
 }
 
 void ExecutePanel::setCurrentDataset(romeo::model::datasets::AbstractDataset *dataset)
 {
+    if(currentDataset){
+        if(currentDataset->getType() == TYPE3D || currentDataset->getType() == TYPE3DT)
+            disconnect(ui->viewFeaturesCheck,SIGNAL(clicked(bool)),ui->label_4,SLOT(setVisible(bool)));
+    }
     currentDataset = dataset;
     ui->formatCombo->clear();
     if(currentDataset){
+
+        if(currentDataset->getType() == TYPE3D || currentDataset->getType() == TYPE3DT){
+            connect(ui->viewFeaturesCheck,SIGNAL(clicked(bool)),ui->label_4,SLOT(setVisible(bool)));
+            ui->label_4->setVisible(ui->viewFeaturesCheck->isChecked());
+        }
+        else ui->label_4->setHidden(true);
         QStringList formats;
         switch(currentDataset->getType()){
         case TYPE2D : formats << "INPUT" <<".jpg" << ".png" << ".tif" << ".bmp";
@@ -59,6 +71,7 @@ void ExecutePanel::setCurrentDataset(romeo::model::datasets::AbstractDataset *da
         }
         ui->formatCombo->addItems(formats);
     }
+    else ui->label_4->setHidden(true);
     checkForm();
 
 }
