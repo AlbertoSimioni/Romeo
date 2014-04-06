@@ -308,13 +308,15 @@ private:
      */
     bool stopAnalysis;
     /*!
-     * \brief Limite al numero di pixel allocabili per 2 gb di memoria
+     * \brief Limite al numero di megabyte allocabili per 2 gb di memoria
      */
+    // \brief Limite al numero di pixel allocabili per 2 gb di memoria
     //static const int limit2GB = 51769872;
     static const int limit2GB = 1024;
     /*!
-     * \brief Limite al numero di pixel allocabili per 4 gb di memoria
+     * \brief Limite al numero di megabyte allocabili per 4 gb di memoria
      */
+    // \brief Limite al numero di pixel allocabili per 4 gb di memoria
     //static const int limit4GB = 103539744;
     static const int limit4GB = 2048;
 };
