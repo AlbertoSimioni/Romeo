@@ -444,21 +444,29 @@ void DynamicProtocol::video2DExecute(romeo::model::datasets::AbstractSubject *su
                 value = true;
         }
         if(value) {
+            numberOfColumns = 3*(featureList.size()-1) + 3*(currentFrameEnd-currentFrameInit+1);
             // il caso peggiore è:
             // - ho estratto tutte le feature (non contando la value) => 3*(featureList.size()-1)
             // - nell'estrazione dell'ultima feature devo ancora deallocare la matrice utilizzata per il calcolo => (currentFrameEnd-currentFrameInit+1)
             // - ho estratto anche la value => 3*(currentFrameEnd-currentFrameInit+1)
-            numberOfColumns = 3*(featureList.size()-1) + 3*(currentFrameEnd-currentFrameInit+1);
-            estimatedColumns = numberOfColumns + (currentFrameEnd-currentFrameInit+1);
+            // oppure
+            // - ho estratto tutte le feature e sto facendo la trasposta => numberOfColumns * 2
+            int value1 = numberOfColumns + (currentFrameEnd-currentFrameInit+1);
+            int value2 = 2*numberOfColumns;
+            estimatedColumns = (value1>value2) ? value1 : value2;
         }
         else {
+            numberOfColumns = 3*featureList.size();
             // il caso peggiore è:
             // - ho estratto tutte le feature => 3*featureList.size()
             // - nell'estrazione dell'ultima feature devo ancora deallocare la matrice utilizzata per il calcolo => (currentFrameEnd-currentFrameInit+1)
-            numberOfColumns = 3*featureList.size();
-            estimatedColumns = numberOfColumns + (currentFrameEnd-currentFrameInit+1);
+            // oppure
+            // - ho estratto tutte le feature e sto facendo la trasposta => numberOfColumns * 2
+            int value1 = numberOfColumns + (currentFrameEnd-currentFrameInit+1);
+            int value2 = 2*numberOfColumns;
+            estimatedColumns = (value1>value2) ? value1 : value2;
         }
-        int requestedMemory = numberOfRows*estimatedColumns;
+        long requestedMemory = numberOfRows*estimatedColumns;
         // se la memoria richiesta è eccessiva lancia una eccezione
         checkRequestedMemory(requestedMemory);
         result = new double*[numberOfColumns];
@@ -507,7 +515,8 @@ void DynamicProtocol::video2DExecute(romeo::model::datasets::AbstractSubject *su
     else {
         // non ci sono feature da estrarre, va preparata la matrice con tre colonne sole
         numberOfColumns = 3*numberOfFrames;
-        int requestedMemory = numberOfRows*numberOfColumns;
+        // il caso peggiore è nel momento del calcolo della trasposta
+        long requestedMemory = numberOfRows*numberOfColumns*2;
         // se la memoria richiesta è eccessiva lancia una eccezione
         checkRequestedMemory(requestedMemory);
         result = read2DVideo(videoCapture);
@@ -598,21 +607,29 @@ void DynamicProtocol::video3DExecute(romeo::model::datasets::AbstractSubject *su
                 value = true;
         }
         if(value) {
+            numberOfColumns = (featureList.size()-1) + (currentFrameEnd-currentFrameInit+1);
             // il caso peggiore è:
             // - ho estratto tutte le feature (non contando la value) => (featureList.size()-1)
             // - nell'estrazione dell'ultima feature devo ancora deallocare la matrice utilizzata per il calcolo => (currentFrameEnd-currentFrameInit+1)
             // - ho estratto anche la value => (currentFrameEnd-currentFrameInit+1)
-            numberOfColumns = (featureList.size()-1) + (currentFrameEnd-currentFrameInit+1);
-            estimatedColumns = numberOfColumns + (currentFrameEnd-currentFrameInit+1);
+            // oppure
+            // - ho estratto tutte le feature e sto facendo la trasposta => numberOfColumns * 2
+            int value1 = numberOfColumns + (currentFrameEnd-currentFrameInit+1);
+            int value2 = 2*numberOfColumns;
+            estimatedColumns = (value1>value2) ? value1 : value2;
         }
         else {
+            numberOfColumns = featureList.size();
             // il caso peggiore è:
             // - ho estratto tutte le feature (non contando la value) => featureList.size()
             // - nell'estrazione dell'ultima feature devo ancora deallocare la matrice utilizzata per il calcolo => (currentFrameEnd-currentFrameInit+1)
-            numberOfColumns = featureList.size();
-            estimatedColumns = numberOfColumns + (currentFrameEnd-currentFrameInit+1);
+            // oppure
+            // - ho estratto tutte le feature e sto facendo la trasposta => numberOfColumns * 2
+            int value1 = numberOfColumns + (currentFrameEnd-currentFrameInit+1);
+            int value2 = 2*numberOfColumns;
+            estimatedColumns = (value1>value2) ? value1 : value2;
         }
-        int requestedMemory = numberOfRows*estimatedColumns;
+        long requestedMemory = numberOfRows*estimatedColumns;
         // se la memoria richiesta è eccessiva lancia una eccezione
         checkRequestedMemory(requestedMemory);
         result = new double*[numberOfColumns];
@@ -659,7 +676,8 @@ void DynamicProtocol::video3DExecute(romeo::model::datasets::AbstractSubject *su
     }
     else {
         numberOfColumns = numberOfFrames;
-        int requestedMemory = numberOfRows*numberOfColumns;
+        // il caso peggiore è nel momento della trasposta
+        long requestedMemory = 2*numberOfRows*numberOfColumns;
         // se la memoria richiesta è eccessiva lancia una eccezione
         checkRequestedMemory(requestedMemory);
         result = read3DVideo(video);

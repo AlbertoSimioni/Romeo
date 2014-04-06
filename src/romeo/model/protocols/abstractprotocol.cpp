@@ -248,7 +248,6 @@ void AbstractProtocol::createImage2D(itk::ImageRegionIterator<Image2DType> outpu
     // mask è la maschera
     // result è la matrice di double relativa al risultato
     // length è in numero di pixel dell'immagine
-    int dimensions = Image2DType::GetImageDimension();
     int* redValues = new int[length];
     int* greenValues = new int[length];
     int* blueValues = new int[length];
@@ -333,16 +332,20 @@ QString AbstractProtocol::getMemoryCategory() const {
     }
 }
 
-bool AbstractProtocol::checkRequestedMemory(int requestedMemory) const {
+bool AbstractProtocol::checkRequestedMemory(long requestedMemory) const {
+    // in input abbiamo il numero di pixel richiesto
+    // ciascuno occupa 8 byte
+    // il valore finale deve essere in MByte
+    int realRequestedMemory = roundToInt(static_cast<double>(requestedMemory * 8) / 1048576);
     QString category = getMemoryCategory();
     if(category=="2GB") {
-        if(requestedMemory>limit2GB) {
+        if(realRequestedMemory>limit2GB) {
             QString errorMessage = "You are trying to analyze too much data for your architecture.";
             throw errorMessage;
         }
     }
     else if(category=="4GB") {
-        if(requestedMemory>limit4GB) {
+        if(realRequestedMemory>limit4GB) {
             QString errorMessage = "You are trying to analyze too much data for your architecture.";
             throw errorMessage;
         }

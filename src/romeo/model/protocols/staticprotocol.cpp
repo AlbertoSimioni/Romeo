@@ -533,7 +533,8 @@ void StaticProtocol::image2DExecute(romeo::model::datasets::AbstractSubject *sub
         // ci sono features da estrarre
         numberOfRows = imagePointer->GetLargestPossibleRegion().GetNumberOfPixels();
         numberOfColumns = 3*featureList.size();
-        int requestedMemory = numberOfRows*numberOfColumns;
+        // requestedMemory rappresenta il caso peggiore: momento in cui viene effettuata la trasposta
+        long requestedMemory = 2*numberOfRows*numberOfColumns;
         // se la memoria richiesta è eccessiva lancia una eccezione
         checkRequestedMemory(requestedMemory);
         result = new double*[numberOfColumns];
@@ -576,7 +577,8 @@ void StaticProtocol::image2DExecute(romeo::model::datasets::AbstractSubject *sub
         // non ci sono feature da estrarre, va preparata la matrice con tre colonne sole
         numberOfRows = imagePointer->GetLargestPossibleRegion().GetNumberOfPixels();
         numberOfColumns = 3;
-        int requestedMemory = numberOfRows*numberOfColumns;
+        // requestedMemory rappresenta il caso peggiore: momento in cui viene effettuata la trasposta
+        long requestedMemory = 2*numberOfRows*numberOfColumns;
         // se la memoria richiesta è eccessiva lancia una eccezione
         checkRequestedMemory(requestedMemory);
         result = read2DImage(imagePointer);
@@ -635,7 +637,8 @@ void StaticProtocol::image3DExecute(romeo::model::datasets::AbstractSubject *sub
         // ci sono features da estrarre
         numberOfRows = imagePointer->GetLargestPossibleRegion().GetNumberOfPixels();
         numberOfColumns = featureList.size();
-        int requestedMemory = numberOfRows*numberOfColumns;
+        // requestedMemory rappresenta il caso peggiore: momento in cui viene effettuata la trasposta
+        long requestedMemory = 2*numberOfRows*numberOfColumns;
         // se la memoria richiesta è eccessiva lancia una eccezione
         checkRequestedMemory(requestedMemory);
         result = new double*[numberOfColumns];
@@ -676,7 +679,8 @@ void StaticProtocol::image3DExecute(romeo::model::datasets::AbstractSubject *sub
         // non ci sono feature da estrarre, va preparata la matrice con una sola colonna
         numberOfRows = imagePointer->GetLargestPossibleRegion().GetNumberOfPixels();
         numberOfColumns = 1;
-        int requestedMemory = numberOfRows*numberOfColumns;
+        // requestedMemory rappresenta il caso peggiore: momento in cui viene effettuata la trasposta
+        long requestedMemory = 2*numberOfRows*numberOfColumns;
         // se la memoria richiesta è eccessiva lancia una eccezione
         checkRequestedMemory(requestedMemory);
         result = read3DImage(imagePointer);

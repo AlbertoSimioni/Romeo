@@ -162,7 +162,7 @@ public:
      * \param nrows Numero di righe della matrice di partenza
      * \param ncols Numero di colonne della matrice di partenza
      */
-    static double** transform(double** result,const int nrows,const int ncolumns);
+    static double** transform(double** result, const int nrows, const int ncolumns);
     /*!
      * \brief Ritorna il minimo e il massimo per side effect da tre valori
      * \param first Primo valore da esaminare
@@ -261,7 +261,7 @@ public:
     /*!
      * \brief Metodo per capire se l'analisi che si cerca di effettuare è ok
      */
-    bool checkRequestedMemory(int requestedMemory) const;
+    bool checkRequestedMemory(long requestedMemory) const;
 
 signals:
     /*!
@@ -310,11 +310,13 @@ private:
     /*!
      * \brief Limite al numero di pixel allocabili per 2 gb di memoria
      */
-    static const int limit2GB = 51769872;
+    //static const int limit2GB = 51769872;
+    static const int limit2GB = 1024;
     /*!
      * \brief Limite al numero di pixel allocabili per 4 gb di memoria
      */
-    static const int limit4GB = 103539744;
+    //static const int limit4GB = 103539744;
+    static const int limit4GB = 2048;
 };
 
 }}}
