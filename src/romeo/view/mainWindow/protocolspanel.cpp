@@ -15,6 +15,7 @@
 #include <QMimeData>
 #include <QDebug>
 #include <QDesktopServices>
+#include <QSettings>
 
 using namespace romeo::view::mainWindow;
 using namespace romeo::model::datasets;
@@ -62,6 +63,8 @@ void ProtocolsPanel::dropEvent(QDropEvent * event){
         QList<QTreeWidgetItem*> match = ui->protocolsList->findItems(protocol,Qt::MatchExactly);
         if(match.isEmpty()){
             QString protocolName = protocol.split("  [Test").takeFirst();
+            QSettings settings;
+            settings.setValue("selectedProtocol",protocolName);
             emit associateProtocol(protocolName);
         }
     } else
@@ -101,6 +104,7 @@ void ProtocolsPanel::fillProtocolsList(){
         setAcceptDrops(true);
         QList<AbstractProtocol*> protocols = currentDataset->getAssociatedProtocolsList();
         for(int i = 0; i< protocols.size(); i++){
+
             AbstractProtocol* protocol = protocols[i];
             QString protocolName = protocol->getName();
 
@@ -126,6 +130,10 @@ void ProtocolsPanel::fillProtocolsList(){
 void ProtocolsPanel::addProtocol(QString protocolName, QStringList results){
     QTreeWidgetItem *protocolItem =new QTreeWidgetItem(ui->protocolsList);
     protocolItem->setText(0,protocolName);
+    QSettings settings;
+    QString selectedProtocol = settings.value("selectedProtocol").toString();
+    if(selectedProtocol == protocolName)
+        ui->protocolsList->setCurrentItem( protocolItem);
     for(int i = 0; i < results.size(); i++){
          QTreeWidgetItem *resultItem =new QTreeWidgetItem();
          resultItem->setText(0,results[i]);
@@ -139,7 +147,9 @@ void ProtocolsPanel::changeDescription(){
     if(currentItem){
         QTreeWidgetItem* parent = currentItem->parent();
         if(!parent){
-         QString protocolName = currentItem->data(0,Qt::DisplayRole).toString().split("  [Test").takeFirst();
+            QString protocolName = currentItem->data(0,Qt::DisplayRole).toString().split("  [Test").takeFirst();
+            QSettings settings;
+            settings.setValue("selectedProtocol",protocolName);
             AbstractProtocol * protocol = currentDataset->getProtocol(protocolName);
             QString textDescription=protocol->getDescription();
             if(!textDescription.isEmpty())

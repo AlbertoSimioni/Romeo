@@ -54,8 +54,11 @@ DatasetsController::DatasetsController(QObject *parent): QObject(parent)
 
     connectViewsSignals();
     mainWindow->showMaximized();
-
-    AbstractDataset* nextDataset = datasetsList->getNextDataset(0);
+    QSettings settings;
+    QString datasetName = settings.value("lastDataset").toString();
+    AbstractDataset* nextDataset = datasetsList->getDataset(datasetName);
+    if(!nextDataset)
+         nextDataset= datasetsList->getNextDataset(0);
     if(nextDataset)
         changeCurrentDataset(nextDataset->getName());
     else{
@@ -64,6 +67,10 @@ DatasetsController::DatasetsController(QObject *parent): QObject(parent)
 }
 
 DatasetsController::~DatasetsController(){
+    QSettings settings;
+    AbstractDataset* currentDataset =mainWindow->getDatasetPanel()->getCurrentDataset();
+    if(currentDataset)
+        settings.setValue("lastDataset", currentDataset->getName());
     delete mainWindow;
 
 }
