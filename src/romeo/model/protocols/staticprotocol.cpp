@@ -271,6 +271,11 @@ double** StaticProtocol::applySecondOrderFeature2D(Image2DType::Pointer input,Im
 
     typedef double (*MyPrototype)(int data[4][4]);
     MyPrototype featureExtractor = (MyPrototype) QLibrary::resolve(feature->getDynamicLibraryPath(),feature->getDynamicFunctionName().toStdString().c_str());
+    if(!featureExtractor){
+        // non viene trovata le libreria
+        QString message = "Cannot find library " + feature->getDynamicFunctionName() + " located in " + feature->getDynamicLibraryPath();
+        throw message;
+    }
 
     int dimension = 2;
     // imposta raggio della finestra scorrevole: raggio = 1 -> finestra = 3
@@ -399,6 +404,11 @@ double* StaticProtocol::applySecondOrderFeature3D(Image3DType::Pointer input,Ima
 
     typedef double (*MyPrototype)(int data[4][4]);
     MyPrototype featureExtractor = (MyPrototype) QLibrary::resolve(feature->getDynamicLibraryPath(),feature->getDynamicFunctionName().toStdString().c_str());
+    if(!featureExtractor){
+        // non viene trovata le libreria
+        QString message = "Cannot find library " + feature->getDynamicFunctionName() + " located in " + feature->getDynamicLibraryPath();
+        throw message;
+    }
 
     int dimension = 3;
     // imposta raggio della finestra scorrevole: raggio = 1 -> finestra = 3
@@ -663,7 +673,7 @@ void StaticProtocol::image3DExecute(romeo::model::datasets::AbstractSubject *sub
         }
     }
     else {
-        // non ci sono feature da estrarre, va preparata la matrice con tre colonne sole
+        // non ci sono feature da estrarre, va preparata la matrice con una sola colonna
         numberOfRows = imagePointer->GetLargestPossibleRegion().GetNumberOfPixels();
         numberOfColumns = 1;
         int requestedMemory = numberOfRows*numberOfColumns;

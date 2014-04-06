@@ -436,6 +436,7 @@ void DynamicProtocol::video2DExecute(romeo::model::datasets::AbstractSubject *su
         }
 
         // è necessario controllare se è presente la feature "Value"
+        // estimatedColumns mi serve per capire il numero di colonne che al peggio possono essere allocate sullo heap
         int estimatedColumns;
         bool value = false;
         for(int i=0;i<featureList.size() && !value;++i) {
@@ -443,12 +444,19 @@ void DynamicProtocol::video2DExecute(romeo::model::datasets::AbstractSubject *su
                 value = true;
         }
         if(value) {
+            // il caso peggiore è:
+            // - ho estratto tutte le feature (non contando la value) => 3*(featureList.size()-1)
+            // - nell'estrazione dell'ultima feature devo ancora deallocare la matrice utilizzata per il calcolo => (currentFrameEnd-currentFrameInit+1)
+            // - ho estratto anche la value => 3*(currentFrameEnd-currentFrameInit+1)
             numberOfColumns = 3*(featureList.size()-1) + 3*(currentFrameEnd-currentFrameInit+1);
-            estimatedColumns = numberOfColumns;
+            estimatedColumns = numberOfColumns + (currentFrameEnd-currentFrameInit+1);
         }
         else {
+            // il caso peggiore è:
+            // - ho estratto tutte le feature => 3*featureList.size()
+            // - nell'estrazione dell'ultima feature devo ancora deallocare la matrice utilizzata per il calcolo => (currentFrameEnd-currentFrameInit+1)
             numberOfColumns = 3*featureList.size();
-            estimatedColumns = numberOfColumns + (currentFrameEnd-currentFrameInit-1);
+            estimatedColumns = numberOfColumns + (currentFrameEnd-currentFrameInit+1);
         }
         int requestedMemory = numberOfRows*estimatedColumns;
         // se la memoria richiesta è eccessiva lancia una eccezione
@@ -582,6 +590,7 @@ void DynamicProtocol::video3DExecute(romeo::model::datasets::AbstractSubject *su
             }
         }
         // è necessario controllare se è presente la feature "Value"
+        // estimatedColumns mi serve per capire il numero di colonne che al peggio possono essere allocate sullo heap
         int estimatedColumns;
         bool value = false;
         for(int i=0;i<featureList.size() && !value;++i) {
@@ -589,12 +598,19 @@ void DynamicProtocol::video3DExecute(romeo::model::datasets::AbstractSubject *su
                 value = true;
         }
         if(value) {
+            // il caso peggiore è:
+            // - ho estratto tutte le feature (non contando la value) => (featureList.size()-1)
+            // - nell'estrazione dell'ultima feature devo ancora deallocare la matrice utilizzata per il calcolo => (currentFrameEnd-currentFrameInit+1)
+            // - ho estratto anche la value => (currentFrameEnd-currentFrameInit+1)
             numberOfColumns = (featureList.size()-1) + (currentFrameEnd-currentFrameInit+1);
-            estimatedColumns = numberOfColumns;
+            estimatedColumns = numberOfColumns + (currentFrameEnd-currentFrameInit+1);
         }
         else {
+            // il caso peggiore è:
+            // - ho estratto tutte le feature (non contando la value) => featureList.size()
+            // - nell'estrazione dell'ultima feature devo ancora deallocare la matrice utilizzata per il calcolo => (currentFrameEnd-currentFrameInit+1)
             numberOfColumns = featureList.size();
-            estimatedColumns = numberOfColumns + (currentFrameEnd-currentFrameInit-1);
+            estimatedColumns = numberOfColumns + (currentFrameEnd-currentFrameInit+1);
         }
         int requestedMemory = numberOfRows*estimatedColumns;
         // se la memoria richiesta è eccessiva lancia una eccezione
