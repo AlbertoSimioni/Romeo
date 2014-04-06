@@ -337,6 +337,8 @@ bool AbstractProtocol::checkRequestedMemory(long requestedMemory) const {
     // ciascuno occupa 8 byte
     // il valore finale deve essere in MByte
     int realRequestedMemory = roundToInt(static_cast<double>(requestedMemory * 8) / 1048576);
+    qDebug() << "Memoria posseduta: " << QString::number(getTotalMemory());
+    qDebug() << "Memoria richiesta: " << QString::number(realRequestedMemory);
     QString category = getMemoryCategory();
     if(category=="2GB") {
         if(realRequestedMemory>limit2GB) {
