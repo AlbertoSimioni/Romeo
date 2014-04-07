@@ -132,7 +132,7 @@ void ProtocolsPanel::addProtocol(QString protocolName, QStringList results){
     protocolItem->setText(0,protocolName);
     QSettings settings;
     QString selectedProtocol = settings.value("selectedProtocol").toString();
-    if(selectedProtocol == protocolName)
+    if(selectedProtocol == protocolName.split("  [Test").takeFirst())
         ui->protocolsList->setCurrentItem( protocolItem);
     for(int i = 0; i < results.size(); i++){
          QTreeWidgetItem *resultItem =new QTreeWidgetItem();
